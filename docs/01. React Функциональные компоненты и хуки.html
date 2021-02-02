@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>reveal-md</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/sky.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">## Функциональные компоненты в React
+### Хуки
+
+<img src="/assets/fc/captain.png" alt="Капитан Крюк" width="300">
+
+Дмитрий Вайнер dmitry.weiner@gmail.com
+</script></section><section  data-markdown><script type="text/template">
+### Функциональный компонент VS компонент класс
+
+| Class | FC |
+|-------|----|
+|   ![Class](/assets/fc/class.png)    |  ![Functional component](/assets/fc/fc.png)  |
+</script></section><section  data-markdown><script type="text/template">
+### Компонент-представление
+
+#### Было
+
+```javascript
+class ShowSomething extends React.Component {
+    render() {
+        return <span>{this.props.somethingToShow}</span>;
+    }
+}
+```
+
+#### Стало
+
+```javascript
+function ShowSomething({ somethingToShow }) {
+    return <span>{somethingToShow}</span>;
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+### Функциональный компонент VS компонент класс
+
+| Class | FC |
+|-------|----|
+| Есть конструктор  |  Редуцирован до рендер функции  |
+| Есть методы жизненного цикла | Вместо этого хуки |
+| Ререндер, когда меняются props и state | Ререндер, когда меняются props и псевдостейт (useState) |
+
+</script></section><section  data-markdown><script type="text/template">
+### Список хуков
+
+* Базовые
+  * useState
+  * useEffect
+  * useContext
+* Дополнительные
+  * useRef
+  * useMemo
+  * useCallback
+  * useReducer
+    
+[Полный список](https://reactjs.org/docs/hooks-reference.html)
+</script></section><section  data-markdown><script type="text/template">
+### Правила вызова хуков
+* Вызовы хуков должны располагаться на первом уровне вложенности компонента-функции
+* Нельзя оборачивать их в условные конструкции или циклы
+* Т.к. реакту важен порядок вызова хуков, если он изменится, начнутся _странности_
+[Подробнее](https://reactjs.org/docs/hooks-rules.html)
+</script></section><section  data-markdown><script type="text/template">
+
+### Аналогии
+
+| Class | FC |
+|-------|----|
+| конструктор, выполняется один раз при создании |  - |
+| componentDidMount | useEffect(() => {}, [])  |
+| componentWillUnmount | useEffect(() => { return () => {}}, [])  |
+| this.state, setState() | useState |
+| this.value | useRef |
+</script></section><section  data-markdown><script type="text/template">
+### useState
+
+```javascript
+const [value, setValue] = useState(initialValue);
+```
+
+* value &mdash; текущее значение: когда меняется, происходит ререндер
+* setValue(newValue) &mdash; метод установки нового значения
+* setValue может принимать на вход функцию prevValue => nextValue  
+* initialValue &mdash; начальное значение
+</script></section><section  data-markdown><script type="text/template">
+### Было: компонент со стейтом
+
+```javascript
+class ShowSomething extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isShowing: false
+        }
+    }
+    render() {
+        const { isShowing } = this.state;
+        const { somethingToShow } = this.props;
+        
+        return <>
+            <input 
+                type="checkbox"
+                value={isShowing}
+                onChange={e => this.setState({ isShowing: e.target.checked })}/>
+            {isShowing && (
+                <span>{somethingToShow}</span>
+            )}
+        </>;
+    }
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+### Стало: функциональный компонент со стейтом
+
+```javascript
+function ShowSomething({ somethingToShow }) {
+    const [isShowing, setIsShowing] = useState(false);
+    return <>
+        <input
+            type="checkbox"
+            value={isShowing}
+            onChange={e => setIsShowing(e.target.checked)}/>
+        {isShowing && (
+            <span>{somethingToShow}</span>
+        )}
+    </>;
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+### useEffect
+
+* Выполняется после коммита рендера
+* Можно имитировать методы componentDidMount и componentDidUpdate
+* useEffect вызывается асинхронно, сразу после того, как применится изменение к DOM. То есть он гарантирует,
+  что он будет выполнен после рендера компонента, и может привести к следующему рендеру, если какие-то 
+  значения изменятся.
+</script></section><section  data-markdown><script type="text/template">
+### useEffect
+
+```javascript
+useEffect(() => {
+    /* effect code */ 
+    return () => {/* shutdown code */};
+}, [dependencies]);
+```
+
+* Принимает на вход колбек и зависимости
+* Колбэк возвращает метод, который будет вызван в следующий цикл отрисовки (аналог componentWillUnmount)
+</script></section><section  data-markdown><script type="text/template">
+### useEffect: особенности
+* Если не передать второй параметр (или передать null), эффект будет вычисляться каждый рендер
+* Если передать вторым параметром пустой массив, эффект выполнится 1 раз (componentDidMount)
+* Сравнение "изменился ли" происходит по ссылке, поля объекта не сравниваются
+</script></section><section  data-markdown><script type="text/template">
+### Компонент-класс Таймер
+Напишем компонент в старом стиле. При монтировании этого компонента начинает идти таймер. 
+При удалении таймер останавливается.
+```javascript
+class Timer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { time: 0 };
+        this.timerId = null;
+    }
+    componentDidMount() {
+        this.timerId = setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
+    }
+    componentWillUnmount() {
+        clearInterval(this.timerId);
+    }
+    render() {
+        const { time } = this.state; 
+        return <span>{time}</span>;
+    }
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+### Функциональный компонент Таймер
+Перепишем компонент в виде функции с использованием useState
+
+Обратите внимание на переменную innerTime. Её необходимо использовать, потому что прямое использование
+переменной time ссылается на замыкание, где та не меняется
+</script></section><section  data-markdown><script type="text/template">
+### Функциональный компонент Таймер
+```javascript
+function Timer() {
+    const [time, setTime] = useState(0);
+    useEffect(() => {
+      let innerTime = time;
+      const timerId = setInterval(
+              () => {
+                innerTime++;
+                setTime(innerTime);
+              },
+              1000
+      );
+      return () => {
+        clearInterval(timerId);
+      };
+    }, []);
+    return <span>{time}</span>;
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+### Функциональный компонент Таймер
+Можно написать без добавочной переменной, используя свойство сеттера принимать на вход функцию
+```javascript
+function Timer() {
+    const [time, setTime] = useState(0);
+    useEffect(() => {
+      const timerId = setInterval(
+              () => setTime(time => time + 1),
+              1000
+      );
+      return () => {
+        clearInterval(timerId);
+      };
+    }, []);
+    return <span>{time}</span>;
+}
+```</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
