@@ -2,7 +2,7 @@
 
 ![Капитан Крюк](assets/fc/captain.png)
 
-Дмитрий Вайнер dmitry.weiner@gmail.com
+[Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
 
 [видео](https://drive.google.com/file/d/11hBKHlofUsjI8aN4ccc4HTFfwsykzH6s/view?usp=sharing)
 
@@ -38,6 +38,12 @@ function ShowSomething({ somethingToShow }) {
 
 ---
 
+### У функции тоже может быть состояние
+
+![Состояние у функции](assets/fc/functions-state.png)
+
+---
+
 ### Функциональный компонент VS компонент класс
 
 | Class | FC |
@@ -45,7 +51,6 @@ function ShowSomething({ somethingToShow }) {
 | Есть конструктор  |  Редуцирован до рендер функции  |
 | Есть методы жизненного цикла | Вместо этого хуки |
 | Ререндер, когда меняются props и state | Ререндер, когда меняются props и псевдостейт (useState) |
-
 
 ---
 
