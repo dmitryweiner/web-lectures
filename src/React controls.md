@@ -108,8 +108,24 @@ function List({ items }) {
     * Нужен например для &lt;input type="file" /&gt;
 
 * [Controlled](https://reactjs.org/docs/forms.html#controlled-components)
-    * Текущее начение хранится в стейте.
+    * Текущее значение хранится в стейте.
     * При изменениях меняет стейт. 
+
+---
+
+### Варианты uncontrolled
+
+* Поле только для чтения (гвоздями прибито некоторое значение).
+```jsx
+<input value={123} readOnly={true} />
+```
+
+* Установлено начальное значение, но может изменяться.
+```jsx
+<input defaultValue={123}/>
+```  
+
+* defaultValue можно применять и для controlled-полей.
 
 ---
 
