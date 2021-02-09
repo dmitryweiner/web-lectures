@@ -4,7 +4,7 @@
 
 [Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
 
-[видео]()
+[видео](https://drive.google.com/file/d/10gS_1sMo1geO3lKOGANuvBlQa0dXmvv9/view?usp=sharing)
 
 ---
 
@@ -249,20 +249,22 @@ function Checkbox() {
 function Radio() {
     const [value, setValue] = useState(0);
     return <>
-        <input
-            type="radio"
-            name="radioName"
-            checked={value === 0}
-            onChange={() => setValue(0)}>
+        <label>
+            <input
+                type="radio"
+                name="radioName"
+                checked={value === 0}
+                onChange={() => setValue(0)} />
             To be
-        </input>
-        <input
-            type="radio"
-            name="radioName"
-            checked={value === 1}
-            onChange={() => setValue(1)}>
+        </label>
+        <label>
+            <input
+                type="radio"
+                name="radioName"
+                checked={value === 1}
+                onChange={() => setValue(1)} />
             or not to be
-        </input>
+        </label>
         You selected: {value}
     </>;
 }
@@ -280,14 +282,14 @@ const variants = ['to be', 'or not to be'];
 function Radio() {
     const [value, setValue] = useState(0);
     return <>
-        {variants.map((variant, index) => <input
-            key={index} // тут можно index, если массив не меняется
-            type="radio"
-            name="radioName"
-            checked={value === index}
-            onChange={() => setValue(index)}>
+        {variants.map((variant, index) => <label key={index}> // тут можно index, если массив не меняется
+            <input
+              type="radio"
+              name="radioName"
+              checked={value === index}
+              onChange={() => setValue(index)} />
             {variant}
-        </input>)}
+        </label>)}
         You selected: {variants[value]}
     </>;
 }
@@ -359,8 +361,11 @@ function Select() {
 const variants = ['Воронеж', 'Астрахань', 'Брянск'];
 function MultipleSelect() {
   const [value, setValue] = useState([]); // Начальное значение изменилось
+  function handleChange(event) {
+      setValue(Array.from(event.target.selectedOptions, item => item.value));
+  }
   return <>
-    <select multiple={true} onChange={e => setValue(e.target.value)}>
+    <select multiple={true} onChange={handleChange}>
         {variants.map((variant, index) => (
             <option key={index} value={index}>
                 {variant}
