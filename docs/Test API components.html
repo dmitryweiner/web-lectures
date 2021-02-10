@@ -13,43 +13,15 @@
   </head>
   <body>
     <div class="reveal">
-      <div class="slides"><section  data-markdown><script type="text/template">## React: тестирование функциональных компонентов
+      <div class="slides"><section  data-markdown><script type="text/template">https://www.npmjs.com/package/msw
 
-![react-testing library](assets/react-testing/logo-large.png)
+https://testing-library.com/docs/react-testing-library/example-intro/
 
-[Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
-
-[видео]()
-</script></section><section  data-markdown><script type="text/template">
-### Типовой тест
-
-```javascript
-import { render, screen } from '@testing-library/react';
-import App from './App';
-
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
-```
-</script></section><section  data-markdown><script type="text/template">
-###
-</script></section><section  data-markdown><script type="text/template">
-###
-</script></section><section  data-markdown><script type="text/template">
-###
-</script></section><section  data-markdown><script type="text/template">
-###
-</script></section><section  data-markdown><script type="text/template">
-###
-</script></section><section  data-markdown><script type="text/template">
-###
-</script></section><section  data-markdown><script type="text/template">
-###
-</script></section><section  data-markdown><script type="text/template">
-###
-</script></section><section  data-markdown><script type="text/template"></script></section></div>
+const server = setupServer(
+rest.get('/greeting', (req, res, ctx) => {
+return res(ctx.json({ greeting: 'hello there' }))
+})
+)</script></section></div>
     </div>
 
     <script src="./dist/reveal.js"></script>
