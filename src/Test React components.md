@@ -103,8 +103,15 @@ await screen.findByText(/Item #[0-9]: /);
 
 ![таблица](assets/react-testing/variants.png)
 
-* find ждёт 1 секунду, пока появится искомое.
-* get, query не ждут.
+---
+
+### Варианты поиска
+
+* Синхронные: getBy<>, getAllBy<>, queryBy<>, queryAllBy<>.
+* Асинхронные: findBy<>, findAllBy<>.
+  * Ждут 1 секунду, пока элемент появится, потом exception.
+  * Можно изменить время ```findByText('text', { timeout: 5000 })```
+  * Обработчик теста должен быть async.
 
 ---
 
