@@ -162,9 +162,16 @@ await screen.findByRole('alert');
 ```js
 fireEvent.click(screen.getByText('Нажми меня'));
 ```
-* click
-* submit
-* input
+* Можно передать данные в событие:
+```js
+fireEvent.input(element, { 
+    target: { value: 'Some text' } 
+});
+```
+* Возможные события:
+  * click
+  * submit
+  * input
 * [Список событий](https://github.com/testing-library/dom-testing-library/blob/master/src/event-map.js).
 
 ---
