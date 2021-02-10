@@ -371,10 +371,12 @@ test('can enter text and submit', () => {
   render(<Form handleSubmit={handleSubmit} />);
   const input = screen.getByTestId('input');
   const form = screen.getByTestId('form');
-  fireEvent.input(input, { target: {value: field }});
+  fireEvent.input(input, { target: {value: field }}); // ввод в поле
   expect(handleSubmit).not.toBeCalled();
-  fireEvent.submit(form);
-  expect(handleSubmit).toBeCalledWith(expect.objectContaining({ field }));
+  fireEvent.submit(form); // отправка формы
+  expect(handleSubmit).toBeCalledWith(expect.objectContaining(
+    { field }
+  ));
 });
 ```
 
@@ -417,7 +419,7 @@ test('timer works', async () => {
     render(<Timer />);
     expect(await screen.findByTestId('timer'))
         .toHaveTextContent('0');
-    // тут меняется стейт в useEffect:
+    // тут меняется стейт в useEffect, поэтому act():
     act(() => jest.advanceTimersByTime(1000));
     expect(await screen.findByTestId('timer'))
         .toHaveTextContent('1');
