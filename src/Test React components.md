@@ -151,7 +151,7 @@ getByText((content, element) => content.startsWith('Hello'));
 ```js
 await waitFor(() => screen.getByRole('alert'));
 // короткая запись такого:
-screen.findByRole('alert');
+await screen.findByRole('alert');
 ```
 
 ---
