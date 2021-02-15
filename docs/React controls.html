@@ -359,7 +359,7 @@ function Select() {
   return <>
     <select onChange={e => setValue(e.target.value)}>
         {Object.values(variants).map((variant, index) => (
-            <option key={index} value={index}>
+            <option key={index} value={variant}>
                 {variant}
             </option>
         ))}
