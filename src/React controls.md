@@ -349,6 +349,57 @@ function Select() {
 
 ---
 
+### Селектбокс поумнее
+
+* Идея в том, чтобы вынести варианты в структуру и сравнивать с ней в дальнейшем.
+
+```js
+const variants = {
+    ADD: '+',
+    SUBSTRACT: '-',
+    DIVIDE: '/',
+    MULTIPLY: '*'
+};
+````
+
+* Так можно получить ключи объекта (ADD, MULTIPLY, ...):
+
+```js
+Object.keys(variants)
+```
+
+* А так можно получить его значения (+, -):
+
+```js
+Object.values(variants)
+```
+
+---
+
+### Селектбокс поумнее
+
+```jsx
+function Select() {
+  const [value, setValue] = useState(0);
+  return <>
+    <select onChange={e => setValue(e.target.value)}>
+        {Object.values(variants).map((variant, index) => (
+            <option key={index} value={index}>
+                {variant}
+            </option>
+        ))}
+    </select>
+  </>;
+}
+
+// где-то в обработчике:
+if (selected === variants.ADD) {
+    //...
+}
+```
+
+---
+
 ### Множественный селектбокс
 
 <select multiple>
