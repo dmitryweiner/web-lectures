@@ -253,6 +253,31 @@ stringOrNumber = '123';
 stringOrNumber = 567;
 ```
 </script></section><section  data-markdown><script type="text/template">
+### Enum или набор значений
+
+* Бывает тип данных, состоящий из фиксированного набора значений.
+* Можно для этого завести тип enum:
+```ts
+enum STATUS {
+    LOADING,
+    SUCCESS,
+    ERROR
+}
+```
+* Этот способ подходит, если мы будем использовать эти значения где-то ещё в коде.
+* Код [транспилируется](https://www.typescriptlang.org/play?#code/C4TwDgpgBAKjUF4oCICCyoB8UCEPeUEIQZAbgFgAoSgMwFcA7AY2AEsB7eqAEzYGU2AthGAALFvQDmAdRaiAqvXb0AFGABcsGAEpKAb0pRDUAPTGoAOkuUAvpUo9+Q0eOmyRCpcrTIt5KhQh6WgEoAFFQvQMjVAAaKMMcOIojKABhGzsKOiZWDm4+QWExSRlRUKCBVQ1wnQp9ZKNTCysKW38HQucSt3Lg5XDzVF9MoA) в массив.
+</script></section><section  data-markdown><script type="text/template">
+### Enum или набор значений
+
+* Можно хранить в виде набора фиксированных значений:
+```ts
+type STATUS = 'LOADING' | 'SUCCESS' | 'ERROR';
+```
+* Этот способ подходит, если мы только проверяем данные на корректность.
+* Проверка времени компиляции.
+* [Холивар на эту тему](https://stackoverflow.com/questions/40275832/typescript-has-unions-so-are-enums-redundant).
+* [документация](https://basarat.gitbook.io/typescript/type-system/enums#enums).
+</script></section><section  data-markdown><script type="text/template">
 ### Объединение составных типов
 
 ```ts
@@ -479,6 +504,32 @@ dad.name = 'Man with the 3-piece suit'; // ОШИБКА времени выпо�
   * strictPropertyInitialization
 * [Объяснение](https://habr.com/ru/post/490970/).
   </script></section><section  data-markdown><script type="text/template">
+### Оператор is и проверка типа в коде
+
+* Можно сделать собственную проверку типов времени выполнения.
+* После проверки компилятор уверен, что тип именно такой, какой указали.
+* [Документация](https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards).
+* [Пример](https://stackoverflow.com/questions/40081332/what-does-the-is-keyword-do-in-typescript).
+</script></section><section  data-markdown><script type="text/template">
+### Оператор is и проверка типа в коде
+
+```ts
+function isString(test: any): test is string{
+    return typeof test === "string";
+}
+
+function example(foo: any){
+    if(isString(foo)){
+        console.log("it is a string" + foo);
+        console.log(foo.length); // string function
+    }
+}
+example("hello world");
+```
+</script></section><section  data-markdown><script type="text/template">
+### Partial, Required и Readonly
+https://www.typescriptlang.org/docs/handbook/utility-types.html
+</script></section><section  data-markdown><script type="text/template">
 ### Полезные ссылки
 
 * [Шпаргалка](https://devhints.io/typescript)
