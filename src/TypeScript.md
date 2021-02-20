@@ -583,7 +583,20 @@ example("hello world");
 ---
 
 ### Partial, Required и Readonly
-https://www.typescriptlang.org/docs/handbook/utility-types.html
+
+* Можно одним махом изменить все поля на необязательные:
+```ts
+Partial<YourType>
+```
+* Или наоборот сделать все поля обязательными:
+```ts
+Required<YourType>
+```
+* Защитить все поля от записи (проверка на этапе компиляции):
+```ts
+Readonly<YourType>
+```
+* [Документация](https://www.typescriptlang.org/docs/handbook/utility-types.html).
 
 ---
 
