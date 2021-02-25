@@ -600,6 +600,17 @@ Readonly<YourType>
 
 ---
 
+### Декларации типов
+* Бывает так, что код уже написан, и он не ваш.
+* Вам достаточно типизировать то, что экспортируется в этом коде.
+* Это делается через файлы деклараций *.d.ts.
+* [Документация](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/module-d-ts.html).
+* Пример:
+```ts
+export function getArrayLength(arr: any[]): number;
+```
+---
+
 ### Полезные ссылки
 
 * [Шпаргалка](https://devhints.io/typescript)
