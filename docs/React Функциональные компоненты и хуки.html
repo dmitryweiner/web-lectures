@@ -170,9 +170,11 @@ useEffect(() => {
 [документация](https://reactjs.org/docs/hooks-reference.html#useeffect)
 </script></section><section  data-markdown><script type="text/template">
 ### useEffect: особенности
-* Если не передать второй параметр (или передать null), эффект будет вычисляться каждый рендер
-* Если передать вторым параметром пустой массив, эффект выполнится 1 раз (componentDidMount)
-* Сравнение "изменился ли" происходит по ссылке, поля объекта не сравниваются
+* Если не передать второй параметр (или передать null), эффект будет вычисляться каждый рендер.
+* Если передать вторым параметром пустой массив, эффект выполнится 1 раз (componentDidMount).
+* Сравнение "изменился ли" происходит по ссылке, поля объекта не сравниваются.
+* [Документация: про второй параметр, зависимости](https://reactjs.org/docs/hooks-reference.html#conditionally-firing-an-effect).
+* [Хорошее объяснение](https://overreacted.io/a-complete-guide-to-useeffect/).
 </script></section><section  data-markdown><script type="text/template">
 ### Компонент-класс Таймер
 Напишем компонент в старом стиле. При монтировании этого компонента начинает идти таймер. 
