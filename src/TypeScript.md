@@ -600,7 +600,7 @@ Readonly<YourType>
 
 ---
 
-### Декларации типов
+### Декларация типов
 * Бывает так, что код уже написан, и он не ваш.
 * Вам достаточно типизировать то, что экспортируется в этом коде.
 * Это делается через файлы деклараций *.d.ts.
@@ -609,6 +609,16 @@ Readonly<YourType>
 ```ts
 export function getArrayLength(arr: any[]): number;
 ```
+
+---
+
+### Декларация типов
+
+Группа неравнодушных людей решила помочь человечеству и написать типы для большей части
+популярных библиотек:
+
+[https://github.com/DefinitelyTyped/DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)
+
 ---
 
 ### Полезные ссылки
