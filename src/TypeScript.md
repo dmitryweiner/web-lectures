@@ -20,6 +20,8 @@ title: TypeScript
 * Вот бы в JS была система типов!
 * Пусть разработчик сам её и пишет.
 
+![walls](assets/ts/walls.jpeg)
+
 ---
 
 ### Варианты типизации
@@ -41,7 +43,6 @@ title: TypeScript
 * Даже если тип у него называется иначе.
 * Независимо от связей в иерархии типов.
 * [Утиная типизация](https://ru.wikipedia.org/wiki/%D0%A3%D1%82%D0%B8%D0%BD%D0%B0%D1%8F_%D1%82%D0%B8%D0%BF%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F)
-
 
 ---
 
@@ -627,6 +628,7 @@ export function getArrayLength(arr: any[]): number;
 * [Игровая площадка](https://www.typescriptlang.org/play)
 * [TypeScript за 5 минут](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html)
 * [Доклад Майка Башурова](https://www.youtube.com/watch?v=m0uRxCCno00)
+* [Вдумчивые размышления](https://basarat.gitbook.io/typescript/)
 
 ---
 
