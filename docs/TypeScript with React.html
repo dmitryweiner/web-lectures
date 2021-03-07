@@ -213,7 +213,7 @@ function Button() {
 function Form() {
     const [value, setValue] = useState('');
 
-    function handleChange(e: InputEvent<HTMLInputElement>) {
+    function handleChange(e: ChangeEvent<HTMLInputElement>) {
         setValue(e.target.value);
     }
  
