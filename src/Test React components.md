@@ -225,6 +225,44 @@ jest.useRealTimers(); // отключить фейковые таймеры (aft
 
 ---
 
+### Проверка на существование и несуществование
+* Проверить, что элемент находится на экране, просто:
+```js
+expect(screen.getByTestId('button')).toBeInTheDocument();
+```
+* Проверить, что элемента нет, немного сложнее:
+```js
+// так не работает, вылетает exception
+expect(screen.getByTestId('button')).not.toBeInTheDocument();
+// так работает
+expect(screen.queryByTestId('button')).toBeNull();
+```
+* [Документация](https://testing-library.com/docs/guide-disappearance/)
+
+---
+
+### Проверка внутреннего состояния инпута
+* Когда нужно проверить, что в интпут введено нужно значение:
+```js
+const input = screen.getByTestId('input');
+expect(input.value).toEqual(title);
+```
+* Или что чекбокс в правильном состоянии:
+```js
+const input = screen.getByTestId('checkbox');
+expect(input.checked).toEqual(true);
+```
+
+---
+
+### Примеры
+* Дальше приведено несколько примеров для иллюстрации представленных ранее идей.
+* Следует воспринимать этот код критически, не стоит слепо копировать его себе в проект.
+* Вначале мы формулируем спецификацию на будущий компонент, потом описываем её в виде теста.
+* Потом пишем компонент, чтобы он проходил тест. Допустимо делать это параллельно.
+
+---
+
 ### Пример с представлением
 
 * Написать компонент, который просто отображает проп text.
@@ -270,7 +308,9 @@ test('renders full list', () => {
   render(<List list={list} />);
   const elements = screen.getAllByTestId('list-item');
   expect(elements).toHaveLength(list.length);
-  expect(elements[0]).toHaveTextContent(list[0]);
+  for (let i = 0; i < elements.length; i++) {
+      expect(elements[i]).toHaveTextContent(list[i]);
+  }
 });
 ```
 
