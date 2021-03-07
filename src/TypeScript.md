@@ -117,7 +117,8 @@ const s = 'abc'; // s: string
 #### array:  
 
 ```ts
-let strings: Array<string> = [];
+let strings: Array<string> = []; // так не очень
+let betterStrings: string[] = []; // получше
 ```
 
 #### type:
