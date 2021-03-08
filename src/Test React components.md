@@ -252,6 +252,7 @@ expect(input.value).toEqual(title);
 const input = screen.getByTestId('checkbox');
 expect(input.checked).toEqual(true);
 ```
+* **Важное замечание:** HTML-элемент после скрытия нужно найти заново, т.к. он пересоздаётся.
 
 ---
 

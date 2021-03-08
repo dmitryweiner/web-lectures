@@ -144,7 +144,7 @@ type CounterProps = {
 type CounterState = {
     counter: number;
 }
-class Counter extends Counter<CounterProps, CounterState> {
+class Counter extends Component<CounterProps, CounterState> {
     constructor(props) {
         super(props);
         this.state = {counter: props.initialCounter};
