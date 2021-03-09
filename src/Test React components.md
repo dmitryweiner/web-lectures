@@ -230,13 +230,11 @@ jest.useRealTimers(); // отключить фейковые таймеры (aft
 ```js
 expect(screen.getByTestId('button')).toBeInTheDocument();
 ```
-* Проверить, что элемента нет, немного сложнее:
+* Проверить, что элемента нет (_query!_):
 ```js
-// так не работает, вылетает exception
-expect(screen.getByTestId('button')).not.toBeInTheDocument();
-// так работает
 expect(screen.queryByTestId('button')).toBeNull();
 ```
+* **Важное замечание:** HTML-элемент после скрытия нужно найти заново, т.к. он пересоздаётся.
 * [Документация](https://testing-library.com/docs/guide-disappearance/)
 
 ---
@@ -252,7 +250,6 @@ expect(input.value).toEqual(title);
 const input = screen.getByTestId('checkbox');
 expect(input.checked).toEqual(true);
 ```
-* **Важное замечание:** HTML-элемент после скрытия нужно найти заново, т.к. он пересоздаётся.
 
 ---
 
