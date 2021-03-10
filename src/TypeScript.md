@@ -642,6 +642,26 @@ export function getArrayLength(arr: any[]): number;
 
 ---
 
+### Особенности импорта
+* Если у модуля _нет дефолтного экспорта_, то такой вот импорт будет вызывать ошибку:
+```ts
+import fs from 'fs';
+```
+* Чтобы ошибки не было, надо импортировать так:
+```ts
+import * as fs from 'fs';
+```
+* Или включить в tsconfig.json опцию:
+```json
+{
+    "compilerOptions": {
+      "allowSyntheticDefaultImports": true
+    }
+}
+```
+
+---
+
 ### Полезные ссылки
 
 * [Шпаргалка](https://devhints.io/typescript)
