@@ -8,7 +8,7 @@ title: TypeScript
 
 [Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
 
-[видео]()
+[видео](https://drive.google.com/file/d/1Qq_gC5TsY29wuteXrRVewQcCPfU4RHld/view?usp=sharing)
 
 ---
 
@@ -63,6 +63,7 @@ title: TypeScript
 * Контроль типов на этапе компиляции.
 * Код по-прежнему выполняется в JS со всеми его плюсами.
 * Лёгкость рефакторинга.
+* Autocomplete.
 
 ---
 
@@ -649,7 +650,7 @@ export function getArrayLength(arr: any[]): number;
 ### Особенности импорта
 * Если у модуля _нет дефолтного экспорта_, то такой вот импорт будет вызывать ошибку:
 ```ts
-import fs from 'fs';
+import fs from 'fs'; // Error: Module 'path' has no default export.
 ```
 * Чтобы ошибки не было, надо импортировать так:
 ```ts
