@@ -506,7 +506,7 @@ class Octopus {
 }
 
 let dad = new Octopus('Man with the 8 strong legs');
-dad.name = 'Man with the 3-piece suit'; // ОШИБКА времени выполнения
+dad.name = 'Man with the 3-piece suit'; // ОШИБКА при компиляции
 ```
   
 ---
