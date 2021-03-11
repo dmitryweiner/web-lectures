@@ -217,6 +217,7 @@ interface PointList extends Array<Point>{};
 * Type
   * Для примитивов.
   * Будет использован в одном месте.
+  * Для объединения типов.
 * Дискуссии, где что использовать: [1](https://stackoverflow.com/questions/37233735/typescript-interfaces-vs-types), 
   [2](https://pawelgrzybek.com/typescript-interface-vs-type/).
 
@@ -287,6 +288,7 @@ return value?.match(/[A-Z]/g)?.length ?? 0;
 * Используется знак "|".
 * Совпадающие поля обязательные, не совпадающие не обязательные.
 * Можно объединять простые типы и составные.
+* Составные можно объединить только в type, не в интерфейс.
 
 ```ts
 let stringOrNumber: (string | number);
@@ -296,7 +298,7 @@ stringOrNumber = 567;
 
 ---
 
-### Enum или набор значений
+### Enum
 
 * Бывает тип данных, состоящий из фиксированного набора значений.
 * Можно для этого завести тип enum:
@@ -312,7 +314,20 @@ enum STATUS {
 
 ---
 
-### Enum или набор значений
+### Enum
+
+* Можно задать константы значения массива:
+```ts
+enum STATUS {
+    LOADING = 'loading',
+    SUCCESS = 'success',
+    ERROR = 'error'
+}
+```
+
+---
+
+### Набор фиксированных значений
 
 * Можно хранить в виде набора фиксированных значений:
 ```ts
@@ -320,7 +335,7 @@ type STATUS = 'LOADING' | 'SUCCESS' | 'ERROR';
 ```
 * Этот способ подходит, если мы только проверяем данные на корректность.
 * Проверка времени компиляции.
-* [Холивар на эту тему](https://stackoverflow.com/questions/40275832/typescript-has-unions-so-are-enums-redundant).
+* [Холивар на тему enum или набор значений](https://stackoverflow.com/questions/40275832/typescript-has-unions-so-are-enums-redundant).
 * [документация](https://basarat.gitbook.io/typescript/type-system/enums#enums).
 
 ---

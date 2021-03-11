@@ -69,18 +69,50 @@ npx create-react-app my-app --template typescript --use-npm
 
 ---
 
-### Переход на TS в существующем CRA-приложении
+### Переход на TS в CRA-приложении
 * Переименовать любой файл в *.ts.
 * Автоматически создаётся tsconfig.json. 
-* Установить TS: 
+* Установить TS (версия 4.0 или даже 3.2, если возникают проблемы): 
 ```shell
-npm install typescript
+npm install typescript@4.0
 ```
 * Установить типы:
 ```shell
 npm i --save-dev @types/react-dom @types/react
 ```
-* Вдумчиво и неспешно расставлять типы в уже написанном приложении.
+
+---
+
+### Переход на TS в CRA-приложении
+* Если сгенерённый конфиг не работает (ошибка с JSX), можно использовать этот:
+```json
+{
+    "compilerOptions": {
+      "target": "es5",
+      "lib": [
+        "dom",
+        "dom.iterable",
+        "esnext"
+      ],
+      "allowJs": true,
+      "skipLibCheck": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "noFallthroughCasesInSwitch": true,
+      "module": "esnext",
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "noEmit": true,
+      "jsx": "react"
+    },
+    "include": [
+      "./src/**/*.ts"
+    ]
+}
+```
 
 ---
 
