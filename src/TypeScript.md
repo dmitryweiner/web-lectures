@@ -496,6 +496,19 @@ let myAdd: (x: number, y: number) => number = function (
 
 ---
 
+### Беды с деструктуризацией
+* Деструктуризация в параметрах функций больше не работает:
+```js
+function f({par1, par2}) {} 
+// Ошибка! TS думает, что мы определяем тип в параметре
+```
+* Чтобы она работала, надо определить тип входящего объекта:
+```ts
+function f({par1, par2}: {par1: string; par2: boolean}) {}
+```
+
+---
+
 ### Классы
 
 * Класс может реализовывать несколько интерфейсов (в отличие от наследования).
@@ -505,7 +518,7 @@ let myAdd: (x: number, y: number) => number = function (
   * protected
 * Поля и методы могут быть static.
 * Можно указать, что поле неизменяемое: readonly.
-* [Документация](https://www.typescriptlang.org/docs/handbook/classes.html).
+* [Документация](https://www.typescriptlang.org/docs/handbook/2/classes.html).
 
 ---
 
@@ -524,7 +537,7 @@ class Octopus {
 let dad = new Octopus('Man with the 8 strong legs');
 dad.name = 'Man with the 3-piece suit'; // ОШИБКА при компиляции
 ```
-  
+
 ---
 
 ### Игровая площадка online
