@@ -8,7 +8,7 @@ title: TypeScript + React
 
 [Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
 
-[видео]()
+[видео](https://drive.google.com/file/d/1IM5flt6CJ2boyYpxs7CAcze2r-ZZ9fM4/view?usp=sharing)
 
 ---
 
@@ -112,6 +112,38 @@ npm i --save-dev @types/react-dom @types/react
       "./src/**/*.ts"
     ]
 }
+```
+
+---
+
+### Переход на TS в CRA-приложении
+* Придётся отключить ESLint. Для этого надо создать файл ```.eslintignore``` в корне проекта со следующим содержимым:
+```
+  **/*.ts
+```
+* И создать файл ```tslint.json```:
+```json
+{
+    "extends": "tslint:latest",
+    "linterOptions": {
+        "exclude": [
+            "bin",
+            "**/*.js"
+        ]
+    }
+}
+```
+
+---
+
+### Переход на TS в CRA-приложении
+* Новый React.js 17 [позволяет](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)
+  не импортировать React в файлах, в которых используется JSX.
+* Но в TypeScript придётся это сделать, иначе будет ошибка:
+> 'React' refers to a UMD global, but the current file is a module.
+```tsx
+// Так придётся делать в начале файла
+import React from 'react';
 ```
 
 ---
