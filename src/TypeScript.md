@@ -340,6 +340,26 @@ type STATUS = 'LOADING' | 'SUCCESS' | 'ERROR';
 
 ---
 
+### Набор фиксированных значений
+* Допустим, эти значения хранятся в объекте 
+```ts
+const ACTION_TYPES = {
+    ADD: 'add',
+    REMOVE: 'remove',
+} as const;
+```
+* Можно из этих значений сделать тип с помощью следующей конструкции:
+```ts
+type valueof<T> = T[keyof T];
+type ACTION_TYPE = valueof<typeof ACTION_TYPES>
+interface Action {
+    type: ACTION_TYPE
+};
+```
+* Следует также помнить про [keyof](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-1.html).
+
+---
+
 ### Объединение составных типов
 
 ```ts

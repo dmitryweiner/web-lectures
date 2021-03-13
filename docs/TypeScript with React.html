@@ -222,7 +222,7 @@ setStrings(['abc']);
 ### Типизация событий
 * Встроенные типы:
   * AnimationEvent, ChangeEvent, ClipboardEvent, CompositionEvent, DragEvent, 
-    FocusEvent, FormEvent, KeyboardEvent, MouseEvent, PointerEvent, TouchEvent, 
+    FocusEvent, KeyboardEvent, MouseEvent, PointerEvent, TouchEvent, 
     TransitionEvent, WheelEvent. 
   * Для всего остального SyntheticEvent.
 * Пример работы:
@@ -249,6 +249,30 @@ function Form() {
  
     return <input value={value} onChange={handleChange} />;
 }
+```
+</script></section><section  data-markdown><script type="text/template">
+### События в селектбоксе
+* Используем событие ChangeEvent, у которого target &mdash; HTMLSelectElement:
+```tsx
+function handleChange(event: ChangeEvent<HTMLSelectElement>) {
+    console.log(event.target.value);
+}
+/* ... */
+<select onChange={handleChange}>
+    <option value="A">A</option>
+    <option value="B">B</option>
+</select>
+```
+</script></section><section  data-markdown><script type="text/template">
+### Модульный CSS
+* TS ругается на импорт CSS-модулей:
+```ts
+import styles from 'Component.module.css'; // TS error: "Cannot Find Module"
+```
+* Чтобы это работало, надо создать файл _typings.d.ts_(имя не принципиально) в _./src_:
+```ts
+declare module "*.module.css";
+declare module "*.module.scss";
 ```
 </script></section><section  data-markdown><script type="text/template">
 ### Библиотека DefinitelyTyped
