@@ -135,7 +135,7 @@ const add = content => ({
 function reducer(state = initialState, action) {
     switch (action.type) {
         case ADD: {
-            return {
+            return { // это мутатор:
                 ...state,
                 list: [...state.list, action.payload]
             }
@@ -153,7 +153,7 @@ function reducer(state = initialState, action) {
   * Иначе React не отрисует изменения.
 * Мутаторы можно выделять в отдельные методы, если там много кода.
   * Если там много кода, возможно происходит что-то не то.
-* Дефолтный пункт нужен для отлавливания случаев, когда пришёл экшен, а подходящего мутатора нет.
+* Дефолтный пункт для случаев, когда пришёл экшен, а мутатора нет.
 * В редьюсере не должно быть асинхронной логики.
 </script></section><section  data-markdown><script type="text/template">
 ### Компоновка редьюсеров
