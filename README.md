@@ -14,10 +14,12 @@
 
 ### Testing
 * [Тестирование с помощью testing-library](https://dmitryweiner.github.io/lectures/Test%20React%20components.html#/)
+* [Тестирование Redux](https://dmitryweiner.github.io/lectures/Test%20Redux.html#/)
 
 ### Redux
 * [Redux](https://dmitryweiner.github.io/lectures/Redux.html#/)
 * [TypeScript + Redux](https://dmitryweiner.github.io/lectures/TypeScript%20with%20Redux.html#/)
+* [Тестирование Redux](https://dmitryweiner.github.io/lectures/Test%20Redux.html#/)
 
 ### TypeScript
 * [Введение в TypeScript](https://dmitryweiner.github.io/lectures/TypeScript.html#/)
