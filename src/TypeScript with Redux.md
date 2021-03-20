@@ -20,8 +20,8 @@ title: TypeScript + Redux
 ### Экшены: простой способ
 * Заводим константы возможных типов экшенов (поле action.type):
 ```ts
-export const ADD = 'Add';
-export const REMOVE = 'Remove';
+const ADD = 'Add';
+const REMOVE = 'Remove';
 ```
 * Типизируем сами экшены:
 ```ts
@@ -36,30 +36,30 @@ interface RemoveItem {
 ```
 * Описываем обобщённый тип:
 ```ts
-export type ACTION_TYPE = AddItem | RemoveItem; // и т.д.
+type ACTION_TYPE = AddItem | RemoveItem; // и т.д.
 ```
 ---
 
 ### Экшены: способ посложнее
 * Заводим структуру с типами экшенов:
 ```ts
-export const ACTION_TYPES = {
+const ACTION_TYPES = {
     ADD: 'add',
     REMOVE: 'remove',
 } as const; // важно слово as const!
 ```
 * Описываем экшены:
 ```ts
-export interface IActionAdd {
+interface IActionAdd {
     type: typeof ACTION_TYPES.ADD;
     payload: Item; }
-export interface IActionRemove {
+interface IActionRemove {
     type: typeof ACTION_TYPES.REMOVE;
     payload: string; }
 ```
 * Описываем обобщённый тип:
 ```ts
-export type ACTION_TYPE = AddItem | RemoveItem; // и т.д.
+type ACTION_TYPE = AddItem | RemoveItem; // и т.д.
 ```
 
 ---
@@ -67,25 +67,25 @@ export type ACTION_TYPE = AddItem | RemoveItem; // и т.д.
 ### Экшены с ENUM
 * Заводим ENUM:
 ```ts
-export enum ACTION_TYPES  {
+enum ACTION_TYPES  {
   ADD = 'add',
   REMOVE = 'remove'
 }
 ```
 * Типизируем экшены:
 ```ts
-export interface IActionAdd {
+interface IActionAdd {
     type: typeof ACTION_TYPES.ADD;
     payload: Item;
 }
-export interface IActionRemove {
+interface IActionRemove {
     type: typeof ACTION_TYPES.REMOVE;
     payload: string;
 }
 ```
 * Обобщённый тип:
 ```ts
-export type IAction = IActionAdd | IActionRemove;
+type IAction = IActionAdd | IActionRemove;
 ```
 
 ---
@@ -94,8 +94,8 @@ export type IAction = IActionAdd | IActionRemove;
 * По мотивам этого [поста](https://habr.com/ru/company/alfa/blog/452620/).
 * Заводим константы возможных типов экшенов (поле action.type):
 ```ts
-export const ADD = 'Add';
-export const REMOVE = 'Remove';
+const ADD = 'Add';
+const REMOVE = 'Remove';
 ```
 * Создаём тип, выводящий из того, что ему дали:
 ```ts
@@ -103,7 +103,7 @@ type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V;
 ```
 * Описываем тип экшенов:
 ```ts
-export type ActionType =
+type ActionType =
 | Action<typeof ADD, { payload: Item }>
 | Action<typeof REMOVE, { payload: string }>
 ```
@@ -113,15 +113,15 @@ export type ActionType =
 ### Типизация стора
 * Просто описываем, что лежит в сторе:
 ```ts
-export interface Item {
+interface Item {
     id: string;
     title: string;
     isChecked: boolean;
 }
 
-export interface List extends Array<Item> {}
+interface List extends Array<Item> {}
 
-export interface IStore {
+interface IStore {
     list: List;
 }
 ```
@@ -134,7 +134,7 @@ const initialState: IStore = {
     list: []
 };
 
-export const reducer = function (state: IStore = initialState, action: ActionType): IStore {
+const reducer = function (state: IStore = initialState, action: ActionType): IStore {
     switch (action.type) {
         case ADD: {
             return {

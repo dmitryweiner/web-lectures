@@ -43,8 +43,6 @@
 * [Документация](https://redux.js.org/api/api-reference).
 * [Учебникъ](https://redux.js.org/tutorials/fundamentals/part-1-overview).
 </script></section><section  data-markdown><script type="text/template">
-### Схема работы
-
 ![схема работы](assets/redux/redux-diagram.gif)
 </script></section><section  data-markdown><script type="text/template">
 ## Плюсы
@@ -176,7 +174,7 @@ const rootReducer = combineReducers({
 export default rootReducer;
 ```
 </script></section><section  data-markdown><script type="text/template">
-## Пример: счётчик с кнопками
+## [Счётчик с кнопками](https://dmitryweiner.github.io/907sv-react/redux-counter.html)
 ```js
 const ACTION_INC = 'inc';
 const ACTION_DEC = 'dec';
@@ -308,7 +306,6 @@ const filteredListSelector = state => {
 // ...
 const list = ReactRedux.useSelector(filteredListSelector);
 ```
-
 </script></section><section  data-markdown><script type="text/template">
 ## useDispatch
 * Создание экшена налету:
@@ -317,7 +314,7 @@ const dispatch = ReactRedux.useDispatch();
 // ...
 <button onClick={() => dispatch({type: ADD, payload: 'text'})}>Add</button>
 ```
-* Создание экшена налету:
+* Вызов функции создания экшена:
 ```js
 const dispatch = ReactRedux.useDispatch();
 // ...

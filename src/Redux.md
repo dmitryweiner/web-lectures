@@ -36,8 +36,6 @@
 
 ---
 
-### Схема работы
-
 ![схема работы](assets/redux/redux-diagram.gif)
 
 ---
@@ -193,7 +191,7 @@ export default rootReducer;
 
 ---
 
-## Пример: счётчик с кнопками
+## [Счётчик с кнопками](https://dmitryweiner.github.io/907sv-react/redux-counter.html)
 ```js
 const ACTION_INC = 'inc';
 const ACTION_DEC = 'dec';
@@ -338,7 +336,6 @@ const filteredListSelector = state => {
 const list = ReactRedux.useSelector(filteredListSelector);
 ```
 
-
 ---
 
 ## useDispatch
@@ -348,7 +345,7 @@ const dispatch = ReactRedux.useDispatch();
 // ...
 <button onClick={() => dispatch({type: ADD, payload: 'text'})}>Add</button>
 ```
-* Создание экшена налету:
+* Вызов функции создания экшена:
 ```js
 const dispatch = ReactRedux.useDispatch();
 // ...
