@@ -5,7 +5,7 @@
 
 [Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
 
-[видео]()
+[видео](https://drive.google.com/file/d/1xqG4h7YNgbZaoOcCGKDQkOhXsERyPThO/view?usp=sharing)
 
 ---
 
@@ -79,9 +79,9 @@ const action = {
     type: ACTION_TYPES.ADD,
     payload: title
 }
-const newState = reducer(action, []);
-expect(newState.length).toEqual(1);
-expect(newState[0]).toEqual(text);
+const state = reducer(initialState, action);
+expect(state.list.length).toEqual(1);
+expect(state.list[0]).toEqual(text);
 ```
 
 ---

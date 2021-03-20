@@ -4,7 +4,7 @@
 
 [Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
 
-[видео]()
+[видео](https://drive.google.com/file/d/1d6FYASBSJiL36QM-n-7y046K94sxTD-1/view?usp=sharing)
 
 ---
 
@@ -416,4 +416,4 @@ const store = createStore(
 * [Лекция Эндрю Кларка про реакт](https://www.youtube.com/watch?v=ZVYVtUFDf28).
 * [Статья на русском](https://tproger.ru/translations/redux-for-beginners/).
 * [Работающее приложение](https://codesandbox.io/s/9on71rvnyo).
-* [Ещё одно](https://codesandbox.io/s/9on71rvnyo).
+* [Ещё одно](https://codesandbox.io/s/3x6jx7p0r6).
