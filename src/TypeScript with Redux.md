@@ -125,9 +125,9 @@ interface Item {
     title: string;
     isChecked: boolean;
 }
-
+//
 interface List extends Array<Item> {}
-
+//
 interface IStore {
     list: List;
 }
