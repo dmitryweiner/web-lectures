@@ -9,6 +9,8 @@ title: Борьба с излишними рендерами в React.js useMemo
 
 [Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
 
+[видео](https://drive.google.com/file/d/18zlX_cBrtaNDvBkSvDD282UIckH6opPW/view?usp=sharing)
+
 ---
 
 ### Стор и медленный селектор
