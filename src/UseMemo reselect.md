@@ -4,7 +4,8 @@ title: Борьба с излишними рендерами в React.js useMemo
 
 ## Борьба с излишними рендерами в React.js
 ### С помощью хука useMemo
-### И библиотеки reselect
+### Библиотеки reselect
+### И оборачивания в React.memo
 
 [Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
 
@@ -74,8 +75,40 @@ const count = useMemo(
 
 ---
 
+### React.memo
+* Если мы твёрдо уверены, что компонент должен ререндериться только тогда, когда меняются его пропсы,
+  можно обернуть его в ```React.memo()```.
+* [Документация](https://reactjs.org/docs/react-api.html#reactmemo).
+* Пример:
+```jsx
+const MyComponent = React.memo(
+    function MyComponent(props) {
+        /* render using props */
+    }
+);
+```
+
+---
+
+### React.memo и функция сравнения
+* По умолчанию реакт сравнивает объекты по ссылке, что не всегда удобно.
+* Можно взять сравнение пропсов в свои руки (если надо сравнивать не по ссылке, а поля объектов):
+```jsx
+function MyComponent(props) {
+    /* render using props */
+}
+function areEqual(prevProps, nextProps) {
+    /*
+    Сравнивающая фунция: возвращает true -- происходит ререндер.
+    */
+}
+export default React.memo(MyComponent, areEqual);
+```
+
+---
+
 ### Библиотека reselect
-* Документация.
+* [Документация](https://github.com/reduxjs/reselect).
 * Установка:
 ```shell
 npm i reselect
@@ -90,7 +123,12 @@ const selector = createSelector(
     (значения1, значения2, /*...*/) => результат // тут долгие вычисления
 );
 ```
+
+---
+
+### Reselect: принцип действия
 * Как только меняются значения, селектор пересчитывает результат.
+* Входными функциями могут быть другие селекторы (многостадийное кеширование).
 
 ---
 
@@ -106,3 +144,8 @@ const selectItemsCount = createSelector(
 <span>Всего: {selectItemsCount(state)}</span>
 ```
 * При изменении свойства ```list``` селектор будет обновлён.
+
+---
+
+### Полезные ссылки
+* [Пример приложения с reselect](https://codesandbox.io/s/7429z69wwj).

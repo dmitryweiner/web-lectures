@@ -17,7 +17,8 @@
 
 ## Борьба с излишними рендерами в React.js
 ### С помощью хука useMemo
-### И библиотеки reselect
+### Библиотеки reselect
+### И оборачивания в React.memo
 
 [Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
 </script></section><section  data-markdown><script type="text/template">
@@ -75,8 +76,36 @@ const count = useMemo(
 * Нужно следить за зависимостями (можно забыть их указать).
 * Хорошо бы кешировать уже на уровне селектора.
 </script></section><section  data-markdown><script type="text/template">
+### React.memo
+* Если мы твёрдо уверены, что компонент должен ререндериться только тогда, когда меняются его пропсы,
+  можно обернуть его в ```React.memo()```.
+* [Документация](https://reactjs.org/docs/react-api.html#reactmemo).
+* Пример:
+```jsx
+const MyComponent = React.memo(
+    function MyComponent(props) {
+        /* render using props */
+    }
+);
+```
+</script></section><section  data-markdown><script type="text/template">
+### React.memo и функция сравнения
+* По умолчанию реакт сравнивает объекты по ссылке, что не всегда удобно.
+* Можно взять сравнение пропсов в свои руки (если надо сравнивать не по ссылке, а поля объектов):
+```jsx
+function MyComponent(props) {
+    /* render using props */
+}
+function areEqual(prevProps, nextProps) {
+    /*
+    Сравнивающая фунция: возвращает true -- происходит ререндер.
+    */
+}
+export default React.memo(MyComponent, areEqual);
+```
+</script></section><section  data-markdown><script type="text/template">
 ### Библиотека reselect
-* Документация.
+* [Документация](https://github.com/reduxjs/reselect).
 * Установка:
 ```shell
 npm i reselect
@@ -91,7 +120,10 @@ const selector = createSelector(
     (значения1, значения2, /*...*/) => результат // тут долгие вычисления
 );
 ```
+</script></section><section  data-markdown><script type="text/template">
+### Reselect: принцип действия
 * Как только меняются значения, селектор пересчитывает результат.
+* Входными функциями могут быть другие селекторы (многостадийное кеширование).
 </script></section><section  data-markdown><script type="text/template">
 ### Использование
 * Решение ранее описанной проблемы:
@@ -105,7 +137,9 @@ const selectItemsCount = createSelector(
 <span>Всего: {selectItemsCount(state)}</span>
 ```
 * При изменении свойства ```list``` селектор будет обновлён.
-</script></section></div>
+</script></section><section  data-markdown><script type="text/template">
+### Полезные ссылки
+* [Пример приложения с reselect](https://codesandbox.io/s/7429z69wwj).</script></section></div>
     </div>
 
     <script src="./dist/reveal.js"></script>
