@@ -13,15 +13,52 @@
   </head>
   <body>
     <div class="reveal">
-      <div class="slides"><section  data-markdown><script type="text/template">https://www.npmjs.com/package/msw
+      <div class="slides"><section  data-markdown><script type="text/template">
+## Тестирование асинхронных экшенов в Redux
+</script></section><section  data-markdown><script type="text/template">
+### Идея
+* Не давать коду выполнять реальные запросы по сети.
+* Эмулировать сервер программно.
+  * Описывать enpdpoint'ы сервера прямо в коде тестов.
+</script></section><section  data-markdown><script type="text/template">
+### Fetch-mock
+```js
+import fetchMock from 'fetch-mock';
 
-https://testing-library.com/docs/react-testing-library/example-intro/
+test('/todos', async () => {
+    fetchMock.getOnce('/todos', {
+        body: { todos: ['do something'] },
+        headers: { 'content-type': 'application/json' }
+    })
+
+    const expectedActions = [
+        { type: types.FETCH_TODOS_REQUEST },
+        { type: types.FETCH_TODOS_SUCCESS, body: { todos: ['do something'] } }
+    ];
+    const store = makeTestStore({ initialState: { todos: [] } });
+    await store.dispatch(actions.fetchTodos());
+    expect(store.getActions()).toEqual(expectedActions);
+});
+```
+</script></section><section  data-markdown><script type="text/template">
+### MSW
+```js
+import { rest } from 'msw'
+import { setupServer } from 'msw/node'
 
 const server = setupServer(
-rest.get('/greeting', (req, res, ctx) => {
-return res(ctx.json({ greeting: 'hello there' }))
-})
-)</script></section></div>
+    rest.get('/greeting', (req, res, ctx) => {
+        return res(ctx.json({ greeting: 'hello there' }))
+    })
+)
+beforeAll(() => server.listen())
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
+
+```</script></section><section  data-markdown><script type="text/template">
+### Полезные ссылки
+https://redux.js.org/recipes/writing-tests
+https://testing-library.com/docs/react-testing-library/example-intro/</script></section></div>
     </div>
 
     <script src="./dist/reveal.js"></script>
