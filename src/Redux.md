@@ -317,14 +317,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(ReduxComponent);
 ---
 
 ## useSelector
-* Без селектора (_не стоит!_):
+* Без функции-селектора:
 ```js
+import { useSelector } from 'react-redux';
 function Component() {
-    const counter = ReactRedux.useSelector(state => state.counter);
+    const counter = useSelector(state => state.counter); // речь об этой функции
     return <>{counter}</>;
 }
 ```
-* С селектирующей функцией:
+* Но лучше перенести эту функцию в стор:
 ```js
 const filteredListSelector = state => {
     if (state.filterChecked) {
@@ -333,21 +334,27 @@ const filteredListSelector = state => {
     return state.list;
 }
 // ...
-const list = ReactRedux.useSelector(filteredListSelector);
+import { useSelector } from 'react-redux';
+// в компоненте
+const list = useSelector(filteredListSelector);
 ```
 
 ---
 
-## useDispatch
+## Вызов dispatch
 * Создание экшена налету:
 ```js
-const dispatch = ReactRedux.useDispatch();
+import { useDispatch } from 'react-redux';
+// в компоненте:
+const dispatch = useDispatch();
 // ...
 <button onClick={() => dispatch({type: ADD, payload: 'text'})}>Add</button>
 ```
 * Вызов функции создания экшена:
 ```js
-const dispatch = ReactRedux.useDispatch();
+import { useDispatch } from 'react-redux';
+// в компоненте:
+const dispatch = useDispatch();
 // ...
 <button onClick={() => dispatch(actionDec())}>-</button>
 ```
