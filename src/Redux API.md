@@ -4,6 +4,8 @@ title: Лекции по фронтенду - Redux и обращение к API
 
 ## Redux: обращение к API
 
+![poor cat](assets/redux-api/Make-an-API.jpeg)
+
 [Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
 
 ---
