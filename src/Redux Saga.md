@@ -1,3 +1,7 @@
+---
+title: Лекции по фронтенду - Redux Saga
+---
+
 ## Redux Saga
 
 [Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)

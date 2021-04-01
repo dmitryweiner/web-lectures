@@ -1,4 +1,10 @@
+---
+title: Лекции по фронтенду - Redux и обращение к API
+---
+
 ## Redux: обращение к API
+
+[Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
 
 ---
 

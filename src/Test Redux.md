@@ -1,3 +1,7 @@
+---
+title: Лекции по фронтенду - Тестируем Redux
+---
+
 ## Тестируем Redux
 
 ![react-testing library](assets/react-testing/logo-large.png)

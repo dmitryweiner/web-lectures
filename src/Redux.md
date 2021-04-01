@@ -1,3 +1,7 @@
+---
+title: Лекции по фронтенду - React + Redux
+---
+
 ## React + Redux
 
 ![React + Redux](assets/redux/redux-logo.jpeg)

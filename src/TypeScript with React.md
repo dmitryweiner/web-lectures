@@ -1,5 +1,5 @@
 ---
-title: TypeScript + React
+title: Лекции по фронтенду - TypeScript + React
 ---
 
 ## TypeScript + React

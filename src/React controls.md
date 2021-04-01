@@ -1,3 +1,7 @@
+---
+title: Лекции по фронтенду - React controls
+---
+
 ## React controls
 
 ![state management](assets/react-controls/state-management.png)
