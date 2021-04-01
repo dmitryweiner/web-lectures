@@ -152,6 +152,17 @@ function saveNewItem(value: string) {
 ```
 ---
 
+### На всякий случай
+* Если в асинхронном экшене понадобится текущее состояние стора, можно его получить вторым аргументом:
+```js
+const asyncAction = () => async (dispatch, getState) => {
+    const state = getState();
+    // тут некий код, учитывающий state
+};
+```
+
+---
+
 ### Reducer
 ```ts
 case ACTION_TYPES.SET_REQUEST_STATUS:
