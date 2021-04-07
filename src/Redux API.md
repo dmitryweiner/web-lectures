@@ -8,6 +8,8 @@ title: Лекции по фронтенду - Redux и обращение к API
 
 [Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
 
+[Видео](https://drive.google.com/file/d/1ddXI9pbTwAUW-mympJw-pvqUv5QtGfr8/view?usp=sharing)
+
 ---
 
 ![state diagram](assets/redux-api/state-diagram.png)
@@ -216,13 +218,65 @@ useEffect(() => {
 
 ---
 
-### Плюсы и минусы:
+### Недостатки подхода
+* Код обработки ошибок дублируется в каждом экшене.
+* Выделим его в отдельный файл ```api.ts```:
+```ts
+const URL = 'http://localhost:3001';
+const defaultHeaders = {
+    'Content-Type': 'application/json'
+};
+async function handleErrors(response: any) {
+    const data = await response.json();
+    if (response.status !== 200) {
+        throw new Error(data.error);
+    }
+    return data;
+}
+const api = {
+    todos: {
+        add: ({title}: {title: string}) => fetch(`${URL}/todos`, {
+            method: 'POST',
+            headers: defaultHeaders,
+            body: JSON.stringify({
+                title: title
+            })
+        }).then(handleErrors),
+        list: () => fetch(`${URL}/todos`, {
+            method: 'GET',
+            headers: defaultHeaders
+        }).then(handleErrors)
+    }
+};
+export default api;
+```
+
+----
+
+### Экшен становится лаконичнее
+```ts
+export const addElement = (title: string) => async (dispatch: AppDispatch) => {
+    try {
+        dispatch(setRequestStatus(REQUEST_STATUS.LOADING));
+        const data = await api.todos.add({title});
+        dispatch({type: ACTION_TYPES.ADD, payload: data});
+        dispatch(setRequestStatus(REQUEST_STATUS.SUCCESS));
+    } catch (error) {
+        dispatch(setError(error.message));
+        dispatch(setRequestStatus(REQUEST_STATUS.ERROR));
+    }
+}
+```
+
+---
+
+### Плюсы и минусы подхода в целом:
 * Плюсы:
   * Просто.
 * Минусы:
   * При разрастании будет много однотипного кода для каждого endpoint API.
   * Засорение стора однотипными полями для каждого endpoint'а.
-  
+
 ---
 
 ### Что делать дальше?
