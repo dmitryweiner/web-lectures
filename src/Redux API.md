@@ -109,8 +109,9 @@ const saveError = (error: string) => ({
 ---
 
 ### Action отправки запроса
+* Тип ```dispatch``` берём [из ```store```](/Redux%20API.md#/4).
 ```ts
-const saveNewItem = (value: string) => async dispatch => {
+const saveNewItem = (value: string) => async (dispatch: AppDispatch) => {
     const newObject = {
         title: value
     };
@@ -128,7 +129,6 @@ const saveNewItem = (value: string) => async dispatch => {
         dispatch(setApiState(API_STATE.ERROR));
     }
 };
-
 ```
 
 ----
@@ -225,7 +225,7 @@ useEffect(() => {
   
 ---
 
-### Что же делать?
+### Что делать дальше?
 * Библиотека [redux-api-call](https://github.com/tungv/redux-api-call):
 ```js
 const todoListAPI = makeFetchAction(
@@ -244,6 +244,14 @@ createAction({
 ```
 * Библиотека [redux-query](https://github.com/amplitude/redux-query):
   * [Пример](https://amplitude.github.io/redux-query/docs/examples/simple).
+
+---
+
+### Как это тестировать?
+
+[Лекция про тестирование запросов в сеть](/Test%20Network%20Requests.md#/)
+
+![tdd](assets/tdd/tdd.jpeg)
 
 ---
 
