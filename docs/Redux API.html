@@ -242,6 +242,8 @@ export const addElement = (title: string) => async (dispatch: AppDispatch) => {
     try {
         dispatch(setRequestStatus(REQUEST_STATUS.LOADING));
         const data = await api.todos.add({title});
+        // Тут должна быть проверка или приведение типа data.
+        // @see https://dmitryweiner.github.io/lectures/TypeScript.html#/38
         dispatch({type: ACTION_TYPES.ADD, payload: data});
         dispatch(setRequestStatus(REQUEST_STATUS.SUCCESS));
     } catch (error) {
