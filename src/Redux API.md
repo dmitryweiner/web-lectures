@@ -305,7 +305,7 @@ createAction({
 
 ### Как это тестировать?
 
-[Лекция про тестирование запросов в сеть](/Test%20Network%20Requests.md#/)
+[Лекция про тестирование запросов в сеть](/Test%20Network%20Requests.html#/)
 
 ![tdd](assets/tdd/tdd.jpeg)
 
