@@ -111,7 +111,7 @@ const saveError = (error: string) => ({
 ---
 
 ### Action отправки запроса
-* Тип ```dispatch``` берём [из ```store```](/Redux%20API.md#/4).
+* Тип ```dispatch``` берём [из ```store```](https://dmitryweiner.github.io/lectures/Redux%20API.html#/4).
 ```ts
 const saveNewItem = (value: string) => async (dispatch: AppDispatch) => {
     const newObject = {
