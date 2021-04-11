@@ -59,10 +59,7 @@ import configureStore from 'redux-mock-store';
 const middlewares = [thunkMiddleware];
 const mockStore = configureStore(middlewares); // функция для создания стора
 //
-const TestProvider = ({
-                          store,
-                          children
-                      }) => <Provider store={store}>{children}</Provider>
+const TestProvider = ({ store, children }) => <Provider store={store}>{children}</Provider>;
 //
 export function testRender(ui, { store, ...otherOpts }) {
     return render(<TestProvider store={store}>{ui}</TestProvider>, otherOpts)
@@ -99,9 +96,11 @@ fetchMock.mock(
         method: 'POST', body: { title: 123 } // что ожидается в теле запроса
     }
 );
+
+afterEach(fetchMock.reset); // не забыть сбросить состояние
 ```
-* [Документация](https://github.com/wheresrhys/fetch-mock).
-* [Cheat sheet](https://github.com/wheresrhys/fetch-mock/blob/master/docs/cheatsheet.md).
+* [Шпаргалка по fetch-mock](https://github.com/wheresrhys/fetch-mock/blob/master/docs/cheatsheet.md).
+* [Документация по fetch-mock](http://www.wheresrhys.co.uk/fetch-mock/).
 
 ---
 
@@ -125,6 +124,8 @@ export const addElement = (title: string) => async (dispatch: AppDispatch) => {
 ### Тест асинхронного экшена
 Не забыть про ```async/await```!
 ```js
+afterEach(fetchMock.reset);
+//
 test('тестирование асинхронного экшена', async () => {
     const title = 'test';
 
@@ -183,6 +184,7 @@ expect(store.getActions()[0]).toEqual({
 ---
 
 ### Полезные ссылки
-* [Документация по написанию тестов](https://redux.js.org/recipes/writing-tests).
-* [Использование fetch-mock](https://redux.js.org/recipes/writing-tests#async-action-creators)
-* https://michalzalecki.com/testing-redux-thunk-like-you-always-want-it/
+* [Использование fetch-mock (по документации Redux)](https://redux.js.org/recipes/writing-tests#async-action-creators).
+* [Шпаргалка по fetch-mock](https://github.com/wheresrhys/fetch-mock/blob/master/docs/cheatsheet.md).
+* [Документация по fetch-mock](http://www.wheresrhys.co.uk/fetch-mock/).
+* [Пространные рассуждения о том, как писать тесты](https://michalzalecki.com/testing-redux-thunk-like-you-always-want-it/).
