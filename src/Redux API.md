@@ -305,7 +305,7 @@ createAction({
 
 ### Как это тестировать?
 
-[Лекция про тестирование запросов в сеть](https://dmitryweiner.github.io/lectrures/Test%20Network%20Requests.html#/)
+[Лекция про тестирование redux-thunk](https://dmitryweiner.github.io/lectures/Test%20Redux%20Thunk.html#/)
 
 ![tdd](assets/tdd/tdd.jpeg)
 
