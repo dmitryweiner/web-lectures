@@ -7,7 +7,7 @@ title: Лекции по фронтенду - Борьба с излишними
 ### Библиотеки reselect
 ### И оборачивания в React.memo
 
-[Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 [видео](https://drive.google.com/file/d/18zlX_cBrtaNDvBkSvDD282UIckH6opPW/view?usp=sharing)
 

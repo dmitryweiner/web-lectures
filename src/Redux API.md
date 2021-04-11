@@ -6,7 +6,7 @@ title: Лекции по фронтенду - Redux и обращение к API
 
 ![poor cat](assets/redux-api/Make-an-API.jpeg)
 
-[Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 [Видео](https://drive.google.com/file/d/1ddXI9pbTwAUW-mympJw-pvqUv5QtGfr8/view?usp=sharing)
 

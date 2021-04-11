@@ -6,7 +6,7 @@ title: Лекции по фронтенду - TypeScript + React
 
 ![ts](assets/ts/world.jpeg)
 
-[Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 [видео](https://drive.google.com/file/d/1IM5flt6CJ2boyYpxs7CAcze2r-ZZ9fM4/view?usp=sharing)
 

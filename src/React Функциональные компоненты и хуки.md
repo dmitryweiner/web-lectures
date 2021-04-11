@@ -6,7 +6,7 @@ title: Лекции по фронтенду - Функциональные ко�
 
 ![Капитан Крюк](assets/fc/captain.png)
 
-[Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 [видео](https://drive.google.com/file/d/11hBKHlofUsjI8aN4ccc4HTFfwsykzH6s/view?usp=sharing)
 

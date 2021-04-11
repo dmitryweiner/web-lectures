@@ -6,7 +6,7 @@ title: Лекции по фронтенду - React controls
 
 ![state management](assets/react-controls/state-management.png)
 
-[Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 [видео](https://drive.google.com/file/d/10gS_1sMo1geO3lKOGANuvBlQa0dXmvv9/view?usp=sharing)
 

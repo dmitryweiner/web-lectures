@@ -6,7 +6,7 @@ title: Лекции по фронтенду - React router
 
 ![react-router-dom logo](assets/react-router/logo.png)
 
-[Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 ---
 

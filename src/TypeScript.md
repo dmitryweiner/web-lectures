@@ -6,7 +6,7 @@ title: Лекции по фронтенду - TypeScript
 
 ![ts](assets/ts/developer.png)
 
-[Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 [видео](https://drive.google.com/file/d/1Qq_gC5TsY29wuteXrRVewQcCPfU4RHld/view?usp=sharing)
 

@@ -6,7 +6,7 @@ title: Лекции по фронтенду - React + Redux
 
 ![React + Redux](assets/redux/redux-logo.jpeg)
 
-[Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 [видео](https://drive.google.com/file/d/1d6FYASBSJiL36QM-n-7y046K94sxTD-1/view?usp=sharing)
 

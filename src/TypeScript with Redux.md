@@ -4,7 +4,7 @@ title: Лекции по фронтенду - TypeScript + Redux
 
 ## TypeScript + Redux
 
-[Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 [видео](https://drive.google.com/file/d/1xqG4h7YNgbZaoOcCGKDQkOhXsERyPThO/view?usp=sharing)
 

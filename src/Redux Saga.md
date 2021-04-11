@@ -5,7 +5,7 @@ title: Лекции по фронтенду - Redux Saga
 ![redux-saga logo](assets/redux-saga/Redux-Saga-Logo.png)
 ![redux saga](assets/redux-saga/meme.jpeg)
 
-[Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 ---
 
