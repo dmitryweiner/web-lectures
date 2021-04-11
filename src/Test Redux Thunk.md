@@ -103,8 +103,8 @@ fetchMock.mock(
     }
 );
 ```
-* [Шпаргалка по fetch-mock](https://github.com/wheresrhys/fetch-mock/blob/master/docs/cheatsheet.md).
-* [Документация по fetch-mock](http://www.wheresrhys.co.uk/fetch-mock/).
+* [Шпаргалка](https://github.com/wheresrhys/fetch-mock/blob/master/docs/cheatsheet.md),
+  [документация (хорошая)](http://www.wheresrhys.co.uk/fetch-mock/).
 
 ---
 
