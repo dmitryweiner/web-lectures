@@ -8,7 +8,7 @@ title: Лекции по фронтенду - Тестируем Redux Thunk
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
-[видео]()
+[видео](https://drive.google.com/file/d/1gGJaIE0CzD7yv8Ya0T7wayXgdI3ZMYmz/view?usp=sharing)
 
 ---
 
@@ -38,7 +38,7 @@ const mockStore = configureStore(middlewares);
 // в тесте
 const initialState = {}
 const store = mockStore(initialState);
-store.dispatch(addTodo()); // Dispatch the action
+await store.dispatch(addTodo()); // Dispatch the action
 const actions = store.getActions(); // Test if your store dispatched the expected actions
 const expectedPayload = { type: 'ADD_TODO' };
 expect(actions).toEqual([expectedPayload]);
@@ -53,7 +53,7 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { reducer } from './store';
+import { reducer, initialState as originalInitialState } from './store';
 import thunkMiddleware from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 //
@@ -68,6 +68,9 @@ export function testRender(ui, { store, ...otherOpts }) {
 //
 export function makeTestStore({ initialState, useMockStore } = { useMockStore: false }) {
     let store;
+    if (initialState === undefined) {
+        initialState = originalInitialState;
+    }
     if (useMockStore) {
         store = mockStore(initialState); // развилка
     } else {
@@ -88,6 +91,8 @@ npm i -D fetch-mock
 ```
 * Пример использования:
 ```js
+afterEach(() => fetchMock.reset()); // не забыть сбросить состояние
+//
 fetchMock.mock(
     'URL', // какой адрес перехватывать
     {
@@ -97,8 +102,6 @@ fetchMock.mock(
         method: 'POST', body: { title: 123 } // что ожидается в теле запроса
     }
 );
-
-afterEach(fetchMock.reset); // не забыть сбросить состояние
 ```
 * [Шпаргалка по fetch-mock](https://github.com/wheresrhys/fetch-mock/blob/master/docs/cheatsheet.md).
 * [Документация по fetch-mock](http://www.wheresrhys.co.uk/fetch-mock/).
@@ -125,16 +128,15 @@ export const addElement = (title: string) => async (dispatch: AppDispatch) => {
 ### Тест асинхронного экшена
 Не забыть про ```async/await```!
 ```js
-afterEach(fetchMock.reset);
+afterEach(() => fetchMock.reset());
 //
 test('тестирование асинхронного экшена', async () => {
     const title = 'test';
-
     const element = {
         id: '123',
         title,
         isChecked: false
-    }
+    };
     fetchMock.mock(
         'http://localhost:3001/todos',
         {
@@ -185,6 +187,7 @@ expect(store.getActions()[0]).toEqual({
 ---
 
 ### Полезные ссылки
+* [Документация по redux-mock-store](https://github.com/reduxjs/redux-mock-store).
 * [Использование fetch-mock (по документации Redux)](https://redux.js.org/recipes/writing-tests#async-action-creators).
 * [Шпаргалка по fetch-mock](https://github.com/wheresrhys/fetch-mock/blob/master/docs/cheatsheet.md).
 * [Документация по fetch-mock](http://www.wheresrhys.co.uk/fetch-mock/).
