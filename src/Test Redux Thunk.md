@@ -4,6 +4,7 @@ title: Лекции по фронтенду - Тестируем Redux Thunk
 
 ## Тестируем Redux Thunk
 
+![react-testing library](assets/redux-api/redux-thunk-meme.png)
 
 [Дмитрий Вайнер](mailto:dmitry.weiner@gmail.com)
 
