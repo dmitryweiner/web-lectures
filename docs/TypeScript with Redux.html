@@ -132,6 +132,16 @@ interface IStore {
 }
 ```
 </script></section><section  data-markdown><script type="text/template">
+### Комбинированный стор
+
+* Если стор собирается из нескольких редьюсеров 
+  ([```combineReducers```](https://redux.js.org/recipes/structuring-reducers/using-combinereducers)),
+  проще всего определить тип стора так:
+
+```ts
+export type AppState = ReturnType<typeof store.getState>;
+```
+</script></section><section  data-markdown><script type="text/template">
 ### Типизация редьюсера
 ```ts
 const initialState: IStore = {
@@ -144,7 +154,15 @@ const reducer = function (state: IStore = initialState, action: ActionType): ISt
             return {
                 //...
             }
-```</script></section></div>
+```
+</script></section><section  data-markdown><script type="text/template">
+### Типизация функции ```dispatch```
+Пригодится при типизации [асинхронных экшенов](https://dmitryweiner.github.io/lectures/Redux%20API.html#/9).
+
+```ts
+export type AppDispatch = typeof store.dispatch;
+```
+</script></section></div>
     </div>
 
     <script src="./dist/reveal.js"></script>

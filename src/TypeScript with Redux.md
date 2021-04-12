@@ -135,6 +135,18 @@ interface IStore {
 
 ---
 
+### Комбинированный стор
+
+* Если стор собирается из нескольких редьюсеров 
+  ([```combineReducers```](https://redux.js.org/recipes/structuring-reducers/using-combinereducers)),
+  проще всего определить тип стора так:
+
+```ts
+export type AppState = ReturnType<typeof store.getState>;
+```
+
+---
+
 ### Типизация редьюсера
 ```ts
 const initialState: IStore = {
@@ -147,4 +159,13 @@ const reducer = function (state: IStore = initialState, action: ActionType): ISt
             return {
                 //...
             }
+```
+
+---
+
+### Типизация функции ```dispatch```
+Пригодится при типизации [асинхронных экшенов](https://dmitryweiner.github.io/lectures/Redux%20API.html#/9).
+
+```ts
+export type AppDispatch = typeof store.dispatch;
 ```
