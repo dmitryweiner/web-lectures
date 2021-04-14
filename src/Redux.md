@@ -181,7 +181,8 @@ function reducer(state = initialState, action) {
 ---
 
 ### Компоновка редьюсеров
-* Редьюсеры объединяются с помощью ```combineReducers```:
+* Редьюсеры объединяются с помощью 
+  [```combineReducers```](https://redux.js.org/recipes/structuring-reducers/using-combinereducers):
 ```js
 import { combineReducers } from 'redux';
 import todosReducer from './features/todos/todosSlice';
