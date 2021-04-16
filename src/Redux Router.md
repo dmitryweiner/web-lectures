@@ -80,7 +80,26 @@ ReactDOM.render(
     document.getElementById('root')
 );
 ```
+---
 
+### Важная деталь работы
+* При переходе по роуту происходит событие c типом ```LOCATION_CHANGE```:
+```js
+const action = {
+    type: LOCATION_CHANGE,
+    payload: '/path/'
+}
+```
+* Можно добавлять свои редьюсеры на это событие:
+```js
+import { LOCATION_CHANGE } from 'connected-react-router';
+//
+case LOCATION_CHANGE:
+    return {
+        ...state,
+        someStateProperty: false
+    }
+```
 ---
 
 ### Switch

@@ -82,8 +82,25 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 );
+```</script></section><section  data-markdown><script type="text/template">
+### Важная деталь работы
+* При переходе по роуту происходит событие c типом ```LOCATION_CHANGE```:
+```js
+const action = {
+    type: LOCATION_CHANGE,
+    payload: '/path/'
+}
 ```
-</script></section><section  data-markdown><script type="text/template">
+* Можно добавлять свои редьюсеры на это событие:
+```js
+import { LOCATION_CHANGE } from 'connected-react-router';
+//
+case LOCATION_CHANGE:
+    return {
+        ...state,
+        someStateProperty: false
+    }
+```</script></section><section  data-markdown><script type="text/template">
 ### Switch
 * Внутри ```<App>``` используется компонент ```<Switch>```, в котором лежат нужные роуты.
 * [Ознакомиться c работой Route, Switch](https://dmitryweiner.github.io/lectures/React%20Router.html#/6).

@@ -124,8 +124,14 @@ yield takeEvery(
     anotherSaga
 );
 
-```
-</script></section><section  data-markdown><script type="text/template">
+```</script></section><section  data-markdown><script type="text/template">
+### Можно подписываться на изменения текущего роута
+* И вызывать соответствующую сагу:
+```js
+import { LOCATION_CHANGE } from 'connected-react-router';
+//
+yield takeEvery(LOCATION_CHANGE, locationChangedSaga);
+```</script></section><section  data-markdown><script type="text/template">
 ### Обращение к стейту
 * Эффект ```select``` (используется функция или селектор библиотеки ```reselect```):
 ```js
@@ -134,8 +140,7 @@ const userId = yield select(selectUserId);
 * Без функции:
 ```js
 const userId = yield select(state => state.fetcher.userId);
-```
-</script></section><section  data-markdown><script type="text/template">
+```</script></section><section  data-markdown><script type="text/template">
 ### Вызов функций
 * Эффект ```call```:
 ```js
@@ -161,8 +166,7 @@ yield put({type: 'DELETE ALL'});
 * Вызов с помощью acton creator с параметрами:
 ```js
 yield put(actionCreator(parameters))
-```
-</script></section><section ><section data-markdown><script type="text/template">
+```</script></section><section ><section data-markdown><script type="text/template">
 ### Пример, когда нужна сага
 * Открывается приложение, проверяет, аутентифицирован ли пользователь.
   * Если нет:
@@ -170,13 +174,11 @@ yield put(actionCreator(parameters))
      * Перенаправляет на форму логина.
   * Если аутентифицирован:
      * Запрашиваем данные необходимые данные.
-     * Складываем в стор.
-  </script></section><section data-markdown><script type="text/template">
+     * Складываем в стор.</script></section><section data-markdown><script type="text/template">
 ### Пример, когда нужна сага
 * Во время всего этого могут происходить разнообразные ошибки сети и сервера.
 * Размещать эту логику следует отдельно, не в компонентах.
-* Писать это на чистом Redux было бы слишком мучительно.
-</script></section></section><section  data-markdown><script type="text/template">
+* Писать это на чистом Redux было бы слишком мучительно.</script></section></section><section  data-markdown><script type="text/template">
 ### Примерная реализация
 ```js
 function* initialLoad() {
@@ -198,8 +200,7 @@ function* initialLoad() {
 * Пользуемся тем, что саги &mdash; это генераторы.
 * Реальное обращение к API надо [замокать](https://dmitryweiner.github.io/lectures/Test%20Redux%20Thunk.html#/).
 * Создаём генератор, вызываем у него ```.next()``` и проверяем то, что он вернул.
-* Возвращать он должен экшены.
-</script></section><section data-markdown><script type="text/template">
+* Возвращать он должен экшены.</script></section><section data-markdown><script type="text/template">
 ### Пример саги
 ```js
 function* fetchAuthorsFromApi() {
@@ -228,10 +229,7 @@ describe('fetchAuthorsFromApi', () => {
     expect(genObject.next().done).toBeTruthy();
   });
 });
-```
-</script></section><section data-markdown><script type="text/template">
-### Пример теста
-</script></section></section><section  data-markdown><script type="text/template">
+```</script></section></section><section  data-markdown><script type="text/template">
 ### Полезные ссылки
 * [Документация](https://redux-saga.js.org/docs/introduction/GettingStarted).
 * [API redux-saga](https://redux-saga.js.org/docs/api/).

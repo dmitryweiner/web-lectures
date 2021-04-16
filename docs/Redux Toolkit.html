@@ -201,6 +201,8 @@ const fetchUsers = () => async (dispatch) => {
 }
 ```</script></section><section  data-markdown><script type="text/template">
 ### Асинхронные экшены с createAsyncThunk
+* [Документация](https://redux-toolkit.js.org/api/createAsyncThunk).
+
 ```js
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { userAPI } from './userAPI'
@@ -232,21 +234,18 @@ const usersSlice = createSlice({
 
 // Later, dispatch the thunk as needed in the app
 dispatch(fetchUserById(123))
-```
-</script></section><section  data-markdown><script type="text/template">### createAsyncThunk
-https://redux-toolkit.js.org/api/createAsyncThunk
-</script></section><section  data-markdown><script type="text/template">
+```</script></section><section  data-markdown><script type="text/template">
 ### Саги
+* В саги для подписки на вызов экшена необходимо указать название экшена. 
+  Оно генерируется автоматически и лежит в ```action.type```:
 ```js
-yield put(action.type)
-```
-</script></section><section  data-markdown><script type="text/template">
-### Нормализация данных
-normalizr
-https://redux.js.org/recipes/structuring-reducers/normalizing-state-shape
-</script></section><section  data-markdown><script type="text/template">
+// в сторе
+export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+// в саге
+yield take(increment.type); // ожидаем вызов экшена
+```</script></section><section  data-markdown><script type="text/template">
 ### Тесты
-https://www.xtivia.com/blog/best-practices-for-testing-a-react-redux-toolkit-app/</script></section><section  data-markdown><script type="text/template">
+[Пример тестирования](https://www.xtivia.com/blog/best-practices-for-testing-a-react-redux-toolkit-app/)</script></section><section  data-markdown><script type="text/template">
 ### Полезные ссылки
 * https://redux-toolkit.js.org/introduction/getting-started
 * https://redux-toolkit.js.org/usage/usage-guide

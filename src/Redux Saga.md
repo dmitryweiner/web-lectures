@@ -130,7 +130,15 @@ yield takeEvery(
 );
 
 ```
+---
 
+### Можно подписываться на изменения текущего роута
+* И вызывать соответствующую сагу:
+```js
+import { LOCATION_CHANGE } from 'connected-react-router';
+//
+yield takeEvery(LOCATION_CHANGE, locationChangedSaga);
+```
 ---
 
 ### Обращение к стейту
@@ -142,7 +150,6 @@ const userId = yield select(selectUserId);
 ```js
 const userId = yield select(state => state.fetcher.userId);
 ```
-
 ---
 
 ### Вызов функций
@@ -173,7 +180,6 @@ yield put({type: 'DELETE ALL'});
 ```js
 yield put(actionCreator(parameters))
 ```
-
 ---
 
 ### Пример, когда нужна сага
@@ -184,14 +190,12 @@ yield put(actionCreator(parameters))
   * Если аутентифицирован:
      * Запрашиваем данные необходимые данные.
      * Складываем в стор.
-  
 ----
 
 ### Пример, когда нужна сага
 * Во время всего этого могут происходить разнообразные ошибки сети и сервера.
 * Размещать эту логику следует отдельно, не в компонентах.
 * Писать это на чистом Redux было бы слишком мучительно.
-
 ---
 
 ### Примерная реализация
@@ -218,7 +222,6 @@ function* initialLoad() {
 * Реальное обращение к API надо [замокать](https://dmitryweiner.github.io/lectures/Test%20Redux%20Thunk.html#/).
 * Создаём генератор, вызываем у него ```.next()``` и проверяем то, что он вернул.
 * Возвращать он должен экшены.
-
 ----
 
 ### Пример саги
@@ -252,11 +255,6 @@ describe('fetchAuthorsFromApi', () => {
   });
 });
 ```
-
-----
-
-### Пример теста
-
 ---
 
 ### Полезные ссылки

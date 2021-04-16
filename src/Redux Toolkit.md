@@ -214,6 +214,8 @@ const fetchUsers = () => async (dispatch) => {
 ---
 
 ### Асинхронные экшены с createAsyncThunk
+* [Документация](https://redux-toolkit.js.org/api/createAsyncThunk).
+
 ```js
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { userAPI } from './userAPI'
@@ -246,28 +248,21 @@ const usersSlice = createSlice({
 // Later, dispatch the thunk as needed in the app
 dispatch(fetchUserById(123))
 ```
-
----
-### createAsyncThunk
-https://redux-toolkit.js.org/api/createAsyncThunk
-
 ---
 
 ### Саги
+* В саги для подписки на вызов экшена необходимо указать название экшена. 
+  Оно генерируется автоматически и лежит в ```action.type```:
 ```js
-yield put(action.type)
+// в сторе
+export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+// в саге
+yield take(increment.type); // ожидаем вызов экшена
 ```
-
----
-
-### Нормализация данных
-normalizr
-https://redux.js.org/recipes/structuring-reducers/normalizing-state-shape
-
 ---
 
 ### Тесты
-https://www.xtivia.com/blog/best-practices-for-testing-a-react-redux-toolkit-app/
+[Пример тестирования](https://www.xtivia.com/blog/best-practices-for-testing-a-react-redux-toolkit-app/)
 ---
 
 ### Полезные ссылки
