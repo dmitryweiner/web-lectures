@@ -398,6 +398,14 @@ const store = createStore(
 
 ---
 
+### Пример разбиения
+* [Репозиторий](https://github.com/dmitryweiner/redux-store).
+* [Видео](https://youtu.be/LIra64O9juo).
+* **Внимание!** Во избежание непонятных ошибок из-за циклических импортов:
+  * Глобальный initialState должен лежать в индексе стора.
+  * initialState отдельных слайсов должны лежать там же, где их редьюсеры.
+---
+
 ## Папка redux
 [Живой пример](https://codesandbox.io/s/9on71rvnyo).
 
