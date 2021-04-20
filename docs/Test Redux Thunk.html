@@ -136,7 +136,7 @@ test('тестирование асинхронного экшена', async () 
         isChecked: false
     };
     fetchMock.mock(
-        'http://localhost:3001/todos',
+        'express:/todos',
         {
             status: 200,
             body: element

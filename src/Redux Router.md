@@ -6,7 +6,8 @@ title: Лекции по фронтенду - Redux Router
 
 ![redux router](assets/redux-router/router-meme.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[Дмитрий Вайнер](https://github.com/dmitryweiner),
+[видео](https://youtu.be/8lexwi-SCB8)
 
 ---
 
@@ -141,7 +142,7 @@ import { push } from 'connected-react-router';
 
 ### Переход по роуту из асинхронного экшена
 ```js
-import { push } from 'connected-react-router'
+import { push } from 'connected-react-router';
 //
 export const login = (username, password) => (dispatch) => {
   /* do something before redirection */
