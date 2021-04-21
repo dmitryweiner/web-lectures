@@ -242,10 +242,7 @@ const api = {
                 title: title
             })
         }).then(handleErrors),
-        list: () => fetch(`${URL}/todos`, {
-            method: 'GET',
-            headers: defaultHeaders
-        }).then(handleErrors)
+        list: () => fetch(`${URL}/todos`).then(handleErrors)
     }
 };
 export default api;

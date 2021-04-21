@@ -29,49 +29,64 @@ title: Лекции по фронтенду - Redux Router
 
 ---
 
-### Подключение: первый этап
-* Установка:
-
+### Установка и подключение
 ```shell
 npm i connected-react-router
 npm i -D @types/history # опционально, для использующих TS
 ```
-* Создание объекта ```history```:
+* Создание объекта ```history```.
+  * Для standalone хостинга используется ```createBrowserHistory```. https://domain.com/path
+  * Для хостинга в каталоге ```createHashHistory```. https://username.github.io/app/#/path
+* Добавляем редьюсер ```router``` и ```routerMiddleware(history)```.
+* Оборачиваем ```<App>``` в ```<ConnectedRouter>```.
 
-```js
+---
+
+```store/index.ts```
+
+```ts
+import { routerMiddleware } from 'connected-react-router';
+import createRootReducer from './reducers';
 // для standalone хостинга
 import { createBrowserHistory } from 'history';
 // для хостинга в каталоге
 import { createHashHistory } from 'history';
-const history = createBrowserHistory();
-```
-
----
-
-### Подключение: второй этап
-* Создание стора:
-
-```js
-import { combineReducers, createStore, applyMiddleware } from 'redux';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
+export const history = createHashHistory();
+//
+export const rootReducer = createRootReducer(history);
 const store = createStore(
-    combineReducers({
-        router: connectRouter(history), // ключ объекта только "router", не иначе
-        ... // rest of your reducers
-    }),
-    applyMiddleware(
-        routerMiddleware(history), // for dispatching history actions
-        // ... other middlewares ...
-    )
+    rootReducer,
+    applyMiddleware(thunkMiddleware, routerMiddleware(history))
 );
+export default store;
 ```
-
 ---
 
-### Подключение: третий этап
-* Оборачиваем ```<App>``` в ```<ConnectedRouter>```:
-```js
+```store/reducers/index.ts```
+
+Предполагается, что стор уже
+[разделён на сплайсы](https://redux.js.org/recipes/structuring-reducers/using-combinereducers).
+
+```ts
+import { connectRouter } from 'connected-react-router';
+import { History } from 'history';
+//
+const createRootReducer = (history: History) => combineReducers({
+    todo: todoReducer,
+    filter: filterReducer,
+    router: connectRouter(history), // ключ объекта только "router", не иначе
+})
+//
+export default createRootReducer;
+```
+---
+
+```index.tsx```
+
+```tsx
 import { ConnectedRouter } from 'connected-react-router';
+import store, { history } from './store';
+//
 ReactDOM.render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
@@ -162,7 +177,16 @@ export function* login(username, password) {
   yield put(push('/home'))
 }
 ```
+---
 
+### Переход назад или вперёд
+```js
+import { goBack, goForward, go } from 'connected-react-router';
+//
+dispatch(goBack()); // назад по истории
+dispatch(goForward()); // вперёд по истории
+dispatch(go(-2)); // на 2 шага назад
+```
 ---
 
 ### Узнать текущие параметры роутера
