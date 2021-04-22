@@ -27,6 +27,7 @@ title: Лекции по фронтенду - Тестируем Redux Thunk
 * Используем библиотеку [redux-mock-store](https://github.com/reduxjs/redux-mock-store).
 ```shell
 npm i -D redux-mock-store
+npm i -D @types/redux-mock-store # типы для TS
 ```
 * Пример использования:
 
