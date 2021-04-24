@@ -228,6 +228,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 ### Типизация initialState и reducer
 
 ```ts
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface Item {
   id: string
   text: string
