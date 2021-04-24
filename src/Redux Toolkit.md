@@ -7,6 +7,8 @@ title: Лекции по фронтенду - Redux Toolkit
 ![ancient age meme](assets/redux-toolkit/toolkit-meme.png)
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
+
+[видео](https://youtu.be/KVVd9atLvlg)
 ---
 
 ### Недостатки "чистого" Redux
@@ -64,8 +66,10 @@ const slice = createSlice({
         }
     }
 });
-dispatch(slice.actions.actionName()); // type === 'sliceName/actionName'
-dispatch({type: 'ANOTHER_ACTION_NAME'});
+export default slice.reducer; // по дефолту наружу смотрит редьюсер
+export const {
+    actionName
+} = slice.actions; // тут лежат все экшены
 ```
 ---
 
@@ -90,10 +94,9 @@ reducers: {
 ### Слайс счётчика
 
 ```js
-// store.js
+// counterSlice.js
 import { configureStore, createSlice } from '@reduxjs/toolkit';
-
-export const counterSlice = createSlice({
+const counterSlice = createSlice({
     name: 'counter',
     initialState: {
         value: 0,
@@ -109,8 +112,11 @@ export const counterSlice = createSlice({
             state.value += action.payload
         },
     },
-})
-
+});
+export default configureStore.reducer;
+// store.ts
+import { configureStore } from '@reduxjs/toolkit';
+import counterSlice from './counterSlice';
 export default configureStore({
     reducer: {
         counter: counterSlice,
@@ -129,6 +135,21 @@ export default configureStore({
 increment: (state) => {
     state.value += 1;
 }
+```
+---
+
+### Создание стора
+* Используется метод [```configureStore```](https://redux-toolkit.js.org/api/configureStore):
+```js
+const store = configureStore({
+    reducer: {
+        todo: todoSlice,
+        /* ещё слайсы */
+    },
+    devTools: true | false, // логи
+    middleware: [/* thunk, saga */],
+    preloadedState: {} // предзагруженное состояние стора (для серверного рендеринга)
+});
 ```
 ---
 
@@ -230,19 +251,19 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 ```ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface Item {
-  id: string
-  text: string
+    id: string
+    text: string
 }
 const todosSlice = createSlice({
-  name: 'todos',
-  initialState: [] as Item[],
-  reducers: {
-    addTodo: {
-      reducer: (state, action: PayloadAction<Item>) => {
-        state.push(action.payload)
-      }
+    name: 'todos',
+    initialState: [] as Item[],
+    reducers: {
+        addTodo: {
+            reducer: (state, action: PayloadAction<Item>) => {
+                state.push(action.payload)
+            }
+        }
     }
-  }
 })
 ```
 ---
@@ -329,6 +350,46 @@ extraReducers: builder => {
     })
 }
 ```
+---
+
+### Типизированный асинхроэкшен на TS
+[Документация](https://redux-toolkit.js.org/usage/usage-with-typescript#createasyncthunk)
+
+```ts
+const addElement = createAsyncThunk<
+    Element, // тип возвращаемого
+    string, // тип входного
+    { rejectValue: string } // тип ошибки
+    >(
+    'todo/addElement',
+    async (title: string, thunkAPI) => {
+        try {
+            return await api.todos.add({title});
+        } catch (error) {
+            thunkAPI.rejectWithValue(error.message);
+        }
+    }
+)
+
+// в слайсе:
+extraReducers: builder => {
+    builder
+        .addCase(addElement.pending, (state) => {
+            state.requestStatus = REQUEST_STATUS.LOADING;
+        })
+        .addCase(addElement.fulfilled, (state, action) => {
+            state.requestStatus = REQUEST_STATUS.SUCCESS;
+            state.list.push(action.payload);
+        })
+        .addCase(addElement.rejected, (state, action) => {
+            state.requestStatus = REQUEST_STATUS.ERROR;
+            if (action.payload) { // без if не заработает!
+                state.error = action.payload;
+            }
+        });
+}
+```
+
 ---
 
 ### Саги

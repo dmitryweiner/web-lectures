@@ -19,7 +19,9 @@
 
 ![ancient age meme](assets/redux-toolkit/toolkit-meme.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)</script></section><section  data-markdown><script type="text/template">
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
+
+[видео](https://youtu.be/KVVd9atLvlg)</script></section><section  data-markdown><script type="text/template">
 ### Недостатки "чистого" Redux
 * Redux &mdash; хорошая библиотека, но обладает некоторыми недостатками:
   * Огромный объём шаблонного кода.
@@ -67,8 +69,10 @@ const slice = createSlice({
         }
     }
 });
-dispatch(slice.actions.actionName()); // type === 'sliceName/actionName'
-dispatch({type: 'ANOTHER_ACTION_NAME'});
+export default slice.reducer; // по дефолту наружу смотрит редьюсер
+export const {
+    actionName
+} = slice.actions; // тут лежат все экшены
 ```</script></section><section  data-markdown><script type="text/template">
 ### Сложный редьюсер
 * Может содержать два поля ```reducer``` и ```prepare```.
@@ -89,10 +93,9 @@ reducers: {
 ```</script></section><section  data-markdown><script type="text/template">### Слайс счётчика
 
 ```js
-// store.js
+// counterSlice.js
 import { configureStore, createSlice } from '@reduxjs/toolkit';
-
-export const counterSlice = createSlice({
+const counterSlice = createSlice({
     name: 'counter',
     initialState: {
         value: 0,
@@ -108,8 +111,11 @@ export const counterSlice = createSlice({
             state.value += action.payload
         },
     },
-})
-
+});
+export default configureStore.reducer;
+// store.ts
+import { configureStore } from '@reduxjs/toolkit';
+import counterSlice from './counterSlice';
 export default configureStore({
     reducer: {
         counter: counterSlice,
@@ -126,6 +132,19 @@ export default configureStore({
 increment: (state) => {
     state.value += 1;
 }
+```</script></section><section  data-markdown><script type="text/template">
+### Создание стора
+* Используется метод [```configureStore```](https://redux-toolkit.js.org/api/configureStore):
+```js
+const store = configureStore({
+    reducer: {
+        todo: todoSlice,
+        /* ещё слайсы */
+    },
+    devTools: true | false, // логи
+    middleware: [/* thunk, saga */],
+    preloadedState: {} // предзагруженное состояние стора (для серверного рендеринга)
+});
 ```</script></section><section  data-markdown><script type="text/template">
 ### Middleware (плохой способ)
 * Перезаписываем встроенные middleware (не рекомендуется):
@@ -215,19 +234,19 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 ```ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface Item {
-  id: string
-  text: string
+    id: string
+    text: string
 }
 const todosSlice = createSlice({
-  name: 'todos',
-  initialState: [] as Item[],
-  reducers: {
-    addTodo: {
-      reducer: (state, action: PayloadAction<Item>) => {
-        state.push(action.payload)
-      }
+    name: 'todos',
+    initialState: [] as Item[],
+    reducers: {
+        addTodo: {
+            reducer: (state, action: PayloadAction<Item>) => {
+                state.push(action.payload)
+            }
+        }
     }
-  }
 })
 ```</script></section><section  data-markdown><script type="text/template">
 ### Асинхронные экшены
@@ -308,6 +327,44 @@ extraReducers: builder => {
     })
 }
 ```</script></section><section  data-markdown><script type="text/template">
+### Типизированный асинхроэкшен на TS
+[Документация](https://redux-toolkit.js.org/usage/usage-with-typescript#createasyncthunk)
+
+```ts
+const addElement = createAsyncThunk<
+    Element, // тип возвращаемого
+    string, // тип входного
+    { rejectValue: string } // тип ошибки
+    >(
+    'todo/addElement',
+    async (title: string, thunkAPI) => {
+        try {
+            return await api.todos.add({title});
+        } catch (error) {
+            thunkAPI.rejectWithValue(error.message);
+        }
+    }
+)
+
+// в слайсе:
+extraReducers: builder => {
+    builder
+        .addCase(addElement.pending, (state) => {
+            state.requestStatus = REQUEST_STATUS.LOADING;
+        })
+        .addCase(addElement.fulfilled, (state, action) => {
+            state.requestStatus = REQUEST_STATUS.SUCCESS;
+            state.list.push(action.payload);
+        })
+        .addCase(addElement.rejected, (state, action) => {
+            state.requestStatus = REQUEST_STATUS.ERROR;
+            if (action.payload) { // без if не заработает!
+                state.error = action.payload;
+            }
+        });
+}
+```
+</script></section><section  data-markdown><script type="text/template">
 ### Саги
 * В саги для подписки на вызов экшена необходимо указать название экшена. 
   Оно генерируется автоматически и лежит в ```action.type```:
