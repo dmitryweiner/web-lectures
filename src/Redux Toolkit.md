@@ -423,7 +423,7 @@ export default [
 
 ### Тесты
 * Для компонентов тесты не изменятся.
-* Для редьюсеров вызов экшенов поменяется на ```sliceName.actionName()```.
+* При проверке редьюсеров обратить внимание на изменение имён экшенов.
 * [Пример тестирования всего приложения](https://www.xtivia.com/blog/best-practices-for-testing-a-react-redux-toolkit-app/)
 
 ![no tests](assets/memes/no-tests.png)
