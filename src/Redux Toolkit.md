@@ -393,13 +393,31 @@ extraReducers: builder => {
 ---
 
 ### Саги
-* В саги для подписки на вызов экшена необходимо указать название экшена. 
-  Оно генерируется автоматически и лежит в ```action.type```:
+* Устанавливаем полезную библиотеку [```saga-toolkit```](https://github.com/janoist1/saga-toolkit):
+```shell
+npm i saga-toolkit
+```
+* Создание экшена для вызова саги с помощью [```createSagaAction```](https://npm.io/package/saga-action-creator):
 ```js
-// в сторе
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
-// в саге
-yield take(increment.type); // ожидаем вызов экшена
+import { createSagaAction } from 'saga-toolkit';
+export const fetchThings = createSagaAction(`${slice.name}/fetchThings`);
+```
+* См. слайд ниже ⬇️
+----
+
+* Подписываемся на вызов экшена:
+```js
+import { call } from 'redux-saga/effects'
+import { takeLatestAsync } from 'saga-toolkit'
+import API from 'hyper-super-api'
+import * as actions from './slice'
+function* fetchThings() {
+    const result = yield call(() => API.get('/things'))
+    return result
+}
+export default [
+    takeLatestAsync(actions.fetchThings.pending, fetchThings),
+]
 ```
 ---
 
