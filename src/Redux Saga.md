@@ -5,7 +5,8 @@ title: Лекции по фронтенду - Redux Saga
 ![redux-saga logo](assets/redux-saga/Redux-Saga-Logo.png)
 ![redux saga](assets/redux-saga/meme.jpeg)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[Дмитрий Вайнер](https://github.com/dmitryweiner),
+[видео](https://youtu.be/IIM96JCL8gc)
 
 ---
 
@@ -46,7 +47,7 @@ const sagaMiddleware = createSagaMiddleware();
 // mount it on the Store
 const store = createStore(
     reducer,
-    applyMiddleware(sagaMiddleware)
+    applyMiddleware(sagaMiddleware, /* тут ещё middlewares */)
 );
 // then run the root saga
 sagaMiddleware.run(rootSaga);
@@ -64,12 +65,10 @@ export function* anotherSaga() {
     // полезный код
 }
 ```
-
 ---
 
 ### Жизненный цикл
 ![life cycle](assets/redux-saga/life-cycle.png)
-
 ---
 
 ### Саги
@@ -82,7 +81,6 @@ export function* anotherSaga() {
   * Писать данные в стор.
   * Приостанавливаться.
 * Сайд-эффект вызывается с помощью  ```yield```.
-
 ---
 
 ### Сайд-эффекты
@@ -93,7 +91,6 @@ export function* anotherSaga() {
   * ```put``` &mdash; вызов экшена (можно передавать параметры).
   * ```select``` &mdash; обращение к текущему состоянию стора.
 * [Полный список методов](https://redux-saga.js.org/docs/api/#effect-creators).
-
 ---
 
 ### Внимание!
@@ -101,18 +98,20 @@ export function* anotherSaga() {
   (т.к. эффекты &mdash; тоже генераторы).
 * Работает:
 ```js
+import { put } from 'redux-saga/effects';
 yield put(loading()); // ✅
 ````
 * Не работает:
 ```js
+import { put } from 'redux-saga/effects';
 put(loading()); // ❌
 ```
-
 ---
 
 ### Ожидание вызова экшена
 * На первый вызов экшена и больше не сработает:
 ```js
+import { take } from 'redux-saga/effects';
 yield take('ACTION_NAME');
 ````
 * На все вызовы takeEvery (важно! второй параметр: сага-обработчик):
@@ -128,7 +127,6 @@ yield takeEvery(
     ],
     anotherSaga
 );
-
 ```
 ---
 
@@ -136,6 +134,7 @@ yield takeEvery(
 * И вызывать соответствующую сагу:
 ```js
 import { LOCATION_CHANGE } from 'connected-react-router';
+import { takeEvery } from 'redux-saga/effects';
 //
 yield takeEvery(LOCATION_CHANGE, locationChangedSaga);
 ```
@@ -144,6 +143,7 @@ yield takeEvery(LOCATION_CHANGE, locationChangedSaga);
 ### Обращение к стейту
 * Эффект ```select``` (используется функция или селектор библиотеки ```reselect```):
 ```js
+import { select } from 'redux-saga/effects';
 const userId = yield select(selectUserId);
 ````
 * Без функции:
@@ -155,6 +155,7 @@ const userId = yield select(state => state.fetcher.userId);
 ### Вызов функций
 * Эффект ```call```:
 ```js
+import { call } from 'redux-saga/effects';
 yield call(functionName, parameters);
 ```
 * Вызов API c помощью ```fetch```:
@@ -164,6 +165,7 @@ const repos = yield call(fetch, '/repos');
 ````
 * Можно делать это параллельно:
 ```js
+import { call, all } from 'redux-saga/effects';
 const [users, repos] = yield all([
     call(fetch, '/users'),
     call(fetch, '/repos')
@@ -174,6 +176,7 @@ const [users, repos] = yield all([
 ### Вызов экшена
 * Эффект ```put```:
 ```js
+import { put } from 'redux-saga/effects';
 yield put({type: 'DELETE ALL'});
 ```
 * Вызов с помощью acton creator с параметрами:
@@ -220,40 +223,77 @@ function* initialLoad() {
 ### Как это тестировать?
 * Пользуемся тем, что саги &mdash; это генераторы.
 * Реальное обращение к API надо [замокать](https://dmitryweiner.github.io/lectures/Test%20Redux%20Thunk.html#/).
-* Создаём генератор, вызываем у него ```.next()``` и проверяем то, что он вернул.
-* Возвращать он должен экшены.
+* Вызванные экшены надо складывать в массив и потом проверять.
+```js
+import {runSaga} from 'redux-saga';
+const dispatched = [];
+await runSaga({ // важно await
+    dispatch: (action) => dispatched.push(action),
+    getState: () => ({}),
+}, saga).toPromise(); // важно toPromise!
+```
+* [Документация](https://redux-saga.js.org/docs/advanced/Testing/).
+* [Статья](https://medium.com/@13gaurab/unit-testing-sagas-with-jest-29a8bcfca028).
 ----
 
 ### Пример саги
 ```js
-function* fetchAuthorsFromApi() {
-  yield takeEvery('FETCH_AUTHORS', makeAuthorsApiRequest);
-}
-function* makeAuthorsApiRequest(){
-  try {
-    const authors = yield call(Api.requestAuthors);
-    yield put(saveAuthorsToList(authors));  
-  } catch (err) {
-    yield put(saveAuthorToListError());
-  }
+export function* getElementsSaga() {
+    try {
+        yield put(setRequestStatus(REQUEST_STATUS.LOADING));
+        const data = yield call(api.todos.list);
+        yield put({type: ACTION_TYPES.ADD_ALL, payload: data});
+        yield put(setRequestStatus(REQUEST_STATUS.SUCCESS));
+    } catch (error) {
+        yield put(setError(error.message));
+        yield put(setRequestStatus(REQUEST_STATUS.ERROR));
+    }
 }
 ```
 ----
 
 ### Пример теста
 ```js
-describe('fetchAuthorsFromApi', () => {
-  const genObject = fetchAuthorsFromApi();
-  
-  it('should wait for every FETCH_AUTHORS action and call makeAuthorsApiRequest', () => {
-    expect(genObject.next().value)
-      .toEqual(takeEvery('FETCH_AUTHORS', makeAuthorsApiRequest));
-  });
-  
-  it('should be done on next iteration', () => {
-    expect(genObject.next().done).toBeTruthy();
-  });
+test('getElementsSaga', async () => {
+    fetchMock.mock(
+        'express:/todos',
+        {
+            status: 200,
+            body: state.todo.list
+        }, {
+            method: 'GET'
+        }
+    );
+    const dispatched = [];
+    await runSaga({
+        dispatch: (action) => dispatched.push(action),
+        getState: () => ({}),
+    }, getElementsSaga).toPromise();
+    expect(dispatched).toEqual([
+        {type: ACTION_TYPES.SET_REQUEST_STATUS, payload: REQUEST_STATUS.LOADING},
+        {type: ACTION_TYPES.ADD_ALL, payload: state.todo.list},
+        {type: ACTION_TYPES.SET_REQUEST_STATUS, payload: REQUEST_STATUS.SUCCESS}
+    ]);
 });
+```
+---
+
+### TypeScript 
+```shell
+npm i -D @types/redux-saga
+```
+[Статья](https://tech.lalilo.com/redux-saga-and-typescript-doing-it-right)
+```ts
+function* secondaryGenerator() {
+  yield delay(1000);
+  return true;
+}
+// -> Generator<SimpleEffect<"CALL", CallEffectDescriptor<true>>, boolean, unknown>
+function* mainGenerator(): Generator<StrictEffect, void, string> {
+  const foo = yield call(wiiiiiiiiii); // string
+  const secondaryGeneratorResult = yield* secondaryGenerator(); // boolean
+  console.log(secondaryGeneratorResult);
+}
 ```
 ---
 
