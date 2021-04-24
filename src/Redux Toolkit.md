@@ -46,8 +46,48 @@ npm i @reduxjs/toolkit
 * Слайс состоит из:
   * Имени (имя будет включаться в имена экшенов).
   * Начального состояния.
-  * Редьюсеров.
+  * Редьюсеров, которые сооветствуют экшенам.
+  * Внешних редьюсеров.
 ---
+
+### Схема слайса
+```js
+const slice = createSlice({
+    name: 'sliceName', // это имя будет добавлено в имя экшенов
+    initialState: { /* начальное значение стора */ },
+    reducers: {
+        actionName: (state, action) => { /* тут что-то делают со стором */ }
+    },
+    extraReducers: {
+        ['ANOTHER_ACTION_NAME']: (state, action) => { 
+            /* тут опять что-то делают со стором */
+        }
+    }
+});
+dispatch(slice.actions.actionName()); // type === 'sliceName/actionName'
+dispatch({type: 'ANOTHER_ACTION_NAME'});
+```
+---
+
+### Сложный редьюсер
+* Может содержать два поля ```reducer``` и ```prepare```.
+* В ```prepare``` можно преобразовать значение ```payload```.
+
+```ts
+reducers: {
+    addTodo: {
+        reducer: (state, action: PayloadAction<Item>) => {
+            state.push(action.payload);
+        },
+        prepare: (text: string) => {
+            const id = nanoid();
+            return { payload: { id, text } }
+        }
+    }
+}
+```
+---
+### Слайс счётчика
 
 ```js
 // store.js
@@ -92,8 +132,9 @@ increment: (state) => {
 ```
 ---
 
-### Middleware
+### Middleware (плохой способ)
 * Перезаписываем встроенные middleware (не рекомендуется):
+
 ```js
 const store = configureStore({
     reducer: {/*...*/},
@@ -102,16 +143,18 @@ const store = configureStore({
 ```
 * Встроенные:
   * Development:
+    
     ```js
       const middleware = [thunk, immutableStateInvariant, serializableStateInvariant];
     ```
   * Production:
+    
     ```js
       const middleware = [thunk];
     ```
 ---
 
-### Middleware
+### Middleware (правильный способ)
 * Оставляем встроенные, добавляем свои:
 ```js
 const store = configureStore({
@@ -123,7 +166,7 @@ const store = configureStore({
 
 ---
 
-### Как вызывать экшены в компоненте
+### Как вызывать экшены в компоненте (плохой способ)
 ```jsx
 import { useSelector, useDispatch } from 'react-redux'
 import counterSlice from './counterSlice'
@@ -150,7 +193,11 @@ export function Counter() {
 * Экспорт:
 
 ```js
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const { 
+    increment, 
+    decrement, 
+    incrementByAmount
+} = counterSlice.actions;
 ```
 * Импорт:
 
@@ -160,6 +207,7 @@ import { decrement, increment } from './counterSlice';
 ---
 
 ### Типизация стора в TS
+* [Документация](https://redux-toolkit.js.org/usage/usage-with-typescript)
 * Стейт и диспатч:
 ```ts
 // Вывод типа текущего стейта автоматически
@@ -175,11 +223,31 @@ import type { RootState, AppDispatch } from './store';
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 ```
+---
 
+### Типизация initialState и reducer
+
+```ts
+interface Item {
+  id: string
+  text: string
+}
+const todosSlice = createSlice({
+  name: 'todos',
+  initialState: [] as Item[],
+  reducers: {
+    addTodo: {
+      reducer: (state, action: PayloadAction<Item>) => {
+        state.push(action.payload)
+      }
+    }
+  }
+})
+```
 ---
 
 ### Асинхронные экшены
-* Простой подход:
+* Плохой подход &mdash; меняем состояние вручную:
 ```js
 const usersSlice = createSlice({
   name: 'users',
@@ -206,9 +274,9 @@ const usersSlice = createSlice({
 export const { usersLoading, usersReceived } = usersSlice.actions
 // Define a thunk that dispatches those action creators
 const fetchUsers = () => async (dispatch) => {
-  dispatch(usersLoading())
-  const response = await usersAPI.fetchAll()
-  dispatch(usersReceived(response.data))
+    dispatch(usersLoading())
+    const response = await usersAPI.fetchAll()
+    dispatch(usersReceived(response.data))
 }
 ```
 ---
@@ -250,6 +318,18 @@ dispatch(fetchUserById(123))
 ```
 ---
 
+### extraReducers с builder
+[Документация](https://redux-toolkit.js.org/api/createSlice#the-extrareducers-builder-callback-notation)
+
+```js
+extraReducers: builder => {
+    builder.addCase(fetchUserById.fulfilled, (state, action) => {
+        state.entities.push(action.payload)
+    })
+}
+```
+---
+
 ### Саги
 * В саги для подписки на вызов экшена необходимо указать название экшена. 
   Оно генерируется автоматически и лежит в ```action.type```:
@@ -262,9 +342,13 @@ yield take(increment.type); // ожидаем вызов экшена
 ---
 
 ### Тесты
-[Пример тестирования](https://www.xtivia.com/blog/best-practices-for-testing-a-react-redux-toolkit-app/)
+* Для компонентов тесты не изменятся.
+* Для редьюсеров вызов экшенов поменяется на ```sliceName.actionName()```.
+* [Пример тестирования всего приложения](https://www.xtivia.com/blog/best-practices-for-testing-a-react-redux-toolkit-app/)
+
+![no tests](assets/memes/no-tests.png)
 ---
 
 ### Полезные ссылки
-* https://redux-toolkit.js.org/introduction/getting-started
-* https://redux-toolkit.js.org/usage/usage-guide
+* [С чего начать](https://redux-toolkit.js.org/introduction/getting-started)
+* [Гид по использованию](https://redux-toolkit.js.org/usage/usage-guide)
