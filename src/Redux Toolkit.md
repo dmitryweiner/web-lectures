@@ -71,26 +71,8 @@ export const {
     actionName
 } = slice.actions; // тут лежат все экшены
 ```
----
-
-### Сложный редьюсер
-* Может содержать два поля ```reducer``` и ```prepare```.
-* В ```prepare``` можно преобразовать значение ```payload```.
-
-```ts
-reducers: {
-    addTodo: {
-        reducer: (state, action: PayloadAction<Item>) => {
-            state.push(action.payload);
-        },
-        prepare: (text: string) => {
-            const id = nanoid();
-            return { payload: { id, text } }
-        }
-    }
-}
-```
 ----
+
 ### Слайс счётчика для примера
 
 ```js
@@ -122,6 +104,25 @@ export default configureStore({
         counter: counterSlice,
     },
 });
+```
+---
+
+### Сложный редьюсер
+* Может содержать два поля ```reducer``` и ```prepare```.
+* В ```prepare``` можно преобразовать значение ```payload```.
+
+```ts
+reducers: {
+    addTodo: {
+        reducer: (state, action: PayloadAction<Item>) => {
+            state.push(action.payload);
+        },
+        prepare: (text: string) => {
+            const id = nanoid();
+            return { payload: { id, text } }
+        }
+    }
+}
 ```
 ---
 

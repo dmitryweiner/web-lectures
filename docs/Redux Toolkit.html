@@ -54,7 +54,7 @@ npm i @reduxjs/toolkit
   * Имени (имя будет включаться в имена экшенов).
   * Начального состояния.
   * Редьюсеров, которые сооветствуют экшенам.
-  * Внешних редьюсеров.</script></section><section  data-markdown><script type="text/template">
+  * Внешних редьюсеров.</script></section><section ><section data-markdown><script type="text/template">
 ### Схема слайса
 ```js
 const slice = createSlice({
@@ -73,24 +73,8 @@ export default slice.reducer; // по дефолту наружу смотрит
 export const {
     actionName
 } = slice.actions; // тут лежат все экшены
-```</script></section><section ><section data-markdown><script type="text/template">
-### Сложный редьюсер
-* Может содержать два поля ```reducer``` и ```prepare```.
-* В ```prepare``` можно преобразовать значение ```payload```.
-
-```ts
-reducers: {
-    addTodo: {
-        reducer: (state, action: PayloadAction<Item>) => {
-            state.push(action.payload);
-        },
-        prepare: (text: string) => {
-            const id = nanoid();
-            return { payload: { id, text } }
-        }
-    }
-}
-```</script></section><section data-markdown><script type="text/template">### Слайс счётчика для примера
+```</script></section><section data-markdown><script type="text/template">
+### Слайс счётчика для примера
 
 ```js
 // counterSlice.js
@@ -122,6 +106,23 @@ export default configureStore({
     },
 });
 ```</script></section></section><section  data-markdown><script type="text/template">
+### Сложный редьюсер
+* Может содержать два поля ```reducer``` и ```prepare```.
+* В ```prepare``` можно преобразовать значение ```payload```.
+
+```ts
+reducers: {
+    addTodo: {
+        reducer: (state, action: PayloadAction<Item>) => {
+            state.push(action.payload);
+        },
+        prepare: (text: string) => {
+            const id = nanoid();
+            return { payload: { id, text } }
+        }
+    }
+}
+```</script></section><section  data-markdown><script type="text/template">
 ### Редьюсеры не мутируют стейт
 * Redux Toolkit позволяет писать "мутирующую" логику в редьюсерах.
 На самом деле никакого изменения стейта не происходит, он так же продолжает
