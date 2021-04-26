@@ -90,8 +90,8 @@ reducers: {
     }
 }
 ```
----
-### Слайс счётчика
+----
+### Слайс счётчика для примера
 
 ```js
 // counterSlice.js
@@ -134,6 +134,36 @@ export default configureStore({
 ```js
 increment: (state) => {
     state.value += 1;
+}
+```
+---
+
+### Экстра-редьюсеры
+* Экстра-редьюсеры нужны для подписки на срабатывания экшенов из других слайсов.
+* Или вообще произвольных экшенов.
+* Асинхронных экшенов.
+```js
+const incrementBy = createAction('incrementBy');
+extraReducers: {
+    [incrementBy]: (state, action) => { /* ... */  },
+    ['ANOTHER_ACTION_NAME']: (state, action) => { /* ... */  },
+    [anotherSliceActionName]: (state, action) => { /* ... */  }
+}
+```
+
+---
+
+### extraReducers с builder
+* Можно экстра-редьюсеры указывать не в виде объекта с полями, а в виде вызовов метода ```builder``` 
+  (для TypeScript это единственный рабочий способ).
+* Помимо метода ```addCase```, есть полезные методы ```addMatcher``` и ```addDefaultCase```.
+* [Документация](https://redux-toolkit.js.org/api/createSlice#the-extrareducers-builder-callback-notation).
+
+```js
+extraReducers: builder => {
+    builder.addCase(fetchUserById.fulfilled, (state, action) => {
+        state.entities.push(action.payload)
+    })
 }
 ```
 ---
@@ -309,7 +339,6 @@ const fetchUsers = () => async (dispatch) => {
 ```js
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { userAPI } from './userAPI'
-
 // First, create the thunk
 const fetchUserById = createAsyncThunk(
   'users/fetchByIdStatus',
@@ -318,7 +347,6 @@ const fetchUserById = createAsyncThunk(
     return response.data
   }
 )
-
 // Then, handle actions in your reducers:
 const usersSlice = createSlice({
   name: 'users',
@@ -334,22 +362,16 @@ const usersSlice = createSlice({
     },
   },
 })
-
 // Later, dispatch the thunk as needed in the app
 dispatch(fetchUserById(123))
 ```
 ---
 
-### extraReducers с builder
-[Документация](https://redux-toolkit.js.org/api/createSlice#the-extrareducers-builder-callback-notation)
-
-```js
-extraReducers: builder => {
-    builder.addCase(fetchUserById.fulfilled, (state, action) => {
-        state.entities.push(action.payload)
-    })
-}
-```
+### Полезный объект ```thunkAPI```
+* При создании асинхронного экшена с помощью ```createAsyncThunk```
+  в обработчике вторым параметром передаётся объект ```thunkAPI``` со следующими полями:
+  * dispatch: метод dispatch из стора (можно вызвать ещё один экшен).
+  * getState: метод getState из стора (можно узнать состояние стора).
 ---
 
 ### Типизированный асинхроэкшен на TS

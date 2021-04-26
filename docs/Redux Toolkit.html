@@ -73,7 +73,7 @@ export default slice.reducer; // по дефолту наружу смотрит
 export const {
     actionName
 } = slice.actions; // тут лежат все экшены
-```</script></section><section  data-markdown><script type="text/template">
+```</script></section><section ><section data-markdown><script type="text/template">
 ### Сложный редьюсер
 * Может содержать два поля ```reducer``` и ```prepare```.
 * В ```prepare``` можно преобразовать значение ```payload```.
@@ -90,7 +90,7 @@ reducers: {
         }
     }
 }
-```</script></section><section  data-markdown><script type="text/template">### Слайс счётчика
+```</script></section><section data-markdown><script type="text/template">### Слайс счётчика для примера
 
 ```js
 // counterSlice.js
@@ -121,7 +121,7 @@ export default configureStore({
         counter: counterSlice,
     },
 });
-```</script></section><section  data-markdown><script type="text/template">
+```</script></section></section><section  data-markdown><script type="text/template">
 ### Редьюсеры не мутируют стейт
 * Redux Toolkit позволяет писать "мутирующую" логику в редьюсерах.
 На самом деле никакого изменения стейта не происходит, он так же продолжает
@@ -131,6 +131,32 @@ export default configureStore({
 ```js
 increment: (state) => {
     state.value += 1;
+}
+```</script></section><section  data-markdown><script type="text/template">
+### Экстра-редьюсеры
+* Экстра-редьюсеры нужны для подписки на срабатывания экшенов из других слайсов.
+* Или вообще произвольных экшенов.
+* Асинхронных экшенов.
+```js
+const incrementBy = createAction('incrementBy');
+extraReducers: {
+    [incrementBy]: (state, action) => { /* ... */  },
+    ['ANOTHER_ACTION_NAME']: (state, action) => { /* ... */  },
+    [anotherSliceActionName]: (state, action) => { /* ... */  }
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+### extraReducers с builder
+* Можно экстра-редьюсеры указывать не в виде объекта с полями, а в виде вызовов метода ```builder``` 
+  (для TypeScript это единственный рабочий способ).
+* Помимо метода ```addCase```, есть полезные методы ```addMatcher``` и ```addDefaultCase```.
+* [Документация](https://redux-toolkit.js.org/api/createSlice#the-extrareducers-builder-callback-notation).
+
+```js
+extraReducers: builder => {
+    builder.addCase(fetchUserById.fulfilled, (state, action) => {
+        state.entities.push(action.payload)
+    })
 }
 ```</script></section><section  data-markdown><script type="text/template">
 ### Создание стора
@@ -288,7 +314,6 @@ const fetchUsers = () => async (dispatch) => {
 ```js
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { userAPI } from './userAPI'
-
 // First, create the thunk
 const fetchUserById = createAsyncThunk(
   'users/fetchByIdStatus',
@@ -297,7 +322,6 @@ const fetchUserById = createAsyncThunk(
     return response.data
   }
 )
-
 // Then, handle actions in your reducers:
 const usersSlice = createSlice({
   name: 'users',
@@ -313,20 +337,14 @@ const usersSlice = createSlice({
     },
   },
 })
-
 // Later, dispatch the thunk as needed in the app
 dispatch(fetchUserById(123))
 ```</script></section><section  data-markdown><script type="text/template">
-### extraReducers с builder
-[Документация](https://redux-toolkit.js.org/api/createSlice#the-extrareducers-builder-callback-notation)
-
-```js
-extraReducers: builder => {
-    builder.addCase(fetchUserById.fulfilled, (state, action) => {
-        state.entities.push(action.payload)
-    })
-}
-```</script></section><section  data-markdown><script type="text/template">
+### Полезный объект ```thunkAPI```
+* При создании асинхронного экшена с помощью ```createAsyncThunk```
+  в обработчике вторым параметром передаётся объект ```thunkAPI``` со следующими полями:
+  * dispatch: метод dispatch из стора (можно вызвать ещё один экшен).
+  * getState: метод getState из стора (можно узнать состояние стора).</script></section><section  data-markdown><script type="text/template">
 ### Типизированный асинхроэкшен на TS
 [Документация](https://redux-toolkit.js.org/usage/usage-with-typescript#createasyncthunk)
 
