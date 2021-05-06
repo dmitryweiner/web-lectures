@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Лекции по фронтенду - Nodejs</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/sky.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+## Node.js
+
+![nodejs logo](assets/nodejs/node-logo.png)
+
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
+</script></section><section  data-markdown><script type="text/template">
+> Node.js &mdash; программная платформа, основанная на движке V8
+> (транслирующем JavaScript в машинный код), превращающая JavaScript
+> из узкоспециализированного языка в язык общего назначения.
+</script></section><section  data-markdown><script type="text/template">
+### Node.js
+* Выполняется не в браузере, а на уровне системы.
+* Имеет доступ к файлам, сети, устройствам.
+* Есть модули.
+* Есть NPM.</script></section><section  data-markdown><script type="text/template">
+### Модули
+* Стандарт модулей называется [CommonJS](https://nodejs.org/docs/latest/api/modules.html).
+* В модуле:
+
+```js
+// module.js
+function usefulFunction(param) {
+    return param * 3;
+}
+
+module.exports = {
+    usefulFunction
+}
+```
+* В другом модуле:
+
+```js
+const { usefulFunction } = require('./module.js');
+usefulFunction(3);
+```</script></section><section  data-markdown><script type="text/template">
+### ES6 модули
+* Поддержка ES6 модулей есть c 16-й версии Node.js.
+* [Документация](https://nodejs.org/api/esm.html).
+</script></section><section  data-markdown><script type="text/template">
+### Работа с файлами
+
+https://nodejs.org/api/fs.html
+</script></section><section  data-markdown><script type="text/template">
+### Сервер
+```js
+// Подключение модуля http
+const http = require("http");
+// Создаем веб-сервер с обработчиком запросов
+const server = http.createServer((incomingMessage, response) => {
+  console.log("Начало обработки запроса");
+  // Передаем код ответа и заголовки http
+  response.writeHead(200, { 
+      "Content-Type": "text/plain; charset=UTF-8" 
+  });
+  response.end("Hello, world!");
+});
+// Запускаем веб-сервер
+server.listen(3000, "127.0.0.1", () => {
+  const { address, port } = server.address();
+  console.log(`Сервер запущен ${address}:${port}`);
+});
+```</script></section><section  data-markdown><script type="text/template">
+### Сервер статики
+```js
+var fs = require('fs'),
+    http = require('http');
+
+http.createServer(function (req, res) {
+  fs.readFile(__dirname + req.url, function (err, data) {
+    if (err) {
+      res.writeHead(404);
+      res.end(JSON.stringify(err));
+      return;
+    }
+    res.writeHead(200);
+    res.end(data);
+  });
+}).listen(8080);
+```</script></section><section  data-markdown><script type="text/template">
+### Фреймворки
+* Adonis.js
+* Express.js
+* Fastify
+* Hapi.js
+* Koa.js
+* LoopBack.js
+* Meteor.js
+* Nest.js
+* Sails.js
+[Почитать](https://medium.com/dailyjs/which-one-is-the-best-node-js-framework-choosing-among-10-tools-87a0e191eefd)
+</script></section><section  data-markdown><script type="text/template">
+### Работа с Mongo.db</script></section><section  data-markdown><script type="text/template">
+### Mongoose</script></section><section  data-markdown><script type="text/template">
+### Менеджеры запуска
+nodemon
+pm2</script></section><section  data-markdown><script type="text/template">
+### Альтернативы
+https://deno.land/
+</script></section><section  data-markdown><script type="text/template">https://jairusw.medium.com/top-10-insane-node-js-modules-c1fdf71f0033</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
