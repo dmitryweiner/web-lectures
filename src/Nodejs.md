@@ -63,6 +63,48 @@ usefulFunction(3);
 
 ---
 
+### Мониторинг и управление
+* Можно прерывать выполнение процесса, считывать аргументы и многое другое:
+```js
+const process = require('process');
+// вывести аргументы, с которыми запущен процесс
+console.log(process.argv);
+// переменные окружения
+console.log(process.env);
+// выйти с кодом 1
+process.exit(1);
+```
+* [Документация](https://nodejs.org/api/process.html).
+---
+
+### Разбор аргументов
+* В ```process.argv``` лежит массив аргументов, не очень удобно с ним работать.
+* Очень удобная библиотека [yargs](https://github.com/yargs/yargs) парсит аргументы и выводит подсказки.
+* [Полезная статья](https://nodejs.org/en/knowledge/command-line/how-to-parse-command-line-arguments/)
+```js
+#!/usr/bin/env node
+const yargs = require('yargs/yargs');
+const { hideBin } = require('yargs/helpers');
+yargs(hideBin(process.argv))
+  .command('serve [port]', 'start the server', (yargs) => {
+    return yargs
+      .positional('port', {
+        describe: 'port to bind on',
+        default: 5000
+      });
+  }, (argv) => {
+    if (argv.verbose) console.info(`start server on :${argv.port}`);
+    serve(argv.port);
+  })
+  .option('verbose', {
+    alias: 'v',
+    type: 'boolean',
+    description: 'Run with verbose logging'
+  })
+  .argv
+```
+---
+
 ### Работа с файлами
 * Используется библиотека ```fs``` (устанавливать не нужно).
 * Операции бывают:
