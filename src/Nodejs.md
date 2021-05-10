@@ -163,9 +163,23 @@ http.createServer(function (req, res) {
 ```
 ---
 
+### Event loop
+* Программа на Node.js выполнится и завершится.
+* Если были установлены обработчики асинхронных операций, программа не завершится немедленно,
+  а будет ждать окончания выполнения этих операций.
+* [Хорошая статья про это](https://jinoantony.com/blog/setimmediate-vs-process-nexttick-in-nodejs)
+  ([перевод](https://medium.com/devschacht/event-loop-timers-and-nexttick-18579cd122e0)).
+* Порядок выполнения обработчиков показан на рисунке ⬇️
+----
+
+![event loop](assets/nodejs/event-loop.png)
+
+---
+
 ### Фреймворки
 * Adonis.js
 * [Express.js](https://expressjs.com/)
+  ([Лекция](https://dmitryweiner.github.io/lectures/Express.html#/))
 * Fastify
 * Hapi.js
 * [Koa.js](https://koajs.com/)
