@@ -20,12 +20,12 @@
 ![express.js logo](assets/express/orelly.jpeg)
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
-</script></section><section  data-markdown><script type="text/template">
+
+[видео](https://youtu.be/ykNZrjuyQZY)</script></section><section  data-markdown><script type="text/template">
 ### Express.js
 * Создан в 2010.
 * Создатель [TJ Holovaychik](https://github.com/tj) ([твитор](https://twitter.com/tjholowaychuk)).
-![TJ Holovaychik](assets/express/holowaychik.jpeg)
-</script></section><section  data-markdown><script type="text/template">
+![TJ Holovaychik](assets/express/holowaychik.jpeg)</script></section><section  data-markdown><script type="text/template">
 ### Особенности
 * Де факто стандарт в бэкенде на Node.js.
 * Лицензия [MIT](https://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F_MIT).
@@ -76,7 +76,8 @@ app.use('/media', express.static('public'));
 * Обработчик может либо:
   * послать ответ; 
   * отправить запрос дальше по цепочке в следующий подходящий обработчик;
-  * выкинуть ошибку;</script></section><section ><section data-markdown><script type="text/template">
+  * выкинуть ошибку;
+* Порядок объявления обработчиков важен.</script></section><section ><section data-markdown><script type="text/template">
 ### Общий вид обработчика
 
 ![req res handler](assets/express/req-handler.png)

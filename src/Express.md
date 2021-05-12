@@ -8,13 +8,13 @@ title: Лекции по фронтенду - Express js
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
+[видео](https://youtu.be/ykNZrjuyQZY)
 ---
 
 ### Express.js
 * Создан в 2010.
 * Создатель [TJ Holovaychik](https://github.com/tj) ([твитор](https://twitter.com/tjholowaychuk)).
 ![TJ Holovaychik](assets/express/holowaychik.jpeg)
-
 ---
 
 ### Особенности
@@ -76,6 +76,7 @@ app.use('/media', express.static('public'));
   * послать ответ; 
   * отправить запрос дальше по цепочке в следующий подходящий обработчик;
   * выкинуть ошибку;
+* Порядок объявления обработчиков важен.
 ---
 
 ### Общий вид обработчика
