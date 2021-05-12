@@ -437,3 +437,4 @@ test('It should response the GET method', async () => {
 * [Документация](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Introduction).
 * [Демонстрационный проект](https://github.com/dmitryweiner/mini-chat-server).
 * [Ещё один демонстрационный проект](https://github.com/dmitryweiner/todo-server).
+* [Проект с Mongoose](https://github.com/dmitryweiner/secure-chat-nodejs).
