@@ -88,22 +88,22 @@ process.exit(1);
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 yargs(hideBin(process.argv))
-  .command('serve [port]', 'start the server', (yargs) => {
-    return yargs
-      .positional('port', {
-        describe: 'port to bind on',
-        default: 5000
-      });
-  }, (argv) => {
-    if (argv.verbose) console.info(`start server on :${argv.port}`);
-    serve(argv.port);
-  })
-  .option('verbose', {
-    alias: 'v',
-    type: 'boolean',
-    description: 'Run with verbose logging'
-  })
-  .argv
+    .command('serve [port]', 'start the server', (yargs) => {
+        return yargs
+            .positional('port', {
+                describe: 'port to bind on',
+                default: 5000
+            });
+    }, (argv) => {
+        if (argv.verbose) console.info(`start server on :${argv.port}`);
+        serve(argv.port);
+    })
+    .option('verbose', {
+        alias: 'v',
+        type: 'boolean',
+        description: 'Run with verbose logging'
+    })
+    .argv
 ```
 ---
 
@@ -131,17 +131,17 @@ yargs(hideBin(process.argv))
 const http = require('http');
 // Создаем веб-сервер с обработчиком запросов
 const server = http.createServer((incomingMessage, response) => {
-  console.log('Начало обработки запроса');
-  // Передаем код ответа и заголовки http
-  response.writeHead(200, { 
-      'Content-Type': 'text/plain; charset=UTF-8' 
-  });
-  response.end('Hello, world!');
+    console.log('Начало обработки запроса');
+    // Передаем код ответа и заголовки http
+    response.writeHead(200, { 
+        'Content-Type': 'text/plain; charset=UTF-8' 
+    });
+    response.end('Hello, world!');
 });
 // Запускаем веб-сервер
 server.listen(3000, '127.0.0.1', () => {
-  const { address, port } = server.address();
-  console.log(`Сервер запущен ${address}:${port}`);
+    const { address, port } = server.address();
+    console.log(`Сервер запущен ${address}:${port}`);
 });
 ```
 ---
@@ -152,15 +152,15 @@ var fs = require('fs'),
     http = require('http');
 
 http.createServer(function (req, res) {
-  fs.readFile(__dirname + req.url, function (err, data) {
-    if (err) {
-      res.writeHead(404);
-      res.end(JSON.stringify(err));
-      return;
-    }
-    res.writeHead(200);
-    res.end(data);
-  });
+    fs.readFile(__dirname + req.url, function (err, data) {
+        if (err) {
+            res.writeHead(404);
+            res.end(JSON.stringify(err));
+            return;
+        }
+        res.writeHead(200);
+        res.end(data);
+    });
 }).listen(8080);
 ```
 ---
