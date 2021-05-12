@@ -8,6 +8,8 @@ title: Лекции по фронтенду - Nodejs
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
+[видео](https://youtu.be/JcV7XtC5On0)
+
 ---
 
 * Node.js &mdash; программная платформа, основанная на движке V8
