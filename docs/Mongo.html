@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Лекции по фронтенду - MongoDB</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/sky.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+## MongoDB
+
+![mongo logo](assets/mongo/Mongo-db-logo.png)
+
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
+
+[видео]()
+</script></section><section  data-markdown><script type="text/template">
+### Факты
+* Создана в 2009 г. компанией 10gen.
+* Распространяется под Server Side Public License.
+* Классика в мире NoSQL баз.
+* [Официальный сайт](https://www.mongodb.com/try).
+* [Документация](https://docs.mongodb.com/guides/server/introduction/).</script></section><section  data-markdown><script type="text/template">
+### Основные фичи
+* Документо-ориентированная база.
+* Поддерживает [репликацию](https://docs.mongodb.com/manual/core/replica-set-arbiter/).
+* Поддерживает 
+  [шардирование](https://ru.wikipedia.org/wiki/%D0%A1%D0%B5%D0%B3%D0%BC%D0%B5%D0%BD%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_(%D0%B1%D0%B0%D0%B7%D1%8B_%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85).
+* Поддерживает балансировку нагрузки.
+* Есть библиотеки под все распространённые языки.
+* Есть коллекции с фиксированным размером.
+* Можно хранить файлы.
+* Есть индексы.</script></section><section  data-markdown><script type="text/template">
+### NoSQL
+* Не реляционная база данных.
+* Вместо записей хранит документы.
+* У документов может быть произвольный набор полей.
+* Тем не 
+</script></section><section  data-markdown><script type="text/template">
+### Шардинг
+</script></section><section  data-markdown><script type="text/template">
+### Установка
+</script></section><section  data-markdown><script type="text/template">
+### Консольные команды
+</script></section><section  data-markdown><script type="text/template">
+### Декстопные клиенты
+https://www.guru99.com/top-20-mongodb-tools.html
+</script></section><section  data-markdown><script type="text/template">
+### Создание коллекции
+* Capped
+</script></section><section  data-markdown><script type="text/template">
+### Индексы
+</script></section><section  data-markdown><script type="text/template">
+### Создание документа
+</script></section><section  data-markdown><script type="text/template">
+### Внешние ключи
+</script></section><section  data-markdown><script type="text/template">
+### Изменение
+</script></section><section  data-markdown><script type="text/template">
+### Удаление
+</script></section><section  data-markdown><script type="text/template">
+### Поиск
+</script></section><section  data-markdown><script type="text/template">
+### Сложные запросы
+* Сортировка
+* Несколько полей
+</script></section><section  data-markdown><script type="text/template">
+###
+</script></section><section  data-markdown><script type="text/template">
+###
+</script></section><section  data-markdown><script type="text/template">
+###
+</script></section><section  data-markdown><script type="text/template">
+###
+</script></section><section  data-markdown><script type="text/template">
+###
+</script></section><section  data-markdown><script type="text/template">
+###
+</script></section><section  data-markdown><script type="text/template">
+### Полезные ссылки
+
+https://docs.mongodb.com/guides/server/introduction/
+
+https://www.w3schools.com/nodejs/nodejs_mongodb.asp
+
+https://www.w3schools.in/mongodb/introduction-to-nosql/
+
+</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
