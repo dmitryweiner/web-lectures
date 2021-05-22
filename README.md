@@ -2,6 +2,14 @@
 
 #### [Все лекции](https://dmitryweiner.github.io/lectures/)
 
+## Требования к студенту.
+Курс предполагает базовое знание HTML, CSS, JS и React.
+Если его нет, предлагаю пройти следующие курсы:
+* https://htmlacademy.ru/courses/basic-html-css
+* https://htmlacademy.ru/courses/41
+* https://htmlacademy.ru/courses/343
+* https://www.codecademy.com/learn/react-101
+
 ## В порядке освоения материала.
 * [Функциональные компоненты и хуки](https://dmitryweiner.github.io/lectures/React%20%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82%D1%8B%20%D0%B8%20%D1%85%D1%83%D0%BA%D0%B8.html#/)
 * [Как работать с формами и контролами](https://dmitryweiner.github.io/lectures/React%20controls.html#/)
