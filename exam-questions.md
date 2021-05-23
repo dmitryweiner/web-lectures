@@ -71,11 +71,7 @@
 Компонент просто отображает светофор. Время переключения на усмотрение разработчика. Вёрстка не обязательна,
 можно отобразить цветные лампы каким-нибудь символом:
 
-<span style="border: 1px solid black; padding: 5px 8px;"><span style="color: red">#</span> # #</span>
-
-<span style="border: 1px solid black; padding: 5px 8px;"> # <span style="color: orange">#</span> #</span>
-
-<span style="border: 1px solid black; padding: 5px 8px;"> # # <span style="color: green">#</span></span>
+![8](src/assets/exam/8.gif)
 
 ### 9. Счётчик
 Реализовать счётчик нажатий на кнопку:
