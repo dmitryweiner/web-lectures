@@ -61,11 +61,15 @@
 ```jsx
 <Component temperature={-20} />
 ```
-<span style="color: blue">-20</span>
+```diff
+- 20
+```
 ```jsx
 <Component temperature={36.6} />
 ```
-<span style="color: red">36.6</span>
+```diff
++ 36.6
+```
 
 ### 8. Светофор
 Компонент просто отображает светофор. Время переключения на усмотрение разработчика. Вёрстка не обязательна,
