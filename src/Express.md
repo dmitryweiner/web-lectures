@@ -120,10 +120,10 @@ app.all('/admin', function (req, res, next) { // GET 'http://www.example.com/adm
 * [Документация](https://expressjs.com/ru/4x/api.html#res).
 ---
 ### Объект res
-* Отправка статуса:
+* Отправка только статуса:
 
 ```js
-res.status(201);
+res.status(201).send();
 ```
 * Отправка текста:
 
@@ -218,6 +218,9 @@ router.get('/:id', (req, res, next) => {
 router.post('/', (req, res, next) => {
     // create item
 });
+// Ключевая строчка!
+// обработчики будут слушать по адресу 
+// http://mydomain.com/items/...
 app.use('/items', router);
 ```
 * [Документация](https://expressjs.com/ru/guide/routing.html).
@@ -431,6 +434,52 @@ test('It should response the GET method', async () => {
 });
 ```
 * [Примеры тестов](https://github.com/dmitryweiner/mini-chat-server/tree/master/tests).
+---
+
+### Простейший сервер
+Для примера написан простейший сервер, который хранит коллекцию объектов.
+
+* API
+  * ```GET /``` получить всю коллекцию.
+    ```json
+    [ 
+        { "id": "123", "test": "test" }
+    ]
+    ```
+  * ```GET /:id``` получить элемент по ID.
+    ```json
+    {"id":  "123", "test": "test"}
+    ```
+  * ```POST /``` добавить элемент в коллекцию.
+  * ```DELETE /:id``` удалить элемент по ID.
+----
+```js
+const express = require('express');
+const app = express();
+app.use(express.json());
+let items = [];
+app.get('/', (req, res) => {
+    res.json(items);
+});
+app.get('/:id', (req, res) => {
+    const item = items.find(item => item.id === req.params.id);
+    res.json(item);
+});
+app.delete('/:id', (req, res) => {
+    items = items.filter(item => item.id !== req.params.id);
+    res.status(200).send();
+});
+app.post('/', (req, res) => {
+    const newItem = req.body;
+    newItem.id = Math.random().toString(36).substr(2);
+    items.push(newItem);
+    res.status(201).json(newItem);
+});
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}!`)
+});
+```
 ---
 
 ### Полезные ссылки

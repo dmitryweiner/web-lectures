@@ -195,6 +195,26 @@ function Link() {
 
 ---
 
+### Текстовое поле
+
+<input value="42" />
+
+Вы ввели: 42
+
+```jsx
+function TextField() {
+    const [text, setText] = useState('');
+    function handeChange(event) {
+        setText(event.target.value);
+    }
+    return <>
+            <input value={text} onChange={handeChange} />
+            Вы ввели: {text}
+        <>;
+}
+```
+---
+
 ### Кнопка
 
 <button>Нажми меня!</button>
@@ -207,7 +227,6 @@ function Button({ title }) {
     return <button onClick={handeClick}>{title}</button>;
 }
 ```
-
 ---
 
 ### Текстовое поле
@@ -223,7 +242,6 @@ function Button({ title }) {
     * password: <input type="password" />
     * date: <input type="date" />
 * Поддерживается не всеми браузерами.
-
 ---
 
 ### Чекбокс
@@ -242,7 +260,6 @@ function Checkbox() {
     </>;
 }
 ```
-
 ---
 
 ### Радио-кнопки
@@ -273,7 +290,6 @@ function Radio() {
     </>;
 }
 ```
-
 ---
 
 ### Радио-кнопки поумнее
@@ -297,9 +313,7 @@ function Radio() {
         You selected: {variants[value]}
     </>;
 }
-
 ```
-
 ---
 
 ### Ползунок
@@ -324,7 +338,6 @@ function Range({ max = 0, min = 100 }) {
   </>;
 }
 ```
-
 ---
 
 ### Селектбокс
@@ -350,7 +363,6 @@ function Select() {
   </>;
 }
 ```
-
 ---
 
 ### Селектбокс поумнее
@@ -401,7 +413,6 @@ if (selected === variants.ADD) {
     //...
 }
 ```
-
 ---
 
 ### Множественный селектбокс
@@ -431,7 +442,6 @@ function MultipleSelect() {
   </>;
 }
 ```
-
 ---
 
 ![Попьём-ка чайку](assets/react-controls/updating-state.jpeg)

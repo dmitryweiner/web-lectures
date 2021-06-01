@@ -184,6 +184,24 @@ function Link() {
 }
 ```
 </script></section><section  data-markdown><script type="text/template">
+### Текстовое поле
+
+<input value="42" />
+
+Вы ввели: 42
+
+```jsx
+function TextField() {
+    const [text, setText] = useState('');
+    function handeChange(event) {
+        setText(event.target.value);
+    }
+    return <>
+            <input value={text} onChange={handeChange} />
+            Вы ввели: {text}
+        <>;
+}
+```</script></section><section  data-markdown><script type="text/template">
 ### Кнопка
 
 <button>Нажми меня!</button>
@@ -195,8 +213,7 @@ function Button({ title }) {
     }
     return <button onClick={handeClick}>{title}</button>;
 }
-```
-</script></section><section  data-markdown><script type="text/template">
+```</script></section><section  data-markdown><script type="text/template">
 ### Текстовое поле
 
 ```jsx
@@ -209,8 +226,7 @@ function Button({ title }) {
     * email: <input type="email" />
     * password: <input type="password" />
     * date: <input type="date" />
-* Поддерживается не всеми браузерами.
-</script></section><section  data-markdown><script type="text/template">
+* Поддерживается не всеми браузерами.</script></section><section  data-markdown><script type="text/template">
 ### Чекбокс
 
 <label><input type="checkbox" />Выбери меня!</label>
@@ -226,8 +242,7 @@ function Checkbox() {
         {isChecked ? 'checked' : 'not checked'}
     </>;
 }
-```
-</script></section><section  data-markdown><script type="text/template">
+```</script></section><section  data-markdown><script type="text/template">
 ### Радио-кнопки
 
 Объединяются в группу по одному и тому же name:
@@ -255,8 +270,7 @@ function Radio() {
         You selected: {value}
     </>;
 }
-```
-</script></section><section  data-markdown><script type="text/template">
+```</script></section><section  data-markdown><script type="text/template">
 ### Радио-кнопки поумнее
 
 <input type="radio" name="r">Быть</input>
@@ -278,9 +292,7 @@ function Radio() {
         You selected: {variants[value]}
     </>;
 }
-
-```
-</script></section><section  data-markdown><script type="text/template">
+```</script></section><section  data-markdown><script type="text/template">
 ### Ползунок
 
 <input type="range"/>
@@ -302,8 +314,7 @@ function Range({ max = 0, min = 100 }) {
     Current value: {value}
   </>;
 }
-```
-</script></section><section  data-markdown><script type="text/template">
+```</script></section><section  data-markdown><script type="text/template">
 ### Селектбокс
 
 <select>
@@ -326,8 +337,7 @@ function Select() {
     Selected: {variants[value]}
   </>;
 }
-```
-</script></section><section  data-markdown><script type="text/template">
+```</script></section><section  data-markdown><script type="text/template">
 ### Селектбокс поумнее
 
 * Идея в том, чтобы вынести варианты в структуру и сравнивать с ней в дальнейшем.
@@ -373,8 +383,7 @@ function Select() {
 if (selected === variants.ADD) {
     //...
 }
-```
-</script></section><section  data-markdown><script type="text/template">
+```</script></section><section  data-markdown><script type="text/template">
 ### Множественный селектбокс
 
 <select multiple>
@@ -401,8 +410,7 @@ function MultipleSelect() {
     Selected: {value.join(',')}
   </>;
 }
-```
-</script></section><section  data-markdown><script type="text/template">
+```</script></section><section  data-markdown><script type="text/template">
 ![Попьём-ка чайку](assets/react-controls/updating-state.jpeg)
 
 </script></section></div>

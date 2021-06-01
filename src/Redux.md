@@ -434,6 +434,7 @@ const store = createStore(
 ---
 
 ## Полезные ссылки
+* [Руководство на русском](https://rajdee.gitbooks.io/redux-in-russian/content/).
 * [Лекция Эндрю Кларка про реакт](https://www.youtube.com/watch?v=ZVYVtUFDf28).
 * [Статья на русском](https://tproger.ru/translations/redux-for-beginners/).
 * [Работающее приложение](https://codesandbox.io/s/9on71rvnyo).
