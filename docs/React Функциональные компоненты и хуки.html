@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    <title>Лекции по фронтенду - Функциональные компоненты в React</title>
+    <title>Лекции по фронтенду - React функциональные компоненты и хуки</title>
     <link rel="shortcut icon" href="./favicon.ico"/>
     <link rel="stylesheet" href="./dist/reveal.css" />
     <link rel="stylesheet" href="./dist/theme/sky.css" id="theme" />
@@ -25,10 +25,15 @@
 </script></section><section  data-markdown><script type="text/template">
 ### Функциональный компонент VS компонент класс
 
+![functional component vs class](assets/fc/fc-vs-classes.gif)
+</script></section><section  data-markdown><script type="text/template">
+### Функциональный компонент VS компонент класс
+
 | Class | FC |
 |-------|----|
-|   ![Class](assets/fc/class.png)    |  ![Functional component](assets/fc/fc.png)  |
-</script></section><section  data-markdown><script type="text/template">
+| Есть конструктор  |  Редуцирован до рендер функции  |
+| Есть методы жизненного цикла | Вместо этого хуки |
+| Перерисовывается, когда меняются props и state | Перерисовывается, когда меняются props и работают хуки (useState) |</script></section><section  data-markdown><script type="text/template">
 ### Компонент-представление
 
 #### Было
@@ -53,14 +58,6 @@ function ShowSomething({ somethingToShow }) {
 
 ![Состояние у функции](assets/fc/functions-state.png)
 </script></section><section  data-markdown><script type="text/template">
-### Функциональный компонент VS компонент класс
-
-| Class | FC |
-|-------|----|
-| Есть конструктор  |  Редуцирован до рендер функции  |
-| Есть методы жизненного цикла | Вместо этого хуки |
-| Ререндер, когда меняются props и state | Ререндер, когда меняются props и псевдостейт (useState) |
-</script></section><section  data-markdown><script type="text/template">
 ### Список хуков
 
 * Базовые
@@ -82,7 +79,7 @@ function ShowSomething({ somethingToShow }) {
 [Подробнее](https://reactjs.org/docs/hooks-rules.html)
 </script></section><section  data-markdown><script type="text/template">
 
-### Аналогии
+### Аналогии с методами жизненного цикла
 
 | Class | FC |
 |-------|----|
@@ -98,57 +95,49 @@ function ShowSomething({ somethingToShow }) {
 const [value, setValue] = useState(initialValue);
 ```
 
-* value &mdash; текущее значение: когда меняется, происходит ререндер
-* setValue(newValue) &mdash; метод установки нового значения
-* setValue может принимать на вход функцию prevValue => nextValue  
-* initialValue &mdash; начальное значение
+* value &mdash; текущее значение: когда меняется, компонент перерисовывается.
+* setValue(newValue) &mdash; метод установки нового значения.
+* setValue может принимать на вход функцию prevValue => nextValue.  
+* initialValue &mdash; начальное значение.
 
 [документация](https://reactjs.org/docs/hooks-reference.html#usestate)
 </script></section><section  data-markdown><script type="text/template">
 ### Было: компонент со стейтом
 
 ```javascript
-class ShowSomething extends React.Component {
+class Counter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShowing: false
-        }
+            count: props.initialCount
+        };
     }
     render() {
-        const { isShowing } = this.state;
-        const { somethingToShow } = this.props;
-        
+        const { count } = this.state;
         return <>
-            <input 
-                type="checkbox"
-                value={isShowing}
-                onChange={e => this.setState({ isShowing: e.target.checked })}/>
-            {isShowing && (
-                <span>{somethingToShow}</span>
-            )}
+            <button>
+                onClick={() => this.setState({ count: count + 1 })}>
+                Click me!
+            </button>
+            { count }
         </>;
     }
 }
-```
-</script></section><section  data-markdown><script type="text/template">
+```</script></section><section  data-markdown><script type="text/template">
 ### Стало: функциональный компонент со стейтом
 
 ```javascript
-function ShowSomething({ somethingToShow }) {
-    const [isShowing, setIsShowing] = useState(false);
+function ShowSomething({ initialCount }) {
+    const [count, setCount] = useState(initialCount);
     return <>
-        <input
-            type="checkbox"
-            value={isShowing}
-            onChange={e => setIsShowing(e.target.checked)}/>
-        {isShowing && (
-            <span>{somethingToShow}</span>
-        )}
+        <button>
+            onClick={() => setCount(count + 1)}>
+            Click me!
+        </button>
+        { count }
     </>;
 }
-```
-</script></section><section  data-markdown><script type="text/template">
+```</script></section><section  data-markdown><script type="text/template">
 ### useEffect
 
 * Выполняется после коммита рендера
@@ -367,10 +356,14 @@ function TextInputWithFocusButton() {
   * [useKeypress](https://github.com/streamich/react-use/blob/master/docs/useKeypress.md)
   * [useHover](https://github.com/streamich/react-use/blob/master/docs/useHover.md)
   * [useWindowSize](https://github.com/streamich/react-use/blob/master/docs/useWindowSize.md)
-  </script></section><section  data-markdown><script type="text/template">
+</script></section><section  data-markdown><script type="text/template">
+## Полезные ссылки
+https://overreacted.io/how-are-function-components-different-from-classes/
+</script></section><section  data-markdown><script type="text/template">
 ## Спасибо за внимание
 
-![Good bye sweet prince](assets/fc/meme.jpg)</script></section></div>
+![Good bye sweet prince](assets/fc/meme.jpg)
+</script></section></div>
     </div>
 
     <script src="./dist/reveal.js"></script>

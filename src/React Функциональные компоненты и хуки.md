@@ -1,5 +1,5 @@
 ---
-title: Лекции по фронтенду - Функциональные компоненты в React
+title: Лекции по фронтенду - React функциональные компоненты и хуки
 ---
 
 ## Функциональные компоненты в React
@@ -14,10 +14,17 @@ title: Лекции по фронтенду - Функциональные ко�
 
 ### Функциональный компонент VS компонент класс
 
+![functional component vs class](assets/fc/fc-vs-classes.gif)
+
+---
+
+### Функциональный компонент VS компонент класс
+
 | Class | FC |
 |-------|----|
-|   ![Class](assets/fc/class.png)    |  ![Functional component](assets/fc/fc.png)  |
-
+| Есть конструктор  |  Редуцирован до рендер функции  |
+| Есть методы жизненного цикла | Вместо этого хуки |
+| Перерисовывается, когда меняются props и state | Перерисовывается, когда меняются props и работают хуки (useState) |
 ---
 
 ### Компонент-представление
@@ -48,16 +55,6 @@ function ShowSomething({ somethingToShow }) {
 
 ---
 
-### Функциональный компонент VS компонент класс
-
-| Class | FC |
-|-------|----|
-| Есть конструктор  |  Редуцирован до рендер функции  |
-| Есть методы жизненного цикла | Вместо этого хуки |
-| Ререндер, когда меняются props и state | Ререндер, когда меняются props и псевдостейт (useState) |
-
----
-
 ### Список хуков
 
 * Базовые
@@ -83,7 +80,7 @@ function ShowSomething({ somethingToShow }) {
 ---
 
 
-### Аналогии
+### Аналогии с методами жизненного цикла
 
 | Class | FC |
 |-------|----|
@@ -101,10 +98,10 @@ function ShowSomething({ somethingToShow }) {
 const [value, setValue] = useState(initialValue);
 ```
 
-* value &mdash; текущее значение: когда меняется, происходит ререндер
-* setValue(newValue) &mdash; метод установки нового значения
-* setValue может принимать на вход функцию prevValue => nextValue  
-* initialValue &mdash; начальное значение
+* value &mdash; текущее значение: когда меняется, компонент перерисовывается.
+* setValue(newValue) &mdash; метод установки нового значения.
+* setValue может принимать на вход функцию prevValue => nextValue.  
+* initialValue &mdash; начальное значение.
 
 [документация](https://reactjs.org/docs/hooks-reference.html#usestate)
 
@@ -113,49 +110,41 @@ const [value, setValue] = useState(initialValue);
 ### Было: компонент со стейтом
 
 ```javascript
-class ShowSomething extends React.Component {
+class Counter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShowing: false
-        }
+            count: props.initialCount
+        };
     }
     render() {
-        const { isShowing } = this.state;
-        const { somethingToShow } = this.props;
-        
+        const { count } = this.state;
         return <>
-            <input 
-                type="checkbox"
-                value={isShowing}
-                onChange={e => this.setState({ isShowing: e.target.checked })}/>
-            {isShowing && (
-                <span>{somethingToShow}</span>
-            )}
+            <button>
+                onClick={() => this.setState({ count: count + 1 })}>
+                Click me!
+            </button>
+            { count }
         </>;
     }
 }
 ```
-
 ---
 
 ### Стало: функциональный компонент со стейтом
 
 ```javascript
-function ShowSomething({ somethingToShow }) {
-    const [isShowing, setIsShowing] = useState(false);
+function ShowSomething({ initialCount }) {
+    const [count, setCount] = useState(initialCount);
     return <>
-        <input
-            type="checkbox"
-            value={isShowing}
-            onChange={e => setIsShowing(e.target.checked)}/>
-        {isShowing && (
-            <span>{somethingToShow}</span>
-        )}
+        <button>
+            onClick={() => setCount(count + 1)}>
+            Click me!
+        </button>
+        { count }
     </>;
 }
 ```
-
 ---
 
 ### useEffect
@@ -406,7 +395,12 @@ function TextInputWithFocusButton() {
   * [useKeypress](https://github.com/streamich/react-use/blob/master/docs/useKeypress.md)
   * [useHover](https://github.com/streamich/react-use/blob/master/docs/useHover.md)
   * [useWindowSize](https://github.com/streamich/react-use/blob/master/docs/useWindowSize.md)
-  
+
+---
+
+## Полезные ссылки
+https://overreacted.io/how-are-function-components-different-from-classes/
+
 ---
 
 ## Спасибо за внимание
