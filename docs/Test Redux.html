@@ -102,14 +102,12 @@ npm i -D @types/redux-mock-store # типы для TS
 ### Пример использования redux-mock-store
 
 ```js
-import thunkMiddleware from 'redux-thunk';
 import configureStore from 'redux-mock-store';
-const middlewares = [thunkMiddleware];
 // функция, создающая стор
-const mockStore = configureStore(middlewares);
+const mockStore = configureStore();
 
 test('addTodo()', () => {
-    const initialState = {}
+    const initialState = { test: '123' }
     const store = mockStore(initialState);
     store.dispatch({ type: 'ADD' });
     expect(store.getActions()).toEqual([{ type: 'ADD' }]);
