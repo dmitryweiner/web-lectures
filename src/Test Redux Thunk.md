@@ -14,17 +14,17 @@ title: Лекции по фронтенду - Тестируем Redux Thunk
 
 ### Методика
 * Создаём поддельный стор, в котором мы сможем:
+  * Подменять состояние.
   * Наблюдать вызов экшенов.
-  * Отслеживать состояние.
 * Пишем моки на API, чтобы не ходить в сеть.
 * Вызываем асинхронный экшен (напрямую или в связанном компоненте).
 * Проверяем, что вызванные экшены соответствуют желаемым.
 * Логику редьюсеров тестируем отдельно.
-  
 ---
 
 ### Поддельный стор
 * Используем библиотеку [redux-mock-store](https://github.com/reduxjs/redux-mock-store).
+
 ```shell
 npm i -D redux-mock-store
 npm i -D @types/redux-mock-store # типы для TS
@@ -35,16 +35,13 @@ npm i -D @types/redux-mock-store # типы для TS
 import thunkMiddleware from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 const middlewares = [thunkMiddleware];
-const mockStore = configureStore(middlewares);
+const mockStore = configureStore(middlewares); // функция, создающая стор
 // в тесте
 const initialState = {}
 const store = mockStore(initialState);
 await store.dispatch(addTodo()); // Dispatch the action
-const actions = store.getActions(); // Test if your store dispatched the expected actions
-const expectedPayload = { type: 'ADD_TODO' };
-expect(actions).toEqual([expectedPayload]);
+expect(store.getActions()).toEqual({ type: 'ADD_TODO' });
 ```
-
 ---
 
 ### Модифицируем ```setupTests.js```
@@ -54,32 +51,19 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { reducer, initialState as originalInitialState } from './store';
 import thunkMiddleware from 'redux-thunk';
 import configureStore from 'redux-mock-store';
-//
+// тут пишем все middlewares (thunk, saga, etc.)
 const middlewares = [thunkMiddleware];
-const mockStore = configureStore(middlewares); // функция для создания стора
-//
+// функция для создания поддельного стора
+export const mockStore = configureStore(middlewares);
+// тестовый провайдер Redux
 const TestProvider = ({ store, children }) => <Provider store={store}>{children}</Provider>;
-//
+// замена функции render()
 export function testRender(ui, { store, ...otherOpts }) {
     return render(<TestProvider store={store}>{ui}</TestProvider>, otherOpts)
 }
-//
-export function makeTestStore({ initialState = originalInitialState, useMockStore = false } = {}) {
-    let store;
-    if (useMockStore) {
-        store = mockStore(initialState); // развилка
-    } else {
-        store = createStore(reducer, initialState)
-    }
-    const origDispatch = store.dispatch;
-    store.dispatch = jest.fn(origDispatch);
-    return store;
-}
 ```
-
 ---
 
 ### Моки API
@@ -92,7 +76,7 @@ npm i -D fetch-mock
 afterEach(() => fetchMock.reset()); // не забыть сбросить состояние
 //
 fetchMock.mock(
-    'URL', // какой адрес перехватывать
+    '%URL%', // какой адрес перехватывать
     {
         status: 200, // код ответа
         body: { id: 123 } // ответ сервера
@@ -103,7 +87,6 @@ fetchMock.mock(
 ```
 * [Шпаргалка](https://github.com/wheresrhys/fetch-mock/blob/master/docs/cheatsheet.md),
   [документация (хорошая)](http://www.wheresrhys.co.uk/fetch-mock/).
-
 ---
 
 ### Асинхронный экшен
@@ -120,12 +103,13 @@ export const addElement = (title: string) => async (dispatch: AppDispatch) => {
     }
 }
 ```
-
 ---
 
 ### Тест асинхронного экшена
 Не забыть про ```async/await```!
 ```js
+import { initialState } from './store';
+import { mockStore } from '../setupTests.js';
 afterEach(() => fetchMock.reset());
 //
 test('тестирование асинхронного экшена', async () => {
@@ -144,8 +128,9 @@ test('тестирование асинхронного экшена', async () 
             method: 'POST'
         }
     );
-    const store = makeTestStore({ useMockStore: true });
-    await store.dispatch(addElement(title)); // без await не работает
+    const store = mockStore(initialState);
+    // без await не работает!
+    await store.dispatch(addElement(title));
     expect(store.getActions()).toEqual([
         {type: ACTION_TYPES.SET_REQUEST_STATUS, payload: REQUEST_STATUS.LOADING},
         {type: ACTION_TYPES.ADD, payload: element},
@@ -153,7 +138,6 @@ test('тестирование асинхронного экшена', async () 
     ])
 });
 ```
-
 ---
 
 ### Тестирование компонента
@@ -161,7 +145,6 @@ test('тестирование асинхронного экшена', async () 
 * Проверяем, что компонент вызовет асинхронный экшен:
   * В массиве ```store.getActions()``` должен быть соответствующий экшен начала действия.
 * Что сам асинхронный экшен работает, мы проверили в предыдущей части.
-
 ---
 
 ### Тестирование формы
@@ -174,14 +157,15 @@ function innerSubmit(e: FormEvent) {
 ```
 * Проверим, что экшен начал работу:
 ```js
-expect(store.dispatch).not.toBeCalled();
-fireEvent.submit(screen.getByTestId('form')); // отправка формы
+const store = mockStore(initialState);
+expect(store.getActions().length).toBe(0);
+// отправка формы
+fireEvent.submit(screen.getByTestId('form'));
 expect(store.getActions()[0]).toEqual({
     type: ACTION_TYPES.SET_REQUEST_STATUS,
     payload: REQUEST_STATUS.LOADING
 });
 ```
-
 ---
 
 ### Полезные ссылки
