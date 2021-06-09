@@ -40,7 +40,7 @@ const mockStore = configureStore(middlewares); // функция, создающ
 const initialState = {}
 const store = mockStore(initialState);
 await store.dispatch(addTodo()); // Dispatch the action
-expect(store.getActions()).toEqual({ type: 'ADD_TODO' });
+expect(store.getActions()[0]).toEqual({ type: 'ADD_TODO' });
 ```
 ---
 

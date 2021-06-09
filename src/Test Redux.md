@@ -50,8 +50,7 @@ expect(add(text)).toEqual(expectedAction)
 * Создаём нужное состояние стора.
 * Создаём нужный экшен.
 * Вызываем редьюсер с нужным состоянием стора и нужным экшеном.
-* Смотрим, адекватные ли изменения.
-
+* Сверяем получившийся стор с эталонным состоянием.
 ---
 
 ### Тестирование редьюсера
@@ -71,8 +70,7 @@ function reducer(state = initialState, action) {
     }
 }
 ```
-
-----
+---
 
 ### Тестирование редьюсера
 * Тест на него:
@@ -87,30 +85,71 @@ const state = reducer(initialState, action);
 expect(state.list.length).toEqual(1);
 expect(state.list[0]).toEqual(text);
 ```
-
 ---
 
 ### Тестирование компонентов
-* Надо создать тестовый стор.
-* И обмануть компонент, обернув его в ```<Redux.Provider>```.
-* Для этого добавим в ```setupTests.js```:
+* Надо создать поддельный стор.
+* Чем плох настоящий стор от Redux?
+  * Нельзя взять полный список пришедших экшенов.
+  * Требует при создании редьюсер (его мы тестируем отдельно).
+* Используем библиотеку [redux-mock-store](https://github.com/reduxjs/redux-mock-store).
+
+```shell
+npm i -D redux-mock-store
+npm i -D @types/redux-mock-store # типы для TS
+``` 
+---
+
+### Пример использования redux-mock-store
+
+```js
+import thunkMiddleware from 'redux-thunk';
+import configureStore from 'redux-mock-store';
+const middlewares = [thunkMiddleware];
+// функция, создающая стор
+const mockStore = configureStore(middlewares);
+
+test('addTodo()', () => {
+    const initialState = {}
+    const store = mockStore(initialState);
+    store.dispatch({ type: 'ADD' });
+    expect(store.getActions()).toEqual([{ type: 'ADD' }]);
+});
+```
+---
+
+### ```setupTests.js```
+* Компонент, использующий Redux, должен быть обёрнут в ```<Redux.Provider>```.
+```js
+const TestProvider = ({
+                          store,
+                          children
+                      }) => <Provider store={store}>{children}</Provider>
+```
+* Имеющаяся функция render() из @testing-library/react так не умеет, поэтому напишем свою.
+```js
+export function testRender(ui, { store, ...otherOpts }) {
+    return render(<TestProvider store={store}>{ui}</TestProvider>, otherOpts);
+}
+```
+---
+
+### ```setupTests.js```
 
 ```js
 import React from 'react';
 import { render } from '@testing-library/react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+// функция для создания поддельного стора
+export const mockStore = configureStore();
 const TestProvider = ({
                           store,
                           children
                       }) => <Provider store={store}>{children}</Provider>
 export function testRender(ui, { store, ...otherOpts }) {
     return render(<TestProvider store={store}>{ui}</TestProvider>, otherOpts)
-}
-export function makeTestStore({ initialState, store = createStore(reducer, initialState)} = {}) {
-    const origDispatch = store.dispatch;
-    store.dispatch = jest.fn(origDispatch);
-    return store;
 }
 ```
 
@@ -126,7 +165,7 @@ function Component() {
 ```
 * Тест, что компонент всё отображает правильно:
 ```jsx
-const store = makeTestStore({ initialState: { counter: 123 } });
+const store = mockStore({ counter: 123 });
 testRender(<Component />, { store });
 expect(screen.getByText(/123/i)).toBeInTheDocument();
 ```
@@ -148,19 +187,16 @@ function Counter() {
 * Тест:
 
 ```jsx
-const store = makeTestStore();
+const store = mockStore();
 testRender(<Counter />, { store });
 fireEvent.click(getByTestId('button'));
-expect(store.dispatch).toHaveBeenCalledWith(actionInc());
+expect(store.getActions()).toEqual([actionInc()]);
 ```
 
 ---
 
 ### Что дальше?
-* Как тестировать асинхронные запросы к сети?
-  * [fetch-mock](https://redux.js.org/recipes/writing-tests#async-action-creators)
-
----
+* [Как тестировать асинхронные запросы к сети?](https://dmitryweiner.github.io/lectures/Test%20Redux%20Thunk.html#/)
 
 ### Полезные ссылки
 * [Официальная документация](https://redux.js.org/recipes/writing-tests)
