@@ -400,6 +400,7 @@ function TextInputWithFocusButton() {
 
 ## Полезные ссылки
 https://overreacted.io/how-are-function-components-different-from-classes/
+https://www.youtube.com/watch?v=9KJxaFHotqI
 
 ---
 
