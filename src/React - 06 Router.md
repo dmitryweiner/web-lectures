@@ -2,7 +2,7 @@
 title: React - Маршрутизация с помощью библиотеки react-router-dom
 ---
 
-## Маршрутизация с помощью библиотеки react-router-dom
+## Маршрутизация react-router-dom
 
 ![react-router-dom logo](assets/react-router/logo.png)
 
