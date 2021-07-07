@@ -12,7 +12,7 @@
 ## Продвинутый курс
 
 ### React
-* [Введение в React.js](https://dmitryweiner.github.io/lectures/)
+* [Введение в React.js](https://dmitryweiner.github.io/lectures/React%20-%2001%20Basic.html#/)
 * [Функциональные компоненты и хуки](https://dmitryweiner.github.io/lectures/React%20Hooks.html#/)
 * [Как работать с формами и контролами](https://dmitryweiner.github.io/lectures/React%20Form%20controls.html#/)
 * [Тестирование с помощью testing-library](https://dmitryweiner.github.io/lectures/Test%20React%20components.html#/)
