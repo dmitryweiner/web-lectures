@@ -1,8 +1,8 @@
 ---
-title: Лекции по фронтенду - React router
+title: React - Маршрутизация с помощью библиотеки react-router-dom
 ---
 
-## Библиотека react-router-dom
+## Маршрутизация с помощью библиотеки react-router-dom
 
 ![react-router-dom logo](assets/react-router/logo.png)
 

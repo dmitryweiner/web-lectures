@@ -1,5 +1,5 @@
 ---
-title: Лекции по фронтенду - TypeScript + Redux
+title: Redux - TypeScript
 ---
 
 ## TypeScript + Redux

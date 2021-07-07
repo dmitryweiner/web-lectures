@@ -1,6 +1,19 @@
----
-title: Лекции по фронтенду - Тестируем Redux
----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Redux - Тестируем Redux</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/sky.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
 
 ## Тестируем Redux
 
@@ -10,9 +23,7 @@ title: Лекции по фронтенду - Тестируем Redux
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 [видео](https://drive.google.com/file/d/1xqG4h7YNgbZaoOcCGKDQkOhXsERyPThO/view?usp=sharing)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Методика
 * Тестируем стор отдельно:
   * Создатели экешенов.
@@ -21,9 +32,7 @@ title: Лекции по фронтенду - Тестируем Redux
   * Правильно ли отрисовывают стор.
   * Вызывают ли правильные экшены.
 * [Документация](https://redux.js.org/recipes/writing-tests).
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Тестирование создателей экшенов
 * Создатель экшена:
 
@@ -43,16 +52,12 @@ const expectedAction = {
 }
 expect(add(text)).toEqual(expectedAction)
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Тестирование редьюсера
 * Создаём нужное состояние стора.
 * Создаём нужный экшен.
 * Вызываем редьюсер с нужным состоянием стора и нужным экшеном.
-* Сверяем получившийся стор с эталонным состоянием.
----
-
+* Сверяем получившийся стор с эталонным состоянием.</script></section><section  data-markdown><script type="text/template">
 ### Тестирование редьюсера
 * Редьюсер:
 
@@ -69,9 +74,7 @@ function reducer(state = initialState, action) {
             return state;
     }
 }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Тестирование редьюсера
 * Тест на него:
 
@@ -84,9 +87,7 @@ const action = {
 const state = reducer(initialState, action);
 expect(state.list.length).toEqual(1);
 expect(state.list[0]).toEqual(text);
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Тестирование компонентов
 * Надо создать поддельный стор.
 * Чем плох настоящий стор от Redux?
@@ -97,9 +98,7 @@ expect(state.list[0]).toEqual(text);
 ```shell
 npm i -D redux-mock-store
 npm i -D @types/redux-mock-store # типы для TS
-``` 
----
-
+``` </script></section><section  data-markdown><script type="text/template">
 ### Пример использования redux-mock-store
 
 ```js
@@ -113,9 +112,7 @@ test('addTodo()', () => {
     store.dispatch({ type: 'ADD' });
     expect(store.getActions()).toEqual([{ type: 'ADD' }]);
 });
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### ```setupTests.js```
 * Компонент, использующий Redux, должен быть обёрнут в ```<Redux.Provider>```.
 ```js
@@ -129,9 +126,7 @@ const TestProvider = ({
 export function testRender(ui, { store, ...otherOpts }) {
     return render(<TestProvider store={store}>{ui}</TestProvider>, otherOpts);
 }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### ```setupTests.js```
 
 ```js
@@ -150,9 +145,7 @@ export function testRender(ui, { store, ...otherOpts }) {
     return render(<TestProvider store={store}>{ui}</TestProvider>, otherOpts)
 }
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Тестирование отображения
 * Допустим, компонент берёт из стора ```store.counter```:
 ```jsx
@@ -167,9 +160,7 @@ const store = mockStore({ counter: 123 });
 testRender(<Component />, { store });
 expect(screen.getByText(/123/i)).toBeInTheDocument();
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Тест вызовов экшенов
 * Компонент при нажатии "+" вызывает соответствующий экшен:
 
@@ -190,13 +181,62 @@ testRender(<Counter />, { store });
 fireEvent.click(getByTestId('button'));
 expect(store.getActions()).toEqual([actionInc()]);
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Что дальше?
 * [Как тестировать асинхронные запросы к сети?](https://dmitryweiner.github.io/lectures/Test%20Redux%20Thunk.html#/)
 
 ### Полезные ссылки
 * [Официальная документация](https://redux.js.org/recipes/writing-tests)
 * [Пример тестирования Redux](https://gist.github.com/krawaller/e5d40217658fa132f3c3904987e467cd)
-* [Пост в блоге по мотивам примера](https://blog.krawaller.se/posts/unit-testing-react-redux-components/)
+* [Пост в блоге по мотивам примера](https://blog.krawaller.se/posts/unit-testing-react-redux-components/)</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>

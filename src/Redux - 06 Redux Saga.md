@@ -1,5 +1,5 @@
 ---
-title: Лекции по фронтенду - Redux Saga
+title: Redux - Redux Saga
 ---
 
 ![redux-saga logo](assets/redux-saga/Redux-Saga-Logo.png)

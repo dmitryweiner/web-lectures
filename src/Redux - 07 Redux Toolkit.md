@@ -1,5 +1,5 @@
 ---
-title: Лекции по фронтенду - Redux Toolkit
+title: Redux - Redux Toolkit
 ---
 
 ## Redux Toolkit

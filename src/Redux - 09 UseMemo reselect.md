@@ -1,5 +1,5 @@
 ---
-title: Лекции по фронтенду - Борьба с излишними рендерами в React.js useMemo reselect
+title: Redux - Борьба с излишними рендерами в React.js useMemo reselect
 ---
 
 ## Борьба с излишними рендерами в React.js

@@ -1,34 +1,41 @@
----
-title: Лекции по фронтенду - Redux Router
----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-## Redux Router
+    <title>Redux - Маршрутизация в Redux</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/sky.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+## Маршрутизация в Redux
 
 ![redux router](assets/redux-router/router-meme.png)
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner),
 [видео](https://youtu.be/8lexwi-SCB8)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Идея
 * Нужно сделать одностраничное приложение с несколькими страницами.
 * При переходе между страницами должна меняться адресная строка.
 * Если не используется Redux, можно спокойно использовать [react-router-dom](https://dmitryweiner.github.io/lectures/React%20Router.html#/).
 * Надо подружить роутер и Redux, чтобы можно было менять роуты не только из компонентов, но и из экшенов и других мест.
 * Для этого роут и история хранятся в сторе!
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Выбор библиотеки
 * Раньше бы я порекомендовал [react-router-redux](https://github.com/reactjs/react-router-redux).
 * Но её разработка прекращена в 2018 году.
 * Автор советует переходить на [connected-react-router](https://github.com/supasate/connected-react-router).
 * Её и будем использовать.
 * [Эта библиотека не единственная](https://github.com/markerikson/redux-ecosystem-links/blob/master/routing.md).
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Установка и подключение
 ```shell
 npm i connected-react-router
@@ -39,9 +46,7 @@ npm i -D @types/history # опционально, для использующи�
   * Для хостинга в каталоге ```createHashHistory```. https://username.github.io/app/#/path
 * Добавляем редьюсер ```router``` и ```routerMiddleware(history)```.
 * Оборачиваем ```<App>``` в ```<ConnectedRouter>```.
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ```store/index.ts```
 
 ```ts
@@ -59,9 +64,7 @@ const store = createStore(
     applyMiddleware(thunkMiddleware, routerMiddleware(history))
 );
 export default store;
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ```store/reducers/index.ts```
 
 Предполагается, что стор уже
@@ -78,9 +81,7 @@ const createRootReducer = (history: History) => combineReducers({
 })
 //
 export default createRootReducer;
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ```index.tsx```
 
 ```tsx
@@ -95,9 +96,7 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 );
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Важная деталь работы
 * При переходе по роуту происходит событие c типом ```LOCATION_CHANGE```:
 ```js
@@ -115,9 +114,7 @@ case LOCATION_CHANGE:
         ...state,
         someStateProperty: false
     }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Switch
 * Внутри ```<App>``` используется компонент ```<Switch>```, в котором лежат нужные роуты.
 * [Ознакомиться c работой Route, Switch](https://dmitryweiner.github.io/lectures/React%20Router.html#/6).
@@ -134,9 +131,7 @@ import { Route, Switch } from 'react-router';
 npm i react-router react-router-dom
 npm i -D @types/react-router @types/react-router-dom # для TS
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Переход по роутам
 * В компоненте:
 ```js
@@ -152,9 +147,7 @@ import { push } from 'connected-react-router';
     push('/login');
 }}>login</div>
 ```  
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Переход по роуту из асинхронного экшена
 ```js
 import { push } from 'connected-react-router';
@@ -164,9 +157,7 @@ export const login = (username, password) => (dispatch) => {
   dispatch(push('/home'))
 };
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Переход из саги
 ```js
 import { push } from 'connected-react-router'
@@ -176,9 +167,7 @@ export function* login(username, password) {
   /* do something before redirection */
   yield put(push('/home'))
 }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Переход назад или вперёд
 ```js
 import { goBack, goForward, go } from 'connected-react-router';
@@ -186,9 +175,7 @@ import { goBack, goForward, go } from 'connected-react-router';
 dispatch(goBack()); // назад по истории
 dispatch(goForward()); // вперёд по истории
 dispatch(go(-2)); // на 2 шага назад
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Узнать текущие параметры роутера
 * Они лежат в сторе:
 ```js
@@ -207,9 +194,7 @@ location = {
     }
 }
 ```
-
----
-
+</script></section><section ><section data-markdown><script type="text/template">
 ### Как получить параметры из роута ```route/:id```
 * Всё очень плохо, разработчики предлагают костыли. 
   Можно сходить поставить 👍 за нормальное решение в 
@@ -225,9 +210,7 @@ function User() {
     return <>{match?.params.id}</>;
 }
 ```
-
-----
-
+</script></section><section data-markdown><script type="text/template">
 * Костыль похуже:
 
 ```tsx
@@ -242,11 +225,61 @@ function User() {
     return <>{match?.params.id}</>;
 }
 ```
-
----
-
+</script></section></section><section  data-markdown><script type="text/template">
 ### Полезные ссылки
 * [Документация](https://github.com/supasate/connected-react-router).
 * [ЧаВо](https://github.com/supasate/connected-react-router/blob/master/FAQ.md).
 * [Примеры](https://github.com/supasate/connected-react-router/blob/master/examples).
 * [Список возможных роутеров](https://github.com/markerikson/redux-ecosystem-links/blob/master/routing.md).
+</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>

@@ -1,6 +1,19 @@
----
-title: Лекции по фронтенду - Тестируем Redux Thunk
----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Redux - Тестируем Redux Thunk</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/sky.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
 
 ## Тестируем Redux Thunk
 
@@ -9,9 +22,7 @@ title: Лекции по фронтенду - Тестируем Redux Thunk
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 [видео](https://drive.google.com/file/d/1gGJaIE0CzD7yv8Ya0T7wayXgdI3ZMYmz/view?usp=sharing)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Методика
 * Создаём поддельный стор, в котором мы сможем:
   * Подменять состояние.
@@ -19,9 +30,7 @@ title: Лекции по фронтенду - Тестируем Redux Thunk
 * Пишем моки на API, чтобы не ходить в сеть.
 * Вызываем асинхронный экшен (напрямую или в связанном компоненте).
 * Проверяем, что вызванные экшены соответствуют желаемым.
-* Логику редьюсеров тестируем отдельно.
----
-
+* Логику редьюсеров тестируем отдельно.</script></section><section  data-markdown><script type="text/template">
 ### Поддельный стор
 * Используем библиотеку [redux-mock-store](https://github.com/reduxjs/redux-mock-store).
 
@@ -41,9 +50,7 @@ const initialState = {}
 const store = mockStore(initialState);
 await store.dispatch(addTodo()); // Dispatch the action
 expect(store.getActions()[0]).toEqual({ type: 'ADD_TODO' });
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Модифицируем ```setupTests.js```
 
 ```js
@@ -63,9 +70,7 @@ const TestProvider = ({ store, children }) => <Provider store={store}>{children}
 export function testRender(ui, { store, ...otherOpts }) {
     return render(<TestProvider store={store}>{ui}</TestProvider>, otherOpts)
 }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Моки API
 * Используем библиотеку ```fetch-mock```:
 ```shell
@@ -86,9 +91,7 @@ fetchMock.mock(
 );
 ```
 * [Шпаргалка](https://github.com/wheresrhys/fetch-mock/blob/master/docs/cheatsheet.md),
-  [документация (хорошая)](http://www.wheresrhys.co.uk/fetch-mock/).
----
-
+  [документация (хорошая)](http://www.wheresrhys.co.uk/fetch-mock/).</script></section><section  data-markdown><script type="text/template">
 ### Асинхронный экшен
 ```js
 export const addElement = (title: string) => async (dispatch: AppDispatch) => {
@@ -102,9 +105,7 @@ export const addElement = (title: string) => async (dispatch: AppDispatch) => {
         dispatch(setRequestStatus(REQUEST_STATUS.ERROR));
     }
 }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Тест асинхронного экшена
 Не забыть про ```async/await```!
 ```js
@@ -137,16 +138,12 @@ test('тестирование асинхронного экшена', async () 
         {type: ACTION_TYPES.SET_REQUEST_STATUS, payload: REQUEST_STATUS.SUCCESS}
     ])
 });
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Тестирование компонента
 * Инициируем действие, вызывающее запуск асинхронного экшена.
 * Проверяем, что компонент вызовет асинхронный экшен:
   * В массиве ```store.getActions()``` должен быть соответствующий экшен начала действия.
-* Что сам асинхронный экшен работает, мы проверили в предыдущей части.
----
-
+* Что сам асинхронный экшен работает, мы проверили в предыдущей части.</script></section><section  data-markdown><script type="text/template">
 ### Тестирование формы
 * Допустим форма вызывает экшен при отправке:
 ```ts
@@ -165,12 +162,61 @@ expect(store.getActions()[0]).toEqual({
     type: ACTION_TYPES.SET_REQUEST_STATUS,
     payload: REQUEST_STATUS.LOADING
 });
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Полезные ссылки
 * [Документация по redux-mock-store](https://github.com/reduxjs/redux-mock-store).
 * [Использование fetch-mock (по документации Redux)](https://redux.js.org/recipes/writing-tests#async-action-creators).
 * [Шпаргалка по fetch-mock](https://github.com/wheresrhys/fetch-mock/blob/master/docs/cheatsheet.md).
 * [Документация по fetch-mock](http://www.wheresrhys.co.uk/fetch-mock/).
-* [Пространные рассуждения о том, как писать тесты](https://michalzalecki.com/testing-redux-thunk-like-you-always-want-it/).
+* [Пространные рассуждения о том, как писать тесты](https://michalzalecki.com/testing-redux-thunk-like-you-always-want-it/).</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>

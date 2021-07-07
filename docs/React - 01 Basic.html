@@ -1,81 +1,78 @@
----
-title: Лекции по фронтенду - React основы
----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>React - Основы</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/sky.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
 
 ## React: основы
 
 ![react logo](assets/react-basic/react-logo.png)
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Схема работы веб-приложения
 1. Отреагировать на действия пользователя:
     * клики;
     * ввод данных;
 2. Послать какие-нибудь запросы в сеть, получить ответы;
 3. Изменить состояние;
-4. Перерисовать интерфейс.
----
-
+4. Перерисовать интерфейс.</script></section><section  data-markdown><script type="text/template">
 ### Идея
 * Что если написать библиотеку, которая будет перерисовывать интерфейс **автоматически**
   в ответ на изменение состояния?
 * Хорошо бы она переририсовывала интефейс не весь, а **только то,
   что изменилось**.
-* Тогда мы сможем отделить логику от представления.
----
-
+* Тогда мы сможем отделить логику от представления.</script></section><section  data-markdown><script type="text/template">
 ### Обновление DOM-дерева
 * Реакт строит виртуальное [DOM-дерево](https://ru.wikipedia.org/wiki/Document_Object_Model).
 * При изменении состояния дерево обновляется.
-* Далее происходит отрисовка только только того, что изменилось.
----
-
+* Далее происходит отрисовка только только того, что изменилось.</script></section><section  data-markdown><script type="text/template">
 ### Обновление DOM-дерева
-![DOM update](assets/react-basic/dom.gif)
----
-
+![DOM update](assets/react-basic/dom.gif)</script></section><section  data-markdown><script type="text/template">
 ### Установка
 * Использование [CDN](https://ru.wikipedia.org/wiki/Content_Delivery_Network).
 * Создание проекта с помощью [CRA](https://github.com/facebook/create-react-app).
 * Редактирование конфига Webpack вручную.
-* На слайдах далее ➡
----
-
+* На слайдах далее ➡</script></section><section  data-markdown><script type="text/template">
 ### Использование CDN
 * Для маленьких проектов удобнее использовать React без транспиляции и сборки.
 * Транспиляция будет происходить прямо в браузере благодаря библиотеке [Babel Standalone](https://babeljs.io/docs/en/babel-standalone).
 * Для запуска нужно подключить 2 библиотеки:
   * React.
-  * React-DOM.
----
-
+  * React-DOM.</script></section><section  data-markdown><script type="text/template">
 ### Использование CDN
 ```html
 <!doctype html>
 <html lang="ru">
 <head>
     <meta charset="utf-8">
-    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js">__SCRIPT_END__
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js">__SCRIPT_END__
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js">__SCRIPT_END__
     <script type="text/babel">
         function App() {
             return <>Hello world</>;
         }
         ReactDOM.render(<App/>, document.getElementById('root'));
-    </script>
+    __SCRIPT_END__
 </head>
 <body>
     <div id="root"></div>
 </body>
 </html>
 ```
-[Живой пример](https://dmitryweiner.github.io/907sv-react/counter.html)
----
-
+[Живой пример](https://dmitryweiner.github.io/907sv-react/counter.html)</script></section><section  data-markdown><script type="text/template">
 ### Create React App
 * Можно воспользоваться создателем приложений:
 ```shell
@@ -87,9 +84,7 @@ npx create-react-app %имя_приложения%
   * redux-typescript
 ```shell
 npx create-react-app my-app --template [template-name]
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Ручное создание конфига для webpack
 * Пример конфига:
 ```js
@@ -158,9 +153,7 @@ module.exports = {
     }
 };
 ```
-* [Пример проекта](https://github.com/dmitryweiner/html-chat).
----
-
+* [Пример проекта](https://github.com/dmitryweiner/html-chat).</script></section><section  data-markdown><script type="text/template">
 ### Компонент
 * В реакте всё состоит из компонентов.
 * Корневой компонент по традиции называется ```App```, он монтируется в DOM:
@@ -171,9 +164,7 @@ function App() {
 ReactDOM.render(<App/>, document.getElementById('root'));
 ```
 * Компонент &mdash; это функция, которая должна возвращать [JSX](https://reactjs.org/docs/introducing-jsx.html).
-* В JSX могут быть HTML-теги или другие компоненты.
----
-
+* В JSX могут быть HTML-теги или другие компоненты.</script></section><section  data-markdown><script type="text/template">
 ### Вызов компонента
 * Компонент может быть вызван из другого компонента:
 ```js
@@ -192,9 +183,7 @@ function Item({ title }) {
 function App() {
     return <><Item title="123" /></>;
 }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Вызов компонента
 В компонент можно передавать не только строки, но и числа, и переменные:
 ```jsx
@@ -205,9 +194,7 @@ function App() {
     someFunction={functionName} // ссылка на функцию
     anotherFunction={() => console.log(123)} // анонимная функция 
 />
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Узлы JSX
 * JSX состоит из узлов (листьев). Нельзя вернуть несколько узлов просто так.
 * Они должны быть обёрнуты в <></> (Это короткая запись [React.Fragment](https://reactjs.org/docs/fragments.html)).
@@ -222,9 +209,7 @@ return <>
     <p>Покормить кота</p>
     <p>Искупать рыб</p>
 </>;
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### JSX и фигурные скобки { }
 * В фигурных скобках можно писать любой валидный код.
 * То, что он вернёт, будет встроено в DOM или передано компоненту.
@@ -233,9 +218,7 @@ return <>
 {new Date().toLocaleDateString()}{/* выдаст текущую дату */}
 {1 + '1'}{/* выдаст 11 */}
 {[1, 2, 3]}{/* ошибка! */}
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Вывод списков
 * Элементы списка [должны обладать атрибутом key](https://reactjs.org/docs/lists-and-keys.html),
   чтобы при изменении списка не обновлять его весь, а только изменённые элементы. 
@@ -250,9 +233,7 @@ function List() {
         </li>)}
     </ul>;
 }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Вывод списков
 * Если у элементов есть id, нужно использовать его.
 ```jsx
@@ -263,12 +244,60 @@ function List({ items }) {
         </li>)}
     </ul>;
 }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Условия в JSX
-https://reactjs.org/docs/conditional-rendering.html
----
-### Полезные ссылки
+https://reactjs.org/docs/conditional-rendering.html</script></section><section  data-markdown><script type="text/template">### Полезные ссылки
 * https://learn-reactjs.ru/home
 * https://jstutorial.medium.com/react-animated-tutorial-7a46fa3c2b96
+</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>

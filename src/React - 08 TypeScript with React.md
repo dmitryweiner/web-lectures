@@ -1,5 +1,5 @@
 ---
-title: Лекции по фронтенду - TypeScript + React
+title: React - TypeScript
 ---
 
 ## TypeScript + React
@@ -141,9 +141,10 @@ npm i --save-dev @types/react-dom @types/react
   не импортировать React в файлах, в которых используется JSX.
 * Но в TypeScript придётся это сделать, иначе будет ошибка:
 > 'React' refers to a UMD global, but the current file is a module.
+
 ```tsx
 // Так придётся делать в начале файла
-import React from 'react';
+import React from 'src/react';
 ```
 
 ---

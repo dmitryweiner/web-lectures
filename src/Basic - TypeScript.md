@@ -1,5 +1,5 @@
 ---
-title: Лекции по фронтенду - TypeScript
+title: Basic - TypeScript
 ---
 
 ## TypeScript

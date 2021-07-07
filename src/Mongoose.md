@@ -1,6 +1,3 @@
----
-title: Лекции по фронтенду - Mongoose
----
 
 ## Mongoose.js
 

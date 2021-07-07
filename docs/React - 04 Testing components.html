@@ -1,6 +1,19 @@
----
-title: Лекции по фронтенду - Тестирование компонентов в React
----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>React - Тестирование компонентов в React</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/sky.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
 
 ## React: тестирование компонентов
 
@@ -11,9 +24,7 @@ title: Лекции по фронтенду - Тестирование комп�
 Видео: [1](https://drive.google.com/file/d/1oG1geSnRc68Lj-lm-g9u7f506GgHq6gm/view?usp=sharing),
 [2](https://drive.google.com/file/d/1R-ke3qpaJOxy0HFrEkkjxE-a39srlX6Z/view?usp=sharing),
 [3](https://drive.google.com/file/d/1WmCb0--oRzK4cjPm8IXIgxTRRbgnqwGe/view?usp=sharing)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Типовой тест
 
 Этот тест создаётся автоматически при ```npx create-react-app```
@@ -28,9 +39,7 @@ test('renders learn react link', () => {
   expect(linkElement).toBeInTheDocument();
 });
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Идеология тестирования
 
 * Black box: без знаний о компоненте.
@@ -38,9 +47,7 @@ test('renders learn react link', () => {
 * White box: со знанием устройства компонента.
 
 ![black and white box](assets/react-testing/box.jpg)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Методика тестирования
 
 * Отрендерить компонент.
@@ -50,9 +57,7 @@ test('renders learn react link', () => {
 * Взять его содержимое.
 * Проверить на соответствие ожиданиям.
 * [Шаблон Arrange Act Assert](https://medium.com/@pjbgf/title-testing-code-ocd-and-the-aaa-pattern-df453975ab80)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Setup / teardown
 
 * Используется для создания и удаления тестовых данных, которые могут понадобиться в ходе тестов.
@@ -60,9 +65,7 @@ test('renders learn react link', () => {
   * **afterEach**: выполнить код после каждого теста.
   * **beforeAll**: выполнить код перед запуском тестов (коннект к базе, например).
   * **afterAll**: выполнить код после запуска (удаление тестовых данных).
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Рендер компонента
 
 * Метод **render**:
@@ -75,9 +78,7 @@ render(<Component prop="value" />);
 ```
 
 * Результат лежит в **screen**.
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Поиск нужных элементов
 
 ```javascript
@@ -94,9 +95,7 @@ screen.getByText(/Item #[0-9]: /);
 * **ByTitle**: по тайтлу.
 * **ByAltText**: по параметру alt="".
 [Документация](https://testing-library.com/docs/react-testing-library/cheatsheet/#queries)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Варианты поиска
 
 ```javascript
@@ -104,9 +103,7 @@ await screen.findByText(/Item #[0-9]: /);
 ```
 
 ![таблица](assets/react-testing/variants.png)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Варианты поиска
 
 * Синхронные: getBy<>, getAllBy<>, queryBy<>, queryAllBy<>.
@@ -114,9 +111,7 @@ await screen.findByText(/Item #[0-9]: /);
   * Ждут 1 секунду, пока элемент появится, потом exception.
   * Можно изменить время ```findByText('text', { timeout: 5000 })```
   * Обработчик теста должен быть async.
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Поиск
 
 * Ищем вот этот DIV
@@ -142,9 +137,7 @@ getByText(/Hello W?oRlD/i); // advanced regex
 // Кастомная функция поиска:
 getByText((content, element) => content.startsWith('Hello'));
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Ожидание реакции компонента
 
 **waitFor()**: Вызывает функцию до тех пор, пока она не перестанет выбрасывать исключение,
@@ -155,9 +148,7 @@ await waitFor(() => screen.getByRole('alert'));
 // короткая запись такого:
 await screen.findByRole('alert');
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Эмуляция событий
 
 * fireEvent.<имя события>(найденная нода)
@@ -175,9 +166,7 @@ fireEvent.input(element, {
   * submit
   * input
 * [Список событий](https://github.com/testing-library/dom-testing-library/blob/master/src/event-map.js).
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Изменения стейта и асинхронность
 
 * Изменение стейта и последующий рендер происходят не мгновенно.
@@ -185,9 +174,7 @@ fireEvent.input(element, {
 * Для этого используется метод **act**(() => {}) ([документация](https://reactjs.org/docs/testing-recipes.html#act)).
 * Оборачиваем в act то, что меняет стейт (даже рендер).
 * Асинхронные методы поиска элементов findBy<что-то> уже [содержат в себе act](https://testing-library.com/docs/dom-testing-library/api-async/).
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Работа с таймером
 
 * Настоящий таймер.
@@ -207,9 +194,7 @@ jest.useRealTimers(); // отключить фейковые таймеры (aft
 ```
 
 [Документация](https://jestjs.io/docs/en/timer-mocks)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Ожидания
 
 * expect(что-то).to<ожидание>()
@@ -222,9 +207,7 @@ jest.useRealTimers(); // отключить фейковые таймеры (aft
 * **toHaveClass**: навешен нужный класс.
 
 [Полный список](https://github.com/testing-library/jest-dom#custom-matchers), [Jest matchers](https://jestjs.io/docs/en/using-matchers)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Проверка на существование и несуществование
 * Проверить, что элемент находится на экране, просто:
 ```js
@@ -236,9 +219,7 @@ expect(screen.queryByTestId('button')).toBeNull();
 ```
 * **Важное замечание:** HTML-элемент после скрытия нужно найти заново, т.к. он пересоздаётся.
 * [Документация](https://testing-library.com/docs/guide-disappearance/)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Проверка внутреннего состояния инпута
 * Когда нужно проверить, что в интпут введено нужно значение:
 ```js
@@ -250,17 +231,13 @@ expect(input.value).toEqual(title);
 const input = screen.getByTestId('checkbox');
 expect(input.checked).toEqual(true);
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Примеры
 * Дальше приведено несколько примеров для иллюстрации представленных ранее идей.
 * Следует воспринимать этот код критически, не стоит слепо копировать его себе в проект.
 * Вначале мы формулируем спецификацию на будущий компонент, потом описываем её в виде теста.
 * Потом пишем компонент, чтобы он проходил тест. Допустимо делать это параллельно.
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Пример с представлением
 
 * Написать компонент, который просто отображает проп text.
@@ -277,9 +254,7 @@ test('renders what it got', () => {
   expect(element).toHaveTextContent(text);
 });
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Компонент-представление
 
 * Потом пишем компонент, чтобы тест проходил
@@ -289,9 +264,7 @@ function Component({ text }) {
     return <span data-testid="component">{text}</span>;
 }
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Компонент-список
 
 * Написать компонент, который отображает массив строк.
@@ -311,9 +284,7 @@ test('renders full list', () => {
   }
 });
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Негативный кейс
 
 * Напишем тест на случай с пустым массивом:
@@ -328,9 +299,7 @@ test('renders empty list', () => {
   expect(element).toHaveTextContent('Список пуст');
 });
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Напишем компонент, проходящий тесты
 
 ```jsx
@@ -351,9 +320,7 @@ function List({ list }) {
   </ul>;
 }
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Кнопка
 
 * Должна отображать надпись, переданную в title.
@@ -373,9 +340,7 @@ test('renders empty list', () => {
   expect(handleClick).toBeCalled();
 });
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Кнопка
 
 * Реализация кнопки довольно лаконичная:
@@ -385,9 +350,7 @@ function Button({ title, handleClick }){
   return <button onClick={handleClick}>{title}</button>;
 }
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Форма
 
 * Должна отображать поле.
@@ -395,9 +358,7 @@ function Button({ title, handleClick }){
 * При сабмите формы вызывается handleSubmit.
 * Этому обработчику в виде параметра передаётся объект вида ```{field: "что-то ввели"}```.
 * То, что пришло обработчику, должно совпадать с тем, что ввели.
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Форма
 
 * Тест:
@@ -419,9 +380,7 @@ test('can enter text and submit', () => {
   ));
 });
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Форма
 
 * Компонент:
@@ -443,9 +402,7 @@ function Form({ handleSubmit }) {
 }
 ```
 
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Таймер
 
 * При появлении на экране таймер начинает отсчитывать секунды.
@@ -466,9 +423,7 @@ test('timer works', async () => {
     jest.useRealTimers();
 });
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Таймер
 
 * Компонент:
@@ -487,9 +442,7 @@ function Timer() {
   return <span data-testid="timer">{count}</span>;
 }
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Полезные ссылки
 
 * Testing-library:
@@ -498,3 +451,55 @@ function Timer() {
   * [Список matchers](https://github.com/testing-library/jest-dom#custom-matchers)
 * [Список matchers jest](https://jestjs.io/docs/en/using-matchers)
 * [Рецепты тестирования реакта](https://reactjs.org/docs/testing-recipes.html)
+</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>

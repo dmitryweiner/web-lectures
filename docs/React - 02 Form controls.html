@@ -1,6 +1,19 @@
----
-title: Лекции по фронтенду - React controls
----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>React - Form controls</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/sky.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
 
 ## React controls
 
@@ -9,9 +22,7 @@ title: Лекции по фронтенду - React controls
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 [видео](https://drive.google.com/file/d/10gS_1sMo1geO3lKOGANuvBlQa0dXmvv9/view?usp=sharing)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Варианты работы с инпутом
 
 * [Uncontrolled](https://reactjs.org/docs/uncontrolled-components.html)
@@ -23,9 +34,7 @@ title: Лекции по фронтенду - React controls
 * [Controlled](https://reactjs.org/docs/forms.html#controlled-components)
     * Текущее значение хранится в стейте.
     * При изменениях меняет стейт. 
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Варианты uncontrolled
 
 * Поле только для чтения (гвоздями прибито некоторое значение).
@@ -39,9 +48,7 @@ title: Лекции по фронтенду - React controls
 ```  
 
 * defaultValue можно применять и для controlled-полей.
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### События
 
 У инпута случаются разнообразные события:
@@ -52,9 +59,7 @@ title: Лекции по фронтенду - React controls
 * onSubmit: отправка формы.
 * [Полный список](https://www.w3schools.com/jsref/dom_obj_event.asp)
 * [Список с объяснениями](https://www.w3schools.com/tags/ref_eventattributes.asp)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Работа с событиями
 
 ```jsx
@@ -68,9 +73,7 @@ function Component() {
 * event: произошедшее событие.
 * event.target: DOM-элемент, в котором оно произошло.
 * event.target.value: текущее значение элемента (кроме чекбокса).
-* event.target.checked: текущее значение чекбокса.
----
-
+* event.target.checked: текущее значение чекбокса.</script></section><section  data-markdown><script type="text/template">
 ### Вмешательство в работу событий
 
 ```jsx
@@ -88,9 +91,7 @@ function Form() {
 ```
 * event.preventDefault(): отмена обычной обработки события (отправки формы в данном случае).
 * [Работа с дефолтными действиями](https://learn.javascript.ru/default-browser-action)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Вмешательство в работу событий
 #### Отмена перехода по ссылке
 ```jsx
@@ -101,9 +102,7 @@ function Link() {
     return <a href="#" onClick={handleClick}>Click me!</a>;
 }
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Текстовое поле
 
 <input value="42" />
@@ -121,9 +120,7 @@ function TextField() {
             Вы ввели: {text}
         <>;
 }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Кнопка
 
 <button>Нажми меня!</button>
@@ -135,9 +132,7 @@ function Button({ title }) {
     }
     return <button onClick={handeClick}>{title}</button>;
 }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Текстовое поле
 
 ```jsx
@@ -150,9 +145,7 @@ function Button({ title }) {
     * email: <input type="email" />
     * password: <input type="password" />
     * date: <input type="date" />
-* Поддерживается не всеми браузерами.
----
-
+* Поддерживается не всеми браузерами.</script></section><section  data-markdown><script type="text/template">
 ### Чекбокс
 
 <label><input type="checkbox" />Выбери меня!</label>
@@ -168,9 +161,7 @@ function Checkbox() {
         {isChecked ? 'checked' : 'not checked'}
     </>;
 }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Радио-кнопки
 
 Объединяются в группу по одному и тому же name:
@@ -198,9 +189,7 @@ function Radio() {
         You selected: {value}
     </>;
 }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Радио-кнопки поумнее
 
 <input type="radio" name="r">Быть</input>
@@ -222,9 +211,7 @@ function Radio() {
         You selected: {variants[value]}
     </>;
 }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Ползунок
 
 <input type="range"/>
@@ -246,9 +233,7 @@ function Range({ max = 0, min = 100 }) {
     Current value: {value}
   </>;
 }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Селектбокс
 
 <select>
@@ -271,9 +256,7 @@ function Select() {
     Selected: {variants[value]}
   </>;
 }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Селектбокс поумнее
 
 * Идея в том, чтобы вынести варианты в структуру и сравнивать с ней в дальнейшем.
@@ -298,9 +281,7 @@ Object.keys(variants)
 ```js
 Object.values(variants)
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Селектбокс поумнее
 
 ```jsx
@@ -321,9 +302,7 @@ function Select() {
 if (selected === variants.ADD) {
     //...
 }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Множественный селектбокс
 
 <select multiple>
@@ -350,8 +329,58 @@ function MultipleSelect() {
     Selected: {value.join(',')}
   </>;
 }
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ![Попьём-ка чайку](assets/react-controls/updating-state.jpeg)
 
+</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>

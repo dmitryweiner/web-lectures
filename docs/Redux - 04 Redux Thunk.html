@@ -1,50 +1,55 @@
----
-title: Лекции по фронтенду - Redux и обращение к API
----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-## Redux: обращение к API
+    <title>Redux - Асинхронные запросы с помощью redux-thunk</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/sky.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+## Redux: асинхронные запросы с помощью redux-thunk
 
 ![poor cat](assets/redux-api/Make-an-API.jpeg)
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 [Видео](https://drive.google.com/file/d/1ddXI9pbTwAUW-mympJw-pvqUv5QtGfr8/view?usp=sharing)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ![state diagram](assets/redux-api/state-diagram.png)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### С точки зрения компонента
 ![ui view](assets/redux-api/ui.png)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Важно!
 * Пользователь **очень** не любит, когда он "писал-писал, а всё исчезло".
 * При переходе в состояние ошибки **ЗАПРЕЩЕНО** очищать поля ввода.
 * Если же запрос отработал успешно, поля ввода можно и очистить (если так заложено в логике компонента).
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Redux-thunk
 * Чтобы работали асинхронные запросы, необходимо поставить redux-thunk:
 ```shell
  npm i redux-thunk
 ```
 * Добавить его в middleware при создании стора:
+
 ```ts
 // store.ts
 import thunkMiddleware from 'redux-thunk';
-import { createStore, applyMiddleware } from 'redux';
+import {createStore, applyMiddleware} from 'src/Redux - 01 Basic';
+
 const store = createStore(reducer, applyMiddleware(thunkMiddleware));
-export type AppDispatch =  typeof store.dispatch; // пригодится
+export type AppDispatch = typeof store.dispatch; // пригодится
 export default store; // подключим в index.ts
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Store
 * ```requestStatus```: поле, где лежит текущее состояние запроса 
   * ```IDLE```, ```LOADING```, ```SUCCESS```, ```ERROR```.
@@ -52,9 +57,7 @@ export default store; // подключим в index.ts
 * Допустимо не выделять состояние ```SUCCESS```, если это никак не отображается в UI.
 * ```error```: поле, где лежит ошибка.
 * ```data```: поле, где лежит то, за чем ходили в API (название для примера).
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Store
 ```ts
 enum REQUEST_STATUS {
@@ -70,9 +73,7 @@ type Store = {
     error: string;
 }
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Action
 * Вывешиваем флаг LOADING.
 * Отправляем запрос на сервер.
@@ -82,9 +83,7 @@ type Store = {
 * Если неудача:
   * Вывешиваем флаг ERROR.
   * Сохраняем ошибку в стор.
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Actions
 * Установка текущего статуса запроса:
 ```ts
@@ -107,9 +106,7 @@ const saveError = (error: string) => ({
     payload: error
 });
 ```
-
----
-
+</script></section><section ><section data-markdown><script type="text/template">
 ### Action отправки запроса
 * Тип ```dispatch``` берём [из ```store```](https://dmitryweiner.github.io/lectures/Redux%20API.html#/4).
 ```ts
@@ -132,9 +129,7 @@ const saveNewItem = (value: string) => async (dispatch: AppDispatch) => {
     }
 };
 ```
-
-----
-```ts
+</script></section><section data-markdown><script type="text/template">```ts
 function saveNewItem(value: string) {
     return function (dispatch) {
         const newObject = {
@@ -159,9 +154,7 @@ function saveNewItem(value: string) {
     }
 }
 
-```
----
-
+```</script></section></section><section  data-markdown><script type="text/template">
 ### На всякий случай
 * Если в асинхронном экшене понадобится текущее состояние стора, можно его получить вторым аргументом:
 ```js
@@ -170,9 +163,7 @@ const asyncAction = () => async (dispatch, getState) => {
     // тут некий код, учитывающий state
 };
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Reducer
 ```ts
 case ACTION_TYPES.SET_REQUEST_STATUS:
@@ -191,9 +182,7 @@ case ACTION_TYPES.SET_RESULT:
         data: action.payload
     };
 ```
-
----
-### Component
+</script></section><section  data-markdown><script type="text/template">### Component
 * Подготавливаем данные для отображения:
 ```ts
 const dispatch = useDispatch();
@@ -215,9 +204,7 @@ useEffect(() => {
 {data && <>{data}</>}
 <button onClick={() => dispatch(saveNewItem('новый объект!'))}>send</button>
 ```
-
----
-
+</script></section><section ><section data-markdown><script type="text/template">
 ### Недостатки подхода
 * Код обработки ошибок дублируется в каждом экшене.
 * Выделим его в отдельный файл ```api.ts```:
@@ -247,9 +234,7 @@ const api = {
 };
 export default api;
 ```
-
-----
-
+</script></section><section data-markdown><script type="text/template">
 ### Экшен становится лаконичнее
 ```ts
 export const addElement = (title: string) => async (dispatch: AppDispatch) => {
@@ -266,18 +251,14 @@ export const addElement = (title: string) => async (dispatch: AppDispatch) => {
     }
 }
 ```
-
----
-
+</script></section></section><section  data-markdown><script type="text/template">
 ### Плюсы и минусы подхода в целом:
 * Плюсы:
   * Просто.
 * Минусы:
   * При разрастании будет много однотипного кода для каждого endpoint API.
   * Засорение стора однотипными полями для каждого endpoint'а.
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Что делать дальше?
 * Библиотека [redux-api-call](https://github.com/tungv/redux-api-call):
 ```js
@@ -297,20 +278,67 @@ createAction({
 ```
 * Библиотека [redux-query](https://github.com/amplitude/redux-query):
   * [Пример](https://amplitude.github.io/redux-query/docs/examples/simple).
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Как это тестировать?
 
 [Лекция про тестирование redux-thunk](https://dmitryweiner.github.io/lectures/Test%20Redux%20Thunk.html#/)
 
 ![tdd](assets/tdd/tdd.jpeg)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Полезные ссылки
 * [Как работать с fetch](https://learn.javascript.ru/fetch).
 * [Официальная документация по асинхронным запросам](https://redux.js.org/tutorials/fundamentals/part-6-async-logic).
 * [Ещё документация](https://redux.js.org/tutorials/essentials/part-5-async-logic).
 * [Сервер, отвечающий нужным HTTP-кодом](http://httpstat.us/404).
-* [Тестовое API](https://jsonplaceholder.typicode.com/posts).
+* [Тестовое API](https://jsonplaceholder.typicode.com/posts).</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>

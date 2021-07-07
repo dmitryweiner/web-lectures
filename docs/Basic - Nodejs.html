@@ -1,6 +1,19 @@
----
-title: Лекции по фронтенду - Nodejs
----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Basic - Nodejs</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/sky.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
 
 ## Node.js
 
@@ -9,18 +22,14 @@ title: Лекции по фронтенду - Nodejs
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 [видео](https://youtu.be/JcV7XtC5On0)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 * Node.js &mdash; программная платформа, основанная на движке V8
 (транслирующем JavaScript в машинный код), превращающая JavaScript
 из узкоспециализированного языка в язык общего назначения.
 * Создан в 2009г.
 * Создатель [Райан Дал](https://tinyclouds.org/).
 
-![Ryan Dahl](assets/nodejs/Ryan_Dahl.jpeg)
----
-
+![Ryan Dahl](assets/nodejs/Ryan_Dahl.jpeg)</script></section><section  data-markdown><script type="text/template">
 ### Node.js
 * Выполняется не в браузере, а на уровне системы.
 * Имеет доступ к файлам, сети, устройствам.
@@ -33,9 +42,7 @@ title: Лекции по фронтенду - Nodejs
   версию 14.
 * [Установка](https://nodejs.org/ru/download/).
 * [Документация](https://nodejs.org/api/documentation.html).
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Модули
 * Стандарт модулей называется [CommonJS](https://nodejs.org/docs/latest/api/modules.html).
 * В модуле:
@@ -55,16 +62,12 @@ module.exports = {
 ```js
 const { usefulFunction } = require('./module.js');
 usefulFunction(3);
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### ES6 модули
 * Поддержка ES6 модулей есть c 16-й версии Node.js.
 * У файла должно быть расширение ```*.mjs```.
 * [Документация](https://nodejs.org/api/esm.html).
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Мониторинг и управление
 * Глобальный объект ```process``` (не нужно импортировать).
 * Можно прерывать выполнение процесса, считывать аргументы и многое другое:
@@ -76,9 +79,7 @@ console.log(process.env);
 // выйти с кодом 1
 process.exit(1);
 ```
-* [Документация](https://nodejs.org/api/process.html).
----
-
+* [Документация](https://nodejs.org/api/process.html).</script></section><section  data-markdown><script type="text/template">
 ### Разбор аргументов
 * В ```process.argv``` лежит массив аргументов, не очень удобно с ним работать.
 * Очень удобная библиотека [yargs](https://github.com/yargs/yargs) парсит аргументы и выводит подсказки.
@@ -104,9 +105,7 @@ yargs(hideBin(process.argv))
         description: 'Run with verbose logging'
     })
     .argv
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Работа с файлами
 * Используется библиотека ```fs``` (устанавливать не нужно).
 * Операции бывают:
@@ -121,9 +120,7 @@ yargs(hideBin(process.argv))
     fs.readFile('./input1.txt', {encoding:'utf8', flag:'r'}, (err, data) => {});
   ```
 * [Документация](https://nodejs.org/api/fs.html).
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Сервер
 * Используется библиотека ```http``` (устанавливать не надо).
 ```js
@@ -143,9 +140,7 @@ server.listen(3000, '127.0.0.1', () => {
     const { address, port } = server.address();
     console.log(`Сервер запущен ${address}:${port}`);
 });
-```
----
-
+```</script></section><section  data-markdown><script type="text/template">
 ### Сервер статики
 ```js
 var fs = require('fs'),
@@ -162,22 +157,16 @@ http.createServer(function (req, res) {
         res.end(data);
     });
 }).listen(8080);
-```
----
-
+```</script></section><section ><section data-markdown><script type="text/template">
 ### Event loop
 * Программа на Node.js выполнится и завершится.
 * Если были установлены обработчики асинхронных операций, программа не завершится немедленно,
   а будет ждать окончания выполнения этих операций.
 * [Хорошая статья про это](https://jinoantony.com/blog/setimmediate-vs-process-nexttick-in-nodejs)
   ([перевод](https://medium.com/devschacht/event-loop-timers-and-nexttick-18579cd122e0)).
-* Порядок выполнения обработчиков показан на рисунке ⬇️
-----
-
+* Порядок выполнения обработчиков показан на рисунке ⬇️</script></section><section data-markdown><script type="text/template">
 ![event loop](assets/nodejs/event-loop.png)
-
----
-
+</script></section></section><section  data-markdown><script type="text/template">
 ### Фреймворки
 * Adonis.js
 * [Express.js](https://expressjs.com/)
@@ -190,22 +179,67 @@ http.createServer(function (req, res) {
 * Nest.js
 * Sails.js
 * [Обзор фреймворков](https://medium.com/dailyjs/which-one-is-the-best-node-js-framework-choosing-among-10-tools-87a0e191eefd).
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Менеджеры запуска
 * Приложения на node.js периодически падают, хорошо бы их перезапускать автоматически:
 * [nodemon](https://www.geeksforgeeks.org/nodejs-automatic-restart-nodejs-server-with-nodemon/?ref=rp)
-* [pm2](https://pm2.keymetrics.io/docs/usage/quick-start/)
----
-
+* [pm2](https://pm2.keymetrics.io/docs/usage/quick-start/)</script></section><section  data-markdown><script type="text/template">
 ### Альтернативы node.js
 * [Deno](https://deno.land/) от создателя Node.js.
 * Rust.
 * Go.
 * PHP.
 * Python + Django.
+</script></section><section  data-markdown><script type="text/template">
+![seal programming in nodejs](assets/nodejs/seal.jpeg)</script></section></div>
+    </div>
 
----
+    <script src="./dist/reveal.js"></script>
 
-![seal programming in nodejs](assets/nodejs/seal.jpeg)
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
