@@ -1,7 +1,7 @@
 # Лекции по фронтенду 
 #### [Все лекции](https://dmitryweiner.github.io/lectures/)
 
-## Базовый курс
+## Для начинающих: Введение во фронтенд
 * [HTML](https://dmitryweiner.github.io/lectures/Basic%20-%20HTML.html)
 * [CSS](https://dmitryweiner.github.io/lectures/Basic%20-%20CSS.html)
 * [JavaScript](https://dmitryweiner.github.io/lectures/Basic%20-%20JS.html)
@@ -9,8 +9,9 @@
 * [Node.js](https://dmitryweiner.github.io/lectures/Basic%20-%20Nodejs.html)
 * [NPM](https://dmitryweiner.github.io/lectures/Basic%20-%20NPM.html)
 * [Git](https://dmitryweiner.github.io/lectures/Basic%20-%20Git.html)
+* [Webpack](https://dmitryweiner.github.io/lectures/Basic%20-%20Webpack.html)
 
-## Продвинутый курс
+## Для продолжающих: Экосистема React + Redux
 
 ### React
 * [Введение в React.js](https://dmitryweiner.github.io/lectures/React%20-%20Basic.html#/)
@@ -31,4 +32,18 @@
 * [Redux Toolkit](https://dmitryweiner.github.io/lectures/Redux%20-%20Redux%20Toolkit.html#/)
 * [TypeScript + Redux](https://dmitryweiner.github.io/lectures/Redux%20-%20TypeScript%20with%20Redux.html#/)
 * [Борьба с излишними рендерами с помощью reselect](https://dmitryweiner.github.io/lectures/Redux%20-%20UseMemo%20reselect.html#/)
+
+## Для профессионалов: Fullstack
+* [Как выкладывать сайт в интернет](https://dmitryweiner.github.io/lectures/Deploy.html#/)
+* [Серверный фреймворк Express](https://dmitryweiner.github.io/lectures/Express.html#/)
+* [База данных MongoDB](https://dmitryweiner.github.io/lectures/Mongo.html#/)
+* [ORM Mongoose](https://dmitryweiner.github.io/lectures/Mongoose.html#/)
+* [Фреймворк Vue](https://dmitryweiner.github.io/lectures/.html#/)
+* [Менеджер состояний VueX](https://dmitryweiner.github.io/lectures/.html#/)
+* [Фреймворк Angular](https://dmitryweiner.github.io/lectures/.html#/)
+* [Фреймворк Svelte](https://dmitryweiner.github.io/lectures/.html#/)
+* [Оптимизация загрузки в React: lazy load, chunks](https://dmitryweiner.github.io/lectures/.html#/)
+* [Анализ причин для рендера в React](https://dmitryweiner.github.io/lectures/.html#/)
+* [Анализ бандла в Webpack](https://dmitryweiner.github.io/lectures/.html#/)
+* [Рендер на сервере на примере фреймворка Next](https://dmitryweiner.github.io/lectures/.html#/)
 
