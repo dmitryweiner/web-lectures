@@ -195,7 +195,7 @@ function App() {
 ```
 ---
 
-### Вызов компонента
+### Параметры вызова
 В компонент можно передавать не только строки, но и числа, и переменные:
 ```jsx
 <Component
@@ -208,16 +208,61 @@ function App() {
 ```
 ---
 
+### Использование props
+* Параметры, переданные в компонент, называются пропсами (props, от properties).
+* Как только родитель меняет пропсы, компонент перерисовывается автоматически.
+* Пропсы удобно [деструктурировать](https://learn.javascript.ru/destructuring#destrukturizatsiya-obekta)
+  прямо в компоненте.
+* Заодно можно задать значения по умолчанию.
+* Пропсов может быть произвольное количество, если использовать [оператор ...rest](https://learn.javascript.ru/rest-parameters-spread-operator).
+---
+
+### Использование props
+```jsx
+// ❌
+function Component(props) {
+    return <>
+        {props.text}
+    </>;
+}
+// ✅
+function Component({ // деструктуризация
+   text = 'Default text', // параметры по умолчанию
+   ...otherProps // ...rest
+}) {
+    return <>
+        {text}
+    </>;
+}
+```
+---
+
+### Вложенные компоненты
+* Компонент по сути представляет собой тэг.
+* Внутри него могут быть другие компоненты.
+Компонент родитель может оборачивать другие компоненты (потомков).
+* Потомки передаются в пропсы в виде ```children```:
+```jsx
+function Child({ text }) {
+    return {text}
+}
+function Parent({ children }) {
+    return <b>{children}</b>
+}
+<Parent>
+    <Child text="Some text..." />
+</Parent>
+```
+---
 ### Узлы JSX
+* Компонент должен возвращать JSX или ```null```.
 * JSX состоит из узлов (листьев). Нельзя вернуть несколько узлов просто так.
 * Они должны быть обёрнуты в <></> (Это короткая запись [React.Fragment](https://reactjs.org/docs/fragments.html)).
-* Так неправильно ❌:
 ```jsx
+// ❌
 return <p>Покормить кота</p>
      <p>Искупать рыб</p>;
-```
-* Так правильно ✅:
-```jsx
+// ✅
 return <>
     <p>Покормить кота</p>
     <p>Искупать рыб</p>
@@ -267,8 +312,39 @@ function List({ items }) {
 ---
 
 ### Условия в JSX
-https://reactjs.org/docs/conditional-rendering.html
+* В фигурных скобках ```{}``` может быть любой JS. 
+Можно реализовать условный рендер с помощью [ленивых вычислений](https://learn.javascript.ru/logical-ops#korotkiy-tsikl-vychisleniy):
+```jsx
+const showLink = true;
+//
+{showLink && <a>Link</a>}
+```
+* Можно использовать [тернарный оператор](https://learn.javascript.ru/ifelse):
+```jsx
+const shortOrLong = true;
+//
+{shortOrLong ? <p>Short text</p> : <p>Long text</p>}
+```
+* [Подробнее](https://reactjs.org/docs/conditional-rendering.html).
 ---
+
+### Условия в JSX
+* Крупные условия надо реализовывать в виде функций и вызывать их из шаблона:
+```jsx
+// ❌
+{ (condition1 && condition2 || condition3) ? 'some text' : 'another text' }
+// ✅
+function renderText() {
+  if (condition1 && condition2 || condition3) {
+    return 'some text';
+  }
+  return 'another text';
+}
+//
+{renderText()}
+```
+---
+
 ### Полезные ссылки
 * https://learn-reactjs.ru/home
 * https://www.codecademy.com/learn/react-101
