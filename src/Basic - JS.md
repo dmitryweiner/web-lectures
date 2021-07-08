@@ -135,3 +135,4 @@ title: Basic - JavaScript
 ---
 
 https://learn.javascript.ru/
+https://htmlacademy.ru/courses/343

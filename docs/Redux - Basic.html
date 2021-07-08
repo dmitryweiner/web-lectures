@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Redux - Основы</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/sky.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+## React + Redux
+
+![React + Redux](assets/redux/redux-logo.jpeg)
+
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
+
+Видео: [про Redux](https://drive.google.com/file/d/1d6FYASBSJiL36QM-n-7y046K94sxTD-1/view?usp=sharing),
+[про раскукоживание стора](https://youtu.be/LIra64O9juo).
+</script></section><section  data-markdown><script type="text/template">
+### State management
+* Можно хранить состояние приложения размазанным по компонентам.
+* Плюсы:
+  * Просто. Не надо думать.
+  * Всё под рукой.
+* Минусы:
+  * Приходится пробрасывать потомками стейт и методы изменения.
+  * Может нарушиться консистентность.
+  * Изменения очень дорогие.
+</script></section><section  data-markdown><script type="text/template">
+## Идея
+
+![data flow](assets/redux/data-flow.png)
+</script></section><section  data-markdown><script type="text/template">
+### Redux
+* Библиотека управления состоянием.
+* Авторы: [Dan Abramov](https://github.com/gaearon) и [Andrew Clark](https://github.com/acdlite).
+* Дата первого релиза: 2.06.2015.
+* Текущая версия: 4.0.
+* [Документация](https://redux.js.org/api/api-reference).
+* [Учебникъ](https://redux.js.org/tutorials/fundamentals/part-1-overview).
+</script></section><section  data-markdown><script type="text/template">
+![схема работы](assets/redux/redux-diagram.gif)
+</script></section><section  data-markdown><script type="text/template">
+## Плюсы
+* Состояние приложения лежит в одном единственном месте.
+* Изменения атомарные и последовательные.
+* Можно восстановить историю изменений.
+* Не нужно прокидывать в компоненты state и dispatch.
+</script></section><section  data-markdown><script type="text/template">
+## Минусы
+* Немного сложно с непривычки.
+* Много кода.
+* Много новых файлов.
+* Легко запутаться в изменениях стейта.
+</script></section><section  data-markdown><script type="text/template">
+## Подключение 
+* Установка:
+```shell
+npm i redux react-redux
+```
+* Создание стора (в ```store.js```):
+```js
+import { createStore } from 'redux';
+const store = createStore(reducer);
+export default store;
+```
+* Подключение в приложение (в ```index.js```):
+```js
+import { Provider } from 'react-redux';
+const rootElement = document.getElementById('root');
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>, rootElement);
+```
+</script></section><section  data-markdown><script type="text/template">
+### Middleware
+* [Документация](https://redux.js.org/tutorials/fundamentals/part-4-store#middleware).
+* Можно вмешиваться в процесс обработки экшенов для логирования или добавления асинхроннности.
+```js
+const middlewareEnhancer = applyMiddleware(logger, thunk);
+const store = createStore(rootReducer, middlewareEnhancer);
+```
+</script></section><section  data-markdown><script type="text/template">
+## State-first подход
+* Думаем вначале, что будет лежать в сторе.
+  * В TS: явно описываем тип стора.
+* Описываем его начальное значение (что показывается, при загрузке приложения).
+```js
+const initialState = {
+    items: [],
+    filterByDone: false
+};
+```
+</script></section><section  data-markdown><script type="text/template">
+### Actions
+* Определяем константами имена (типы) экшенов:
+```js
+const ADD = 'add';
+const REMOVE = 'remove';
+```
+* Разумнее сделать структуру с типами экшенов:
+```js
+const ACTION_TYPES = {
+    ADD: 'add',
+    REMOVE: 'remove'
+};
+```</script></section><section  data-markdown><script type="text/template">
+### Action creators
+* Чтобы не писать экшен каждый раз при вызове ```dispatch```:
+```js
+// допускается, но не одобряется
+dispatch({type: ACTION_TYPES.ADD, payload: 'text'});
+```
+* Заводят специальные функции, создающие экшен:
+```js
+const add = content => ({
+    type: ACTION_TYPES.ADD,
+    payload: content
+});
+```
+* В эти функции можно передавать параметры.
+</script></section><section  data-markdown><script type="text/template">
+## Reducer
+* Функция, которая делает из старого стейта новый на основании пришедшего экшена.
+* Стейт не должен мутировать.
+* Должен быть пункт default.
+```js
+function reducer(state = initialState, action) {
+    switch (action.type) {
+        case ADD: {
+            return { // это мутатор:
+                ...state,
+                list: [...state.list, action.payload]
+            }
+        }
+        /* тут ещё мутаторы */
+        default:
+              return state;
+    }
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Reducer: особенности
+* [Стейт иммутабелен.](https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns)
+  Изменять объекты нельзя, пересоздавать можно.
+  * Иначе React не отрисует изменения.
+* Мутаторы можно выделять в отдельные методы, если там много кода.
+  * Если там много кода, возможно происходит что-то не то.
+* Дефолтный пункт для случаев, когда пришёл экшен, а мутатора нет.
+* В редьюсере не должно быть асинхронной логики.
+</script></section><section  data-markdown><script type="text/template">
+### Компоновка редьюсеров
+* Когда редьюсер становится слишком большим и начинает содержать логику, относящуюся к разным
+  сущностям, имеет смысл разделить его на несколько логических частей.
+* Если изначально известно, что в стейте будет несколько разных сущностей, стоит писать разные
+  редьюсеры сразу.
+* [Документация](https://redux.js.org/tutorials/fundamentals/part-3-state-actions-reducers#combining-reducers).
+</script></section><section  data-markdown><script type="text/template">
+### Компоновка редьюсеров
+* Редьюсеры объединяются с помощью 
+  [```combineReducers```](https://redux.js.org/recipes/structuring-reducers/using-combinereducers):
+```js
+import { combineReducers } from 'redux';
+import todosReducer from './features/todos/todosSlice';
+import filtersReducer from './features/filters/filtersSlice';
+const rootReducer = combineReducers({
+    todos: todosReducer,
+    filters: filtersReducer
+});
+export default rootReducer;
+```
+</script></section><section  data-markdown><script type="text/template">
+## [Счётчик с кнопками](https://dmitryweiner.github.io/907sv-react/redux-counter.html)
+```js
+const ACTION_INC = 'inc';
+const ACTION_DEC = 'dec';
+
+const actionInc = () => ({
+    type: ACTION_INC,
+});
+
+const actionDec = () => ({
+    type: ACTION_DEC,
+});
+
+const initialState = {
+    counter: 0
+};
+
+function reducer(state = initialState, action) {
+    switch (action.type) {
+        case ACTION_INC: {
+            return {
+                ...state,
+                counter: state.counter + 1
+            };
+        }
+        case ACTION_DEC: {
+            return {
+                ...state,
+                counter: state.counter - 1
+            };
+        }
+        default: {
+            return state;
+        }
+    }
+}
+
+const store = Redux.createStore(reducer);
+
+function App() {
+    const dispatch = ReactRedux.useDispatch();
+    const counter = ReactRedux.useSelector(state => state.counter);
+    return (
+        <>
+            <button onClick={() => dispatch(actionDec())}>-</button>
+            {counter}
+            <button onClick={() => dispatch(actionInc())}>+</button>
+        </>
+    );
+}
+const rootElement = document.getElementById('root');
+ReactDOM.render(
+    <ReactRedux.Provider store={store}>
+        <App />
+    </ReactRedux.Provider>,
+    rootElement
+);
+```
+</script></section><section  data-markdown><script type="text/template">
+## Селекторы
+* Если нужно из стейта получить отдельные поля или некую отфильтрованную информацию.
+* Чтобы не писать этот код везде, его выделяют в селекторы.
+* Селектор представляет собой функцию, принимающую на вход стейт и возвращающую то, что надо:
+```js
+const filteredListSelector = state => {
+    if (state.filterChecked) {
+        return state.list.filter(item => item.isChecked);
+    }
+    return state.list;
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Использование с React.js
+* Функциональные компоненты:
+  * Хуки useDispatch, useSelector.
+* Компоненты-классы:
+  * connect
+  * mapStateToProps
+  * mapDispatchToProps
+
+</script></section><section  data-markdown><script type="text/template">
+## Компоненты-классы
+* [Документация](https://react-redux.js.org/introduction/basic-tutorial#connecting-the-components).
+* Компонент оборачивается в функцию ```connect(mapStateToProps, mapDispatchToProps)(Component)```.
+* mapStateToProps: функция, выделяющая из стейта только те поля, которые нужны компоненту.
+* mapDispatchToProps: создаёт диспатчеры для нужных экшенов.
+</script></section><section  data-markdown><script type="text/template">
+## Компоненты-классы
+```js
+class ReduxComponent extends React.Component {
+    render() {
+        return <>
+            {this.props.counter}
+            <button onClick={() => this.props.increment()}>+</button>
+        </>;
+    }
+}
+function mapStateToProps(state) {
+    return { counter: state.counter };
+}
+function mapDispatchToProps(dispatch) {
+    return {
+        increment: () => dispatch({type: 'INCREMENT'})
+    };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ReduxComponent);
+```
+</script></section><section  data-markdown><script type="text/template">
+## Функциональные компоненты
+* [Документация](https://react-redux.js.org/api/hooks).
+* Свежий стейт и его срезы можно получить от хука ```useSelector```.
+* ```dispatch``` можно получить от хука ```useDispatch```. 
+</script></section><section  data-markdown><script type="text/template">
+## useSelector
+* Без функции-селектора:
+```js
+import { useSelector } from 'react-redux';
+function Component() {
+    const counter = useSelector(state => state.counter); // речь об этой функции
+    return <>{counter}</>;
+}
+```
+* Но лучше перенести эту функцию в стор:
+```js
+const filteredListSelector = state => {
+    if (state.filterChecked) {
+        return state.list.filter(item => item.isChecked);
+    }
+    return state.list;
+}
+// ...
+import { useSelector } from 'react-redux';
+// в компоненте
+const list = useSelector(filteredListSelector);
+```
+</script></section><section  data-markdown><script type="text/template">
+## Вызов dispatch
+* Создание экшена налету:
+```js
+import { useDispatch } from 'react-redux';
+// в компоненте:
+const dispatch = useDispatch();
+// ...
+<button onClick={() => dispatch({type: ADD, payload: 'text'})}>Add</button>
+```
+* Вызов функции создания экшена:
+```js
+import { useDispatch } from 'react-redux';
+// в компоненте:
+const dispatch = useDispatch();
+// ...
+<button onClick={() => dispatch(actionDec())}>-</button>
+```
+</script></section><section  data-markdown><script type="text/template">
+## Расширение браузера для Redux
+* [Для Хрома](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en).
+* [Для Огнелиса](https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/).
+* [Подключение](https://github.com/zalmoxisus/redux-devtools-extension#11-basic-store):
+```js
+const store = createStore(
+   reducer, /* preloadedState, */
+   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+```
+</script></section><section ><section data-markdown><script type="text/template">
+## Расширение браузера для Redux
+![Redux Devtools](assets/redux/devtools.png)
+</script></section><section data-markdown><script type="text/template">
+![Redux Devtools](assets/redux/devtools2.png)
+</script></section></section><section  data-markdown><script type="text/template">
+## Организация кода
+* В одном файле.
+  * Подходит только совсем маленьким проектам.
+* В папке redux (ducks).
+  * Когда планируется много разных сущностей в сторе с несвязанной логикой.
+* По фичам.
+  * Под каждую фичу отводится своя папка с кусками стора и компонентами.
+</script></section><section  data-markdown><script type="text/template">
+### Пример разбиения
+* [Репозиторий](https://github.com/dmitryweiner/redux-store).
+* [Видео](https://youtu.be/LIra64O9juo).
+* **Внимание!** Во избежание непонятных ошибок из-за циклических импортов:
+  * Глобальный initialState должен лежать в индексе стора.
+  * initialState отдельных слайсов должны лежать там же, где их редьюсеры.</script></section><section  data-markdown><script type="text/template">
+## Папка redux
+[Живой пример](https://codesandbox.io/s/9on71rvnyo).
+
+![redux](assets/redux/redux-dirs.png)
+</script></section><section  data-markdown><script type="text/template">
+## Фичи-каталоги
+[Живой пример](https://codesandbox.io/s/3x6jx7p0r6)
+
+![redux features](assets/redux/redux-features.png)
+</script></section><section  data-markdown><script type="text/template">
+## Что можно улучшить?
+* А как делать асинхронные запросы в сеть?
+  * [Redux Thunk](https://github.com/reduxjs/redux-thunk)
+* Запутался, какой экшен следует за каким?
+  * [Redux Saga](https://redux-saga.js.org/docs/introduction/GettingStarted)
+* Селекторы пересчитываются при каждом рендере, помогити!
+  * [Reselect](https://github.com/reduxjs/reselect)
+* Слишком много разрозненных файлов, можно это будет структура с мутаторами и экшенами?
+  * [Redux Toolkit](https://redux-toolkit.js.org/introduction/getting-started)
+  </script></section><section  data-markdown><script type="text/template">
+## Полезные ссылки
+* [Руководство на русском](https://rajdee.gitbooks.io/redux-in-russian/content/).
+* [Лекция Эндрю Кларка про реакт](https://www.youtube.com/watch?v=ZVYVtUFDf28).
+* [Статья на русском](https://tproger.ru/translations/redux-for-beginners/).
+* [Работающее приложение](https://codesandbox.io/s/9on71rvnyo).
+* [Ещё одно](https://codesandbox.io/s/3x6jx7p0r6).
+</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
