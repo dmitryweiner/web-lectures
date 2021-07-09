@@ -2,9 +2,9 @@
 title: React - Функциональные компоненты и хуки
 ---
 
-## Функциональные компоненты в React
+## React: FC и хуки
 
-![Капитан Крюк](assets/fc/captain.png)
+![state management](assets/react-controls/state-management.png)
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
@@ -12,210 +12,164 @@ title: React - Функциональные компоненты и хуки
 
 ---
 
-### Функциональный компонент VS компонент класс
+### FC vs Class
+* Изначально в реакте писали [компоненты-классы](https://reactjs.org/docs/react-component.html).
+* Но у них было несколько существенных недостатков:
+  * Многословность.
+  * Потеря контекста ```this``` в обработчиках.
+  * Трудности с оптимизацией производительности.
+* Сейчас (2021) отраслевой стандарт &mdash; функциональные компоненты.
+---
 
+### Функциональный компонент VS компонент класс
 ![functional component vs class](assets/fc/fc-vs-classes.gif)
+----
 
+![Good bye sweet prince](assets/fc/meme.jpg)
 ---
 
-### Функциональный компонент VS компонент класс
-
-| Class | FC |
-|-------|----|
-| Есть конструктор  |  Редуцирован до рендер функции  |
-| Есть методы жизненного цикла | Вместо этого хуки |
-| Перерисовывается, когда меняются props и state | Перерисовывается, когда меняются props и работают хуки (useState) |
----
-
-### Компонент-представление
-
-#### Было
-
-```javascript
-class ShowSomething extends React.Component {
-    render() {
-        return <span>{this.props.somethingToShow}</span>;
-    }
-}
-```
-
-#### Стало
-
-```javascript
-function ShowSomething({ somethingToShow }) {
-    return <span>{somethingToShow}</span>;
-}
-```
-
----
-
-### У функции тоже может быть состояние
+### Разделяем чистую функцию и состояние
+* По определению компонента он должен быть 
+  [чистой функцией](https://ru.wikipedia.org/wiki/%D0%A7%D0%B8%D1%81%D1%82%D0%BE%D1%82%D0%B0_%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8).
+* Чистая функция не может иметь состояние или производить сайд-эффекты.
+  * Эти идеи пришли в реакт из функционального программирования 
+    ([Lisp](https://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%81%D0%BF),
+    [Haskell](https://ru.wikipedia.org/wiki/Haskell)).
+* Чтобы иметь состояние и/или вызывать эффекты,
+  используются специальные функции внутри компонента, хуки.
+----
 
 ![Состояние у функции](assets/fc/functions-state.png)
-
 ---
 
 ### Список хуков
-
-* Базовые
-  * useState
-  * useEffect
-  * useContext
-* Дополнительные
-  * useRef
-  * useMemo
-  * useCallback
-  * useReducer
-    
+```js
+import {
+    // Базовые
+        useState,
+        useEffect,
+        useContext,
+    // Дополнительные
+        useRef,
+        useMemo,
+        useCallback,
+        useReducer
+} from 'react';
+```
 [Полный список](https://reactjs.org/docs/hooks-reference.html)
+----
 
+![Капитан Крюк](assets/fc/captain.png)
 ---
 
 ### Правила вызова хуков
-* Вызовы хуков должны располагаться на первом уровне вложенности компонента-функции
-* Нельзя оборачивать их в условные конструкции или циклы
-* Т.к. реакту важен порядок вызова хуков, если он изменится, начнутся _странности_
-[Подробнее](https://reactjs.org/docs/hooks-rules.html)
-
----
-
-
-### Аналогии с методами жизненного цикла
-
-| Class | FC |
-|-------|----|
-| конструктор, выполняется один раз при создании |  - |
-| componentDidMount | useEffect(() => {}, [])  |
-| componentWillUnmount | useEffect(() => { return () => {}}, [])  |
-| this.state, setState() | useState |
-| this.value | useRef |
-
+* Хук вызывается внутри компонента.
+* Важен порядок вызова хуков, если он изменится, начнутся _странности_.
+* Вызовы хуков должны располагаться на первом уровне вложенности компонента-функции.
+* Нельзя оборачивать их в условные конструкции или циклы.
+* [Подробнее](https://reactjs.org/docs/hooks-rules.html).
 ---
 
 ### useState
-
 ```javascript
 const [value, setValue] = useState(initialValue);
 ```
-
 * value &mdash; текущее значение: когда меняется, компонент перерисовывается.
-* setValue(newValue) &mdash; метод установки нового значения.
-* setValue может принимать на вход функцию prevValue => nextValue.  
+* setValue(newValue) &mdash; метод установки нового значения, сеттер.
 * initialValue &mdash; начальное значение.
-
-[документация](https://reactjs.org/docs/hooks-reference.html#usestate)
-
+* [Документация](https://reactjs.org/docs/hooks-reference.html#usestate)
 ---
 
-### Было: компонент со стейтом
-
+### useState сеттер
 ```javascript
-class Counter extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            count: props.initialCount
-        };
-    }
-    render() {
-        const { count } = this.state;
-        return <>
-            <button>
-                onClick={() => this.setState({ count: count + 1 })}>
-                Click me!
-            </button>
-            { count }
-        </>;
-    }
-}
+const [value, setValue] = useState(initialValue);
 ```
+* Сеттер принимает на вход ИЛИ:
+    * Новое значение.
+    ```js
+    setValue(123);
+    ```
+    * Функцию, которая принимает на вход старое значение и должна вернуть новое.  
+    ```js
+    setValue(value => value + 1);
+    ```
 ---
 
-### Стало: функциональный компонент со стейтом
+### useState сеттер
+* Вызов сеттера вызывает перерисовку компонента.
+  * По сути, функция-компонент выполняется заново с новым значением стейта.
+* После вызова сеттера значение стейта ещё старое:
+```js
+const [value, setValue] = useState(123);
+console.log(value); // >>> 123
+setValue(456);
+console.log(value); // >>> 123
+```
+* Значение изменится только при следующем рендере.
+---
 
+### Простейший счётчик
 ```javascript
-function ShowSomething({ initialCount }) {
+function Counter({ initialCount }) {
     const [count, setCount] = useState(initialCount);
     return <>
-        <button>
-            onClick={() => setCount(count + 1)}>
+        <button onClick={() => setCount(count + 1)}>
             Click me!
         </button>
         { count }
     </>;
 }
 ```
+[Живой пример](https://dmitryweiner.github.io/react-standalone/counter.html)
 ---
 
 ### useEffect
-
-* Выполняется после коммита рендера
-* Можно имитировать методы componentDidMount и componentDidUpdate
-* useEffect вызывается асинхронно, сразу после того, как применится изменение к DOM. То есть он гарантирует,
-  что он будет выполнен после рендера компонента, и может привести к следующему рендеру, если какие-то 
-  значения изменятся.
-
+* Хук для сайд-эффектов вроде таймера или обращения к сети.
+* Выполняется после [фазы коммита](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/).
+* useEffect вызывается асинхронно, сразу после того, как применится изменение к DOM.
+  То есть он гарантирует,  что он будет выполнен после рендера компонента,
+* Эффект может привести к следующему рендеру, если стейт изменится.
+* Эффект вызывается при изменении списка зависимостей.
 ---
 
 ### useEffect
-
 ```javascript
 useEffect(() => {
     /* effect code */ 
     return () => {/* shutdown code */};
 }, [dependencies]);
 ```
-
-* Принимает на вход колбек и зависимости
-* Колбэк возвращает метод, который будет вызван в следующий цикл отрисовки (аналог componentWillUnmount)
-
-[документация](https://reactjs.org/docs/hooks-reference.html#useeffect)
-
+* Принимает на вход колбек и зависимости.
+* Колбэк возвращает метод, который будет вызван в следующий цикл отрисовки, чтобы прибрать за собой:
+  * Отменить таймеры, например.
+  * Освободить память.
+* Эффект вызывается при изменении списка зависимостей ```dependencies```.
+* [Документация](https://reactjs.org/docs/hooks-reference.html#useeffect).
 ---
 
-### useEffect: особенности
-* Если не передать второй параметр (или передать null), эффект будет вычисляться каждый рендер.
-* Если передать вторым параметром пустой массив, эффект выполнится 1 раз (componentDidMount).
-* Сравнение "изменился ли" происходит по ссылке, поля объекта не сравниваются.
-* [Документация: про второй параметр, зависимости](https://reactjs.org/docs/hooks-reference.html#conditionally-firing-an-effect).
-* [Хорошее объяснение](https://overreacted.io/a-complete-guide-to-useeffect/).
-
+### useEffect: ```dependencies```
+* ```js
+  useEffect(() => {}); // [dependencies] === undefined
+  ```
+  * Эффект будет вычисляться каждый рендер.
+* ```js
+  useEffect(() => {}, []);
+  ```
+  * Эффект выполнится 1 раз после монтирования компонента.
+* [Документация](https://reactjs.org/docs/hooks-reference.html#conditionally-firing-an-effect),
+  [хорошее объяснение](https://overreacted.io/a-complete-guide-to-useeffect/).
 ---
 
-### Компонент-класс Таймер
-Напишем компонент в старом стиле. При монтировании этого компонента начинает идти таймер. 
-При удалении таймер останавливается.
-```javascript
-class Timer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { time: 0 };
-        this.timerId = null;
-    }
-    componentDidMount() {
-        this.timerId = setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
-    }
-    componentWillUnmount() {
-        clearInterval(this.timerId);
-    }
-    render() {
-        const { time } = this.state; 
-        return <span>{time}</span>;
-    }
-}
-```
-
+### useEffect: ```dependencies```
+* Сравнение списка зависимостей происходит по значению.
+* Если передан объект, сравнивается ссылка на объект, при изменении поля объекта эффект не вызывается.
+* Если изменилась ссылка на объект, эффект вызывается.
 ---
 
-### Функциональный компонент Таймер
-Перепишем компонент в виде функции с использованием useState
-
-Обратите внимание на переменную innerTime. Её необходимо использовать, потому что прямое использование
-переменной time ссылается на замыкание, где та не меняется
-
----
-
-### Функциональный компонент Таймер
+### Таймер
+Переменная ```innerTime``` необходима, потому что выполнение происходит в 
+[замыкании](https://learn.javascript.ru/closure), 
+где значение переменной ```time``` не меняется.
 ```javascript
 function Timer() {
     const [time, setTime] = useState(0);
@@ -228,18 +182,15 @@ function Timer() {
               },
               1000
       );
-      return () => {
-        clearInterval(timerId);
-      };
+      return () => clearInterval(timerId);
     }, []);
     return <span>{time}</span>;
 }
 ```
-
 ---
 
-### Функциональный компонент Таймер
-Можно написать без добавочной переменной, используя свойство сеттера принимать на вход функцию
+### Таймер
+Можно написать без добавочной переменной, используя свойство сеттера принимать на вход функцию.
 ```javascript
 function Timer() {
     const [time, setTime] = useState(0);
@@ -248,146 +199,125 @@ function Timer() {
               () => setTime(time => time + 1),
               1000
       );
-      return () => {
-        clearInterval(timerId);
-      };
+      return () => clearInterval(timerId);
     }, []);
     return <span>{time}</span>;
 }
 ```
-
 ---
 
 ### useMemo
-Поскольку компонент-функция вызывается каждый раз, когда меняются пропсы и стейт,
+* Поскольку компонент-функция вызывается каждый раз, когда меняются пропсы и стейт,
 все вычисления в теле этой функции выполняются заново.
-
-Если они тяжелые (типа вычисления числа π), хорошо бы результат кешировать.
-
-Иными словами мемоизировать.
-
+* Если они тяжелые (типа вычисления числа π), хорошо бы результат кешировать.
+* Это называется [мемоизацией](https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D0%BC%D0%BE%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F).
 ---
 
 ### useMemo
-
 ```javascript
 const value = useMemo(() => hardCaclulations(), [dependencies]);
 ```
-* value &mdash; мемоизированное значение
-* hardCaclulations() &mdash; функция, выполняющая тяжёлые вычисления
-  * обратите внимание на то, как она вызвана: нужно в useMemo передать именно функцию, а не значение
-* dependencies &mdash; зависимости (когда они меняются, перевычисляется значение)
-
-[живой пример](https://codepen.io/dmitryweiner/pen/JjYxBVp?editors=0010)
-
-[документация](https://reactjs.org/docs/hooks-reference.html#usememo)
+* value &mdash; мемоизированное значение.
+* hardCaclulations() &mdash; функция, выполняющая тяжёлые вычисления.
+  * обратите внимание на то, как она вызвана: нужно в useMemo передать именно функцию, а не значение.
+* dependencies &mdash; зависимости (когда они меняются, перевычисляется значение).
+* [Живой пример](https://codepen.io/dmitryweiner/pen/JjYxBVp?editors=0010).
+* [Документация](https://reactjs.org/docs/hooks-reference.html#usememo).
 
 ---
 
 ### useCallback
-
-Иногда требуется мемоизировать функцию, чтобы она не создавалась каждый рендер.
-
-Это бывает нужно, когда создание функции &mdash; дорогая операция, или если не надо, чтобы она менялась.
-
+* Иногда требуется мемоизировать функцию, чтобы она не создавалась каждый рендер.
+* Это бывает нужно, когда создание функции &mdash; дорогая операция, или если не надо, чтобы она менялась.
 ---
 
 ### useCallback
-
 ```javascript
 const memoCallback = useCallback(
     (params) => callback(params),
     [dependencies]
 );
 ```
-* memoCallback &mdash; мемоизированная функция
-* callback(params) &mdash; исходная функция
-* dependencies &mdash; зависимости (при изменении функция пересоздаётся)
-
-[живой пример](https://codepen.io/dmitryweiner/pen/gOaqdda?editors=0010)
-
-[документация](https://reactjs.org/docs/hooks-reference.html#usememo)
-
+* memoCallback &mdash; мемоизированная функция.
+* callback(params) &mdash; исходная функция.
+* dependencies &mdash; зависимости (при изменении функция пересоздаётся).
+* [Живой пример](https://codepen.io/dmitryweiner/pen/gOaqdda?editors=0010).
+* [документация](https://reactjs.org/docs/hooks-reference.html#usememo).
 ---
 
 ### useReducer
-
-Разработчики вдохновились идеей Redux и реализовали этот хук
+* Идея взята из библиотеки [Redux.js](https://redux.js.org/).
+* Хук принимает на вход функцию, делающую из старого состояния новое в соответствии с пришедшим
+  экшеном.
 
 ```javascript
-const initialState = {/*...*/};
+const initialState = 0;
 
 function reducer(state, action) {
   switch (action.type) {
     case 'increment':
-      return {/* new state */};
+      return state + 1;
     default:
-      throw new Error();
+      return state;
   }
 }
-const [state, dispatch] = useReducer(reducer, initialState, init);
+const [state, dispatch] = useReducer(reducer, initialState);
 ```
-
-[живой пример](https://codepen.io/dmitryweiner/pen/YzyBBoQ?editors=0010), [документация](https://reactjs.org/docs/hooks-reference.html#usereducer)
-
+[Живой пример](https://codepen.io/dmitryweiner/pen/YzyBBoQ?editors=0010), [документация](https://reactjs.org/docs/hooks-reference.html#usereducer).
 ---
 
 ### useContext
-
-Способ пробрасывания переменных вглубь дерева потомков 
-без непосредственного указывания этих данных в промежуточных узлах.
-
-[документация](https://reactjs.org/docs/hooks-reference.html#usecontext)
-
+* Способ пробрасывания состояния вглубь дерева потомков. 
+* Без непосредственного указывания этих данных в промежуточных узлах.
+* [Документация](https://reactjs.org/docs/hooks-reference.html#usecontext).
 ---
 
 ### useRef
+* Хук для создания переменной, значение которой сохраняется между рендерами.
+* В отличие от useState, изменение этой переменной не вызывает ререндер.
+* Текущее значение лежит в ```.current```.
+* Сеттера нет.
+* [Документация](https://reactjs.org/docs/hooks-reference.html#useref).
+---
 
-Хук для создания переменной, значение которой сохраняется между рендерами.
-
-В отличие от useState, изменение этой переменной не вызывает ререндер.
-
+### useRef: управляемый таймер
+Можно управлять тем, на сколько он увеличивается. 
 ```javascript
-function Timer() {
-  const intervalRef = useRef();
-  useEffect(() => {
-    const id = setInterval(() => {/* ... */});
-    intervalRef.current = id;
-    return () => {
-      clearInterval(intervalRef.current);
-    };
-  });
+function ControlledTimer() {
+    const [time, setTime] = useState(0);
+    const increment = useRef(1);
+    useEffect(() => {
+        setInterval(() => {
+            setTime(value => value + increment.current);
+        }, 1000);
+    }, []);
+    return <>
+        {time}
+        <button onClick={() => increment.current = increment.current + 1 }>Faster!</button>
+    </>;
 }
 ```
-
-[документация](https://reactjs.org/docs/hooks-reference.html#useref)
-
 ---
 
 ### useRef
-
-Обычно useRef используют для доступа к DOMу
-
+* Обычно useRef используют для доступа к DOMу.
+* Так можно захватывать фокус ввода при загрузке страницы:
 ```javascript
 function TextInputWithFocusButton() {
-  const inputEl = useRef(null);
-  const onButtonClick = () => {
-    // `current` points to the mounted text input element
-    inputEl.current.focus();
-  };
-  return (
-          <>
-            <input ref={inputEl} type="text" />
-            <button onClick={onButtonClick}>Focus the input</button>
-          </>
-  );
+    const inputEl = useRef(null);
+    function onButtonClick() {
+        // `current` points to the mounted text input element
+        inputEl.current.focus();
+    };
+    return <>
+        <input ref={inputEl} type="text" />
+        <button onClick={onButtonClick}>Focus the input</button>
+    </>;
 }
 ```
-
 ---
 
 ### Библиотека кастомных хуков
-
 * Не стоит писать свой велосипед, если есть [react-use](https://github.com/streamich/react-use)
 * Полезные хуки
   * [useList](https://github.com/streamich/react-use/blob/master/docs/useList.md)
@@ -395,15 +325,4 @@ function TextInputWithFocusButton() {
   * [useKeypress](https://github.com/streamich/react-use/blob/master/docs/useKeypress.md)
   * [useHover](https://github.com/streamich/react-use/blob/master/docs/useHover.md)
   * [useWindowSize](https://github.com/streamich/react-use/blob/master/docs/useWindowSize.md)
-
----
-
-## Полезные ссылки
-https://overreacted.io/how-are-function-components-different-from-classes/
-https://www.youtube.com/watch?v=9KJxaFHotqI
-
----
-
-## Спасибо за внимание
-
-![Good bye sweet prince](assets/fc/meme.jpg)
+  

@@ -197,7 +197,7 @@ export default rootReducer;
 
 ---
 
-## [Счётчик с кнопками](https://dmitryweiner.github.io/907sv-react/redux-counter.html)
+## [Счётчик с кнопками](https://dmitryweiner.github.io/react-standalone/redux-counter.html)
 ```js
 const ACTION_INC = 'inc';
 const ACTION_DEC = 'dec';

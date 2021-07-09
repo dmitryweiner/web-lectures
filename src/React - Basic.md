@@ -73,7 +73,7 @@ title: React - Основы
 </body>
 </html>
 ```
-[Живой пример](https://dmitryweiner.github.io/907sv-react/counter.html)
+[Живой пример](https://dmitryweiner.github.io/react-standalone/counter.html)
 ---
 
 ### Create React App
@@ -349,3 +349,4 @@ function renderText() {
 * https://learn-reactjs.ru/home
 * https://www.codecademy.com/learn/react-101
 * https://jstutorial.medium.com/react-animated-tutorial-7a46fa3c2b96
+* https://reactpatterns.com/

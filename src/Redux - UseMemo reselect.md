@@ -42,7 +42,7 @@ const selectItemsCount = list => {
 ```
 * При каждом рендере компонента (а он может происходить часто) функция будет вызываться
 и тормозить браузер.
-* [Живой пример](https://dmitryweiner.github.io/907sv-react/list.html).
+* [Живой пример](https://dmitryweiner.github.io/react-standalone/list.html).
 
 ---
 

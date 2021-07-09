@@ -18,6 +18,7 @@
 * [Функциональные компоненты и хуки](https://dmitryweiner.github.io/lectures/React%20-%20Hooks.html#/)
 * [Как работать с формами и контролами](https://dmitryweiner.github.io/lectures/React%20-%20Form%20controls.html#/)
 * [Тестирование с помощью testing-library](https://dmitryweiner.github.io/lectures/React%20-%20Testing%20components.html#/)
+* [Добавление стилей]()
 * [Маршрутизация](https://dmitryweiner.github.io/lectures/React%20-%20Router.html#/)
 * [Запросы в сеть](https://dmitryweiner.github.io/lectures/React%20-%20Fetch.html#/)
 * [TypeScript + React](https://dmitryweiner.github.io/lectures/React%20-%20TypeScript%20with%20React.html#/)
@@ -38,12 +39,20 @@
 * [Серверный фреймворк Express](https://dmitryweiner.github.io/lectures/Express.html#/)
 * [База данных MongoDB](https://dmitryweiner.github.io/lectures/Mongo.html#/)
 * [ORM Mongoose](https://dmitryweiner.github.io/lectures/Mongoose.html#/)
-* [Фреймворк Vue](https://dmitryweiner.github.io/lectures/.html#/)
-* [Менеджер состояний VueX](https://dmitryweiner.github.io/lectures/.html#/)
-* [Фреймворк Angular](https://dmitryweiner.github.io/lectures/.html#/)
-* [Фреймворк Svelte](https://dmitryweiner.github.io/lectures/.html#/)
-* [Оптимизация загрузки в React: lazy load, chunks](https://dmitryweiner.github.io/lectures/.html#/)
-* [Анализ причин для рендера в React](https://dmitryweiner.github.io/lectures/.html#/)
-* [Анализ бандла в Webpack](https://dmitryweiner.github.io/lectures/.html#/)
-* [Рендер на сервере на примере фреймворка Next](https://dmitryweiner.github.io/lectures/.html#/)
+* [Фреймворк Vue]()
+* [Менеджер состояний VueX]()
+* [Фреймворк Angular]()
+* [Фреймворк Svelte]()
+* [i18n многоязычность]()
+* [Оптимизация загрузки в React: lazy load, chunks]()
+* [Анализ причин для рендера в React]()
+* [Анализ бандла в Webpack]()
+* [Рендер на сервере на примере фреймворка Next]()
+
+# Полезные сайты
+* https://learn.javascript.ru/
+* https://learn-reactjs.ru/home
+* https://reactpatterns.com/
+* https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+
 

@@ -32,7 +32,7 @@
 ---
 
 ### GH без сборки
-* Предполагается, что проект лежит в корне репозитория, как [тут](https://github.com/dmitryweiner/907sv-react).
+* Предполагается, что проект лежит в корне репозитория, как [тут](https://github.com/dmitryweiner/react-standalone).
 * Идём в [репозиторий -> Settings -> Pages](https://github.com/username/projectname/settings/pages).
 * Выбираем main, /(root), жмём Save:
 
