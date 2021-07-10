@@ -4,7 +4,7 @@ title: React - Form controls
 
 ## React controls
 
-![state management](assets/react-controls/state-management.png)
+![react controls](assets/react-controls/win31.png)
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
@@ -17,7 +17,7 @@ title: React - Form controls
 * [Uncontrolled](https://reactjs.org/docs/uncontrolled-components.html)
     * Хранит своё значение сам.
     * Не извещает компонент об изменениях.
-    * Получаем его значение через ref.
+    * Получаем его значение через ref (не через ```getElementById```).
     * Нужен например для &lt;input type="file" /&gt;
 
 * [Controlled](https://reactjs.org/docs/forms.html#controlled-components)
@@ -56,7 +56,7 @@ title: React - Form controls
 ---
 
 ### Работа с событиями
-
+* В обработчик события приходят данные о свершившемся событии.
 ```jsx
 function Component() {
     function handleChange(event) {
@@ -68,31 +68,29 @@ function Component() {
 * event: произошедшее событие.
 * event.target: DOM-элемент, в котором оно произошло.
 * event.target.value: текущее значение элемента (кроме чекбокса).
-* event.target.checked: текущее значение чекбокса.
+* event.target.checked: значение чекбокса.
 ---
 
 ### Вмешательство в работу событий
-
+* Событие [всплывает](https://learn.javascript.ru/event-bubbling), обрабатываясь в обработчиках всё более высоких порядков.
+* В случае формы это вызывает нежелательную перезагрузку страницы.
+* Этому можно помешать, вызвав метод ```preventDefault``` у события.
 ```jsx
 function Form() {
     function handleSubmit(event) {
-        // Отмена отправки формы
-        event.preventDefault();
+        event.preventDefault(); // Отмена отправки формы
     }
     return <form onSubmit={handleSubmit}>
         <input/>
         <button type="submit">Отправить</button>
-        <button type="reset">Очистить</button>
     </form>;
 }
 ```
-* event.preventDefault(): отмена обычной обработки события (отправки формы в данном случае).
-* [Работа с дефолтными действиями](https://learn.javascript.ru/default-browser-action)
-
 ---
 
 ### Вмешательство в работу событий
-#### Отмена перехода по ссылке
+* Переход по ссылке тоже может быть нежелательным, его можно предотвратить.
+* [Работа с дефолтными действиями](https://learn.javascript.ru/default-browser-action).
 ```jsx
 function Link() {
     function handleClick(event) {
@@ -105,6 +103,7 @@ function Link() {
 ---
 
 ### Текстовое поле
+* Пример текстового поля, сохраняющего значение в стейт:
 
 <input value="42" />
 
@@ -117,14 +116,15 @@ function TextField() {
         setText(event.target.value);
     }
     return <>
-            <input value={text} onChange={handeChange} />
-            Вы ввели: {text}
-        <>;
+        <input value={text} onChange={handeChange} />
+        Вы ввели: {text}
+    <>;
 }
 ```
 ---
 
 ### Кнопка
+* Пример обработчика кнопки:
 
 <button>Нажми меня!</button>
 
@@ -145,15 +145,18 @@ function Button({ title }) {
 ```
 
 * Типы текстового поля (значение свойства type):
-    * text: <input type="text" />
-    * number: <input type="number" />
-    * email: <input type="email" />
+    * text: <input type="text" value="abc" />
+    * number: <input type="number" value="123" />
+    * email: <input type="email" value="test@test.ru" />
     * password: <input type="password" />
     * date: <input type="date" />
 * Поддерживается не всеми браузерами.
 ---
 
 ### Чекбокс
+* Особенности:
+  * В событии ```event.value.checked```.
+  * Значение чекбокса ```<input checked={true|false} />```.
 
 <label><input type="checkbox" />Выбери меня!</label>
 
@@ -172,8 +175,7 @@ function Checkbox() {
 ---
 
 ### Радио-кнопки
-
-Объединяются в группу по одному и тому же name:
+* Объединяются в группу по одному и тому же name:
 
 ```jsx
 function Radio() {
@@ -202,6 +204,7 @@ function Radio() {
 ---
 
 ### Радио-кнопки поумнее
+* Разумнее выносить варианты выбора в массив:
 
 <input type="radio" name="r">Быть</input>
 <input type="radio" name="r">Не быть</input>
