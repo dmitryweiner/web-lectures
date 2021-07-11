@@ -11,71 +11,63 @@ title: React - Тестирование компонентов в React
 Видео: [1](https://drive.google.com/file/d/1oG1geSnRc68Lj-lm-g9u7f506GgHq6gm/view?usp=sharing),
 [2](https://drive.google.com/file/d/1R-ke3qpaJOxy0HFrEkkjxE-a39srlX6Z/view?usp=sharing),
 [3](https://drive.google.com/file/d/1WmCb0--oRzK4cjPm8IXIgxTRRbgnqwGe/view?usp=sharing)
-
 ---
 
-### Типовой тест
-
-Этот тест создаётся автоматически при ```npx create-react-app```
-
-```javascript
-import { render, screen } from '@testing-library/react';
-import App from './App';
-
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
-```
-
+### TDD
+* Разработку лучше вести по методу 
+  [Test Driven Development](https://ru.wikipedia.org/wiki/%D0%A0%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0_%D1%87%D0%B5%D1%80%D0%B5%D0%B7_%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5).
+* Вначале пишем тест, в котором формулируем требования в виде кода.
+* Тест не проходит.
+* Пишем компонент, чтобы тест проходил.
 ---
 
-### Идеология тестирования
+![test driven development](assets/react-testing/tdd.png)
+---
 
-* Black box: без знаний о компоненте.
-
-* White box: со знанием устройства компонента.
-
-![black and white box](assets/react-testing/box.jpg)
-
+### testing-library
+* Мы будем пользоваться библиотекой ```@testing-library/react```.
+* Под капотом она использует фреймворк тестирования Jest.
+* Она уже установлена в приложении, созданном через ```create-react-app```.
+* [Если её надо поставить](https://testing-library.com/docs/react-testing-library/intro).
 ---
 
 ### Методика тестирования
-
-* Отрендерить компонент.
-* Вызывать нужные события (опционально).
-* Активировать таймеры (опционально).
-* Найти нужный элемент.
-* Взять его содержимое.
-* Проверить на соответствие ожиданиям.
-* [Шаблон Arrange Act Assert](https://medium.com/@pjbgf/title-testing-code-ocd-and-the-aaa-pattern-df453975ab80)
-
+* Мы будем придерживаться методики [AAA](https://medium.com/@pjbgf/title-testing-code-ocd-and-the-aaa-pattern-df453975ab80):
+* **A**rrange:
+  * Инициализировать необходимые данные.
+  * Отрендерить компонент.
+* **A**ct:
+  * Вызывать нужные события.
+  * Активировать таймеры.
+* **A**ssert:
+  * Найти нужный элемент.
+  * Взять его содержимое.
+  * Проверить на соответствие ожиданиям.
 ---
 
 ### Setup / teardown
 
-* Используется для создания и удаления тестовых данных, которые могут понадобиться в ходе тестов.
+* Для кода, исполняющегося неоднократно, есть специальные обработчики:
   * **beforeEach**: выполнить код перед каждым тестом.
   * **afterEach**: выполнить код после каждого теста.
   * **beforeAll**: выполнить код перед запуском тестов (коннект к базе, например).
   * **afterAll**: выполнить код после запуска (удаление тестовых данных).
-
+* [Документация](https://jestjs.io/docs/setup-teardown).
 ---
 
 ### Рендер компонента
-
-* Метод **render**:
+* Для начала необходимо отрендерить компонент, как в настоящем приложении.
+* Для этого используется метод **render**:
 
 ```js
 import { render } from '@testing-library/react';
 import Component from './Component';
 
-render(<Component prop="value" />);
+test('Проверка рендера', () => {
+    render(<Component prop="value" />);
+});
 ```
-
 * Результат лежит в **screen**.
-
 ---
 
 ### Поиск нужных элементов
@@ -93,12 +85,10 @@ screen.getByText(/Item #[0-9]: /);
 * **ByPlaceholderText**: по плейсхолдеру.  
 * **ByTitle**: по тайтлу.
 * **ByAltText**: по параметру alt="".
-[Документация](https://testing-library.com/docs/react-testing-library/cheatsheet/#queries)
-
+[Документация](https://testing-library.com/docs/react-testing-library/cheatsheet/#queries).
 ---
 
 ### Варианты поиска
-
 ```javascript
 await screen.findByText(/Item #[0-9]: /);
 ```
@@ -109,16 +99,17 @@ await screen.findByText(/Item #[0-9]: /);
 
 ### Варианты поиска
 
-* Синхронные: getBy<>, getAllBy<>, queryBy<>, queryAllBy<>.
-* Асинхронные: findBy<>, findAllBy<>.
+* Синхронные: ```getBy...```, ```getAllBy...```, ```queryBy...```, ```queryAllBy...```.
+* Асинхронные: ```findBy...```, ```findAllBy...```.
   * Ждут 1 секунду, пока элемент появится, потом exception.
-  * Можно изменить время ```findByText('text', { timeout: 5000 })```
+  * Можно изменить время ожидания:
+    ```js
+    screen.findByText('text', { timeout: 5000 });
+    ```
   * Обработчик теста должен быть async.
-
 ---
 
-### Поиск
-
+### Пример поиска
 * Ищем вот этот DIV
 
 ```jsx
@@ -142,11 +133,9 @@ getByText(/Hello W?oRlD/i); // advanced regex
 // Кастомная функция поиска:
 getByText((content, element) => content.startsWith('Hello'));
 ```
-
 ---
 
 ### Ожидание реакции компонента
-
 **waitFor()**: Вызывает функцию до тех пор, пока она не перестанет выбрасывать исключение,
 или пока не закончится 1 секунда.
 
@@ -155,11 +144,9 @@ await waitFor(() => screen.getByRole('alert'));
 // короткая запись такого:
 await screen.findByRole('alert');
 ```
-
 ---
 
 ### Эмуляция событий
-
 * fireEvent.<имя события>(найденная нода)
 ```js
 fireEvent.click(screen.getByText('Нажми меня'));
@@ -174,54 +161,56 @@ fireEvent.input(element, {
   * click
   * submit
   * input
+  * change
 * [Список событий](https://github.com/testing-library/dom-testing-library/blob/master/src/event-map.js).
-
 ---
 
 ### Изменения стейта и асинхронность
-
 * Изменение стейта и последующий рендер происходят не мгновенно.
 * Тест должен подождать, пока всё отрендерится после действий пользователя.
 * Для этого используется метод **act**(() => {}) ([документация](https://reactjs.org/docs/testing-recipes.html#act)).
 * Оборачиваем в act то, что меняет стейт (даже рендер).
 * Асинхронные методы поиска элементов findBy<что-то> уже [содержат в себе act](https://testing-library.com/docs/dom-testing-library/api-async/).
-
 ---
 
 ### Работа с таймером
-
-* Настоящий таймер.
+* Настоящий таймер:
 
 ```js
 await new Promise(resolve => setTimeout(resolve, 1000));
 ```
 
-* Фейковый таймер.
+* Фейковый таймер:
 
 ```js
-jest.useFakeTimers(); // включить фейковые таймеры (beforeEach)
-jest.runAllTimers(); // выполнить вообще все таймеры
-jest.runOnlyPendingTimers(); // выполнить все взведённые таймеры
-jest.advanceTimersByTime(1000); // перемотать время на 1 с
-jest.useRealTimers(); // отключить фейковые таймеры (afterEach)
+beforEach(() => {
+  jest.useFakeTimers(); // включить фейковые таймеры
+});
+
+afterEach(() => {
+  jest.useRealTimers(); // отключить фейковые таймеры (afterEach)
+});
+
+test('Проверка отложенных действий', () => {
+  jest.advanceTimersByTime(1000); // перемотать время на 1 с вперёд
+});
 ```
 
-[Документация](https://jestjs.io/docs/en/timer-mocks)
+* [Документация](https://jestjs.io/docs/en/timer-mocks).
 
 ---
 
-### Ожидания
-
+### Ожидания (матчеры)
 * expect(что-то).to<ожидание>()
-* Можно вставить expect().not.to<ожидание>()
+* Можно вставить expect().**not**.to<ожидание>()
 * **toBeInTheDocument**: проверка на существование.
 * **toHaveLength**: длина массива столько-то.
 * **toHaveTextContent**: содержимое такое-то.
 * **toHaveValue**: значение инпута.
 * **toHaveAttribute**: существование атрибута с нужным значением.
 * **toHaveClass**: навешен нужный класс.
-
-[Полный список](https://github.com/testing-library/jest-dom#custom-matchers), [Jest matchers](https://jestjs.io/docs/en/using-matchers)
+* [Список матчеров jest](https://jestjs.io/docs/expect), 
+  [матчеры testing-library](https://github.com/testing-library/jest-dom#custom-matchers).
 
 ---
 
@@ -235,8 +224,7 @@ expect(screen.getByTestId('button')).toBeInTheDocument();
 expect(screen.queryByTestId('button')).toBeNull();
 ```
 * **Важное замечание:** HTML-элемент после скрытия нужно найти заново, т.к. он пересоздаётся.
-* [Документация](https://testing-library.com/docs/guide-disappearance/)
-
+* [Документация](https://testing-library.com/docs/guide-disappearance/).
 ---
 
 ### Проверка внутреннего состояния инпута
@@ -250,20 +238,71 @@ expect(input.value).toEqual(title);
 const input = screen.getByTestId('checkbox');
 expect(input.checked).toEqual(true);
 ```
+---
 
+### Проверка объектов
+* Все поля должны совпадать:
+
+```js
+  // objectContaining, with nested object, containing full props/values
+  // PASSES
+  expect({ position: { x: 0, y: 0 } }).toEqual(expect.objectContaining({
+    position: {
+      x: expect.any(Number),
+      y: expect.any(Number)
+    }
+  }));
+
+  // objectContaining, with nested object, containing partial props/values
+  // FAILS
+  expect({ position: { x: 0, y: 0 } }).toEqual(expect.objectContaining({
+    position: {
+      x: expect.any(Number)
+    }
+  }));
+
+  // objectContaining, with nested object, also declared with objectContaining, containing partial props/values
+  // PASSES
+  expect({ position: { x: 0, y: 0 } }).toEqual(expect.objectContaining({
+    position: expect.objectContaining({
+      x: expect.any(Number)
+    })
+  }));
+```
+---
+
+### Проверка объектов
+* Проверка, что поле просто есть (другие поля не проверяем):
+
+```js
+  // toMatchObject, with nested object, containing full props/values
+  // PASSES
+  expect({ position: { x: 0, y: 0 } }).toMatchObject({
+    position: {
+      x: expect.any(Number),
+      y: expect.any(Number)
+    }
+  });
+
+  // toMatchObject, with nested object, containing partial props/values
+  // PASSES
+  expect({ position: { x: 0, y: 0 } }).toMatchObject({
+    position: {
+      x: expect.any(Number)
+    }
+  });
+```
 ---
 
 ### Примеры
 * Дальше приведено несколько примеров для иллюстрации представленных ранее идей.
 * Следует воспринимать этот код критически, не стоит слепо копировать его себе в проект.
-* Вначале мы формулируем спецификацию на будущий компонент, потом описываем её в виде теста.
+* Вначале мы формулируем спецификацию на будущий компонент, потом описываем её в виде теста (TDD).
 * Потом пишем компонент, чтобы он проходил тест. Допустимо делать это параллельно.
-
 ---
 
 ### Пример с представлением
-
-* Написать компонент, который просто отображает проп text.
+* Написать компонент, который просто отображает некий текст, переданный в пропс text.
 * Пишем вначале тест:
 
 ```js
@@ -272,28 +311,27 @@ import { render, screen } from '@testing-library/react';
 test('renders what it got', () => {
   const text = 'Test text';
   render(<Component text={text} />);
+  // поиск элемента по data-testid
   const element = screen.getByTestId('component');
+  // проверка, что элемент есть в документе
   expect(element).toBeInTheDocument();
+  // проверка, что он имеет нужное содержимое
   expect(element).toHaveTextContent(text);
 });
 ```
-
 ---
 
 ### Компонент-представление
-
-* Потом пишем компонент, чтобы тест проходил
+* Потом пишем компонент, чтобы тест проходил:
 
 ```jsx
 function Component({ text }) {
     return <span data-testid="component">{text}</span>;
 }
 ```
-
 ---
 
 ### Компонент-список
-
 * Написать компонент, который отображает массив строк.
 * Если передали пустой массив, отображает текст "Список пуст".
 * Напишем вначале тест на положительный кейс (список полон):
@@ -311,11 +349,9 @@ test('renders full list', () => {
   }
 });
 ```
-
 ---
 
 ### Негативный кейс
-
 * Напишем тест на случай с пустым массивом:
 
 ```js
@@ -328,11 +364,9 @@ test('renders empty list', () => {
   expect(element).toHaveTextContent('Список пуст');
 });
 ```
-
 ---
 
 ### Напишем компонент, проходящий тесты
-
 ```jsx
 function List({ list }) {
   function renderList() {
@@ -351,11 +385,9 @@ function List({ list }) {
   </ul>;
 }
 ```
-
 ---
 
 ### Кнопка
-
 * Должна отображать надпись, переданную в title.
 * При нажатии должна вызывать handleClick.
 
@@ -373,11 +405,9 @@ test('renders empty list', () => {
   expect(handleClick).toBeCalled();
 });
 ```
-
 ---
 
 ### Кнопка
-
 * Реализация кнопки довольно лаконичная:
 
 ```jsx
@@ -385,21 +415,17 @@ function Button({ title, handleClick }){
   return <button onClick={handleClick}>{title}</button>;
 }
 ```
-
 ---
 
 ### Форма
-
 * Должна отображать поле.
 * В которое можно что-то ввести.
 * При сабмите формы вызывается handleSubmit.
 * Этому обработчику в виде параметра передаётся объект вида ```{field: "что-то ввели"}```.
 * То, что пришло обработчику, должно совпадать с тем, что ввели.
-
 ---
 
 ### Форма
-
 * Тест:
 
 ```js
@@ -423,7 +449,6 @@ test('can enter text and submit', () => {
 ---
 
 ### Форма
-
 * Компонент:
 
 ```jsx
@@ -442,12 +467,9 @@ function Form({ handleSubmit }) {
   </form>;
 }
 ```
-
-
 ---
 
 ### Таймер
-
 * При появлении на экране таймер начинает отсчитывать секунды.
 * Секунды начинают идти с 0 до бесконечности.
 
@@ -466,11 +488,9 @@ test('timer works', async () => {
     jest.useRealTimers();
 });
 ```
-
 ---
 
 ### Таймер
-
 * Компонент:
 
 ```jsx
@@ -487,14 +507,13 @@ function Timer() {
   return <span data-testid="timer">{count}</span>;
 }
 ```
-
 ---
 
 ### Полезные ссылки
-
 * Testing-library:
-  * [Шпаргалка](https://testing-library.com/docs/react-testing-library/cheatsheet/)
-  * [Документация](https://testing-library.com/docs/)
-  * [Список matchers](https://github.com/testing-library/jest-dom#custom-matchers)
-* [Список matchers jest](https://jestjs.io/docs/en/using-matchers)
-* [Рецепты тестирования реакта](https://reactjs.org/docs/testing-recipes.html)
+  * [Руководство](https://www.robinwieruch.de/react-testing-library).
+  * [Шпаргалка](https://testing-library.com/docs/react-testing-library/cheatsheet/).
+  * [Документация](https://testing-library.com/docs/).
+  * [Список matchers](https://github.com/testing-library/jest-dom#custom-matchers).
+* [Список matchers jest](https://jestjs.io/docs/en/using-matchers).
+* [Рецепты тестирования реакта](https://reactjs.org/docs/testing-recipes.html).
