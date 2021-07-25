@@ -201,7 +201,9 @@ test('Проверка отложенных действий', () => {
 ---
 
 ### Ожидания (матчеры)
-* expect(что-то).to<ожидание>()
+```js
+expect(screen.getByText('TEXT')).toBeInTheDocument();
+```
 * Можно вставить expect().**not**.to<ожидание>()
 * **toBeInTheDocument**: проверка на существование.
 * **toHaveLength**: длина массива столько-то.
