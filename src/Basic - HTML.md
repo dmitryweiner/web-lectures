@@ -7,6 +7,8 @@ title: Basic - HTML
 ![first web developer](assets/html/web-dev.png)
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
+
+[видео](https://drive.google.com/file/d/1OkbiegilaFIY1DPr1JhmBx4Bg8iGSWFU/view?usp=sharing)
 ---
 
 ### Что такое HTML?
@@ -247,6 +249,15 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
   * Ключевые слова для SEO.
 ---
 
+### Кодировка
+* Весь мир к счастью перешёл на кодировку [UTF-8](https://ru.wikipedia.org/wiki/UTF-8).
+* Именно её и стоит указывать:
+```html
+<head>
+    <meta charset="UTF-8">
+</head> 
+```
+---
 ### Стили
 * Стили можно определять непосредственно на странице:
 ```html
