@@ -16,16 +16,251 @@
       <div class="slides"><section  data-markdown><script type="text/template">
 
 ## Введение в CSS
-https://github.com/dmitryweiner/lectures/raw/main/old/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81%D1%8B/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81%D1%8B%20%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%20CSS.pptx</script></section><section  data-markdown><script type="text/template">
-### Идея каскадности
-</script></section><section  data-markdown><script type="text/template">
-### Подключение CSS
-</script></section><section  data-markdown><script type="text/template">
+
+![css is awesome](assets/css/css-is-awesome.png)
+
+[Дмитрий Вайнер](https://github.com/dmitryweiner)</script></section><section  data-markdown><script type="text/template">
+### Немного истории
+* **C**ascading **S**tyle **S**heets.
+* Впервые описан в 1994.
+* Принят как стандарт в 1996 (24 года назад).
+* Сейчас принята третья версия CSS3.
+* Создатель [Håkon Wium Lie](https://twitter.com/wiumlie?lang=en).</script></section><section  data-markdown><script type="text/template">
+### Общие идеи CSS
+* Разделить содержимое страницы и её дизайн.
+* Гибко управлять отображением страницы, задавать:
+  * Цвет
+  * Шрифт
+  * Расположение
+  * Размеры
+* Единый дизайн у разных страниц.
+* Разный дизайн для разных устройств.
+* Применять правила отображения **каскадно**: от более общих к более частным.</script></section><section  data-markdown><script type="text/template">
+### Каскадность
+* Правила CSS применяются от менее приоритетных к более приоритетным.
+* Таким образом, можно задавать вначале более общие правила, а потом более частные,
+уточняя отображение отдельных элементов.</script></section><section  data-markdown><script type="text/template">
+### Минусы
+* Разные браузеры по-разному отображают.
+* Необходимо поддерживать консистентность CSS и HTML.
+* Не верстальщику немного сложно понять.</script></section><section  data-markdown><script type="text/template">![Peter Griffin](assets/css/griffin.gif)</script></section><section ><section data-markdown><script type="text/template">
+### Иерархия стилей
+* Стиль браузера:
+  * Применяется, если не назначено никаких других стилей
+* Стиль автора:
+  * Применяется, если подключены CSS.
+* Стиль пользователя:
+  * Применяется, если включен особый режим.</script></section><section data-markdown><script type="text/template">![special mode](assets/css/special-mode.png)</script></section></section><section  data-markdown><script type="text/template">### Подключение CSS
+* Сторонний файл:
+```html
+<head>
+      <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+```
+* Непосредственно в блоке &lt;head&gt;
+```html
+<style>
+  #wrapper {
+    padding: 20px;
+  }
+</style>
+```
+* Внутри элемента:
+```html
+<p style="font-size: 20px; color: green; font-family: arial, helvetica, sans-serif">
+  .....
+</p>
+```</script></section><section  data-markdown><script type="text/template">
+### Общий вид правила
+
+![](assets/css/rule.png)
+
+* Правило состоит из селектора, скобок {}, внутри которых
+определённым свойствам присваиваются значения.
+* Свойств может быть несколько.
+* Селектор служит для указания на элементы DOM-дерева,
+чьё отображение надо изменить.</script></section><section  data-markdown><script type="text/template">### Селекторы
+* Селекторов может быть несколько в одном правиле, разделяются запятой:
+```css
+li.class, .another-lass {
+    color: red;
+}
+```
+* Разные свойства, относящиеся к одному селектору, надо записывать в одном правиле.</script></section><section  data-markdown><script type="text/template">
 ### Селекторы
-</script></section><section  data-markdown><script type="text/template">
+* Универсальные: _*_
+```css
+✳️ { /* */ }
+```
+* По тегам:
+```css
+p, body, li { /* */ }
+```
+* По классам:
+```css
+.item, .list { /* */ }
+```
+* По ID:
+```css
+#root { /* */ }
+```
+* По атрибутам тегов:
+```css
+input[type="text"] { /* */ }
+```</script></section><section  data-markdown><script type="text/template">
+### Селекторы
+* По потомкам: _родитель потомок_
+```css
+div li { /* */ }
+```
+* По детям: _родитель > ребёнок_
+```css
+div > li { /* */ }
+```
+* По соседям: _сосед1 + сосед2_
+```css
+div + div.class { /* */ }
+```
+* По псевдоклассам:
+```css
+a:active { /* */ }
+```
+* По псевдоэлементам: 
+```css
+a::first-letter { /* */ }
+```</script></section><section  data-markdown><script type="text/template">
+### Сложный селектор
+* Селектор может сочетать несколько сущностей, 
+например тег и класс, для большей специфичности:
+<div style="background-color: silver">first</div>
+<p style="color: red">second</p>
+
+```html
+<style>
+    p.big {
+        color: red; 
+    }
+    div#first {
+        background-color: silver; 
+    }
+</style>
+<div id="first">first</div>
+<p class="second">second</p>
+```</script></section><section  data-markdown><script type="text/template">
+### Разница между ID и классом
+* Класс нужен для группировки одинаковых элементов.
+```html
+<ul class="list">
+  <li class="list-element">1</li>
+  <li class="list-element">2</li>
+  <li class="list-element">3</li>
+</ul>
+```
+* У одного элемента может быть **несколько** классов.
+```html
+<p class="big red good"></p>
+```
+* ID должен быть **уникален** для элемента.
+```html
+<div id="reactRoot"></div>
+```</script></section><section  data-markdown><script type="text/template">
+### Селектор по потомкам
+* Выбирает потомков на любом уровне вложенности:
+
+![parent child](assets/css/parent-child.png)
+
+```html
+<style>
+span {
+    background-color: white;
+}
+div span {
+    background-color: lawngreen;
+}
+</style>
+<div>
+    <span>Span #1, in the div.
+          <span>Span #2, in the span that's in the div.</span>
+    </span>
+</div>
+<span>Span #3, not in the div at all.</span>
+```</script></section><section  data-markdown><script type="text/template">
+### Селектор по детям
+* Выбирает только потомков первого уровня, непосредственно детей:
+
+![children selector](assets/css/children-selector.png)
+
+```html
+<style>
+span {
+  background-color: white;
+}
+div > span {
+  background-color: lawngreen;
+}
+</style>
+<div>
+  <span>Span #1, in the div.
+    <span>Span #2, in the span that's in the div.</span>
+  </span>
+</div>
+<span>Span #3, not in the div at all.</span>
+```</script></section><section  data-markdown><script type="text/template">
+### Селектор по соседям
+* Выбирает последующего соседа, если у него есть 
+указанный предыдущий сосед:
+
+![neighbour](assets/css/neighbour.png)
+
+```html
+<style>
+li + li {
+  color: red;
+}
+</style>
+<ul>
+  <li>One</li>
+  <li>Two!</li>
+  <li>Three</li>
+</ul>
+```</script></section><section  data-markdown><script type="text/template">
+### Псевдоклассы
+* Служат для выбора элементов в определённом порядке (каждый второй, самый первый, последний).
+* Особо полезные:
+  * **:first-child**: первый потомок.
+  * **:nth-child(N)**: каждый N-ый потомок.
+  * **:last-child**: последний потомок.
+  * **:only-child**: единственный потомок.
+  * **:hover**: на что наведена мышь.
+* [Список всех псевдоклассов](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes).</script></section><section  data-markdown><script type="text/template">
+### Псевдоэлементы
+* Служат для выбора элементов, которых не существует.
+* Или для выбора отдельных кусочков элементов.
+* Крайне полезные:
+  * **::first-letter**: первая буква.
+  * **::after**: после какого-то элемента.
+  * **::before**: перед каким-то элементом.
+* [Список всех псевдоэлементов](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements).</script></section><section  data-markdown><script type="text/template">
 ### Специфичность селекторов
-</script></section><section  data-markdown><script type="text/template">
-### Переменные
+* Если одному элементу подходит несколько правил, то применяется то правило, у которого специфичность селектора больше.
+* Так и проявляется каскадность стилей.
+* Специфичность вычисляется так: за каждый идентификатор (a) начисляется 100, за каждый класс и псевдокласс (b) начисляется 10, за каждый селектор тега и псевдоэлемент (c) начисляется 1.</script></section><section  data-markdown><script type="text/template">
+### Специфичность селекторов
+```css
+✳️             {} /* a=0 b=0 c=0 -> специфичность = 0   */
+li             {} /* a=0 b=0 c=1 -> специфичность = 1   */
+li:first-line  {} /* a=0 b=0 c=2 -> специфичность = 2   */
+ul li          {} /* a=0 b=0 c=2 -> специфичность = 2   */
+ul ol+li       {} /* a=0 b=0 c=3 -> специфичность = 3   */
+ul li.red      {} /* a=0 b=1 c=2 -> специфичность = 12  */
+li.red.level   {} /* a=0 b=2 c=1 -> специфичность = 21  */
+#t34           {} /* a=1 b=0 c=0 -> специфичность = 100 */
+#content #wrap {} /* a=2 b=0 c=0 -> специфичность = 200 */
+```</script></section><section  data-markdown><script type="text/template">
+### Специфичность селекторов
+* Встроенный стиль, добавляемый к тегу через атрибут style, имеет специфичность 1000, поэтому всегда перекрывает связанные и глобальные стили.
+* Однако добавление ```!important``` перекрывает в том числе и встроенные стили.
+* Если два селектора имеют одинаковую специфичность, то применяться будет тот стиль, что указан в коде ниже.</script></section><section  data-markdown><script type="text/template">### Переменные
 </script></section><section  data-markdown><script type="text/template">
 ### 
 </script></section><section  data-markdown><script type="text/template">

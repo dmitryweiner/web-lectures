@@ -1,6 +1,9 @@
 # Лекции по фронтенду 
 #### [Все лекции](https://dmitryweiner.github.io/lectures/)
 
+## [907са, 907сб: программа курса и лабы](907са-907сб.md).
+## [907св: программа курса и лабы](907св.md).
+
 ## Для начинающих: Введение во фронтенд
 * [HTML](https://dmitryweiner.github.io/lectures/Basic%20-%20HTML.html)
 * [CSS](https://dmitryweiner.github.io/lectures/Basic%20-%20CSS.html)
@@ -43,7 +46,7 @@
 * [Фреймворк Vue]()
 * [Менеджер состояний VueX]()
 * [Фреймворк Angular]()
-* [Фреймворк Svelte]()
+* [Фреймворк Svelte](https://github.com/dmitryweiner/lectures/raw/main/old/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81%D1%8B/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81%D1%8B%20%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%20Svelte.pptx)
 * [i18n многоязычность]()
 * [Оптимизация загрузки в React: lazy load, chunks]()
 * [Анализ причин для рендера в React]()
