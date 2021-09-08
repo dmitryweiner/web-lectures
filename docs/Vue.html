@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Vue - Основы</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/sky.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+## Vue: основы
+
+![distracted vue](assets/vue/vue-developer.jpg)
+
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
+</script></section><section  data-markdown><script type="text/template">
+### Общие факты
+* Первый релиз в 2014.
+* Текущая версия: 3 (на 2021й год).
+* [Документация](https://v3.vuejs.org/).
+* Создатель [Эван Ю](https://twitter.com/youyuxi).</script></section><section  data-markdown><script type="text/template">
+### Основные фишки фреймворка
+* Шаблон, стили и код в одном файле.
+* Двустороннее связывание с моделью.
+* Реализация [MVVM](https://ru.wikipedia.org/wiki/Model-View-ViewModel).</script></section><section  data-markdown><script type="text/template">
+### Установка
+* Можно использовать в standalone режиме, ничего не собирать:
+
+```html
+<head>
+    <script src="https://unpkg.com/vue@next">__SCRIPT_END__
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const App = {
+                el: '#root',
+                data: () => ({
+                    value: "Hello world!"
+                })
+            };
+            Vue.createApp(App).mount('#root');
+        });
+    __SCRIPT_END__
+</head>
+<body>
+<div id="root">
+    <p>{{ value }}</p>
+</div>
+</body>
+
+```</script></section><section  data-markdown><script type="text/template">
+### Создание приложения
+* Если есть админские права:
+```shell
+npm install -g @vue/cli
+vue create %APP_NAME%
+```
+* Если нет прав:
+```shell
+npx -p @vue/cli vue create %APP_NAME%
+```
+* Для **д**ефолтной установки без лишних вопросов добавить ключ ```-d```.
+* Создание приложения в графическом интерфейсе:
+```shell
+vue ui
+```
+* [Документация](https://cli.vuejs.org/guide/creating-a-project.html#vue-create).</script></section><section  data-markdown><script type="text/template">
+### Опции:
+
+![cli](assets/vue/cli-new-project.png)</script></section><section  data-markdown><script type="text/template">
+### Опции:
+![cli](assets/vue/cli-select-features.png)</script></section><section  data-markdown><script type="text/template">
+### Общая структура компонента
+* Компонент располагается в одном файле.
+* Файл содержит три блока:
+  * Шаблон.
+  * Стили (не обязательный).
+  * Код.</script></section><section  data-markdown><script type="text/template">```vue
+<template>
+  <div>
+    {{ value }}
+    <span class="red">{{ stateValue }}</span>
+  </div>
+</template>
+<style scoped>
+  .red {
+    color: red;
+  }
+</style>
+<script>
+import IncludedComponent from './IncludedComponent';
+
+export default {
+  components: { IncludedComponent },
+  props: {
+    value: {
+      type: String,
+      required: true
+    }
+  },
+  data () {
+    return {
+      stateValue: 1
+    }
+  },
+  computed: {
+    computedValue() { return this.stateValue + 1 },
+  },
+  watch: {
+    value: 'watchValue'
+  },
+  methods: {
+    watchValue () { console.log('value is changed') }
+  },
+  mounted () { console.log('Component is mounted') }
+}
+__SCRIPT_END__
+```</script></section><section  data-markdown><script type="text/template">
+### Поля компонента
+* **components**: компоненты, использованные в данном компоненте.
+* **props**: переданные пропсы.
+* **data()**: изменяемые данные (аналог state).
+* **computed**: вычисляемые данные.
+* **watch**: наблюдатель над изменяемыми данными.
+* **methods**: методы компонента.
+* **setup**: вызывается до монтирования компонента.
+* **mounted**: вызывается после монтирования.
+* **unmounted**: после демонтирования.</script></section><section  data-markdown><script type="text/template">
+### Жизненный цикл компонента
+![](assets/vue/lifecycle.png)</script></section><section  data-markdown><script type="text/template">
+### Передача пропсов
+* Один компонент может вызвать другой (в смысле, использовать в шаблоне).
+* При вызове можно передать пропсы.
+* Они могут быть использованы в другом компоненте.
+* При изменении пропсов компонент перерисовывается автоматически.</script></section><section  data-markdown><script type="text/template">
+### Потомок 
+```vue
+<template>
+  <div><!-- Без этого элемента линтер ругается -->
+    {{ value }}
+  </div>
+</template>
+<script>
+export default {
+  name: "Child",
+  props: {
+    value: {
+      type: String, // Указываем явно тип пропса
+      required: true // Пропс обязателен
+    }
+  }
+}
+__SCRIPT_END__
+```</script></section><section  data-markdown><script type="text/template">
+### Родитель
+```vue
+<template>
+  <Child value="42"/><!-- Если не передать пропс, линтер ругается -->
+</template>
+<script>
+import Child from "./Child";
+
+export default {
+  name: "Parent",
+  components: { Child }
+}
+__SCRIPT_END__
+```</script></section><section  data-markdown><script type="text/template">
+### Изменение стейта
+* При изменении стейта компонент обновляется автоматически:
+```vue
+<template>
+    <div>
+      {{ timer }}
+    </div>
+</template>
+<script>
+export default {
+    name: "Timer",
+    data() {
+      return {
+        timer: 0
+      }
+    },
+    mounted() {
+      this.intervalId = setInterval(() => this.timer = this.timer + 1, 1000);
+    },
+    unmounted() {
+      clearInterval(this.intervalId);
+    }
+}
+__SCRIPT_END__
+```</script></section><section  data-markdown><script type="text/template">
+### Вычислимые свойства</script></section><section  data-markdown><script type="text/template">
+### Watcher (наблюдатель)</script></section><section  data-markdown><script type="text/template">
+### Передача событий</script></section><section  data-markdown><script type="text/template">### Язык шаблонов</script></section><section  data-markdown><script type="text/template">
+### Директивы шаблонов</script></section><section  data-markdown><script type="text/template">
+### Условия</script></section><section  data-markdown><script type="text/template">
+### Обход массива</script></section><section  data-markdown><script type="text/template">
+### V-bind (короткая и полная записи)</script></section><section  data-markdown><script type="text/template">
+### Стили локальные и общие</script></section><section  data-markdown><script type="text/template">
+### Тестирование</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template">
+###</script></section><section  data-markdown><script type="text/template"></script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>

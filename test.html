@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const App = {
+        el: '#root',
+        data: () => ({
+          value: "Hello world!"
+        })
+      };
+      Vue.createApp(App).mount('#root');
+    })
+  </script>
+</head>
+<body>
+<div id="root">
+    <p>{{ value }}</p>
+</div>
+</body>
+</html>
