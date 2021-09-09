@@ -80,9 +80,9 @@ vue ui
 ### Общая структура компонента
 * Компонент располагается в одном файле.
 * Файл содержит три блока:
-  * Шаблон.
-  * Стили (не обязательный).
-  * Код.
+  * Шаблон &lt;template&gt;.
+  * Стили (не обязательный) &lt;style&gt;.
+  * Код &lt;script&gt;.
 ---
 ```vue
 <template>
@@ -122,6 +122,24 @@ export default {
     watchValue () { console.log('value is changed') }
   },
   mounted () { console.log('Component is mounted') }
+}
+</script>
+```
+---
+
+### TypeScript
+* В блоке script можно указать язык, на котором написан компонент (по умолчанию JS):
+  * ts.
+  * tsx.
+* Сам Vue 3 написан на TS, ничего ставить дополнительно не надо.
+* [Про поддержку TS]().
+```vue
+<script lang="ts">
+export default {
+    name: "Button",
+    methods: {
+      clickReaction() { console.log("Clicked!"); }
+    }
 }
 </script>
 ```
@@ -650,6 +668,7 @@ data() {
 * Тестирование проводится совершенно так же, как в React.js, с использованием
   библиотеки [testing-library](https://testing-library.com/docs/vue-testing-library/intro/).
 * Методика Arrange Act Assert.
+* [Примеры](https://testing-library.com/docs/vue-testing-library/examples).
 ```shell
 npm install -D @testing-library/vue
 ```
