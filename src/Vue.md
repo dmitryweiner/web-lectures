@@ -690,6 +690,12 @@ test('increments value on click', async () => {
 ```
 ---
 
+### Что дальше?
+* [Компоненты-классы](https://class-component.vuejs.org/), обёрнутые в декораторы.
+* [Менеджеры состояния](https://vuex.vuejs.org/).
+* [Библиотеки компонентов](https://material-ui.com/ru/).
+---
+
 ### Полезные ссылки
 * https://v3.vuejs.org/guide/introduction.html
 * https://v3.vuejs.org/style-guide/
