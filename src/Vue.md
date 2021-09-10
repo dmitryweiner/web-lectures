@@ -693,6 +693,15 @@ test('increments value on click', async () => {
 ```
 ---
 
+### Отладка
+* Можно поставить отладочное расширение для 
+  [Хрома](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=en)
+  или [Огнелиса](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/).
+* С ним можно видеть иерархию компонентов, стейт, пропсы.
+
+![Vue devtools](assets/vue/devtools.jpg)
+---
+
 ### Что дальше?
 * [Компоненты-классы](https://class-component.vuejs.org/), обёрнутые в декораторы.
 * [Менеджеры состояния](https://vuex.vuejs.org/).
