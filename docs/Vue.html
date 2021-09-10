@@ -127,7 +127,7 @@ __SCRIPT_END__
   * ts.
   * tsx.
 * Сам Vue 3 написан на TS, ничего ставить дополнительно не надо.
-* [Про поддержку TS]().
+* [Про поддержку TS](https://v3.vuejs.org/guide/typescript-support.html).
 ```vue
 <script lang="ts">
 export default {
@@ -310,7 +310,7 @@ __SCRIPT_END__
 ### События
 * Элементы DOM могут генерировать события при кликах, вводе, прокручивании.
 * Чтобы подписаться на них, необходимо:
-  * Добавить параметр```v-on:ТИП СОБЫТИЯ``` или ```@ТИП СОБЫТИЯ```.
+  * Добавить параметр ```v-on:ТИП СОБЫТИЯ``` или ```@ТИП СОБЫТИЯ```.
   * К нему добавить обработчик.
 * [Подробнее](https://v3.vuejs.org/guide/events.html).
   
@@ -323,6 +323,9 @@ __SCRIPT_END__
 * Мышь:
   * click.
   * scroll.
+* Инпут:
+  * focus.
+  * blur.
 * Клавиатура:
   * submit. 
   * keydown.
@@ -470,7 +473,7 @@ __SCRIPT_END__
 ```
 * Допускается короткая форма записи:
 ```vue
-<a v-bind:href="url">Динамическая ссылка</a>
+<a :href="url">Динамическая ссылка</a>
 ```
 * Так можно делать с любыми атрибутами.
 * [Подробнее](https://v3.vuejs.org/api/directives.html#v-bind).</script></section><section  data-markdown><script type="text/template">
@@ -617,7 +620,8 @@ test('increments value on click', async () => {
 * [Библиотеки компонентов](https://material-ui.com/ru/).</script></section><section  data-markdown><script type="text/template">
 ### Полезные ссылки
 * https://v3.vuejs.org/guide/introduction.html
-* https://v3.vuejs.org/style-guide/</script></section></div>
+* https://v3.vuejs.org/style-guide/
+</script></section></div>
     </div>
 
     <script src="./dist/reveal.js"></script>
