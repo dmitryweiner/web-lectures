@@ -336,6 +336,151 @@ li.red.level   {} /* a=0 b=2 c=1 -> специфичность = 21  */
 
 ---
 
+### Цвет текста или фона:
+* Задать цвет текста:
+<span style="color: #0000f1;">TEXT</span>
+```css
+.class {
+    color: #0000f1;
+}
+```
+* Задать цвет фона:
+<span style="background-color: #0000f1;">TEXT</span>
+```css
+.class {
+    background-color: #0000f1;
+}
+```
+---
+
+### Шрифт
+* Изменить шрифт можно с помощью font-*:
+<span style="font-family: 'Times New Roman'; font-size: 30px;  font-weight: bold;">TEXT</span>
+```css
+.class {
+    font-family: "Times New Roman";
+    font-size: 30px;
+    font-weight: bold;
+}
+```
+* [Загрузка кастомных шрифтов](https://css-tricks.com/snippets/css/using-font-face/).
+
+---
+
+### Выравнивание текста
+* Можно выравнивать текст по ширине, правому/левому краю, по центру:
+```css
+text-align: end;
+text-align: left;
+text-align: right;
+text-align: center;
+text-align: justify;
+```
+* [Подробнее](https://developer.mozilla.org/en-US/docs/Web/CSS/text-align).
+---
+
+### Типы элементов
+* Элементы бывают строчные (inline) и блочные (block).
+* Строчный элемент располагается внутри строки и позиционируется как часть текста:
+  * a, span, img, button.
+* Блочный элемент позиционируется как единый блок:
+  * div, p, table, hr, video.
+* [Подробнее](https://www.w3schools.com/html/html_blocks.asp).
+---
+
+### Типы позиционирования
+* Типы позиционирования блочных элементов:
+  * static: по умолчанию (блок находится в общем потоке).
+  * relative: относительно static положения, но с указанным сдвигом.
+  * absolute: относительно ближайшего позиционированного элемента.
+  * fixed: относительно границ экрана (прокрутка не действует).
+* Для позиционирования указывают (top, left) или (bottom, right).
+---
+
+### Типы позиционирования
+```css
+position: relative;
+top: 10px;
+left: 20px;
+```
+* [Документация](https://developer.mozilla.org/en-US/docs/Web/CSS/position).
+![](assets/css/positions.png)
+---
+![](assets/css/position-types.png)
+---
+
+### Размер блока
+* Размер указывается с помощью свойств width, height.
+* Если содержимое не вмещается, блок будет растянут.
+* Можно указать минимальные и максимальные размеры:
+  * max-width, max-height.
+  * min-width, min-height.
+* [Подробнее](https://ishadeed.com/article/min-max-css/).
+---
+
+### Размер блока
+![](assets/css/percent-definite-size.svg)
+---
+
+### Отступы и рамки
+* Для каждого элемента можно указать отступы и рамку:
+  * margin: внешний отступ.
+  * border: рамка.
+  * padding: внутренний отступ.
+
+<div style="border: 3px dotted red; border-radius: 20px; margin: 10px; padding: 10px; background-color: palegoldenrod;">text</div>
+
+```css
+.class {
+    border: 3px dotted red;
+    margin: 10px;
+    padding: 10px;
+    background-color: palegoldenrod;
+    border-radius: 20px;
+}
+```
+---
+
+![](assets/css/css-box-model-example-explained.png)
+---
+
+### Короткая запись
+![](assets/css/css-shorthand-property-explained.png)
+---
+
+### Позиционируем элемент по центру
+* Есть несколько решений для позиционирования элемента по горизонтали по центру:
+* С помощью полей:
+```css
+#inner {
+    width: 50%;
+    margin: 0 auto;
+}
+```
+---
+
+### Позиционируем элемент по центру
+* С помощью flexbox:
+
+```css
+#inner {
+    border: 1px solid black;
+}
+
+#outer {
+    border: 1px solid red;
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+```
+```html
+<div id="outer">
+  <div id="inner">Foo foo</div>
+</div>
+```
+---
+
 ### Фильтры
 * Можно задать фильтр для изменения отображения элемента:
   * Отбросить тень.
@@ -425,7 +570,15 @@ li.red.level   {} /* a=0 b=2 c=1 -> специфичность = 21  */
 
 ![can i use](assets/css/can-i-use.png)
 ---
+
+### CSS-отладчик
+* Достаточно нажать F12 и перейти во вкладку "Инспектор":
+
+![](assets/css/css-debug.png)
+---
+
 ### Полезные ссылки
 * https://css3clickchart.com/
 * https://codepen.io/enxaneta/full/adLPwv/
+* https://www.csssolid.com/css-box-model.html
 * https://htmlacademy.ru/courses/41
