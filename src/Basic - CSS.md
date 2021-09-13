@@ -7,6 +7,7 @@ title: Basic - CSS
 ![css is awesome](assets/css/css-is-awesome.png)
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
+[видео](https://drive.google.com/file/d/1XBmHD5Nou8TTUGo6YiVoWi06cb0XUVCR/view?usp=sharing)
 ---
 
 ### Немного истории
@@ -166,9 +167,9 @@ a::first-letter { /* */ }
 * Класс нужен для группировки одинаковых элементов.
 ```html
 <ul class="list">
-  <li class="list-element">1</li>
-  <li class="list-element">2</li>
-  <li class="list-element">3</li>
+    <li class="list-element">1</li>
+    <li class="list-element">2</li>
+    <li class="list-element">3</li>
 </ul>
 ```
 * У одного элемента может быть **несколько** классов.
@@ -449,7 +450,8 @@ left: 20px;
 ---
 
 ### Позиционируем элемент по центру
-* Есть несколько решений для позиционирования элемента по горизонтали по центру:
+* Есть [несколько решений](https://stackoverflow.com/questions/114543/how-to-horizontally-center-an-element)
+  для позиционирования элемента по центру:
 * С помощью полей:
 ```css
 #inner {
@@ -476,7 +478,7 @@ left: 20px;
 ```
 ```html
 <div id="outer">
-  <div id="inner">Foo foo</div>
+    <div id="inner">Foo foo</div>
 </div>
 ```
 ---
@@ -504,13 +506,13 @@ left: 20px;
 * Например, можно настроить CSS так, чтобы блок для десктопа был посередине и был ограничен по ширине, 
   а на мобильных устройствах растягивался бы на 100%:
 ```css
-#block {
-    width: 800px;
-    margin: 0 auto;
+#content { /* mobile first */
+     width: 100%;
 }
-@media screen and (max-width: 800px) {
-    #block {
-      width: 100%;
+@media screen and (max-device-width: 800px) {
+    #content { /* desktop */
+      width: 800px;
+      margin: 0 auto;
     }
 }
 ```

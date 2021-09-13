@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="https://unpkg.com/vue@next"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const App = {
-        el: '#root',
-        data: () => ({
-          value: "Hello world!"
-        })
-      };
-      Vue.createApp(App).mount('#root');
-    })
-  </script>
+    <style>
+        #content { /* mobile first */
+            width: 100%;
+        }
+        @media screen and (max-device-width: 800px) {
+            #content { /* desktop */
+                width: 800px;
+                margin: 0 auto;
+            }
+        }
+    </style>
 </head>
 <body>
-<div id="root">
-    <p>{{ value }}</p>
+<div id="wrapper">
+    <div id="content">
+        text text <span>text</span>
+    </div>
 </div>
 </body>
 </html>
