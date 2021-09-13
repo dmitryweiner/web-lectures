@@ -7,6 +7,7 @@ title: Basic - CSS
 ![css is awesome](assets/css/css-is-awesome.png)
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
+
 [видео](https://drive.google.com/file/d/1XBmHD5Nou8TTUGo6YiVoWi06cb0XUVCR/view?usp=sharing)
 ---
 
