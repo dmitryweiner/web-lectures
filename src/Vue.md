@@ -8,6 +8,7 @@ title: Vue - Основы
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
+[видео](https://drive.google.com/file/d/1TA0qIDOKzamhLjS5lu73x30qZdCNfsDY/view?usp=sharing)
 ---
 
 ### Общие факты
@@ -680,7 +681,7 @@ data() {
 ### Composition API
 * Идеи функционального программирования дошли и до разработчиков Vue.
 * И им они показались стоящими. Поэтому теперь можно писать компоненты в функциональном стиле.
-* Это называется [composition API](https://v3.vuejs.org/guide/composition-api-introduction.html).
+* Это называется [Composition API](https://v3.vuejs.org/guide/composition-api-introduction.html).
 * Подобный подход позволяет выделить повторяющиеся куски компонентов
   (например, одинаковую реакцию на события) в отдельные функции.
 ---
@@ -713,8 +714,8 @@ test('increments value on click', async () => {
 
 ### Отладка
 * Можно поставить отладочное расширение для 
-  [Хрома](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=en)
-  или [Огнелиса](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/).
+  [Google Chrome](https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg)
+  или [FireFox](https://github.com/vuejs/devtools/releases/tag/v6.0.0-beta.15).
 * С ним можно видеть иерархию компонентов, стейт, пропсы.
 
 ![Vue devtools](assets/vue/devtools.jpg)
