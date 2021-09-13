@@ -70,11 +70,9 @@ vue ui
 
 ### Опции:
 
-![cli](assets/vue/cli-new-project.png)
----
+![cli](assets/vue/vue-cli.png)
 
-### Опции:
-![cli](assets/vue/cli-select-features.png)
+![cli](assets/vue/vue-cli-options.png)
 ---
 
 ### Общая структура компонента
