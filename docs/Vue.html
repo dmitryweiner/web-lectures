@@ -126,16 +126,34 @@ __SCRIPT_END__
 * В блоке script можно указать язык, на котором написан компонент (по умолчанию JS):
   * ts.
   * tsx.
-* Сам Vue 3 написан на TS, ничего ставить дополнительно не надо.
-* [Про поддержку TS](https://v3.vuejs.org/guide/typescript-support.html).
+* Чтобы это работало хорошо, надо при создании проекта выбирать поддержку TS.
+* [Про поддержку TS](https://v3.vuejs.org/guide/typescript-support.html).</script></section><section  data-markdown><script type="text/template">
 ```vue
 <script lang="ts">
+import { PropType } from "vue";
+
+type ListProps = {
+  initialList: string[];
+};
+
+type ListState = {
+  list: string[];
+};
+
 export default {
-    name: "Button",
-    methods: {
-      clickReaction() { console.log("Clicked!"); }
-    }
-}
+  name: "List",
+  props: {
+    initialList: {
+      type: Object as PropType<string[]>,
+      required: true,
+    },
+  },
+  data(props: ListProps): ListState {
+    return {
+      list: props.initialList,
+    };
+  },
+};
 __SCRIPT_END__
 ```</script></section><section  data-markdown><script type="text/template">
 ### Поля компонента
