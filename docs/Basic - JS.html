@@ -15,22 +15,173 @@
     <div class="reveal">
       <div class="slides"><section  data-markdown><script type="text/template">
 
-## Введение в JavaScript
-https://github.com/dmitryweiner/lectures/raw/main/old/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81%D1%8B/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81%D1%8B%20%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%208%20ecmascript.pptx</script></section><section  data-markdown><script type="text/template">
-### Типы данных
-</script></section><section  data-markdown><script type="text/template">
+### Введение в JavaScript
+
+![ecmascript](assets/js/ecmascript.jpg)
+
+[Дмитрий Вайнер](https://github.com/dmitryweiner)</script></section><section  data-markdown><script type="text/template">
+### История развития языка
+![js history](assets/js/history.png)</script></section><section  data-markdown><script type="text/template">
+### История развития языка
+![js history](assets/js/history2.png)</script></section><section  data-markdown><script type="text/template">
+### История развития фреймворков на JS
+![frameworks history](assets/js/frameworks-timeline.png)</script></section><section  data-markdown><script type="text/template">
+### История развития фреймворков на JS
+![frameworks history](assets/js/frameworks-timeline2.png)</script></section><section  data-markdown><script type="text/template">
+### Основные принципы
+* Нестрогая типизация.
+* Низкий порог входа.
+* Выполняется в браузере (уже не только).
+* Выполняется интерпретатором без компиляции.
+* Прощает ошибки программиста (додумывает что-то своё).</script></section><section  data-markdown><script type="text/template">
 ### Объявление переменных
-</script></section><section  data-markdown><script type="text/template">
+* Устаревший синтаксис:
+```js
+var i = 1;
+```
+* Современный синтаксис:
+```js
+let i;
+const j = 2;
+```</script></section><section  data-markdown><script type="text/template">
+### Чем плох var?
+* Объявление переменной перемещается в начало блока (hoisting).
+* Нет блочной области видимости.
+* Нет ошибки при повторном объявлении.
+* При объявлении в глобальной области видимости затрагивает объект window. 
+* [Подробнее](https://learn.javascript.ru/var). </script></section><section  data-markdown><script type="text/template">
+### Разница между let и const
+* **const** служит для переменных, чьё значение не будет изменяться:
+```js
+const a = 1;
+a = 2; // Exception!
+const arr = [1, 2, 3];
+arr.push(4); // всё хорошо, ссылка на массив не изменилась
+```
+* **let** для тех переменных, которые изменяются:
+```js
+let i = 1;
+i = 2; // всё в порядке
+```</script></section><section  data-markdown><script type="text/template">
+### Области видимости
+* Переменная видна только после объявления.
+```js
+console.log(i); // Uncaught ReferenceError: i is not defined
+const i = 1;
+console.log(i); // 1
+```
+* Переменная, объявленная внутри блока, видна только внутри этого блока.
+```js
+{
+    const i = 1;
+}
+console.log(i); // Uncaught ReferenceError: i is not defined
+```</script></section><section  data-markdown><script type="text/template">
+### Области видимости
+* Внутри блока видны внешние переменные сколь угодного высоких уровней.
+```js
+const i = 1;
+{
+    console.log(i); // 1
+}
+```
+* Блочные переменные перекрывают внешние при совпадении имён.
+```js
+const i = 1;
+{
+    const i = 2;
+    console.log(i); // 2
+}
+```</script></section><section  data-markdown><script type="text/template">
+### Типы данных
+* **number**: число.
+
+```js
+const i = 1; // в десятиричном виде
+const j = 0xBE; // в 16-ричном виде
+const k = 0777; // в восьмеричном виде
+const f = 0b0101010; // в двоичном виде
+```
+* **string**: строка.
+
+```js
+const s = "string";
+const anotherString = '123';
+const phrase = `Обратные кавычки позволяют
+ встраивать переменные ${s}`; // шаблонная строка
+```
+* **boolean**: [булево](https://ru.wikipedia.org/wiki/%D0%91%D1%83%D0%BB%D1%8C,_%D0%94%D0%B6%D0%BE%D1%80%D0%B4%D0%B6) значение.
+
+```js
+const isSet = true;
+```</script></section><section  data-markdown><script type="text/template">
+### Типы данных
+* **function**: функция.
+
+```js
+const f = function (i) {
+    return i * 2;
+};
+```
+* **object**: объект.
+
+```js
+const obj = {
+    field: 1
+};
+```</script></section><section  data-markdown><script type="text/template">
+### Специальные типы
+* **undefined**: не определено.
+
+```js
+let u;
+console.log(u); // undefined
+```
+* **null**: значение неизвестно.
+
+```js
+let u = null;
+console.log(u); // null
+```</script></section><section  data-markdown><script type="text/template">
+### Как узнать тип прямо в коде
+* Оператор **typeof**:
+
+```js
+typeof undefined // "undefined"
+typeof 0 // "number"
+typeof 10n // "bigint"
+typeof true // "boolean"
+typeof "foo" // "string"
+typeof null // "object" -- известный баг
+typeof alert // "function"
+```</script></section><section  data-markdown><script type="text/template">
 ### Операторы
+* Присваивание: =
+* Математические: *, /, +, -, %, **, ++, --
+* Сравнения: >, <, >=, <=, ==, ===
+* Логические: !, ||, &&
+* Побитовые: |, &, ~, ^, <<, >>, >>>
+* [Подробнее](https://learn.javascript.ru/operators).
 </script></section><section  data-markdown><script type="text/template">
+### Неявное приведение типа
+* Операторы неявно приводят переменные к тому типу, с которым работают.
+* Математические операторы приводят к типу number, кроме оператора +.
+* Логические операторы и операторы сравнения приводят к типу boolean.
+* [Подробнее](https://learn.javascript.ru/type-conversions).</script></section><section  data-markdown><script type="text/template">
+### Особенности оператора +</script></section><section  data-markdown><script type="text/template">
+### Явное приведение типа
+</script></section><section  data-markdown><script type="text/template">
+### Конвертация в строку</script></section><section  data-markdown><script type="text/template">
+### Сравнение с учётом типа</script></section><section  data-markdown><script type="text/template">
+### Rest & spread</script></section><section  data-markdown><script type="text/template">
 ### Условия
 </script></section><section  data-markdown><script type="text/template">
 ### Циклы
 </script></section><section  data-markdown><script type="text/template">
 ### Функции
 </script></section><section  data-markdown><script type="text/template">
-### Классы
-</script></section><section  data-markdown><script type="text/template">
+### Обращение к DOM</script></section><section  data-markdown><script type="text/template">
+### Обработчики</script></section><section  data-markdown><script type="text/template">
 ### Генераторы
 </script></section><section  data-markdown><script type="text/template">
 ### Промисы
@@ -81,8 +232,9 @@ https://github.com/dmitryweiner/lectures/raw/main/old/%D0%98%D0%BD%D1%82%D0%B5%D
 </script></section><section  data-markdown><script type="text/template">
 ### 
 </script></section><section  data-markdown><script type="text/template">
-https://learn.javascript.ru/
-https://htmlacademy.ru/courses/343
+### Полезные ссылки
+* https://learn.javascript.ru/
+* https://htmlacademy.ru/courses/343
 </script></section></div>
     </div>
 

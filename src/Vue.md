@@ -661,8 +661,8 @@ export default {
 * Можно указывать несколько динамических классов:
 ```vue
 <div
-  class="static"
-  :class="{ active: isActive, 'text-danger': hasError }"
+    class="static"
+    :class="{ active: isActive, 'text-danger': hasError }"
 ></div>
 ```
 * Или даже так:
@@ -670,24 +670,82 @@ export default {
 <div :class="[activeClass, errorClass]"></div>
 //
 data() {
-    return {
-      activeClass: 'active',
-      errorClass: 'text-danger'
-    }
+      return {
+        activeClass: 'active',
+        errorClass: 'text-danger'
+      }
 }
 ```
 ---
 
-### Composition API
-* Идеи функционального программирования дошли и до разработчиков Vue.
-* И им они показались стоящими. Поэтому теперь можно писать компоненты в функциональном стиле.
-* Это называется [Composition API](https://v3.vuejs.org/guide/composition-api-introduction.html).
-* Подобный подход позволяет выделить повторяющиеся куски компонентов
-  (например, одинаковую реакцию на события) в отдельные функции.
+### Ассеты
+* Картинки и другие файлы подключаются в шаблоне так:
+![asset](assets/vue/asset.png)
+* Если картинка должна быть динамической:
+![assets url](assets/vue/assets-url.png)
+* [Подробнее](https://stackoverflow.com/questions/47313165/how-to-reference-static-assets-within-vue-javascript).
+---
+
+### Роутер
+* При создании приложения выбрать использование роутера:
+
+![router](assets/vue/router.png)
+---
+
+### Роутер
+* Не забыть включить историю:
+![router history](assets/vue/roter-history.png)
+---
+
+### Роутер 
+* Ручная установка:
+```shell
+npm i vue-router
+```
+* Создать файл с роутами.
+* Подключить роутер к приложению в main.js.
+---
+
+### Файл с роутами
+```js
+import { createRouter, createWebHistory } from 'vue-router';
+import Home from '../views/Home.vue';
+
+const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: Home
+  },
+  {
+    path: '/about',
+    name: 'About',
+    // Ленивая загрузка: подгрузится только при визите страницы
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  }
+];
+
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes
+});
+
+export default router;
+```
+---
+
+### Подключение роутера в main.js
+```js
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+
+createApp(App).use(router).mount('#app');
+```
 ---
 
 ### Тестирование
-* Тестирование проводится совершенно так же, как в React.js, с использованием
+* Для Vue 2.* тестирование проводится совершенно так же, как в React.js, с использованием
   библиотеки [testing-library](https://testing-library.com/docs/vue-testing-library/intro/).
 * Методика Arrange Act Assert.
 * [Примеры](https://testing-library.com/docs/vue-testing-library/examples).
@@ -712,6 +770,26 @@ test('increments value on click', async () => {
 ```
 ---
 
+### Тестирование в Vue3
+* В Vue3 работает только библиотека @vue/test-utils.
+* Тест в ней выглядит немного иначе:
+
+```js
+import { shallowMount } from '@vue/test-utils'
+import HelloWorld from '@/components/HelloWorld.vue'
+
+describe('HelloWorld.vue', () => {
+  it('renders props.msg when passed', () => {
+    const msg = 'new message'
+    const wrapper = shallowMount(HelloWorld, {
+      props: { msg }
+    })
+    expect(wrapper.text()).toMatch(msg)
+  })
+})
+```
+---
+
 ### Отладка
 * Можно поставить отладочное расширение для 
   [Google Chrome](https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg)
@@ -721,10 +799,19 @@ test('increments value on click', async () => {
 ![Vue devtools](assets/vue/devtools.jpg)
 ---
 
+### Composition API
+* Идеи функционального программирования дошли и до разработчиков Vue.
+* И им они показались стоящими. Поэтому теперь можно писать компоненты в функциональном стиле.
+* Это называется [Composition API](https://v3.vuejs.org/guide/composition-api-introduction.html).
+* Подобный подход позволяет выделить повторяющиеся куски компонентов
+  (например, одинаковую реакцию на события) в отдельные функции.
+---
+
 ### Что дальше?
 * [Компоненты-классы](https://class-component.vuejs.org/), обёрнутые в декораторы.
 * [Менеджеры состояния](https://vuex.vuejs.org/).
 * [Библиотеки компонентов](https://material-ui.com/ru/).
+* [Composition API](https://v3.vuejs.org/guide/composition-api-introduction.html).
 ---
 
 ### Полезные ссылки
