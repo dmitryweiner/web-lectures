@@ -687,7 +687,7 @@ data() {
 ---
 
 ### Роутер
-* При создании приложения выбрать использование роутера:
+* Правильнее всего при создании приложения выбрать использование роутера:
 
 ![router](assets/vue/router.png)
 ---
@@ -698,12 +698,15 @@ data() {
 ---
 
 ### Роутер 
+* Если приложение уже создано, всегда можно поставить роутер вручную.
 * Ручная установка:
-```shell
-npm i vue-router
-```
-* Создать файл с роутами.
-* Подключить роутер к приложению в main.js.
+  * Поставить библиотеку:
+  ```shell
+     npm i vue-router
+  ```
+  * Создать файл с роутами.
+  * Подключить роутер к приложению в main.js.
+* [Документация](https://next.router.vuejs.org/guide/).
 ---
 
 ### Файл с роутами
@@ -749,6 +752,7 @@ createApp(App).use(router).mount('#app');
   библиотеки [testing-library](https://testing-library.com/docs/vue-testing-library/intro/).
 * Методика Arrange Act Assert.
 * [Примеры](https://testing-library.com/docs/vue-testing-library/examples).
+
 ```shell
 npm install -D @testing-library/vue
 ```
@@ -756,13 +760,9 @@ npm install -D @testing-library/vue
 import {render, fireEvent} from '@testing-library/vue';
 import Component from './Component.vue';
 test('increments value on click', async () => {
-    // The render method returns a collection of utilities to query your component.
     const {getByText} = render(Component);
-    // getByText returns the first matching node for the provided text, and
-    // throws an error if no elements match or if more than one match is found.
     getByText('Times clicked: 0');
     const button = getByText('increment');
-    // Dispatch a native click event to our button element.
     await fireEvent.click(button);
     await fireEvent.click(button);
     getByText('Times clicked: 2');
@@ -772,21 +772,21 @@ test('increments value on click', async () => {
 
 ### Тестирование в Vue3
 * В Vue3 работает только библиотека @vue/test-utils.
+* [Документация](https://vue-test-utils.vuejs.org/guides/#getting-started).
 * Тест в ней выглядит немного иначе:
 
 ```js
-import { shallowMount } from '@vue/test-utils'
-import HelloWorld from '@/components/HelloWorld.vue'
-
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message'
-    const wrapper = shallowMount(HelloWorld, {
-      props: { msg }
-    })
-    expect(wrapper.text()).toMatch(msg)
-  })
-})
+describe("Clicker.vue", () => {
+    it("при клике на кнопку увеличивает значение", async () => {
+    const initialValue = 10;
+        const wrapper = shallowMount(Clicker, {
+            props: { initialValue },
+        });
+        expect(wrapper.text()).toMatch(initialValue.toString());
+        await wrapper.find("button").trigger("click");
+        expect(wrapper.text()).toMatch(Number(initialValue + 1).toString());
+    });
+});
 ```
 ---
 

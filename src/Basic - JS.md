@@ -432,9 +432,20 @@ const square = a => a * a;
 ### Rest & spread
 * Оператор ...rest используется в аргументах функции и вбирает в себя все не перечисленные параметры.
 
+```js
+function sumAll(...args) { // args — имя массива
+  let sum = 0;
+  for (let arg of args) sum += arg;
+  return sum;
+}
+console.log(sumAll(1, 2, 3)); // 6
+```
 * [Подробнее](https://learn.javascript.ru/rest-parameters-spread-operator).
 ---
 
+### Rest & spread
+* Использование с 
+---
 ### Обращение к DOM
 ---
 
