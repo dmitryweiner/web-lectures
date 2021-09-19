@@ -190,7 +190,7 @@ typeof alert // "function"
 ### Операторы
 * Присваивание: =
 * Математические: *, /, +, -, %, **, ++, --
-* Сравнения: >, <, >=, <=, ==, ===
+* Сравнения: >, <, >=, <=, ==, !=, ===, !==
 * Логические: !, ||, &&
 * Тернарный: ?
 * Побитовые: |, &, ~, ^, <<, >>, >>>
@@ -213,11 +213,11 @@ typeof alert // "function"
 * Оператор "+" работает ещё и со строками, поэтому если первый операнд строка, то второй будет преобразован в строку:
 
 ```js
-> '2' + 1
-'21'
+'2' + 1
+// '21'
 
-> '2' - 1
-1
+'2' - 1
+// 1
 ```
 ---
 
@@ -255,7 +255,7 @@ Number("123") // 123
 ```js
 1 === "1" // false
 ```
-* Надо пользоваться **ТОЛЬКО** оператором **===**.
+* Надо пользоваться **ТОЛЬКО** операторами **===** и **!==**.
 ---
 
 ### Массивы
@@ -289,6 +289,8 @@ console.log(arr); // [1, 2, 3, 4, 5]
 * [Подробнее](https://learn.javascript.ru/array-methods).
 ---
 
+---
+
 ### Объекты
 * Объект создаётся с помощью фигурных скобок, в которых перечисляются поля и значения.
 * В объект можно добавить поле после создания.
@@ -296,11 +298,67 @@ console.log(arr); // [1, 2, 3, 4, 5]
 ```js
 const obj = {
     field: 1,
-    stringField: "123"
+    stringField: "123",
+    method() { /* ... */ }
 };
 obj.anotherField = true;
 console.log(obj.field); // 1
 ```
+---
+
+### Создание объекта
+* При создании объекта можно использовать другие переменные в качестве полей:
+```js
+const str = "123";
+const field1 = "123";
+const field2 = "456";
+// ❌
+const obj = {
+    name: str,
+    field1: field1,
+    field2: field2
+};
+// ✔
+const obj = {
+    name: str,
+    field1,
+    field2
+};
+```
+---
+
+### Optional chaining
+* Что если мы пытаемся получить доступ к полю объекта,
+  а такого поля нет?
+```js
+const obj = {
+    a: 1,
+    b: 2
+};
+console.log(obj.c.d); // Error!
+console.log(obj?.c?.d); // undefined
+```
+* [Подробнее](https://learn.javascript.ru/optional-chaining).
+
+---
+
+### Ссылочные типы данных
+* Присваивание переменных, содержащих массивы или объекты, происходит по ссылке:
+
+```js
+const obj = { a: 1, b: 2};
+const anotherObj = obj;
+anotherObj.b = 42;
+console.log(obj.b); // 42
+
+const arr = [1, 2, 3];
+const anotherArr = arr;
+anotherArr[1] = 123;
+console.log(arr[1]); // 123
+```
+----
+
+![reference types](assets/js/pass-by-reference-vs-pass-by-value-animation.gif)
 ---
 
 ### Условия
@@ -375,12 +433,14 @@ for (let item of arr) {
 * Функция &mdash; участок кода, который можно вызвать.
 * Функции бывают анонимные и именованные.
 * Функции могут принимать на вход аргументы.
-* Функции могут возвращать значение.
+* Функции могут возвращать значение (return).
 * Ссылку на функцию можно сохранить в переменную и потом вызвать.
 * Функция может вызывать саму себя (рекурсия).
 ---
 
 ### Функции
+[Документация](https://learn.javascript.ru/es-function).
+
 ```js
 function fact(number) {
     let result = 1;
@@ -429,6 +489,36 @@ const square = a => a * a;
 ```
 ---
 
+### Параметры по умолчанию
+* У функции могут быть параметры, которые можно не указывать. Тогда будут заданы значения по умолчанию:
+```js
+function sayMyName(name = "Walter White") {
+    console.log(`Your name is ${name}`);
+}
+sayMyName("Dmitry"); // Your name is Dmitry
+sayMyName(); // Your name is Walter White
+```
+* Параметры по умолчанию могут быть не только значением, но и выражением.
+* Они должны быть последними в списке параметров. Так нельзя: ❌
+```js
+function sayMyName(firstName = "Walter", lastName) {}
+```
+---
+
+### Ссылочные типы в параметрах
+* При передаче ссылочных типов в аргументах функция может их изменять.
+* Эти изменения будут видны снаружи функции.
+* Нельзя использовать этот эффект для возврата значений из функции, следует пользоваться return'ом.
+```js
+function changer(o) {
+    o.a = 123;
+}
+const obj = { a: 1, b: 2};
+changer(o);
+console.log(obj.a); // 123
+```
+---
+
 ### Rest & spread
 * Оператор ...rest используется в аргументах функции и вбирает в себя все не перечисленные параметры.
 
@@ -443,37 +533,310 @@ console.log(sumAll(1, 2, 3)); // 6
 * [Подробнее](https://learn.javascript.ru/rest-parameters-spread-operator).
 ---
 
-### Rest & spread
-* Использование с 
+### ...rest и аргументы функции
+* Не все аргументы могут лежать в ...rest. Могут быть и указанные аргументы:
+```js
+function sayMyName(firstName, lastName, ...rest) {
+    console.log(`${firstName} ${lastName} - ${rest}`);
+}
+```
 ---
-### Обращение к DOM
+
+### Rest & spread
+* Оператор ...spread используется там, где ожидается несколько аргументов.
+* Ему на вход подаётся что-то итерируемое (объект, массив).
+```js
+const arr = [1, 2, 3];
+console.log(sumAll(...arr)); // 6
+```
+---
+
+### Копирование объектов и массивов с помощью ...spread
+* Чтобы избежать копирования по ссылке, нужно скопировать сам объект/массив.
+* В этом нам поможет оператор ...spread:
+
+```js
+const obj = { a: 1, b: 2};
+const newObj = {...obj};
+newObj.a = 123;
+console.log(obj.a); // 1
+
+const arr = [1, 2, 3];
+const newArr = [...arr];
+newArr[1] = 123;
+console.log(arr[1]); // 2
+```
+---
+
+### Деструктурирующее присваивание
+* Можно при создании переменных брать значения из объектов:
+```js
+const obj = { a: 1, b: 2 };
+const { a, b } = obj;
+console.log(a, b); // 1, 2
+```
+* Или из массивов:
+```js
+const arr = [1, 2, 3];
+const [a, b] = arr;
+console.log(a, b); // 1, 2
+```
+* [Подробнее](https://learn.javascript.ru/destructuring-assignment).
+---
+
+### Деструктурирующее присваивание и ...rest
+* Оставшиеся поля можно сложить в одну переменную с помощью оператора ...rest:
+
+```js
+const obj = { a: 1, b: 2, c: 3, d: 4 };
+const {a, b, ...notUsed} = obj;
+console.log(a, b); // 1, 2
+console.log(notUsed); // { c: 3, d: 4 }
+
+const arr = [1, 2, 3, 4];
+const [f, g, notUsedArray] = arr;
+console.log(f, g); // 1, 2
+console.log(notUsedArray); // [3, 4]
+```
+---
+
+### Деструктурирующее присваивание и параметры по умолчанию
+* У объекта может не быть указанных полей, поэтому разумно применить параметры по умолчанию:
+
+```js
+const user = {
+    firstName: "Walter",
+    lastName: "White"
+};
+const { fistName = "", lastName = "", surname = "" } = user; 
+```
+---
+
+### Деструктурирующее присваивание в аргументах функции
+* Можно пользоваться деструктурирующим присваиванием прямо в аргументах функции.
+* Это удобно, когда параметров слишком много (больше 3).
+* Удобно это сочетать с параметрами по умолчанию.
+---
+
+### Деструктурирующее присваивание в аргументах функции
+```js
+function showMenu({title = "Заголовок", width = 100, height = 200}) {
+  console.log(`${title} ${width} ${height}`);
+}
+
+// чтобы вызвать совсем без параметров:
+function showMenu({
+                    title = "Заголовок",
+                    width = 100,
+                    height = 200
+} = {}) {
+  console.log(`${title} ${width} ${height}`);
+}
+```
+---
+
+### Обращение к DOM'у
+* Поиск элементов DOM осуществляется с помощью следующих методов:
+  * document.getElementById().
+  * document.querySelector().
+  * document.querySelectorAll().
+  * document.getElementsByTagName().
+  * document.getElementsByClassName().
+  * document.getElementsByName().
+* [Подробнее](https://learn.javascript.ru/searching-elements-dom).
+----
+
+```html
+<script>
+    const element = document.getElementById("root");
+    console.log(element);
+</script>
+<div id="root"></div>
+```
+---
+
+### Оси родитель-потомок и другие
+* У найденного элемента можно посмотреть его потомков:
+  * childNodes.
+  * firstChild.
+  * lastChild.
+* И его родителя:
+  * parentNode. 
+* [Подробнее](https://learn.javascript.ru/dom-navigation).
+----
+
+![DOM axis](assets/js/dom-axis.png)
+---
+
+### Коллекции
+* Методы поиска по DOM querySelectorAll, getElementsByName и др. возвращают коллекции узлов.
+* Коллекции могут быть итерированы с помощью for..of:
+```js
+for (let node of document.body.childNodes) {
+  conslole.log(node); // покажет все узлы из коллекции
+}
+```
+* Коллекцию можно сконвертировать в массив для фильтрации или сортировки:
+```js
+const arr = Array.from(document.body.childNodes);
+```
+---
+
+### Живые коллекции
+* Коллекции являются живыми (кроме querySelectorAll) и динамически обновляются при изменении DOM.
+* Если мы сохраним ссылку на elem.childNodes и добавим/удалим узлы в DOM, то они появятся в сохранённой коллекции автоматически.
 ---
 
 ### Изменение свойств
+* У найденных узлов можно читать и изменять всевозможные свойства:
+  * .innerText.
+  * .innerHTML.
+  * .style.
+  * .width.
+  * .height.
+  * .value (только для input).
+
+```html
+<script>
+    const element = document.getElementById("root");
+    element.innerText = "123";
+</script>
+<div id="root"></div>
+```
 ---
 
 ### Обработчики
+```html
+<script>
+    const element = document.getElementById("button");
+    element.addEventListener("click", () => {
+        console.log("Button clicked!");
+    });
+</script>
+<button id="button">Click me!</button>
+```
 ---
 
 ### Обработчик загрузки страницы
+```js
+document.addEventListener("DOMContentLoaded", () => {
+    
+});
+```
 ---
 
 ### Таймеры
+https://learn.javascript.ru/settimeout-setinterval
+---
+
+### Замыкания
+https://learn.javascript.ru/closure
 ---
 
 ### Промисы
+https://learn.javascript.ru/promise
+---
+
+### async/await
+https://learn.javascript.ru/async-await
 ---
 
 ### Походы в сеть
+https://learn.javascript.ru/fetch
 ---
 
 ### Генераторы
+https://learn.javascript.ru/generator
 ---
 
 ### Map 
+https://learn.javascript.ru/map-set
 ---
 
 ### Set
+---
+
+### Массивы: добавление/удаление элементов:
+* push(...items) – добавляет элементы в конец,
+* pop() – извлекает элемент с конца,
+* shift() – извлекает элемент с начала,
+* unshift(...items) – добавляет элементы в начало.
+* splice(pos, deleteCount, ...items) – начиная с индекса pos, удаляет deleteCount элементов и вставляет items.
+---
+
+### Массивы: добавление/удаление элементов:
+* slice(start, end) – создаёт новый массив, копируя в него элементы с позиции start до end (не включая end).
+* concat(...items) – возвращает новый массив: копирует все члены текущего массива и добавляет к нему items. Если какой-то из items является массивом, тогда берутся его элементы.
+---
+
+### Массивы: поиск среди элементов:
+* indexOf/lastIndexOf(item, pos) – ищет item, начиная с позиции pos, и возвращает его индекс или -1, если ничего не найдено.
+* includes(value) – возвращает true, если в массиве имеется элемент value, в противном случае false.
+---
+
+### Массивы: поиск среди элементов:
+* filter - для каждого элемента вызывает функцию и отдаёт все те, для которых функция возвращает true.
+* find – то же, что и предыдущее, только возвращается первый элемент.
+* findIndex похож на find, но возвращает индекс вместо значения.
+---
+
+### Массивы: перебор элементов:
+* forEach(func) – вызывает func для каждого элемента. Ничего не возвращает.
+* map(func) – создаёт новый массив из результатов вызова func для каждого элемента.
+* sort(func) – сортирует массив «на месте», а потом возвращает его.
+* reverse() – «на месте» меняет порядок следования элементов на противоположный и возвращает изменённый массив.
+---
+
+### Массивы: перебор элементов:
+* reduce(func, initial) – вычисляет одно значение на основе всего массива, вызывая func для каждого элемента и передавая промежуточный результат между вызовами.
+
+```js
+const arr = [1, 2, 3];
+arr.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+);
+// 6 - сумма массива
+```
+---
+
+### Массивы: полезные функции:
+* split/join – преобразует строку в массив и обратно.
+* Array.isArray(arr) проверяет, является ли arr массивом.
+* [Документация](https://learn.javascript.ru/array-iteration).
+---
+
+### Примеры
+
+```js
+const arr = [1, -1, 2, -2, 3];
+arr.map(element => element * element);
+// возвели в квадрат каждый элемент и вернули массив [1, 1, 4, 4, 9]
+
+arr.forEach(element => console.log(element)); // вывели каждый элемент
+
+arr.reduce((accumulator, currentValue) => accumulator + currentValue);
+// 3 - сумма массива
+
+arr.reverse() // перевернутый массив [3, -2, 2, -1, 1]
+```
+---
+
+### Полезные методы массивов
+* every: возвращает true, если вызов callback вернёт true для каждого элемента arr.
+* some: возвращает true, если вызов callback вернёт true для какого-нибудь элемента arr.
+
+```js
+const arr = [1, -1, 2, -2, 3];
+
+const isPositive = element => element > 0;
+
+arr.every(isPositive); // false, не все положительные
+arr.some(isPositive); // true, есть хоть одно положительное
+arr.filter(isPositive); // [1, 2, 3]
+arr.find(isPositive); // 1 -- первое положительное число
+arr.findIndex(isPositive); // 0
+```
 ---
 
 ### Полезные ссылки
