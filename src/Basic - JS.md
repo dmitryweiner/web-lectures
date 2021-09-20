@@ -290,20 +290,20 @@ console.log(obj.field); // 1
 ### Создание объекта
 * При создании объекта можно использовать другие переменные в качестве полей:
 ```js
-const str = "123";
-const field1 = "123";
-const field2 = "456";
+const str = "John";
+const password = "1#$%1";
+const account = 10000;
 // ❌
-const obj = {
+const user = {
     name: str,
-    field1: field1,
-    field2: field2
+    password: password,
+    account: account
 };
 // ✔
-const obj = {
+const user = {
     name: str,
-    field1,
-    field2
+    password,
+    account
 };
 ```
 ---
@@ -328,7 +328,7 @@ console.log(obj?.c?.d); // undefined
 * Присваивание переменных, содержащих массивы или объекты, происходит по ссылке:
 
 ```js
-const obj = { a: 1, b: 2};
+const obj = { a: 1, b: 2 };
 const anotherObj = obj;
 anotherObj.b = 42;
 console.log(obj.b); // 42
@@ -451,6 +451,7 @@ const divide = (a, b) => {
 }
 divide(4, 2); // 2
 ```
+* [Отличия](https://learn.javascript.ru/es-function#funktsii-strelki-ne-imeyut-svoego-this).
 ---
 
 ### Варианты стрелочных функций
@@ -495,7 +496,7 @@ function sayMyName(firstName = "Walter", lastName) {}
 function changer(o) {
     o.a = 123;
 }
-const obj = { a: 1, b: 2};
+const obj = { a: 1, b: 2 };
 changer(o);
 console.log(obj.a); // 123
 ```
@@ -538,7 +539,7 @@ console.log(sumAll(...arr)); // 6
 * В этом нам поможет оператор ...spread:
 
 ```js
-const obj = { a: 1, b: 2};
+const obj = { a: 1, b: 2 };
 const newObj = {...obj};
 newObj.a = 123;
 console.log(obj.a); // 1
@@ -571,7 +572,7 @@ console.log(a, b); // 1, 2
 
 ```js
 const obj = { a: 1, b: 2, c: 3, d: 4 };
-const {a, b, ...notUsed} = obj;
+const { a, b, ...notUsed } = obj;
 console.log(a, b); // 1, 2
 console.log(notUsed); // { c: 3, d: 4 }
 
@@ -813,6 +814,14 @@ https://learn.javascript.ru/settimeout-setinterval
 
 ### Замыкания
 https://learn.javascript.ru/closure
+---
+
+### Exception
+https://learn.javascript.ru/exception
+---
+
+### Try / catch
+https://learn.javascript.ru/try-catch
 ---
 
 ### Промисы

@@ -255,20 +255,20 @@ console.log(obj.field); // 1
 ### Создание объекта
 * При создании объекта можно использовать другие переменные в качестве полей:
 ```js
-const str = "123";
-const field1 = "123";
-const field2 = "456";
+const str = "John";
+const password = "1#$%1";
+const account = 10000;
 // ❌
-const obj = {
+const user = {
     name: str,
-    field1: field1,
-    field2: field2
+    password: password,
+    account: account
 };
 // ✔
-const obj = {
+const user = {
     name: str,
-    field1,
-    field2
+    password,
+    account
 };
 ```</script></section><section  data-markdown><script type="text/template">
 ### Optional chaining
@@ -289,7 +289,7 @@ console.log(obj?.c?.d); // undefined
 * Присваивание переменных, содержащих массивы или объекты, происходит по ссылке:
 
 ```js
-const obj = { a: 1, b: 2};
+const obj = { a: 1, b: 2 };
 const anotherObj = obj;
 anotherObj.b = 42;
 console.log(obj.b); // 42
@@ -395,7 +395,8 @@ const divide = (a, b) => {
     return a / b;
 }
 divide(4, 2); // 2
-```</script></section><section  data-markdown><script type="text/template">
+```
+* [Отличия](https://learn.javascript.ru/es-function#funktsii-strelki-ne-imeyut-svoego-this).</script></section><section  data-markdown><script type="text/template">
 ### Варианты стрелочных функций
 * Если стрелочная функция сразу возвращает результат, можно обойтись без {}.
 * Если аргумент один, можно обойтись без ().
@@ -434,7 +435,7 @@ function sayMyName(firstName = "Walter", lastName) {}
 function changer(o) {
     o.a = 123;
 }
-const obj = { a: 1, b: 2};
+const obj = { a: 1, b: 2 };
 changer(o);
 console.log(obj.a); // 123
 ```</script></section><section  data-markdown><script type="text/template">
@@ -469,7 +470,7 @@ console.log(sumAll(...arr)); // 6
 * В этом нам поможет оператор ...spread:
 
 ```js
-const obj = { a: 1, b: 2};
+const obj = { a: 1, b: 2 };
 const newObj = {...obj};
 newObj.a = 123;
 console.log(obj.a); // 1
@@ -498,7 +499,7 @@ console.log(a, b); // 1, 2
 
 ```js
 const obj = { a: 1, b: 2, c: 3, d: 4 };
-const {a, b, ...notUsed} = obj;
+const { a, b, ...notUsed } = obj;
 console.log(a, b); // 1, 2
 console.log(notUsed); // { c: 3, d: 4 }
 
@@ -692,6 +693,10 @@ document.addEventListener("DOMContentLoaded", () => {
 https://learn.javascript.ru/settimeout-setinterval</script></section><section  data-markdown><script type="text/template">
 ### Замыкания
 https://learn.javascript.ru/closure</script></section><section  data-markdown><script type="text/template">
+### Exception
+https://learn.javascript.ru/exception</script></section><section  data-markdown><script type="text/template">
+### Try / catch
+https://learn.javascript.ru/try-catch</script></section><section  data-markdown><script type="text/template">
 ### Промисы
 https://learn.javascript.ru/promise</script></section><section  data-markdown><script type="text/template">
 ### async/await
