@@ -239,21 +239,6 @@ arr.push(4); // [1, 2, 3, 4]
 arr.length; // 4
 arr[0]; // 1
 ```</script></section><section  data-markdown><script type="text/template">
-### Массивы
-* Из массива можно вырезать кусок произвольной длины из произвольного места с помощью _splice_.
-  **Внимание!** Этот метод меняет сам массив.
-```js
-const arr = [1, 2, 3, 4, 5];
-arr.splice(1, 2);
-console.log(arr); // [1, 4, 5]
-```
-* Можно взять часть массива с помощью _slice_. Этот метод массив не изменяет.
-```js
-const arr = [1, 2, 3, 4, 5];
-console.log(arr.slice(1, 2)); // [2, 3]
-console.log(arr); // [1, 2, 3, 4, 5]
-```
-* [Подробнее](https://learn.javascript.ru/array-methods).</script></section><section  data-markdown><script type="text/template">
 ### Объекты
 * Объект создаётся с помощью фигурных скобок, в которых перечисляются поля и значения.
 * В объект можно добавить поле после создания.
@@ -550,6 +535,86 @@ function showMenu({
 } = {}) {
   console.log(`${title} ${width} ${height}`);
 }
+```</script></section><section  data-markdown><script type="text/template">
+### Массивы: добавление/удаление элементов:
+* push(...items) – добавляет элементы в конец,
+* pop() – извлекает элемент с конца,
+* shift() – извлекает элемент с начала,
+* unshift(...items) – добавляет элементы в начало.
+* splice(pos, deleteCount, ...items) – начиная с индекса pos, удаляет deleteCount элементов и вставляет items.</script></section><section  data-markdown><script type="text/template">
+### Массивы: добавление/удаление элементов:
+* slice(start, end) – создаёт новый массив, копируя в него элементы с позиции start до end (не включая end).
+* concat(...items) – возвращает новый массив: копирует все члены текущего массива и добавляет к нему items. Если какой-то из items является массивом, тогда берутся его элементы.</script></section><section  data-markdown><script type="text/template">
+### splice и slice
+* Из массива можно вырезать кусок произвольной длины из произвольного места с помощью _splice_.
+**Внимание!** Этот метод меняет сам массив.
+```js
+const arr = [1, 2, 3, 4, 5];
+arr.splice(1, 2);
+console.log(arr); // [1, 4, 5]
+```
+* Можно взять часть массива с помощью _slice_. Этот метод массив не изменяет.
+```js
+const arr = [1, 2, 3, 4, 5];
+console.log(arr.slice(1, 2)); // [2, 3]
+console.log(arr); // [1, 2, 3, 4, 5]
+```
+* [Подробнее](https://learn.javascript.ru/array-methods).</script></section><section  data-markdown><script type="text/template">
+### Массивы: поиск среди элементов:
+* indexOf/lastIndexOf(item, pos) – ищет item, начиная с позиции pos, и возвращает его индекс или -1, если ничего не найдено.
+* includes(value) – возвращает true, если в массиве имеется элемент value, в противном случае false.</script></section><section  data-markdown><script type="text/template">
+### Массивы: поиск среди элементов:
+* filter - для каждого элемента вызывает функцию и отдаёт все те, для которых функция возвращает true.
+* find – то же, что и предыдущее, только возвращается первый элемент.
+* findIndex похож на find, но возвращает индекс вместо значения.</script></section><section  data-markdown><script type="text/template">
+### Массивы: перебор элементов:
+* forEach(func) – вызывает func для каждого элемента. Ничего не возвращает.
+* map(func) – создаёт новый массив из результатов вызова func для каждого элемента.
+* sort(func) – сортирует массив «на месте», а потом возвращает его.
+* reverse() – «на месте» меняет порядок следования элементов на противоположный и возвращает изменённый массив.</script></section><section  data-markdown><script type="text/template">
+### Массивы: перебор элементов:
+* reduce(func, initial) – вычисляет одно значение на основе всего массива, вызывая func для каждого элемента и передавая промежуточный результат между вызовами.
+
+```js
+const arr = [1, 2, 3];
+arr.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+);
+// 6 - сумма массива
+```</script></section><section  data-markdown><script type="text/template">
+### Массивы: полезные функции:
+* split/join – преобразует строку в массив и обратно.
+* Array.isArray(arr) проверяет, является ли arr массивом.
+* [Документация](https://learn.javascript.ru/array-iteration).</script></section><section  data-markdown><script type="text/template">
+### Примеры
+
+```js
+const arr = [1, -1, 2, -2, 3];
+arr.map(element => element * element);
+// возвели в квадрат каждый элемент и вернули массив [1, 1, 4, 4, 9]
+
+arr.forEach(element => console.log(element)); // вывели каждый элемент
+
+arr.reduce((accumulator, currentValue) => accumulator + currentValue);
+// 3 - сумма массива
+
+arr.reverse() // перевернутый массив [3, -2, 2, -1, 1]
+```</script></section><section  data-markdown><script type="text/template">
+### Полезные методы массивов
+* every: возвращает true, если вызов callback вернёт true для каждого элемента arr.
+* some: возвращает true, если вызов callback вернёт true для какого-нибудь элемента arr.
+
+```js
+const arr = [1, -1, 2, -2, 3];
+
+const isPositive = element => element > 0;
+
+arr.every(isPositive); // false, не все положительные
+arr.some(isPositive); // true, есть хоть одно положительное
+arr.filter(isPositive); // [1, 2, 3]
+arr.find(isPositive); // 1 -- первое положительное число
+arr.findIndex(isPositive); // 0
 ```</script></section><section ><section data-markdown><script type="text/template">
 ### Обращение к DOM'у
 * Поиск элементов DOM осуществляется с помощью следующих методов:
@@ -638,71 +703,6 @@ https://learn.javascript.ru/generator</script></section><section  data-markdown>
 ### Map 
 https://learn.javascript.ru/map-set</script></section><section  data-markdown><script type="text/template">
 ### Set</script></section><section  data-markdown><script type="text/template">
-### Массивы: добавление/удаление элементов:
-* push(...items) – добавляет элементы в конец,
-* pop() – извлекает элемент с конца,
-* shift() – извлекает элемент с начала,
-* unshift(...items) – добавляет элементы в начало.
-* splice(pos, deleteCount, ...items) – начиная с индекса pos, удаляет deleteCount элементов и вставляет items.</script></section><section  data-markdown><script type="text/template">
-### Массивы: добавление/удаление элементов:
-* slice(start, end) – создаёт новый массив, копируя в него элементы с позиции start до end (не включая end).
-* concat(...items) – возвращает новый массив: копирует все члены текущего массива и добавляет к нему items. Если какой-то из items является массивом, тогда берутся его элементы.</script></section><section  data-markdown><script type="text/template">
-### Массивы: поиск среди элементов:
-* indexOf/lastIndexOf(item, pos) – ищет item, начиная с позиции pos, и возвращает его индекс или -1, если ничего не найдено.
-* includes(value) – возвращает true, если в массиве имеется элемент value, в противном случае false.</script></section><section  data-markdown><script type="text/template">
-### Массивы: поиск среди элементов:
-* filter - для каждого элемента вызывает функцию и отдаёт все те, для которых функция возвращает true.
-* find – то же, что и предыдущее, только возвращается первый элемент.
-* findIndex похож на find, но возвращает индекс вместо значения.</script></section><section  data-markdown><script type="text/template">
-### Массивы: перебор элементов:
-* forEach(func) – вызывает func для каждого элемента. Ничего не возвращает.
-* map(func) – создаёт новый массив из результатов вызова func для каждого элемента.
-* sort(func) – сортирует массив «на месте», а потом возвращает его.
-* reverse() – «на месте» меняет порядок следования элементов на противоположный и возвращает изменённый массив.</script></section><section  data-markdown><script type="text/template">
-### Массивы: перебор элементов:
-* reduce(func, initial) – вычисляет одно значение на основе всего массива, вызывая func для каждого элемента и передавая промежуточный результат между вызовами.
-
-```js
-const arr = [1, 2, 3];
-arr.reduce(
-    (accumulator, currentValue) => accumulator + currentValue,
-    0
-);
-// 6 - сумма массива
-```</script></section><section  data-markdown><script type="text/template">
-### Массивы: полезные функции:
-* split/join – преобразует строку в массив и обратно.
-* Array.isArray(arr) проверяет, является ли arr массивом.
-* [Документация](https://learn.javascript.ru/array-iteration).</script></section><section  data-markdown><script type="text/template">
-### Примеры
-
-```js
-const arr = [1, -1, 2, -2, 3];
-arr.map(element => element * element);
-// возвели в квадрат каждый элемент и вернули массив [1, 1, 4, 4, 9]
-
-arr.forEach(element => console.log(element)); // вывели каждый элемент
-
-arr.reduce((accumulator, currentValue) => accumulator + currentValue);
-// 3 - сумма массива
-
-arr.reverse() // перевернутый массив [3, -2, 2, -1, 1]
-```</script></section><section  data-markdown><script type="text/template">
-### Полезные методы массивов
-* every: возвращает true, если вызов callback вернёт true для каждого элемента arr.
-* some: возвращает true, если вызов callback вернёт true для какого-нибудь элемента arr.
-
-```js
-const arr = [1, -1, 2, -2, 3];
-
-const isPositive = element => element > 0;
-
-arr.every(isPositive); // false, не все положительные
-arr.some(isPositive); // true, есть хоть одно положительное
-arr.filter(isPositive); // [1, 2, 3]
-arr.find(isPositive); // 1 -- первое положительное число
-arr.findIndex(isPositive); // 0
-```</script></section><section  data-markdown><script type="text/template">
 ### Полезные ссылки
 * https://learn.javascript.ru/
 * https://htmlacademy.ru/courses/343
