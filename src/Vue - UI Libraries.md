@@ -37,7 +37,7 @@ npx -p @vue/cli vue add vuetify
 * [Репо](https://github.com/vuematerial/vue-material).
 * [Демо](http://vma.isocked.com/#/dashboard), [ещё](https://codesandbox.io/s/mn16ll7ly?module=App.vue).
 * [Документация](https://www.creative-tim.com/vuematerial/getting-started).
-* Поддержка Vue 3: [маловероятно](https://github.com/vuematerial/vue-material/issues/2277).
+* Поддержка Vue 3: [Vuetify Titan (alpha)](https://next.vuetifyjs.com/en/getting-started/installation/).
 * Установка:
 ```shell
 npm install vue-material
@@ -94,6 +94,43 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 ```
+---
+
+### Vue 3
+* Далее будут перечислены не очень известные библиотеки, написанные специально под Vue 3.
+* Плюсы:
+  * Они написаны сравнительно недавно, динамично развиваются.
+  * Некоторая часть написана на TS, контроль типов.
+* Минусы:
+  * Динамично развиваются, API будет меняться.
+  * Если не взлетит, могут за[EOL](https://en.wikipedia.org/wiki/End-of-life_product)ить.
+---
+
+### Vue 3
+* https://quatrochan.github.io/Equal/
+* https://quasar.dev/
+* https://primefaces.org/primevue/showcase/#/
+* https://www.antdv.com/docs/vue/introduce/
+* https://next-material.balmjs.com/#/
+* https://antoniandre.github.io/wave-ui/
+---
+
+### Vue 3
+* https://ionicframework.com/docs/vue/overview
+* https://www.naiveui.com/en-US/os-theme
+* https://vuestic.dev/en/ui-elements/card
+* https://vant-contrib.gitee.io/vant/#/en-US/button
+* https://varlet.gitee.io/varlet-ui/#/en-US/home
+---
+
+### Соображения при выборе фреймворка
+* Число звёзд на GitHub.
+* Число участников.
+* Число форков.
+* Число issues (если много &mdash; плохо).
+* Дата последнего коммита.
+* Номер версии (вышел ли из альфа-состояния).
+* Написаны ли тесты, какое покрытие.
 ---
 
 ![usability](assets/vue-ui/usability.png)
