@@ -8,6 +8,7 @@ title: Vue - Библиотеки компонентов
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
+[видео](https://drive.google.com/file/d/1LGi2xRsDj02x5jXD9hXw3sZhbZmOZLOL/view?usp=sharing)
 ---
 
 ### Disclaimer

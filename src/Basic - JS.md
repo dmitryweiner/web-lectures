@@ -7,6 +7,8 @@ title: Basic - JavaScript
 ![js](assets/js/js-logo.png)
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
+
+[видео](https://drive.google.com/file/d/19Vm7ZAM2YgCl3kvZAdTFNTNwN5ADT-du/view?usp=sharing)
 ---
 
 ### Факты
