@@ -51,6 +51,10 @@ const app = createApp({ /* your root component */ });
 // Install the store instance as a plugin
 app.use(store);
 ```</script></section><section  data-markdown><script type="text/template">
+### При создании проекта
+* Можно выбрать опцию VueX при создании проекта, тогда всё поставится само:
+
+![vuex create app](assets/vuex/vuex-create-app.png)</script></section><section  data-markdown><script type="text/template">
 ### Подключение
 * После ```app.use(store);``` у каждого компонента появляется объект ```this.$store```.
 * Через этот объект можно взаимодействовать со стором:
