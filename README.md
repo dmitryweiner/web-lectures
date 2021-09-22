@@ -45,7 +45,7 @@
 * [ORM Mongoose](https://dmitryweiner.github.io/lectures/Mongoose.html#/)
 * [Vue](https://dmitryweiner.github.io/lectures/Vue.html#/)
 * [Библиотеки компонентов для Vue](https://dmitryweiner.github.io/lectures/Vue%20-%20UI%20Libraries.html#/)
-* [Менеджер состояний VueX]()
+* [Менеджер состояний VueX](https://dmitryweiner.github.io/lectures/Vue%20-%20VueX.html#/)
 * [Фреймворк Angular]()
 * [Фреймворк Svelte](https://github.com/dmitryweiner/lectures/raw/main/old/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81%D1%8B/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81%D1%8B%20%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%20Svelte.pptx)
 * [i18n многоязычность]()
