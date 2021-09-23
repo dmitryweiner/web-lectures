@@ -318,7 +318,20 @@ li.red.level   {} /* a=0 b=2 c=1 -> специфичность = 21  */
   * **px**: пиксели.
   * **em**: относительно размера шрифта родителя.
   * **rem**: относительно размера шрифта корневого элемента.
-  * **vh**: 1% от высоты экрана.
+---
+  
+### В процентах от размера экрана
+* **vh**: 1% от высоты экрана.
+* **vw**: 1% от ширины экрана.
+* **vmax**: 1% от максимального измерения экрана.
+* **vmin**: 1% от минимального измерения экрана.
+* [Подробнее](https://ishadeed.com/article/viewport-units/).
+
+```css
+.class {
+  width: 70vw;
+}
+```
 ---
 
 ### Единицы измерения
@@ -450,14 +463,24 @@ left: 20px;
 ![](assets/css/css-shorthand-property-explained.png)
 ---
 
+### Калькуляции прямо в CSS
+* Можно рассчитывать необходимые размеры с помощью функции calc():
+```css
+.class {
+    width: calc(80% - 20px);
+}
+```
+* [Документация](http://htmlbook.ru/css/calc).
+---
+
 ### Позиционируем элемент по центру
-* Есть [несколько решений](https://stackoverflow.com/questions/114543/how-to-horizontally-center-an-element)
-  для позиционирования элемента по центру:
-* С помощью полей:
+* [Полезные решения](https://css-tricks.com/centering-css-complete-guide/)
+  для позиционирования элемента по центру.
+* Позиционирование по центру по горизонтали:
 ```css
 #inner {
     width: 50%;
-    margin: 0 auto;
+    margin: 0 auto; /* очень часто применяется */
 }
 ```
 ---
@@ -491,6 +514,45 @@ left: 20px;
   * Повысить контрастность.
   * Заблурить.
 * [Поиграть с фильтрами](https://developer.mozilla.org/en-US/docs/Web/CSS/filter).
+---
+
+### Анимации
+* Можно настроить анимацию элемента.
+* [Конструктор анимаций](https://animista.net/play/basic/).
+* [Объяснение, как это работает](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations).
+
+```css
+.vibrate-1 {
+	-webkit-animation: vibrate-1 0.3s linear infinite both;
+	        animation: vibrate-1 0.3s linear infinite both;
+}
+@keyframes vibrate-1 {
+  0% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(-2px, 2px);
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    -webkit-transform: translate(-2px, -2px);
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    -webkit-transform: translate(2px, 2px);
+    transform: translate(2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(2px, -2px);
+    transform: translate(2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+}
+```
 ---
 
 ### Адаптивный дизайн
@@ -581,6 +643,7 @@ left: 20px;
 ---
 
 ### Полезные ссылки
+* http://htmlbook.ru/css/
 * https://css3clickchart.com/
 * https://codepen.io/enxaneta/full/adLPwv/
 * https://www.csssolid.com/css-box-model.html
