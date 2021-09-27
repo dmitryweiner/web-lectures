@@ -272,6 +272,32 @@ const moduleA = {
 ```
 ---
 
+### Модули и пространство имён
+* Если у модуля задать параметр ```namespaced: true```, экшены и геттеры надо будет вызывать с именем модуля.
+* Это удобнее, т.к. названия методов могут перекрываться.
+---
+
+### Модули и пространство имён
+```js
+moduleA = {
+  actions:{
+    save(){}
+  },
+  namespaced: true
+}
+
+moduleB = {
+  actions:{  
+    save(){}
+  },
+  namespaced: true
+}
+//
+this.$store.dispatch('moduleA/save')
+this.$store.dispatch('moduleB/save')
+```
+---
+
 ### Работа с TypeScript
 
 [Документация](https://next.vuex.vuejs.org/guide/typescript-support.html)
@@ -315,10 +341,10 @@ export default {
 ---
 
 ### Тестирование
-* Тестирование производится с помощью фреймворка _chai_.
 * Getters, mutations выносятся в отдельные объекты и тестируются отдельно.
 * Для тестирования экшенов используется inject-loader.
-* [Документация](https://next.vuex.vuejs.org/guide/testing.html).
+* [Документация](https://vue-test-utils.vuejs.org/ru/guides/using-with-vuex.html).
+* [Хорошее руководство по тестированию](https://lmiller1990.github.io/vue-testing-handbook/testing-vuex.html#testing-vuex).
 ---
 
 ### Альтернативы: pinia
@@ -357,4 +383,6 @@ export const useMainStore = defineStore('main', {
 ---
 
 ### Полезные ссылки
-* https://next.vuex.vuejs.org/guide/
+* https://next.vuex.vuejs.org/guide/ (для VueX 4)
+* https://vuex.vuejs.org/ru/guide/ (для VueX 3)
+* https://lmiller1990.github.io/vue-testing-handbook/

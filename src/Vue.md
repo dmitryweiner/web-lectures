@@ -899,3 +899,4 @@ export default {
 ### Полезные ссылки
 * https://v3.vuejs.org/guide/introduction.html
 * https://v3.vuejs.org/style-guide/
+* https://lmiller1990.github.io/vue-testing-handbook/

@@ -632,7 +632,7 @@ const user = {
     firstName: "Walter",
     lastName: "White"
 };
-const { fistName = "", lastName = "", surname = "" } = user; 
+const { firstName = "", lastName = "", surname = "" } = user; 
 ```
 ---
 
