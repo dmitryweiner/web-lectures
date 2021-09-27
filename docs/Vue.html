@@ -680,7 +680,7 @@ test('increments value on click', async () => {
     await fireEvent.click(button);
     getByText('Times clicked: 2');
 })
-```</script></section><section  data-markdown><script type="text/template">
+```</script></section><section ><section data-markdown><script type="text/template">
 ### Тестирование в Vue3
 * В Vue3 работает только библиотека @vue/test-utils.
 * [Документация](https://vue-test-utils.vuejs.org/guides/#getting-started).
@@ -698,7 +698,83 @@ describe("Clicker.vue", () => {
         expect(wrapper.text()).toMatch(Number(initialValue + 1).toString());
     });
 });
-```</script></section><section  data-markdown><script type="text/template">
+```</script></section><section data-markdown><script type="text/template">
+### Clicker.vue
+```vue
+<template>
+  {{current}}
+  <button @click="current += 1">click me!</button>
+</template>
+
+<script>
+export default {
+  name: "Clicker",
+  props: {
+    initialValue: {
+      type: Number,
+      required: true
+    }
+  },
+  data() {
+    return {
+      current: this.initialValue
+    };
+  }
+};
+__SCRIPT_END__
+```</script></section></section><section ><section data-markdown><script type="text/template">
+### Тестирование таймеров
+* Не забыть, что для обновления компонента надо вызвать [$nextTick()](https://v3.vuejs.org/api/global-api.html#nexttick):
+
+```js
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.useRealTimers();
+});
+
+describe("Timer.vue", () => {
+  it("через 10 секунд показывает 10", async () => {
+    const initialValue = 0;
+    const deltaTime = 10;
+    const wrapper = shallowMount(Timer, {
+      props: { initialValue }
+    });
+    expect(wrapper.text()).toMatch(initialValue.toString());
+    jest.advanceTimersByTime(deltaTime * 1000);
+    await wrapper.vm.$nextTick();
+    expect(wrapper.text()).toMatch(Number(initialValue + deltaTime).toString());
+  });
+});
+```</script></section><section data-markdown><script type="text/template">
+### Timer.vue
+```vue
+<template>
+  {{ current }}
+</template>
+
+<script>
+export default {
+  name: "Timer",
+  props: {
+    initialValue: {
+      type: Number,
+      required: true
+    }
+  },
+  data() {
+    return {
+      current: this.initialValue
+    };
+  },
+  mounted() {
+    this.intervalId = setInterval(() => this.current += 1, 1000);
+  }
+};
+__SCRIPT_END__
+```</script></section></section><section  data-markdown><script type="text/template">
 ### Отладка
 * Можно поставить отладочное расширение для 
   [Google Chrome](https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg)

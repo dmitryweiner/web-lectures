@@ -788,6 +788,88 @@ describe("Clicker.vue", () => {
     });
 });
 ```
+----
+
+### Clicker.vue
+```vue
+<template>
+  {{current}}
+  <button @click="current += 1">click me!</button>
+</template>
+
+<script>
+export default {
+  name: "Clicker",
+  props: {
+    initialValue: {
+      type: Number,
+      required: true
+    }
+  },
+  data() {
+    return {
+      current: this.initialValue
+    };
+  }
+};
+</script>
+```
+---
+
+### Тестирование таймеров
+* Не забыть, что для обновления компонента надо вызвать [$nextTick()](https://v3.vuejs.org/api/global-api.html#nexttick):
+
+```js
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.useRealTimers();
+});
+
+describe("Timer.vue", () => {
+  it("через 10 секунд показывает 10", async () => {
+    const initialValue = 0;
+    const deltaTime = 10;
+    const wrapper = shallowMount(Timer, {
+      props: { initialValue }
+    });
+    expect(wrapper.text()).toMatch(initialValue.toString());
+    jest.advanceTimersByTime(deltaTime * 1000);
+    await wrapper.vm.$nextTick();
+    expect(wrapper.text()).toMatch(Number(initialValue + deltaTime).toString());
+  });
+});
+```
+----
+
+### Timer.vue
+```vue
+<template>
+  {{ current }}
+</template>
+
+<script>
+export default {
+  name: "Timer",
+  props: {
+    initialValue: {
+      type: Number,
+      required: true
+    }
+  },
+  data() {
+    return {
+      current: this.initialValue
+    };
+  },
+  mounted() {
+    this.intervalId = setInterval(() => this.current += 1, 1000);
+  }
+};
+</script>
+```
 ---
 
 ### Отладка
