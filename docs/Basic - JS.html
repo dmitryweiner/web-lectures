@@ -40,6 +40,25 @@
 ![frameworks history](assets/js/frameworks-timeline.png)</script></section><section  data-markdown><script type="text/template">
 ### История развития фреймворков на JS
 ![frameworks history](assets/js/frameworks-timeline2.png)</script></section><section  data-markdown><script type="text/template">
+### Подключение JS
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script>
+    console.log("Я скрипт!");
+  __SCRIPT_END__
+  <script src="script.js">__SCRIPT_END__<!-- скрипт во внешнем файле -->
+</head>
+<body>
+<script>
+  console.log("И я скрипт!");
+__SCRIPT_END__
+</body>
+</html>
+```</script></section><section  data-markdown><script type="text/template">
 ### Объявление переменных
 * Устаревший синтаксис:
 ```js
@@ -214,6 +233,22 @@ Boolean("false") // false
 Number("123") // 123
 ```
 * [Подробнее](https://learn.javascript.ru/type-conversions).</script></section><section  data-markdown><script type="text/template">
+### Приведение типа и системы счисления
+* Можно использовать приведение для преобразования между системами счисления:
+* Из десятичной в любую другую:
+```js
+console.log(
+    Number(123).toString(16 /* тут основание системы */)
+);
+// "7b"
+```
+* В десятичную систему:
+```js
+console.log(
+    parseInt("7b", 16)
+);
+// 123
+```</script></section><section  data-markdown><script type="text/template">
 ### Странности JS
 * Поскольку преобразование типов может происходить неявно, некоторый код
   [выполняется странно](https://github.com/denysdovhan/wtfjs).
@@ -539,6 +574,17 @@ function showMenu({
   console.log(`${title} ${width} ${height}`);
 }
 ```</script></section><section  data-markdown><script type="text/template">
+### Чистые функции
+* Функции по возможности должны быть чистыми ([pure function](https://ru.wikipedia.org/wiki/%D0%A7%D0%B8%D1%81%D1%82%D0%BE%D1%82%D0%B0_%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8)).
+* Чистая функция:
+  * Детерменированная: при одних и тех же аргументах выдаёт одинаковые значения.
+  * Без побочных эффектов:
+    * Не изменяет внешние переменные.
+    * Не изменяет аргументы.
+* Плюсы чистых функций:
+  * Легко тестировать.
+  * Легко кешировать.
+  * Легко понимать.</script></section><section  data-markdown><script type="text/template">
 ### Массивы: добавление/удаление элементов:
 * push(...items) – добавляет элементы в конец,
 * pop() – извлекает элемент с конца,
@@ -661,8 +707,8 @@ const arr = Array.from(document.body.childNodes);
 * Если мы сохраним ссылку на elem.childNodes и добавим/удалим узлы в DOM, то они появятся в сохранённой коллекции автоматически.</script></section><section  data-markdown><script type="text/template">
 ### Изменение свойств
 * У найденных узлов можно читать и изменять всевозможные свойства:
-  * .innerText.
-  * .innerHTML.
+  * .innerText: текст внутри узла.
+  * .innerHTML: если туда нужно добавить HTML.
   * .style.
   * .width.
   * .height.
@@ -676,6 +722,8 @@ __SCRIPT_END__
 <div id="root"></div>
 ```</script></section><section  data-markdown><script type="text/template">
 ### Обработчики
+* Обработчики событий DOM-элементов добавляются с помощью addEventListener.
+* Удаляются с помощью removeEventListener.
 ```html
 <script>
     const element = document.getElementById("button");
@@ -686,15 +734,68 @@ __SCRIPT_END__
 <button id="button">Click me!</button>
 ```</script></section><section  data-markdown><script type="text/template">
 ### Обработчик загрузки страницы
+* Вначале выполняются скрипты, подключенные во внешних файлах, потом скрипты в блоке head, потом скрипты в body.
+* Когда выполняются первые скрипты, DOM ещё не построен, поэтому getElementById будет возвращать null.
+* Чтобы так не было, надо подписаться на событие DOMContentLoaded, а в обработчике искать нужные элементы.</script></section><section  data-markdown><script type="text/template">
+### Обработчик загрузки страницы
 ```js
+// script.js
 document.addEventListener("DOMContentLoaded", () => {
-    
+    const element = document.getElementById("button");
+    element.addEventListener("click", () => {
+      console.log("Button clicked!");
+    });
 });
 ```</script></section><section  data-markdown><script type="text/template">
 ### Таймеры
-https://learn.javascript.ru/settimeout-setinterval</script></section><section  data-markdown><script type="text/template">
+* Для асинхронной работы используются функции setTimeout, setInterval.
+* setTimeout срабатывает 1 раз через N миллисекунд:
+* setInterval срабатывает каждые N миллисекунд.
+* Для отключения таймеров используются функции clearTimeout, clearInterval.
+[Подробнее](https://learn.javascript.ru/settimeout-setinterval)</script></section><section  data-markdown><script type="text/template">
+### Таймер
+```html
+<button id="start">Start!</button>
+<button id="stop">Stop</button>
+<span id="currentCount"></span>
+<script>
+  let counter = 0, timerId;
+  const start = document.getElementById("start");
+  const stop = document.getElementById("stop");
+  const currentCount = document.getElementById("currentCount");
+  start.addEventListener("click", () => {
+      timerId = setInterval(() => {
+          currentCount.innerText = counter.toString();
+          counter++;
+      }, 1000);
+  })
+  stop.addEventListener("click", () => {
+      clearInterval(timerId);
+  })
+__SCRIPT_END__
+```</script></section><section  data-markdown><script type="text/template">
 ### Замыкания
-https://learn.javascript.ru/closure</script></section><section  data-markdown><script type="text/template">
+* Функция при создании копирует всё внешнее лексическое окружение. Это называется замыканием (closure).
+* У каждого экземпляра функции своё замыкание.
+* [Подробнее](https://learn.javascript.ru/closure).</script></section><section  data-markdown><script type="text/template">
+### Замыкания
+```js
+function createIncrementFunc() {
+    let counter = 0;
+    return () => {
+        console.log(counter);
+        counter++;
+    }
+}
+
+const counter1 = createIncrementFunc();
+const counter2 = createIncrementFunc();
+counter1(); // 0
+counter1(); // 1
+counter1(); // 2
+
+counter2(); // 0
+```</script></section><section  data-markdown><script type="text/template">
 ### Exception
 https://learn.javascript.ru/exception</script></section><section  data-markdown><script type="text/template">
 ### Try / catch
@@ -710,6 +811,7 @@ https://learn.javascript.ru/generator</script></section><section  data-markdown>
 ### Map 
 https://learn.javascript.ru/map-set</script></section><section  data-markdown><script type="text/template">
 ### Set</script></section><section  data-markdown><script type="text/template">
+### Объект Date</script></section><section  data-markdown><script type="text/template">
 ### Полезные ссылки
 * https://learn.javascript.ru/
 * https://htmlacademy.ru/courses/343

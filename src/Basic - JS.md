@@ -41,6 +41,27 @@ title: Basic - JavaScript
 ![frameworks history](assets/js/frameworks-timeline2.png)
 ---
 
+### Подключение JS
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script>
+    console.log("Я скрипт!");
+  </script>
+  <script src="script.js"></script><!-- скрипт во внешнем файле -->
+</head>
+<body>
+<script>
+  console.log("И я скрипт!");
+</script>
+</body>
+</html>
+```
+---
+
 ### Объявление переменных
 * Устаревший синтаксис:
 ```js
@@ -239,6 +260,24 @@ Boolean("false") // false
 Number("123") // 123
 ```
 * [Подробнее](https://learn.javascript.ru/type-conversions).
+---
+
+### Приведение типа и системы счисления
+* Можно использовать приведение для преобразования между системами счисления:
+* Из десятичной в любую другую:
+```js
+console.log(
+    Number(123).toString(16 /* тут основание системы */)
+);
+// "7b"
+```
+* В десятичную систему:
+```js
+console.log(
+    parseInt("7b", 16)
+);
+// 123
+```
 ---
 
 ### Странности JS
@@ -620,6 +659,19 @@ function showMenu({
 ```
 ---
 
+### Чистые функции
+* Функции по возможности должны быть чистыми ([pure function](https://ru.wikipedia.org/wiki/%D0%A7%D0%B8%D1%81%D1%82%D0%BE%D1%82%D0%B0_%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8)).
+* Чистая функция:
+  * Детерменированная: при одних и тех же аргументах выдаёт одинаковые значения.
+  * Без побочных эффектов:
+    * Не изменяет внешние переменные.
+    * Не изменяет аргументы.
+* Плюсы чистых функций:
+  * Легко тестировать.
+  * Легко кешировать.
+  * Легко понимать.
+---
+
 ### Массивы: добавление/удаление элементов:
 * push(...items) – добавляет элементы в конец,
 * pop() – извлекает элемент с конца,
@@ -774,8 +826,8 @@ const arr = Array.from(document.body.childNodes);
 
 ### Изменение свойств
 * У найденных узлов можно читать и изменять всевозможные свойства:
-  * .innerText.
-  * .innerHTML.
+  * .innerText: текст внутри узла.
+  * .innerHTML: если туда нужно добавить HTML.
   * .style.
   * .width.
   * .height.
@@ -791,6 +843,8 @@ const arr = Array.from(document.body.childNodes);
 ---
 
 ### Обработчики
+* Обработчики событий DOM-элементов добавляются с помощью addEventListener.
+* Удаляются с помощью removeEventListener.
 ```html
 <script>
     const element = document.getElementById("button");
@@ -803,19 +857,78 @@ const arr = Array.from(document.body.childNodes);
 ---
 
 ### Обработчик загрузки страницы
+* Вначале выполняются скрипты, подключенные во внешних файлах, потом скрипты в блоке head, потом скрипты в body.
+* Когда выполняются первые скрипты, DOM ещё не построен, поэтому getElementById будет возвращать null.
+* Чтобы так не было, надо подписаться на событие DOMContentLoaded, а в обработчике искать нужные элементы.
+---
+
+### Обработчик загрузки страницы
 ```js
+// script.js
 document.addEventListener("DOMContentLoaded", () => {
-    
+    const element = document.getElementById("button");
+    element.addEventListener("click", () => {
+      console.log("Button clicked!");
+    });
 });
 ```
 ---
 
 ### Таймеры
-https://learn.javascript.ru/settimeout-setinterval
+* Для асинхронной работы используются функции setTimeout, setInterval.
+* setTimeout срабатывает 1 раз через N миллисекунд:
+* setInterval срабатывает каждые N миллисекунд.
+* Для отключения таймеров используются функции clearTimeout, clearInterval.
+[Подробнее](https://learn.javascript.ru/settimeout-setinterval)
+---
+
+### Таймер
+```html
+<button id="start">Start!</button>
+<button id="stop">Stop</button>
+<span id="currentCount"></span>
+<script>
+  let counter = 0, timerId;
+  const start = document.getElementById("start");
+  const stop = document.getElementById("stop");
+  const currentCount = document.getElementById("currentCount");
+  start.addEventListener("click", () => {
+      timerId = setInterval(() => {
+          currentCount.innerText = counter.toString();
+          counter++;
+      }, 1000);
+  })
+  stop.addEventListener("click", () => {
+      clearInterval(timerId);
+  })
+</script>
+```
 ---
 
 ### Замыкания
-https://learn.javascript.ru/closure
+* Функция при создании копирует всё внешнее лексическое окружение. Это называется замыканием (closure).
+* У каждого экземпляра функции своё замыкание.
+* [Подробнее](https://learn.javascript.ru/closure).
+---
+
+### Замыкания
+```js
+function createIncrementFunc() {
+    let counter = 0;
+    return () => {
+        console.log(counter);
+        counter++;
+    }
+}
+
+const counter1 = createIncrementFunc();
+const counter2 = createIncrementFunc();
+counter1(); // 0
+counter1(); // 1
+counter1(); // 2
+
+counter2(); // 0
+```
 ---
 
 ### Exception
@@ -847,6 +960,9 @@ https://learn.javascript.ru/map-set
 ---
 
 ### Set
+---
+
+### Объект Date
 ---
 
 ### Полезные ссылки
