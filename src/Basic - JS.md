@@ -8,7 +8,9 @@ title: Basic - JavaScript
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
-[видео](https://drive.google.com/file/d/19Vm7ZAM2YgCl3kvZAdTFNTNwN5ADT-du/view?usp=sharing)
+Видео: 
+[1](https://drive.google.com/file/d/19Vm7ZAM2YgCl3kvZAdTFNTNwN5ADT-du/view?usp=sharing)
+[2](https://drive.google.com/file/d/1EaJTtvPbZauxQkvKh3kYAJWkLup7FzBo/view?usp=sharing)
 ---
 
 ### Факты

@@ -8,6 +8,8 @@ title: VueX
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
+[видео](https://drive.google.com/file/d/1enXUrW7qPL87YnnMUP9lWIkpBzscKxlS/view?usp=sharing)
+
 ---
 
 ### Проблематика
