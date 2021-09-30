@@ -348,7 +348,19 @@ li.red.level   {} /* a=0 b=2 c=1 -> специфичность = 21  */
 * Цвет можно задать словом или триплетом байт (RGB):
 
 ![colours](assets/css/colours.png)
+---
 
+### Цвет
+* Цвет также можно задать [вместе с прозрачностью](https://www.w3schools.com/cssref/func_rgba.asp) (альфа-канал):
+```css
+.class {
+    /* красный полупрозрачный */
+    background-color:rgba(255, 0, 0, 0.5);
+}
+```
+<div style="background-image: url(https://picsum.photos/200); padding: 20px; width: 200px; height: 100px">
+  <div style="background-color:rgba(255, 0, 0, 0.5)">Привет, мир!</div>
+</div>
 ---
 
 ### Цвет текста или фона:
@@ -460,6 +472,7 @@ left: 20px;
 ---
 
 ### Короткая запись
+* Это работает для свойств padding и margin:
 ![](assets/css/css-shorthand-property-explained.png)
 ---
 
@@ -474,8 +487,6 @@ left: 20px;
 ---
 
 ### Позиционируем элемент по центру
-* [Полезные решения](https://css-tricks.com/centering-css-complete-guide/)
-  для позиционирования элемента по центру.
 * Позиционирование по центру по горизонтали:
 ```css
 #inner {
@@ -483,6 +494,23 @@ left: 20px;
     margin: 0 auto; /* очень часто применяется */
 }
 ```
+* По вертикали:
+```css
+.parent {
+    position: relative;
+}
+.child {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+```
+---
+
+### Позиционируем элемент по центру
+* [Полезные советы для позиционирования](https://css-tricks.com/centering-css-complete-guide/).
+* Важно, какой тип у элемента: inline или block.
+* Важно, известен ли размер элемента.
 ---
 
 ### Позиционируем элемент по центру
@@ -643,8 +671,9 @@ left: 20px;
 ---
 
 ### Полезные ссылки
-* http://htmlbook.ru/css/
-* https://css3clickchart.com/
-* https://codepen.io/enxaneta/full/adLPwv/
-* https://www.csssolid.com/css-box-model.html
-* https://htmlacademy.ru/courses/41
+* [Руководство на русском](http://htmlbook.ru/css/).
+* [Шпаргалка по свойствам](https://css3clickchart.com/).
+* [Шпаргалка по flex](https://codepen.io/enxaneta/full/adLPwv/).
+* [Объяснение box-model](https://www.csssolid.com/css-box-model.html).
+* [15 заданий по CSS](https://htmlacademy.ru/courses/41).
+* [Весь дизайн за 4 минуты наглядно](https://jgthms.com/web-design-in-4-minutes/).

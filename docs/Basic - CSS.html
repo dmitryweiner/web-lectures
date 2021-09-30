@@ -306,8 +306,18 @@ li.red.level   {} /* a=0 b=2 c=1 -> специфичность = 21  */
 ### Цвет
 * Цвет можно задать словом или триплетом байт (RGB):
 
-![colours](assets/css/colours.png)
-</script></section><section  data-markdown><script type="text/template">
+![colours](assets/css/colours.png)</script></section><section  data-markdown><script type="text/template">
+### Цвет
+* Цвет также можно задать [вместе с прозрачностью](https://www.w3schools.com/cssref/func_rgba.asp) (альфа-канал):
+```css
+.class {
+    /* красный полупрозрачный */
+    background-color:rgba(255, 0, 0, 0.5);
+}
+```
+<div style="background-image: url(https://picsum.photos/200); padding: 20px; width: 200px; height: 100px">
+  <div style="background-color:rgba(255, 0, 0, 0.5)">Привет, мир!</div>
+</div></script></section><section  data-markdown><script type="text/template">
 ### Цвет текста или фона:
 * Задать цвет текста:
 <span style="color: #0000f1;">TEXT</span>
@@ -395,6 +405,7 @@ left: 20px;
 ```</script></section><section  data-markdown><script type="text/template">
 ![](assets/css/css-box-model-example-explained.png)</script></section><section  data-markdown><script type="text/template">
 ### Короткая запись
+* Это работает для свойств padding и margin:
 ![](assets/css/css-shorthand-property-explained.png)</script></section><section  data-markdown><script type="text/template">
 ### Калькуляции прямо в CSS
 * Можно рассчитывать необходимые размеры с помощью функции calc():
@@ -405,15 +416,28 @@ left: 20px;
 ```
 * [Документация](http://htmlbook.ru/css/calc).</script></section><section  data-markdown><script type="text/template">
 ### Позиционируем элемент по центру
-* [Полезные решения](https://css-tricks.com/centering-css-complete-guide/)
-  для позиционирования элемента по центру.
 * Позиционирование по центру по горизонтали:
 ```css
 #inner {
     width: 50%;
     margin: 0 auto; /* очень часто применяется */
 }
+```
+* По вертикали:
+```css
+.parent {
+    position: relative;
+}
+.child {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
 ```</script></section><section  data-markdown><script type="text/template">
+### Позиционируем элемент по центру
+* [Полезные советы для позиционирования](https://css-tricks.com/centering-css-complete-guide/).
+* Важно, какой тип у элемента: inline или block.
+* Важно, известен ли размер элемента.</script></section><section  data-markdown><script type="text/template">
 ### Позиционируем элемент по центру
 * С помощью flexbox:
 
@@ -550,11 +574,12 @@ left: 20px;
 
 ![](assets/css/css-debug.png)</script></section><section  data-markdown><script type="text/template">
 ### Полезные ссылки
-* http://htmlbook.ru/css/
-* https://css3clickchart.com/
-* https://codepen.io/enxaneta/full/adLPwv/
-* https://www.csssolid.com/css-box-model.html
-* https://htmlacademy.ru/courses/41
+* [Руководство на русском](http://htmlbook.ru/css/).
+* [Шпаргалка по свойствам](https://css3clickchart.com/).
+* [Шпаргалка по flex](https://codepen.io/enxaneta/full/adLPwv/).
+* [Объяснение box-model](https://www.csssolid.com/css-box-model.html).
+* [15 заданий по CSS](https://htmlacademy.ru/courses/41).
+* [Весь дизайн за 4 минуты наглядно](https://jgthms.com/web-design-in-4-minutes/).
 </script></section></div>
     </div>
 
