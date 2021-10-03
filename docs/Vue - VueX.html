@@ -80,13 +80,23 @@ state () {
 * Будут пересчитываться только при изменении стора, когда выйдет Vue 3.1 ([issue](https://github.com/vuejs/vuex/issues/1878)).
 ```js
 getters: {
-    doneTodosCount (state) {
+    doneTodosCount(state) {
       return state.todos.filter(todo => todo.isDone).length;
     }
 }
 ```</script></section><section  data-markdown><script type="text/template">
+### Getters: аргументы
+* Метод геттера получает на вход следующие аргументы:
+
+```js
+state,       // при использовании модулей — локальный state модуля
+getters,     // локальные геттеры текущего модуля
+rootState,   // глобальный state
+rootGetters  // все геттеры
+```</script></section><section  data-markdown><script type="text/template">
 ### Getters
 * Доступ в компоненте:
+
 ```vue
 computed: {
       doneTodosCount () {
@@ -95,7 +105,7 @@ computed: {
 }
 ```</script></section><section  data-markdown><script type="text/template">
 ### Связь Getters с computed
-* Можно автоматически прикрутить геттеры к computed в компоненте, чтобы не писать для каждого геттера такую обёртку:
+* Чтобы не писать для каждого геттера свойство в computed, можно использовать mapGetters:
 ```js
 import { mapGetters } from 'vuex'
 export default {
@@ -134,10 +144,11 @@ methods: {
 ```</script></section><section  data-markdown><script type="text/template">
 ### Mutations
 * Мутации изменяют объект state.
-* Его не надо пересоздавать, как в Redux. Это происходит автоматически под капотом.
+* [Его не надо пересоздавать, как в Redux](https://gist.github.com/DawidMyslak/2b046cca5959427e8fb5c1da45ef7748).
+Это происходит автоматически под капотом.
 * При изменении стейта обновятся геттеры.</script></section><section  data-markdown><script type="text/template">
 ### Подключение мутаций к methods
-* Чтобы не писать эти обёртки, можно подключить мутации к methods компонента:
+* Чтобы не писать для каждой мутации метод в methods, можно использовать mapMutations:
 
 ```vue
 import { mapMutations } from 'vuex';
@@ -162,8 +173,16 @@ actions: {
     }
 }
 ```</script></section><section  data-markdown><script type="text/template">
+### Actions: первый аргумент
+* На вход экшену приходит объект со следующими полями:
+  * **commit**: метод для вызова мутации.
+  * **state**: текущее состояние стора.
+  * **dispatch**: метод для вызова другого экшена.
+  * **rootState**: текущее состояние всего стора (если разделён на модули).
+  * **getters**: геттеры.
+  * **rootGetters**: геттеры всего стора.</script></section><section  data-markdown><script type="text/template">
 ### Actions: вызов в компоненте
-* Можно так:
+* Экшен вызывается с помощью метода $store.dispatch:
 
 ```vue
 methods: {
@@ -172,13 +191,12 @@ methods: {
       }
 },
 ```
-* Но лучше замапить:
+* Чтобы не писать обёртки, можно использовать mapActions:
 
 ```js
 import { mapActions } from 'vuex'
 
 export default {
-      // ...
       methods: {
         ...mapActions([
           'add', // map `this.add()` to `this.$store.dispatch('add')`
@@ -189,7 +207,8 @@ export default {
 ```</script></section><section  data-markdown><script type="text/template">
 ![](assets/vuex/action-inside-action.jpg)</script></section><section  data-markdown><script type="text/template">
 ### Асинхронные экшены
-* Надо использовать синтаксический сахар async/await:
+* Экшены обычно бывают асинхронные.
+* Чтобы не писать ```.then().catch()```, надо использовать синтаксический сахар async/await:
 ```js
 actions: {
       async actionA ({ commit }) {
@@ -201,6 +220,68 @@ actions: {
       }
 }
 ```</script></section><section  data-markdown><script type="text/template">
+### VueX и формы
+* Очень часто возникает необходимость в поле ввода, связанном со стором.
+* Текущее значение поля берётся с помощью геттера.
+* При изменении поля вызывается мутатор.
+</script></section><section ><section data-markdown><script type="text/template">
+### VueX и формы
+```vue
+// Form.vue
+<template>
+  <input type="text" :value="value" @change="onValueChanged">
+</template>
+<script>
+export default {
+    name: "Form",
+    computed: {
+      value() {
+        return this.$store.getters.value;
+      }
+    },
+    methods: {
+      onValueChanged(e) {
+        this.$store.commit("setValue", e.target.value);
+      }
+    }
+}
+__SCRIPT_END__
+```</script></section><section data-markdown><script type="text/template">```js
+// store.js
+const store = createStore({
+  state () {
+    return { value: "" }
+  },
+  mutations: { 
+      setValue(state, payload) {
+          state.value = payload;
+      }
+  },
+  getters: { 
+      value(state) {
+          return state.value;
+      }
+  },
+});
+```</script></section></section><section  data-markdown><script type="text/template">
+### VueX и формы
+* Однако, разумнее работу с формой возложить на get/set внутри computed:
+
+```vue
+<input type="text" v-model="value"/>
+computed: {
+    value: {
+        get() {
+          return this.$store.getters.value;
+        },
+        set(value) {
+          this.$store.commit('setValue', value);
+        }
+    }
+}
+```
+
+* [Подробнее](https://vuex.vuejs.org/ru/guide/forms.html#%D0%B4%D0%B2%D1%83%D0%BD%D0%B0%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5-%D0%B2%D1%8B%D1%87%D0%B8%D1%81%D0%BB%D1%8F%D0%B5%D0%BC%D1%8B%D0%B5-%D1%81%D0%B2%D0%BE%D0%B8%D1%81%D1%82%D0%B2%D0%B0).</script></section><section  data-markdown><script type="text/template">
 ### Несколько модулей
 * Желательно разделить стор на несколько модулей по числу сущностей.
 * Это делается для облегчения стора и ясной кодовой базы.
