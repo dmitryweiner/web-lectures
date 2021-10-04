@@ -438,8 +438,82 @@ export default {
 ### Тестирование
 * Getters, mutations выносятся в отдельные объекты и тестируются отдельно.
 * Для тестирования экшенов используется inject-loader.
-* [Документация](https://vue-test-utils.vuejs.org/ru/guides/using-with-vuex.html).
+* [Документация](https://next.vue-test-utils.vuejs.org/guide/advanced/vuex.html).
 * [Хорошее руководство по тестированию](https://lmiller1990.github.io/vue-testing-handbook/testing-vuex.html#testing-vuex).
+---
+
+### Тест формы
+Проверка, вызывает ли компонент нужную мутацию (стор не настоящий):
+```js
+it("calls 'add' mutation with argument", () => {
+  const title = "title";
+  const $store = {
+    state: {
+    },
+    commit: jest.fn()
+  };
+  const wrapper = shallowMount(AddTodoForm, {
+    global: {
+      mocks: {
+        $store
+      }
+    }
+  });
+  const input = wrapper.find('input');
+  input.element.value = title;
+  input.trigger('input')
+  const form = wrapper.find('form');
+  form.trigger('submit');
+  expect($store.commit).toBeCalledWith("add", title);
+});
+```
+---
+
+### Тест компонента
+Проверка с созданием настоящего стора (внимание на global.plugins):
+```js
+it("shows filtered list of items", () => {
+  const store = createStore({
+    state: {
+      todos: [
+        {"id":"hwnswwcdkje","title":"a","isChecked":false},
+        {"id":"kt2ib5xuk2f","title":"b","isChecked":false},
+        {"id":"1qp1s4fynd8","title":"d","isChecked":true},
+        {"id":"ula2j239e1","title":"dddd","isChecked":false},
+        {"id":"cvi2s2o5b3","title":"вавыфа","isChecked":false},
+        {"id":"66a4j73i6fv","title":"sadfsdfasdfasdf","isChecked":true}
+      ],
+      showOnlyChecked: true
+    },
+    getters
+  });
+  const wrapper = mount(List, {
+    global: {
+      plugins: [store]
+    }
+  });
+  const items = wrapper.findAll('.list-item');
+  expect(items.length).toBe(2);
+});
+```
+---
+
+### Тест мутации
+```js
+it("deletes item by id", () => {
+  const title = "new element";
+  const store = createStore({
+    state: {
+      ...initialState
+    },
+    mutations
+  })
+  store.commit("add", title);
+  const id = store.state.todos[0].id;
+  store.commit("delete", id);
+  expect(store.state.todos.length).toBe(0);
+});
+```
 ---
 
 ### Отладка
