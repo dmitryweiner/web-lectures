@@ -267,13 +267,6 @@ export default {
   при каждом рендере.
 * Чтобы так не было, применяют computed-свойства, которые вычисляются **только** при изменении стейта.
 * [Подробнее](https://v3.vuejs.org/guide/computed.html).
-```vue
-    computed: {
-      computedName() {
-        return /* тут вычисления на основе стейта */;
-      }
-    }
-```
 ---
 
 ### Вычислимые свойства
@@ -317,6 +310,28 @@ export default {
   }
 }
 </script>
+```
+---
+
+### Computed + getter + setter
+* У computed можно задать отдельно геттер и сеттер.
+* [Подробнее](https://v3.vuejs.org/guide/computed.html#computed-setter).
+
+```js
+computed: {
+  fullName: {
+    // getter
+    get() {
+      return this.firstName + ' ' + this.lastName
+    },
+    // setter
+    set(newValue) {
+      const names = newValue.split(' ')
+      this.firstName = names[0]
+      this.lastName = names[names.length - 1]
+    }
+  }
+}
 ```
 ---
 
@@ -583,6 +598,7 @@ export default {
 </script>
 ```
 ---
+
 ### Слоты
 * Поскольку компоненты как теги, можно обернуть в компонент что-нибудь ещё:
 ```vue
