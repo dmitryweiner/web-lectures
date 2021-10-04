@@ -783,8 +783,9 @@ arr.findIndex(isPositive); // 0
   * document.getElementsByClassName().
   * document.getElementsByName().
 * [Подробнее](https://learn.javascript.ru/searching-elements-dom).
-----
+---
 
+### Поиск элемента по ID
 ```html
 <div id="root"></div>
 <script>
@@ -802,7 +803,7 @@ arr.findIndex(isPositive); // 0
 * И его родителя:
   * parentNode. 
 * [Подробнее](https://learn.javascript.ru/dom-navigation).
-----
+---
 
 ![DOM axis](assets/js/dom-axis.png)
 ---
@@ -812,7 +813,7 @@ arr.findIndex(isPositive); // 0
 * Коллекции могут быть итерированы с помощью for..of:
 ```js
 for (let node of document.body.childNodes) {
-  conslole.log(node); // покажет все узлы из коллекции
+    conslole.log(node); // покажет все узлы из коллекции
 }
 ```
 * Коллекцию можно конвертировать в массив для фильтрации или сортировки:
@@ -863,31 +864,11 @@ const arr = Array.from(document.body.childNodes);
 ```html
 <button id="button">Click me!</button>
 <script>
-  const element = document.getElementById("button");
-    element.addEventListener("click", () => {
-      console.log("Button clicked!");
-    });
-</script>
-```
----
-
-### Обработчик загрузки страницы
-* Вначале выполняются скрипты, подключенные во внешних файлах, потом скрипты в блоке head, потом скрипты в body.
-* Когда выполняются скрипты в файлах, DOM ещё не построен, поэтому getElementById будет возвращать null.
-* Чтобы так не было, надо подписаться на событие DOMContentLoaded, а в обработчике искать нужные элементы.
----
-
-### Обработчик загрузки страницы
-```js
-// script.js
-const element = document.getElementById("button");
-console.log(element); // null!
-document.addEventListener("DOMContentLoaded", () => {
     const element = document.getElementById("button");
     element.addEventListener("click", () => {
       console.log("Button clicked!");
     });
-});
+</script>
 ```
 ---
 
@@ -903,7 +884,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 ### Event
 * На вход обработчику приходит событие, из которого можно получить
-[много полезной информации](https://developer.mozilla.org/ru/docs/Web/API/Event).
+  [много полезной информации](https://developer.mozilla.org/ru/docs/Web/API/Event).
 * Поля события зависят от элемента, от которого оно пришло.
 * Если это текстовое поле, то результат ввода лежит в **event.target.value**.
 * Если это чекбокс, то состояние лежит в **event.target.checked**.
@@ -916,18 +897,39 @@ checkbox.addEventListener("click", event => {
 ```
 ---
 
+### Обработчик загрузки страницы
+* Вначале выполняются скрипты, подключенные во внешних файлах, потом скрипты в блоке head, потом скрипты в body.
+* Когда выполняются скрипты в файлах, DOM ещё не построен, поэтому getElementById будет возвращать null.
+* Чтобы так не было, надо подписаться на событие DOMContentLoaded, а в обработчике искать нужные элементы.
+---
+
+### Обработчик загрузки страницы
+```js
+// script.js
+const element = document.getElementById("button");
+console.log(element); // null!
+document.addEventListener("DOMContentLoaded", () => {
+  const element = document.getElementById("button");
+  element.addEventListener("click", () => {
+    console.log("Button clicked!");
+  });
+});
+```
+---
+
 ### Отправка формы
 ```html
 <form id="form">
-    <input type="text" id="userInput" />
-    <button type="submit">Send</button>
+  <input type="text" id="userInput" />
+  <button type="submit">Send</button>
 </form>
 <script>
-    const form = document.getElementById("form");
-    form.addEventListener("submit", () => {
-      const userInput = document.getElementById("userInput");
-      console.log(userInput.value);
-    });
+  const form = document.getElementById("form");
+  form.addEventListener("submit", event => {
+    event.preventDefault();  
+    const userInput = document.getElementById("userInput");
+    console.log(userInput.value);
+  });
 </script>
 ```
 ---
