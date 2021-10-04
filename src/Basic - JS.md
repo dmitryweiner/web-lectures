@@ -786,11 +786,11 @@ arr.findIndex(isPositive); // 0
 ----
 
 ```html
-<script>
-    const element = document.getElementById("root");
-    console.log(element);
-</script>
 <div id="root"></div>
+<script>
+  const element = document.getElementById("root");
+  console.log(element);
+</script>
 ```
 ---
 
@@ -815,7 +815,7 @@ for (let node of document.body.childNodes) {
   conslole.log(node); // покажет все узлы из коллекции
 }
 ```
-* Коллекцию можно сконвертировать в массив для фильтрации или сортировки:
+* Коллекцию можно конвертировать в массив для фильтрации или сортировки:
 ```js
 const arr = Array.from(document.body.childNodes);
 ```
@@ -828,45 +828,60 @@ const arr = Array.from(document.body.childNodes);
 
 ### Изменение свойств
 * У найденных узлов можно читать и изменять всевозможные свойства:
-  * .innerText: текст внутри узла.
-  * .innerHTML: если туда нужно добавить HTML.
-  * .style.
-  * .width.
-  * .height.
-  * .value (только для input).
+  * **.innerText**: текст внутри узла.
+  * **.innerHTML**: если туда нужно добавить HTML.
+  * **.style**.
+  * **.width**.
+  * **.value** (только для input).
 
 ```html
-<script>
-    const element = document.getElementById("root");
-    element.innerText = "123";
-</script>
 <div id="root"></div>
+<script>
+  const element = document.getElementById("root");
+  element.innerText = "123";
+</script>
 ```
 ---
 
-### Обработчики
-* Обработчики событий DOM-элементов добавляются с помощью addEventListener.
-* Удаляются с помощью removeEventListener.
+### Чтение свойств
+* Точно так же можно прочитать свойства DOM-элементов.
+* Это может пригодиться, если надо узнать, что пользователь ввёл в поле ввода:
+
 ```html
+<input type="text" id="userInput" />
 <script>
-    const element = document.getElementById("button");
+  const userInput = document.getElementById("userInput");
+  console.log(userInput.value);
+</script>
+```
+
+---
+
+### Обработчики
+* Обработчики событий DOM-элементов добавляются с помощью **addEventListener**.
+* Удаляются с помощью **removeEventListener**.
+```html
+<button id="button">Click me!</button>
+<script>
+  const element = document.getElementById("button");
     element.addEventListener("click", () => {
-        console.log("Button clicked!");
+      console.log("Button clicked!");
     });
 </script>
-<button id="button">Click me!</button>
 ```
 ---
 
 ### Обработчик загрузки страницы
 * Вначале выполняются скрипты, подключенные во внешних файлах, потом скрипты в блоке head, потом скрипты в body.
-* Когда выполняются первые скрипты, DOM ещё не построен, поэтому getElementById будет возвращать null.
+* Когда выполняются скрипты в файлах, DOM ещё не построен, поэтому getElementById будет возвращать null.
 * Чтобы так не было, надо подписаться на событие DOMContentLoaded, а в обработчике искать нужные элементы.
 ---
 
 ### Обработчик загрузки страницы
 ```js
 // script.js
+const element = document.getElementById("button");
+console.log(element); // null!
 document.addEventListener("DOMContentLoaded", () => {
     const element = document.getElementById("button");
     element.addEventListener("click", () => {
@@ -876,17 +891,58 @@ document.addEventListener("DOMContentLoaded", () => {
 ```
 ---
 
+### Типы событий
+* DOM-элементы генерируют огромное множество событий. Самые частые:
+  * **click**: клик по элементу.
+  * **change**: поле ввода изменилось.
+  * **blur**: с поля ввода ушёл фокус.
+  * **focus**: пришёл фокус.
+  * **submit**: форма отправлена.
+* [Список всех событий](https://developer.mozilla.org/ru/docs/Web/Events).
+---
+
+### Event
+* На вход обработчику приходит событие, из которого можно получить
+[много полезной информации](https://developer.mozilla.org/ru/docs/Web/API/Event).
+* Поля события зависят от элемента, от которого оно пришло.
+* Если это текстовое поле, то результат ввода лежит в **event.target.value**.
+* Если это чекбокс, то состояние лежит в **event.target.checked**.
+
+```js
+const checkbox = document.getElementById("checkbox");
+checkbox.addEventListener("click", event => {
+    console.log(event.target.checked);
+});
+```
+---
+
+### Отправка формы
+```html
+<form id="form">
+    <input type="text" id="userInput" />
+    <button type="submit">Send</button>
+</form>
+<script>
+    const form = document.getElementById("form");
+    form.addEventListener("submit", () => {
+      const userInput = document.getElementById("userInput");
+      console.log(userInput.value);
+    });
+</script>
+```
+---
+
 ### Таймеры
-* Для асинхронной работы используются функции setTimeout, setInterval.
+* Для асинхронной работы используются функции **setTimeout**, **setInterval**.
 * setTimeout срабатывает 1 раз через N миллисекунд:
 * setInterval срабатывает каждые N миллисекунд.
-* Для отключения таймеров используются функции clearTimeout, clearInterval.
-[Подробнее](https://learn.javascript.ru/settimeout-setinterval)
+* Для отключения таймеров используются функции **clearTimeout**, **clearInterval**.
+* [Подробнее](https://learn.javascript.ru/settimeout-setinterval).
 ---
 
 ### Таймер
 ```html
-<button id="start">Start!</button>
+<button id="start">Start</button>
 <button id="stop">Stop</button>
 <span id="currentCount"></span>
 <script>
@@ -934,14 +990,24 @@ counter2(); // 0
 ---
 
 ### Exception
-https://learn.javascript.ru/exception
+* В процессе работы программа может генерировать исключения, сигнализирующие о невозможности продолжения работы.
+* Чтобы выбросить исключение, применяется конструкция throw:
+```js
+function divide(a, b) {
+    if (b === 0) {
+      throw new Error("Division by zero is strictly prohibited!");
+    }
+    return a / b;
+}
+```
+* [Подробнее](https://learn.javascript.ru/exception).
 ---
 
 ### Try / catch
 https://learn.javascript.ru/try-catch
 ---
 
-### Промисы
+### Promise
 https://learn.javascript.ru/promise
 ---
 
