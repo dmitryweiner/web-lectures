@@ -442,6 +442,21 @@ export default {
 * [Хорошее руководство по тестированию](https://lmiller1990.github.io/vue-testing-handbook/testing-vuex.html#testing-vuex).
 ---
 
+### Отладка
+* Если поставить отладочное расширение для
+  [Google Chrome](https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg)
+  или [FireFox](https://github.com/vuejs/devtools/releases/tag/v6.0.0-beta.15).
+* Можно смотреть состояние стора и происходящие мутации и экшены.
+---
+
+### Отладка
+![vuex devtools](assets/vuex/vuex-devtools.png)
+---
+
+### Отладка
+![vuex devtools](assets/vuex/vuex-devtools2.png)
+---
+
 ### Альтернативы: pinia
 * VueX довольно сложно типизировать, поэтому написали библиотеку [pinia](https://github.com/posva/pinia).
 
