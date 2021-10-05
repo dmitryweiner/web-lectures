@@ -516,6 +516,60 @@ it("deletes item by id", () => {
 ```
 ---
 
+### Тест экшена
+```js
+const response = {
+    "id": 6175334,
+    /* ... */
+};
+
+describe('store.js', () => {
+    it('проверка экшена load', async () => {
+        fetch.mockResponseOnce(JSON.stringify(response));
+        const store = createStore(storeConfig);
+        await store.dispatch('load', 'test');
+        expect(store.state.result).toHaveProperty('id');
+        expect(store.state.result.id).toBe(response.id);
+    })
+})
+```
+----
+
+### Экшен в сторе
+```js
+import { createStore } from 'vuex'
+
+export const storeConfig = {
+  state() {
+    return {
+      result: undefined,
+      isLoading: false
+    };
+  },
+  mutations: {
+    setResult(state, payload) {
+      state.result = payload;
+    },
+    setIsLoading(state, payload) {
+      state.isLoading = payload;
+    }
+
+  },
+  actions: {
+    async load({commit}, payload) {
+      commit('setIsLoading', true);
+      const res = await fetch(`https://api.github.com/users/${payload}`);
+      const json = await res.json();
+      commit('setResult', json);
+      commit('setIsLoading', false);
+    }
+  },
+};
+
+export default createStore(storeConfig);
+```
+---
+
 ### Отладка
 * Если поставить отладочное расширение для
   [Google Chrome](https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg)
