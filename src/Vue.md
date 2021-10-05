@@ -889,6 +889,7 @@ export default {
 ---
 
 ### Тестирование компонента с fetch
+https://github.com/jefflau/jest-fetch-mock
 ```js
 import { enableFetchMocks } from 'jest-fetch-mock';
 import GithubFetcher from "../../src/components/GithubFetcher";
