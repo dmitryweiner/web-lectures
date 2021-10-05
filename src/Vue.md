@@ -888,6 +888,69 @@ export default {
 ```
 ---
 
+### Тестирование компонента с fetch
+```js
+import { enableFetchMocks } from 'jest-fetch-mock';
+import GithubFetcher from "../../src/components/GithubFetcher";
+import {shallowMount} from "@vue/test-utils";
+enableFetchMocks();
+
+const response = {
+  /* ... */
+};
+
+describe('GithubFetcher.vue', () => {
+    it('вводим username в поле ввода и получаем информацию', async () => {
+        fetch.mockResponseOnce(JSON.stringify(response));
+        const wrapper = shallowMount(GithubFetcher, {});
+        const input = wrapper.find("input");
+        input.element.value = "test";
+        await input.trigger("input");
+        await wrapper.find("button").trigger("click");
+        await wrapper.vm.$nextTick();
+        expect(wrapper.text()).toMatch("test");
+    })
+})
+```
+----
+### GithubFetcher.vue
+
+```vue
+<template>
+  <div>
+    <label>
+      Введите ник на гитхабе:
+      <input type="text" v-model="nick">
+    </label>
+    <button @click="load">Загрузить!</button>
+    <div v-if="isLoading">Загружается...</div>
+    <div v-if="result">
+      {{ JSON.stringify(result) }}
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  name: "GithubFetcher",
+  data() {
+    return {
+      nick: "",
+      isLoading: false,
+      result: undefined
+    }
+  },
+  methods: {
+    async load() {
+      const res = await fetch(`https://api.github.com/users/${this.nick}`);
+      const json = await res.json();
+      this.result = json;
+    }
+  }
+}
+</script>
+```
+---
+
 ### Отладка
 * Можно поставить отладочное расширение для 
   [Google Chrome](https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg)
