@@ -10,7 +10,8 @@ title: Basic - JavaScript
 
 Видео: 
 [1](https://drive.google.com/file/d/19Vm7ZAM2YgCl3kvZAdTFNTNwN5ADT-du/view?usp=sharing),
-[2](https://drive.google.com/file/d/1EaJTtvPbZauxQkvKh3kYAJWkLup7FzBo/view?usp=sharing)
+[2](https://drive.google.com/file/d/1EaJTtvPbZauxQkvKh3kYAJWkLup7FzBo/view?usp=sharing),
+[3](https://drive.google.com/file/d/1Ew3SkowW1VarQFBBVDei81JZTZvCKQfv/view?usp=sharing).
 ---
 
 ### Факты

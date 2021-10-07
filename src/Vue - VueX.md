@@ -8,7 +8,9 @@ title: VueX
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
-[видео](https://drive.google.com/file/d/1enXUrW7qPL87YnnMUP9lWIkpBzscKxlS/view?usp=sharing)
+Видео:
+[1](https://drive.google.com/file/d/1enXUrW7qPL87YnnMUP9lWIkpBzscKxlS/view?usp=sharing),
+[2](https://drive.google.com/file/d/1dAp0X7ScBbIdwwM3LIM9_41kAWvaae20/view?usp=sharing).
 
 ---
 
