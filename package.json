@@ -11,6 +11,9 @@
     "serve": "npx http-server docs",
     "start": "reveal-md src -w --theme sky"
   },
+  "dependencies": {
+    "reveal-md": "^5.1.3"
+  },
   "keywords": [
     "javascript",
     "frontend",

@@ -463,6 +463,64 @@ it("deletes item by id", () => {
   expect(store.state.todos.length).toBe(0);
 });
 ```</script></section><section  data-markdown><script type="text/template">
+### Тестирование сетевых запросов
+* Для тестирования используется библиотека ```jest-fetch-mock```:
+
+```js
+import { enableFetchMocks } from 'jest-fetch-mock';
+enableFetchMocks();
+fetch.mockResponseOnce({ /* response */ });
+```</script></section><section ><section data-markdown><script type="text/template">
+### Тест экшена
+```js
+const response = {
+    "id": 6175334,
+    /* ... */
+};
+
+describe('store.js', () => {
+    it('проверка экшена load', async () => {
+        fetch.mockResponseOnce(JSON.stringify(response));
+        const store = createStore(storeConfig);
+        await store.dispatch('load', 'test');
+        expect(store.state.result).toHaveProperty('id');
+        expect(store.state.result.id).toBe(response.id);
+    })
+})
+```</script></section><section data-markdown><script type="text/template">
+### Экшен в сторе
+```js
+import { createStore } from 'vuex'
+
+export const storeConfig = {
+  state() {
+    return {
+      result: undefined,
+      isLoading: false
+    };
+  },
+  mutations: {
+    setResult(state, payload) {
+      state.result = payload;
+    },
+    setIsLoading(state, payload) {
+      state.isLoading = payload;
+    }
+
+  },
+  actions: {
+    async load({commit}, payload) {
+      commit('setIsLoading', true);
+      const res = await fetch(`https://api.github.com/users/${payload}`);
+      const json = await res.json();
+      commit('setResult', json);
+      commit('setIsLoading', false);
+    }
+  },
+};
+
+export default createStore(storeConfig);
+```</script></section></section><section  data-markdown><script type="text/template">
 ### Отладка
 * Если поставить отладочное расширение для
   [Google Chrome](https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg)
@@ -508,7 +566,8 @@ export const useMainStore = defineStore('main', {
 ### Полезные ссылки
 * https://next.vuex.vuejs.org/guide/ (для VueX 4)
 * https://vuex.vuejs.org/ru/guide/ (для VueX 3)
-* https://lmiller1990.github.io/vue-testing-handbook/</script></section></div>
+* https://lmiller1990.github.io/vue-testing-handbook/
+</script></section></div>
     </div>
 
     <script src="./dist/reveal.js"></script>

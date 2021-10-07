@@ -516,6 +516,16 @@ it("deletes item by id", () => {
 ```
 ---
 
+### Тестирование сетевых запросов
+* Для тестирования используется библиотека ```jest-fetch-mock```:
+
+```js
+import { enableFetchMocks } from 'jest-fetch-mock';
+enableFetchMocks();
+fetch.mockResponseOnce({ /* response */ });
+```
+---
+
 ### Тест экшена
 ```js
 const response = {
