@@ -8,6 +8,7 @@ title: Angular
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
+[видео](https://drive.google.com/file/d/1Pnzf9Xkuz_IQ2wnJytIt3SQU4BRgAVQh/view?usp=sharing)
 ---
 
 ### Фишечки
