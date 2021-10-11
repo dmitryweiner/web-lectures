@@ -1128,6 +1128,7 @@ fetch(...)
 
 ### Promise.all
 * Можно запустить несколько промисов одновременно и подождать результатов выполнения их всех:
+
 ```js
 Promise.all([
   fetch('/article/promise/user.json'),
@@ -1159,8 +1160,11 @@ async function f() {
 }
 const result = await f();
 ```
-* Await может быть только в функции с модификатором async.
+* Await может быть применен только в функции с модификатором async.
 * [Подробнее](https://learn.javascript.ru/async-await).
+---
+
+### async/await и исключения
 ---
 
 ### Походы в сеть

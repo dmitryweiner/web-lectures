@@ -144,6 +144,12 @@ export class AppComponent {
 ```
 ---
 
+### Жизненный цикл компонента
+* [Подробнее](https://metanit.com/web/angular2/2.8.php).
+
+![life cycle](assets/angular/lifecycle.png)
+---
+
 ### Синтаксис шаблонов
 * [Подробнее](https://angular.io/guide/template-syntax).
 * Вывод переменных и выражений JS:
@@ -227,17 +233,84 @@ export class Component {
 ```
 ---
 
-### Формы
-* Поля формы могут быть привязаны к полям объекта.
-* https://metanit.com/web/angular2/5.1.php
+### Биндинг с полями объекта
+* Можно биндить поля объекта к полям ввода ```object.field```:
+
+```angular2html
+<input name="title" [(ngModel)]="todo.title" #todoTitle="ngModel" />
+<input name="isChecked" [(ngModel)]="todo.isChecked" #todoIsChecked="ngModel" />
+<p>{{todoTitle.name}} : {{todoTitle.model}}</p>
+<p>{{todoIsChecked.name}} : {{todoIsChecked.model}}</p>
+```
+
+```ts
+export class Todo {
+    constructor(public title: string, public isChecked: boolean) { }
+}
+@Component({
+  selector: 'my-app'
+})
+export class AppComponent {
+  todo: Todo = new Todo("", false);
+}
+```
 ---
 
-### Валидация
-https://metanit.com/web/angular2/5.3.php
+### Валидация форм
+* Валидация осуществляется с помощью атрибутов полей ввода, например:
+  * **required**: требует обязательного ввода значения.
+  * **pattern**: задает регулярное выражение, которому должны соответствовать вводимые данные.
+* [Подробнее](https://metanit.com/web/angular2/5.3.php).
+* [Ещё более подробно](https://angular.io/guide/form-validation).
+---
+
+### Валидация форм
+* Проверка на пустоту:
+
+```angular2html
+<input class="form-control" name="name" [(ngModel)]="user.name" #name="ngModel" 
+       required />
+<div [hidden]="name.valid || name.untouched" class="alert alert-danger">
+  Не указано имя
+</div>
+```
+* Проверка по шаблону:
+
+```angular2html
+<input class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel"
+       required pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" />
+<div [hidden]="email.valid || email.untouched" class="alert alert-danger">
+  Некорректный email
+</div>
+```
+---
+
+### Доступные валидаторы
+```ts
+static min(min: number): ValidatorFn
+static max(max: number): ValidatorFn
+static required(control: AbstractControl): ValidationErrors | null
+static requiredTrue(control: AbstractControl): ValidationErrors | null
+static email(control: AbstractControl): ValidationErrors | null
+static minLength(minLength: number): ValidatorFn
+static maxLength(maxLength: number): ValidatorFn
+static pattern(pattern: string | RegExp): ValidatorFn
+static nullValidator(control: AbstractControl): ValidationErrors | null
+static compose(validators: ValidatorFn[]): ValidatorFn | null
+static composeAsync(validators: AsyncValidatorFn[]): AsyncValidatorFn | null
+```
+
+[Подробнее](https://angular.io/api/forms/Validators)
 ---
 
 ### Стили компонентов
-https://angular.io/guide/component-styles
+* Все стили scoped.
+* Активные стили:
+```angular2html
+<some-element [ngClass]="{'first': true, 'second': true, 'third': false}">...</some-element>
+```
+* [Подробнее](https://angular.io/guide/component-styles).
+* [NgStyle](https://angular.io/api/common/NgClass), [NgStyle](https://angular.io/api/common/NgStyle).
 ---
 
 ### Сервисы
@@ -274,6 +347,18 @@ https://github.com/zhaosiyang/loadable-example/tree/e505183bd25d55c173be03ad3ea4
 Добавить вызов RouterStoreModule.connectRoute в основном модуле приложения
 Добавляем RouterState в основное состояние приложения
 https://habr.com/ru/post/425959/
+---
+
+### Тестирование
+---
+
+### Дебаг
+* [Документация](https://angular.io/guide/devtools).
+* Расширение для 
+[Firefox](https://addons.mozilla.org/ru/firefox/addon/angular-augury/), 
+[Chrome](https://chrome.google.com/webstore/detail/angular-devtools/ienfalfjdbdpebioblfackkekamfmbnh).
+
+![devtools](assets/angular/devtools.png)
 ---
 
 ### Полезные ссылки
