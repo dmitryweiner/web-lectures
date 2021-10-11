@@ -941,6 +941,10 @@ document.addEventListener("DOMContentLoaded", () => {
 * setInterval срабатывает каждые N миллисекунд.
 * Для отключения таймеров используются функции **clearTimeout**, **clearInterval**.
 * [Подробнее](https://learn.javascript.ru/settimeout-setinterval).
+```js
+const timerId = setTimeout(usefulFunction, 1000);
+clearTimeout(timerId);
+```
 ---
 
 ### Таймер
@@ -1007,30 +1011,168 @@ function divide(a, b) {
 ---
 
 ### Try / catch
-https://learn.javascript.ru/try-catch
+* Исключение можно перехватить и обработать.
+```js
+try {
+    throw new Error('Уупс!');
+} catch (e) {
+    console.log(e.name + ': ' + e.message);
+}
+```
+* Исключения бывают разные, в зависимости от типа ошибки.
+* В конце может быть блок finally, выполняющийся всегда.
+* [Подробнее](https://learn.javascript.ru/try-catch).
+---
+
+### [Типы ошибок](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Error)
+* EvalError: ошибка, возникающая в глобальной функции eval().
+* InternalError: при выбрасывании внутренней ошибки в движке JavaScript. К примеру, ошибки «слишком глубокая рекурсия» («too much recursion»).
+* RangeError: при выходе числовой переменной или параметра за пределы допустимого диапазона.
+---
+
+### [Типы ошибок](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Error)
+* ReferenceError: при разыменовывании недопустимой ссылки.
+* SyntaxError: при разборе исходного кода в функции eval().
+* TypeError: при недопустимом типе для переменной или параметра.
+* URIError: при передаче в функции encodeURI() или decodeURI() недопустимых параметров.
+---
+  
+### Try / catch / finally
+```js
+let result;
+
+try {
+    result = unstableFunction();
+} catch (e) {
+  if (e instanceof TypeError) {
+    // обработка исключения TypeError
+  } else if (e instanceof RangeError) {
+    // обработка исключения RangeError
+  } else if (e instanceof EvalError) {
+    // обработка исключения EvalError
+  } else {
+    // обработка остальных исключений
+  }
+} finally {
+  // в независимости от того, произошла ошибка или нет:
+  freeMemory();
+}
+```
+---
+  
+### Promise
+* Промис &mdash; это способ организации асинхронного кода.
+* Он хранит и меняет своё состояние в зависимости от выполнения.
+* [Подробнее](https://learn.javascript.ru/promise).
+
+![promise](assets/js/promise.png)
 ---
 
 ### Promise
-https://learn.javascript.ru/promise
+```js
+const promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    // переведёт промис в состояние fulfilled с результатом "result"
+    resolve("result");
+  }, 1000);
+});
+```
+---
+
+### Promise: реакция на выполнение
+```js
+// promise.then навешивает обработчики на успешный результат или ошибку
+promise
+  .then(
+    result => {
+      // первая функция-обработчик - запустится при вызове resolve
+      alert("Fulfilled: " + result); // result - аргумент resolve
+    },
+    error => {
+      // вторая функция - запустится при вызове reject
+      alert("Rejected: " + error); // error - аргумент reject
+    }
+  );
+```
+---
+
+### Promise: then / catch
+* Обработчик отказа можно вынести в отдельный метод:
+
+```js
+promise
+  .then(
+    result => {
+      alert("Fulfilled: " + result); // result - аргумент resolve
+    })
+  .catch(
+    error => {
+      alert("Rejected: " + error); // error - аргумент reject
+    }
+  );
+```
+---
+
+### Promise: цепочки
+* Если then/catch возвращают promise или какое-то значение, можно вызвать следующий then/catch.
+* Так промисы можно объединять в цепочки.
+* Это пригодится, когда мы будем делать сетевые запросы.
+
+```js
+fetch(...)
+  .then(...)
+  .then(...)
+  .then(...)
+```
+---
+
+### Promise.all
+* Можно запустить несколько промисов одновременно и подождать результатов выполнения их всех:
+```js
+Promise.all([
+  fetch('/article/promise/user.json'),
+  fetch('/article/promise/guest.json')
+]).then(results => {
+  console.log(results);
+});
+```
 ---
 
 ### async/await
-https://learn.javascript.ru/async-await
+* Async/await это 
+[синтаксический сахар](https://ru.wikipedia.org/wiki/%D0%A1%D0%B8%D0%BD%D1%82%D0%B0%D0%BA%D1%81%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B9_%D1%81%D0%B0%D1%85%D0%B0%D1%80)
+над промисами.
+* Модификатор async применяется к функции и означает, что она возвращает промис:
+```js
+async function f() {
+    return 10;
+}
+f().then(result => console.log(result));
+```
+---
+
+### async/await
+* Await применяется вместо then там, где нужно подождать ответа промиса:
+```js
+async function f() {
+    return 10;
+}
+const result = await f();
+```
+* Await может быть только в функции с модификатором async.
+* [Подробнее](https://learn.javascript.ru/async-await).
 ---
 
 ### Походы в сеть
-https://learn.javascript.ru/fetch
+* [Подробнее](https://learn.javascript.ru/fetch).
 ---
 
 ### Генераторы
-https://learn.javascript.ru/generator
+* [Подробнее](https://learn.javascript.ru/generator).
 ---
 
-### Map 
-https://learn.javascript.ru/map-set
----
-
-### Set
+### Map, Set 
+* [Подробнее](https://learn.javascript.ru/map-set).
 ---
 
 ### Работа с датами
