@@ -122,9 +122,6 @@ export class AppComponent {
   title = 'angular-test'; // стейт
   methodName() {} // метод
 }
-```</script></section><section  data-markdown><script type="text/template">### Передача данных из одного компонента в другой
-```angular2html
-<component [property]="value"></component>
 ```</script></section><section  data-markdown><script type="text/template">
 ### Жизненный цикл компонента
 * [Подробнее](https://metanit.com/web/angular2/2.8.php).
@@ -273,13 +270,55 @@ static composeAsync(validators: AsyncValidatorFn[]): AsyncValidatorFn | null
 ```
 * [Подробнее](https://angular.io/guide/component-styles).
 * [NgStyle](https://angular.io/api/common/NgClass), [NgStyle](https://angular.io/api/common/NgStyle).</script></section><section  data-markdown><script type="text/template">
+### Передача данных от родителя к потомку
+```angular2html
+<component [property]="value"></component>
+```
+
+```ts
+import { Component, Input } from '@angular/core';
+export class Component {
+  @Input() property: string = '';
+}
+```
+
+![input property decorator](assets/angular/input.png)</script></section><section  data-markdown><script type="text/template">
+### Передача данных от потомка к родителю
+
+![output property decorator](assets/angular/output.png)</script></section><section  data-markdown><script type="text/template">
+### Передача данных от потомка к родителю
+* В потомке:
+
+```ts
+  @Output() newItemEvent = new EventEmitter<string>();
+
+  addNewItem(value: string) {
+    this.newItemEvent.emit(value);
+  }
+```
+
+* В родителе:
+
+```angular2html
+<app-item-output (newItemEvent)="addItem($event)"></app-item-output>
+```
+
+```ts
+export class ParentComponent {
+  items = ['item1', 'item2', 'item3', 'item4'];
+  addItem(newItem: string) {
+    this.items.push(newItem);
+  }
+}
+```</script></section><section  data-markdown><script type="text/template">
 ### Сервисы
 ```shell
 ng generate service %SERVICE_NAME%
 ```</script></section><section  data-markdown><script type="text/template">
 ### Сервисы и DI
 https://metanit.com/web/angular2/4.3.php</script></section><section  data-markdown><script type="text/template">
-### Слушатели сервисов</script></section><section  data-markdown><script type="text/template">
+### Слушатели сервисов
+https://angular.io/tutorial/toh-pt4</script></section><section  data-markdown><script type="text/template">
 ### Роуты
 ```shell
 ng generate module app-routing --flat --module=app
@@ -295,7 +334,9 @@ https://github.com/zhaosiyang/loadable-example/tree/e505183bd25d55c173be03ad3ea4
 Добавить вызов RouterStoreModule.connectRoute в основном модуле приложения
 Добавляем RouterState в основное состояние приложения
 https://habr.com/ru/post/425959/</script></section><section  data-markdown><script type="text/template">
-### Тестирование</script></section><section  data-markdown><script type="text/template">
+### Тестирование
+https://angular.io/guide/testing-components-basics
+https://angular.io/guide/testing-components-scenarios</script></section><section  data-markdown><script type="text/template">
 ### Дебаг
 * [Документация](https://angular.io/guide/devtools).
 * Расширение для 

@@ -139,11 +139,6 @@ export class AppComponent {
 }
 ```
 ---
-### Передача данных из одного компонента в другой
-```angular2html
-<component [property]="value"></component>
-```
----
 
 ### Жизненный цикл компонента
 * [Подробнее](https://metanit.com/web/angular2/2.8.php).
@@ -314,6 +309,53 @@ static composeAsync(validators: AsyncValidatorFn[]): AsyncValidatorFn | null
 * [NgStyle](https://angular.io/api/common/NgClass), [NgStyle](https://angular.io/api/common/NgStyle).
 ---
 
+### Передача данных от родителя к потомку
+```angular2html
+<component [property]="value"></component>
+```
+
+```ts
+import { Component, Input } from '@angular/core';
+export class Component {
+  @Input() property: string = '';
+}
+```
+
+![input property decorator](assets/angular/input.png)
+---
+
+### Передача данных от потомка к родителю
+
+![output property decorator](assets/angular/output.png)
+---
+
+### Передача данных от потомка к родителю
+* В потомке:
+
+```ts
+  @Output() newItemEvent = new EventEmitter<string>();
+
+  addNewItem(value: string) {
+    this.newItemEvent.emit(value);
+  }
+```
+
+* В родителе:
+
+```angular2html
+<app-item-output (newItemEvent)="addItem($event)"></app-item-output>
+```
+
+```ts
+export class ParentComponent {
+  items = ['item1', 'item2', 'item3', 'item4'];
+  addItem(newItem: string) {
+    this.items.push(newItem);
+  }
+}
+```
+---
+
 ### Сервисы
 ```shell
 ng generate service %SERVICE_NAME%
@@ -325,6 +367,7 @@ https://metanit.com/web/angular2/4.3.php
 ---
 
 ### Слушатели сервисов
+https://angular.io/tutorial/toh-pt4
 ---
 
 ### Роуты
@@ -351,6 +394,8 @@ https://habr.com/ru/post/425959/
 ---
 
 ### Тестирование
+https://angular.io/guide/testing-components-basics
+https://angular.io/guide/testing-components-scenarios
 ---
 
 ### Дебаг
