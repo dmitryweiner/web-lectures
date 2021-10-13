@@ -357,17 +357,110 @@ export class ParentComponent {
 ---
 
 ### Сервисы
+* Автогенерация:
+
 ```shell
 ng generate service %SERVICE_NAME%
+```
+
+* Примерный текст сервиса: 
+
+```js
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root' // модуль, где представлен сервис
+})
+export class Service {
+  items: Item[] = [];
+
+  constructor() { }
+
+  getItems(): Item[] {
+    return this.items;
+  }
+
+  addItem(item: Item): void {
+    this.items.push(item);
+  }
+}
 ```
 ---
 
 ### Сервисы и DI
-https://metanit.com/web/angular2/4.3.php
+* Компонент подключается к сервису с помощью 
+[внедрения зависимости](https://ru.wikipedia.org/wiki/%D0%92%D0%BD%D0%B5%D0%B4%D1%80%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B7%D0%B0%D0%B2%D0%B8%D1%81%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8).
+* [Подробнее](https://metanit.com/web/angular2/4.3.php).
+* Добавляем сервис в нужный модуль:
+```js
+providers: [Service]
+```
+* Добавляем сервис в компонент:
+```js
+constructor(private service: Service) { }
+```
 ---
 
-### Слушатели сервисов
-https://angular.io/tutorial/toh-pt4
+### Получение данных от сервиса
+* В компоненте:
+```js
+ngOnInit() {
+    this.list = this.service.getItems();
+}
+```
+* В шаблоне:
+```angular2html
+<ul>
+  <li *ngFor="let item of list">
+    <b>{{ item.id }}</b>: {{ item.title }} ₽
+  </li>
+</ul>
+```
+---
+
+### Сервис с HTTP-запросами
+* Сервис может менять состояние данных асинхронно, например в результате HTTP-запросов.
+* Чтобы компонент получал всегда свежие данные, нужно на них подписаться.
+* [Подробнее](https://angular.io/tutorial/toh-pt4), [ещё](https://angular.io/guide/http).
+---
+
+### Сервис с HTTP-запросами
+
+```ts
+import { Injectable } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+
+const URL = 'https://api.github.com/users/';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class GithubService {
+  constructor(private http: HttpClient) { }
+
+  getData(username: string) {
+    return this.http.get(URL + username);
+  }
+}
+```
+---
+
+### Подписка на сервис в компоненте
+* В модуле добавить в HttpClientModule в imports:
+```js
+imports: [
+    CommonModule,
+    FormsModule,
+    HttpClientModule
+],
+```
+* В компоненте:
+```ts
+constructor(private  githubService: GithubService) { }
+ngOnInit() {
+    this.githubService.getData(this.username).subscribe(data => this.data = data);
+}
+```
 ---
 
 ### Роуты
@@ -377,25 +470,27 @@ ng generate module app-routing --flat --module=app
 ---
 
 ### Менеджеры состояний
+
 ![](assets/angular/ng-rx-logos.png)
-https://ngrx.io/guide/store
-https://medium.com/angular-in-depth/handle-api-call-state-nicely-445ab37cc9f8
-https://github.com/zhaosiyang/loadable-example/tree/e505183bd25d55c173be03ad3ea43f019a373c50
+
+* https://ngrx.io/guide/store
+* https://medium.com/angular-in-depth/handle-api-call-state-nicely-445ab37cc9f8
+* https://github.com/zhaosiyang/loadable-example/tree/e505183bd25d55c173be03ad3ea43f019a373c50
 ---
 ![](assets/angular/ng-rx.png)
 ---
 
 ### Маршрутизация в сторе
-Можно использовать @ngrx/router-store
-Подключить routerReducer
-Добавить вызов RouterStoreModule.connectRoute в основном модуле приложения
-Добавляем RouterState в основное состояние приложения
-https://habr.com/ru/post/425959/
+* Можно использовать @ngrx/router-store
+* Подключить routerReducer
+* Добавить вызов RouterStoreModule.connectRoute в основном модуле приложения
+* Добавляем RouterState в основное состояние приложения
+* https://habr.com/ru/post/425959/
 ---
 
 ### Тестирование
-https://angular.io/guide/testing-components-basics
-https://angular.io/guide/testing-components-scenarios
+* https://angular.io/guide/testing-components-basics
+* https://angular.io/guide/testing-components-scenarios
 ---
 
 ### Дебаг
@@ -411,3 +506,4 @@ https://angular.io/guide/testing-components-scenarios
 * https://metanit.com/web/angular2/
 * https://angular.io/guide/
 * https://habr.com/ru/post/348818/
+* https://angular.io/guide/cheatsheet
