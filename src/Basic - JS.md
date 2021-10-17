@@ -857,7 +857,44 @@ const arr = Array.from(document.body.childNodes);
   console.log(userInput.value);
 </script>
 ```
+---
 
+### Создание элементов
+* Для создания элемента можно использовать метод document.createElement:
+```html
+<div id="root"></div>
+<script>
+  const newElement = document.createElement("span");
+  newElement.innerHTML = "Я просто маленький текстовый элемент";
+  document.getElementById("root").appendChild(newElement);
+</script>
+```
+---
+
+### Создание элементов
+* Есть способ попроще:
+
+```html
+<div id="root"></div>
+<script>
+  document.getElementById("root")
+          .innerHTML = "<span>Текстовый элемент</span>";
+</script>
+```
+---
+
+### Удаление элементов
+* Находим родителя нужного элемента и удаляем потомка через него:
+
+```html
+<div id="root">
+  <div id="willBeDeleted"></div>
+</div>
+<script>
+    const element = document.getElementById("willBeDeleted");
+    element.parentElement.removeChild(element);
+</script>
+```
 ---
 
 ### Обработчики
@@ -997,6 +1034,29 @@ counter2(); // 0
 ```
 ---
 
+### Замыкания
+* Что выведет этот код и почему?
+```js
+let i;
+for(i = 1; i <= 3; i++) {
+  setTimeout(() => console.log(i), 1000);
+}
+```
+* Как сделать, чтобы он вывел 1, 2, 3? ⬇️
+----
+* На момент вызова функции внутри таймера значение переменной i уже остановилось в 3.
+* Если мы хотим иметь актуальное значение i во время вызова таймера, необходимо скопировать значение во внутриблочную переменную,
+которая будет создаваться каждый прогон цикла.
+
+```js
+let i;
+for(i = 1; i <= 3; i++) {
+  const innerI = i;
+  setTimeout(() => console.log(innerI), 1000);
+}
+```
+---
+
 ### Exception
 * В процессе работы программа может генерировать исключения, сигнализирующие о невозможности продолжения работы.
 * Чтобы выбросить исключение, применяется конструкция throw:
@@ -1127,7 +1187,7 @@ fetch(...)
 ```
 ---
 
-### Promise.all
+### Promise.all()
 * Можно запустить несколько промисов одновременно и подождать результатов выполнения их всех:
 
 ```js
@@ -1161,29 +1221,154 @@ async function f() {
 }
 const result = await f();
 ```
-* Await может быть применен только в функции с модификатором async.
+* Await может быть применен **только** в функции с модификатором **async**.
 * [Подробнее](https://learn.javascript.ru/async-await).
 ---
 
 ### async/await и исключения
+* Можно обрабатывать исключения внутри async-функций.
+* Это аналог then().catch():
+```js
+async function check() {
+    let result;
+    try {
+        result = await f();    
+    } catch (e) {
+        result = "Error!";
+    }
+    return result;
+}
+```
 ---
 
-### Походы в сеть
+### Походы в сеть: fetch
+* Обращение к сети происходит с помощью функции fetch.
+* Fetch возвращает промис, работать с которым лучше с помощью синтаксического сахара async/await:
+```js
+const response = await fetch("https://api.github.com/users/dmitryweiner");
+const json = await response.json();
+console.log(json);
+```
 * [Подробнее](https://learn.javascript.ru/fetch).
 ---
 
-### Генераторы
-* [Подробнее](https://learn.javascript.ru/generator).
+### Походы в сеть: fetch
+* Отправка более сложного запроса:
+
+```js
+let user = {
+  name: 'John',
+  surname: 'Smith'
+};
+
+let response = await fetch('/article/fetch/post/user', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json;charset=utf-8'
+  },
+  body: JSON.stringify(user)
+});
+
+let result = await response.json();
+```
 ---
 
-### Map, Set 
+### Map, Set
+* Set &mdash; это объект для хранения набора уникальных значений.
+* Map &mdash; это объект для хранения пар ключ-значение.
 * [Подробнее](https://learn.javascript.ru/map-set).
 ---
 
+### Set
+```js
+// конструктор
+const numbers = new Set();
+
+// добавление значений
+numbers.add(1);
+numbers.add(2);
+numbers.add(2);
+numbers.add(3);
+numbers.add(3);
+
+// взять значения в виде массива
+Array.from(numbers.values()); // [1, 2, 3]
+
+// проверка, есть ли такое значение
+numbers.has(1); // true
+
+// размер коллекции
+numbers.size; // 3
+
+// очистка
+numbers.clear();
+```
+---
+
+### Set
+* Простой способ поместить в массив только уникальные значения из другого массива:
+```js
+const arr = [1, 4, 4, 6, 1, 5, 6];
+const unique = [...new Set(arr)]; // [1, 4, 6, 5]
+```
+---
+
+### Map
+* new Map() – создаёт коллекцию.
+* map.set(key, value) – записывает по ключу key значение value.
+* map.get(key) – возвращает значение по ключу или undefined, если ключ key отсутствует.
+* map.has(key) – возвращает true, если ключ key присутствует в коллекции, иначе false.
+* map.delete(key) – удаляет элемент по ключу key.
+* map.clear() – очищает коллекцию от всех элементов.
+* map.size – возвращает текущее количество элементов.
+---
+
 ### Работа с датами
+* Конструкторы:
+```js
+new Date();
+new Date(milliseconds)
+new Date(datestring)
+new Date(year, month, date, hours, minutes, seconds, ms)
+```
+* Получение компонентов даты:
+  * getFullYear() Получить год (из 4 цифр)
+  * getMonth() Получить месяц, от 0 до 11.
+  * getDate() Получить число месяца, от 1 до 31.
+  * getHours(), getMinutes(), getSeconds(), getMilliseconds()
+---
+
+### Работа с датами
+* Установка компонентов даты:
+  * setFullYear(year [, month, date])
+  * setMonth(month [, date])
+  * setDate(date)
+  * setHours(hour [, min, sec, ms])
+  * setMinutes(min [, sec, ms])
+  * setSeconds(sec [, ms])
+  * setMilliseconds(ms)
+  * setTime(milliseconds)
+* [Подробнее](https://learn.javascript.ru/datetime).
 ---
 
 ### Математика
+* Вся математика лежит в объекте Math:
+  * Константы:
+    * Math.E Число Эйлера или Непера (2,718).
+    * Math.PI Число π (3,14159).
+  * Функции:
+    * Math.ceil(x) значение числа, округлённое к большему целому.
+    * Math.floor(x) значение числа, округлённое к меньшему целому.
+    * Math.round(x) округление до ближайшего целого.
+---
+
+### Математика
+* Math.random() псевдослучайное число в диапазоне от 0 до 1.
+* Math.max([x[, y[, …]]]) наибольшее число из своих аргументов.
+* Math.min([x[, y[, …]]]) наименьшее число из своих аргументов.
+* Math.sin(x) синус числа.
+* Math.sqrt(x) положительный квадратный корень числа.
+* [Подробнее](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math).
 ---
 
 ### Полезные ссылки
