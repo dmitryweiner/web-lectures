@@ -1351,6 +1351,20 @@ new Date(year, month, date, hours, minutes, seconds, ms)
 * [Подробнее](https://learn.javascript.ru/datetime).
 ---
 
+### Moment.js
+* Для удобной работы с датами можно подключить библиотеку [moment.js](https://momentjs.com/).
+
+```js
+moment().format('MMMM Do YYYY, h:mm:ss a'); // October 17th 2021, 9:22:04 pm
+moment().format('dddd');                    // Sunday
+moment().format("MMM Do YY");               // Oct 17th 21
+
+moment().startOf('day').fromNow();        // 21 hours ago
+moment().endOf('day').fromNow();          // in 3 hours
+moment().startOf('hour').fromNow();       // 22 minutes ago
+```
+---
+
 ### Математика
 * Вся математика лежит в объекте Math:
   * Константы:
