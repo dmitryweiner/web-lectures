@@ -1351,6 +1351,17 @@ new Date(year, month, date, hours, minutes, seconds, ms)
 * [Подробнее](https://learn.javascript.ru/datetime).
 ---
 
+### Локальное представление даты
+* Можно представить дату в региональном формате (зависит от выставленного региона в системе и браузере):
+
+```js
+const date = new Date();
+date.toLocaleString(); // "18.10.2021, 12:00:34"
+date.toLocaleTimeString(); // "12:00:34"
+date.toLocaleDateString(); // "18.10.2021"
+```
+---
+
 ### Moment.js
 * Для удобной работы с датами можно подключить библиотеку [moment.js](https://momentjs.com/).
 
