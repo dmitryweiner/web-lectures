@@ -8,7 +8,9 @@ title: Angular
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
-[видео](https://drive.google.com/file/d/1Pnzf9Xkuz_IQ2wnJytIt3SQU4BRgAVQh/view?usp=sharing)
+Видео:
+[1](https://drive.google.com/file/d/1Pnzf9Xkuz_IQ2wnJytIt3SQU4BRgAVQh/view?usp=sharing),
+[2](https://drive.google.com/file/d/1CjTp5sgcAJShmzbi8xqv-kwR--izFjs0/view?usp=sharing).
 ---
 
 ### Фишечки
@@ -507,3 +509,5 @@ ng generate module app-routing --flat --module=app
 * https://angular.io/guide/
 * https://habr.com/ru/post/348818/
 * https://angular.io/guide/cheatsheet
+
+* Демо-проект ["Список покупок"](https://github.com/dmitryweiner/pokupki-angular)
