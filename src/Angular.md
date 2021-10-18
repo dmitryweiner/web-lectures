@@ -395,7 +395,7 @@ export class Service {
 ```js
 providers: [Service]
 ```
-* Добавляем сервис в компонент:
+* Добавляем сервис в компонент с помощью DI:
 ```js
 constructor(private service: Service) { }
 ```
