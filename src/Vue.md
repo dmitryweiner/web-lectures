@@ -62,10 +62,6 @@ vue create %APP_NAME%
 npx -p @vue/cli vue create %APP_NAME%
 ```
 * Для **д**ефолтной установки без лишних вопросов добавить ключ ```-d```.
-* Создание приложения в графическом интерфейсе:
-```shell
-vue ui
-```
 * [Документация](https://cli.vuejs.org/guide/creating-a-project.html#vue-create).
 ---
 
@@ -74,6 +70,14 @@ vue ui
 ![cli](assets/vue/vue-cli.png)
 
 ![cli](assets/vue/vue-cli-options.png)
+---
+
+### Создание приложения в графическом интерфейсе
+```shell
+vue ui
+```
+
+![ui](assets/vue/ui.png)
 ---
 
 ### Общая структура компонента
