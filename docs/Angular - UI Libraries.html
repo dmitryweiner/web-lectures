@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Angular - UI libraries</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/sky.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+## Angular: библиотеки компонентов
+
+[Дмитрий Вайнер](https://github.com/dmitryweiner)</script></section><section  data-markdown><script type="text/template">
+### Angular Material
+* [Репозиторий](https://github.com/angular/components).
+* [Документация](https://material.angular.io/components/categories).
+* [Демо](https://material-density.glitch.me/).
+* ⭐22.2k 🍴5.9k ⬇1M</script></section><section  data-markdown><script type="text/template">
+![material](assets/angular-ui/material.png)</script></section><section  data-markdown><script type="text/template">
+### Angular Material
+* Установка:
+```shell
+ng add @angular/material
+```
+* В модуле:
+```ts
+import { MatSliderModule } from '@angular/material/slider';
+@NgModule ({
+      imports: [
+        MatSliderModule,
+      ]
+})
+class AppModule {}
+```
+* В шаблоне:
+```angular2html
+<mat-slider min="1" max="100" step="1" value="50"></mat-slider>
+```</script></section><section  data-markdown><script type="text/template">
+### ngx-bootstrap
+* [Репозиторий](https://github.com/valor-software/ngx-bootstrap).
+* [Документация](https://valor-software.com/ngx-bootstrap/#/documentation).
+* [Демо](https://codesandbox.io/s/j3qz78qvzy).
+* ⭐5.3k 🍴1.7k ⬇266k</script></section><section  data-markdown><script type="text/template">
+### ngx-bootstrap
+* Установка:
+```shell
+ng add ngx-bootstrap
+```
+* В модуле:
+```ts
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+@NgModule({
+    imports: [ TooltipModule.forRoot()]
+})
+```
+* В шаблоне:
+```angular2html
+<button type="button" class="btn btn-primary"
+        tooltip="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+    Simple demo
+</button>
+```</script></section><section  data-markdown><script type="text/template">
+### Prime NG
+* [Репозиторий](https://github.com/primefaces/primeng).
+* [Документация](https://primefaces.org/primeng/showcase/#/setup).
+* [Демо](https://primefaces.org/primeng/showcase/#/).
+* ⭐7.1k 🍴3.6k ⬇267k</script></section><section  data-markdown><script type="text/template">
+![prime](assets/angular-ui/prime.png)</script></section><section  data-markdown><script type="text/template">
+### Prime NG
+* Установка:
+```shell
+npm i primeng primeicons
+```
+* В модуле:
+```ts
+import {AutoCompleteModule} from 'primeng/autocomplete';
+```
+* В шаблоне:
+```angular2html
+<p-autoComplete [(ngModel)]="text" [suggestions]="results" (completeMethod)="search($event)"></p-autoComplete>
+```</script></section><section  data-markdown><script type="text/template">
+### Kendo UI
+* [Документация](https://www.telerik.com/kendo-angular-ui/components/buttons/).
+* [Демо](https://www.telerik.com/kendo-angular-ui/components/).
+* Цена $1k.</script></section><section  data-markdown><script type="text/template">
+![kendo](assets/angular-ui/kendo.png)</script></section><section  data-markdown><script type="text/template">
+### Onsen UI
+* [Репозиторий](https://github.com/OnsenUI/OnsenUI).
+* [Документация](https://onsen.io/v2/guide/angular2/).
+* [Демо](https://onsen.io/angular2/).
+* ⭐8.5k 🍴980 ⬇25k</script></section><section  data-markdown><script type="text/template">
+![onsen](assets/angular-ui/onsen.png)</script></section><section  data-markdown><script type="text/template">
+### Onsen UI
+* Установка:
+```shell
+npm install onsenui ngx-onsenui --save
+```
+* В модуле:
+```ts
+import { OnsenModule } from 'ngx-onsenui';
+//
+imports: [ OnsenModule ]
+```
+* Стили в глобальном CSS:
+```scss
+@import 'node_modules/onsenui/css/onsenui.css';
+@import 'node_modules/onsenui/css/onsen-css-components.css';
+```
+* В шаблоне:
+```angular2html
+<ons-button>Click Me</ons-button>
+```</script></section><section  data-markdown><script type="text/template">
+### Clarity
+* [Репозиторий](https://github.com/vmware/clarity).
+* [Документация](https://clarity.design/get-started/developing/angular/).
+* [Демо]().
+* ⭐6.3k 🍴735 ⬇14k</script></section><section  data-markdown><script type="text/template">
+![clarity](assets/angular-ui/clarity.png)</script></section><section  data-markdown><script type="text/template">
+### Clarity
+* Установка:
+```shell
+ng add @clr/angular
+```
+* В модуле:
+```ts
+import { ClarityModule } from '@clr/angular';
+//
+imports: [ClarityModule]
+```
+* В шаблоне:
+```angular2html
+<clr-alert [clrAlertAppLevel]="true">
+  <clr-alert-item>
+    <span class="alert-text">
+      Congratulations, you have installed Clarity!
+    </span>
+  </clr-alert-item>
+</clr-alert>
+```</script></section><section  data-markdown><script type="text/template">
+### Полезные ссылки
+* https://dharmendraoist.medium.com/19-best-angular-ui-frameworks-to-use-for-faster-development-in-2020-b50e8e8c5072
+* https://dzone.com/articles/the-most-popular-angular-ui-libraries-to-try-in-20
+* https://www.ngdevelop.tech/best-angular-ui-component-libraries/</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
