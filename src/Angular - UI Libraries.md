@@ -101,6 +101,7 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 ---
 
 ### Onsen UI
+* Оптимизиация под мобильные устройства.
 * [Репозиторий](https://github.com/OnsenUI/OnsenUI).
 * [Документация](https://onsen.io/v2/guide/angular2/).
 * [Демо](https://onsen.io/angular2/).
@@ -135,7 +136,7 @@ imports: [ OnsenModule ]
 ### Clarity
 * [Репозиторий](https://github.com/vmware/clarity).
 * [Документация](https://clarity.design/get-started/developing/angular/).
-* [Демо]().
+* [Демо](https://amellnik.github.io/clarity-demo/inputs).
 * ⭐6.3k 🍴735 ⬇14k
 ---
 
@@ -162,6 +163,43 @@ imports: [ClarityModule]
     </span>
   </clr-alert-item>
 </clr-alert>
+```
+---
+
+### Nebular
+* [Репозиторий](https://github.com/akveo/nebular).
+* [Документация](https://akveo.github.io/nebular/docs/getting-started/what-is-nebular#what-is-nebular).
+* [Демо](https://www.akveo.com/ngx-admin/pages/dashboard?theme=material-light).
+* ⭐7.3k 🍴1.4k ⬇18k
+---
+
+![nebular](assets/angular-ui/nebular.png)
+---
+
+### 
+* Установка:
+```shell
+ng add @nebular/theme
+```
+* В модуле:
+```ts
+import { NbSidebarModule, NbLayoutModule, NbButtonModule } from '@nebular/theme';
+//
+imports: [
+    NbLayoutModule,
+    NbSidebarModule, // NbSidebarModule.forRoot(), //if this is your app.module
+    NbButtonModule,
+]
+```
+* В шаблоне:
+```angular2html
+<nb-layout>
+    <nb-layout-header fixed>Company Name</nb-layout-header>
+    <nb-sidebar>Sidebar Content</nb-sidebar>
+    <nb-layout-column>
+        Page Content <button nbButton>Hello World</button>
+    </nb-layout-column>
+</nb-layout>
 ```
 ---
 

@@ -465,29 +465,58 @@ ngOnInit() {
 ```
 ---
 
-### Роуты
-```shell
-ng generate module app-routing --flat --module=app
+### Роуты: при создании проекта
+![](assets/angular/routing.png)
+
+```ts
+// app-routing.module.ts
+const routes: Routes = [
+  { path: 'home', component: HomeComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+]
 ```
 ---
 
-### Менеджеры состояний
+### Роуты: добавление в существующий проект
+* Создать модуль:
+```shell
+ng generate module app-routing --flat --module=app
+```
+* Редактируем модуль app-routing.module.ts:
 
-![](assets/angular/ng-rx-logos.png)
+```ts
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-* https://ngrx.io/guide/store
-* https://medium.com/angular-in-depth/handle-api-call-state-nicely-445ab37cc9f8
-* https://github.com/zhaosiyang/loadable-example/tree/e505183bd25d55c173be03ad3ea43f019a373c50
+const routes: Routes = [];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+```
 ---
-![](assets/angular/ng-rx.png)
----
 
-### Маршрутизация в сторе
-* Можно использовать @ngrx/router-store
-* Подключить routerReducer
-* Добавить вызов RouterStoreModule.connectRoute в основном модуле приложения
-* Добавляем RouterState в основное состояние приложения
-* https://habr.com/ru/post/425959/
+### Роуты: добавление в существующий проект
+* Настройка роутов:
+```ts
+const routes: Routes = [
+    { path: 'home', component: HomeComponent },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
+]
+```
+* Подключение роутера в модуле:
+```ts
+imports: [
+    BrowserModule,
+    AppRoutingModule // <-- добавить
+]
+```
+* В шаблоне app.component.html:
+```angular2html
+<router-outlet></router-outlet>
+```
 ---
 
 ### Тестирование
