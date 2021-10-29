@@ -23,6 +23,21 @@ title: RxJS
 ![observer pattern](assets/rxjs/observer.png)
 ---
 
+![learning cliff](assets/rxjs/learning-cliff.jpg)
+---
+
+### Установка
+* Текущая версия 7.4.
+* Через npm:
+```shell
+npm i rxjs
+```
+* Через CDN:
+```html
+<script src="https://unpkg.com/rxjs@7.4.0/dist/bundles/rxjs.umd.min.js"></script>
+```
+---
+
 ### Источник сообщений
 * Источник сообщений зовут Observable (то, за чем наблюдают).
 * Observable бывает разный:
@@ -55,11 +70,11 @@ title: RxJS
 ```js
 import { Observable } from "rxjs";
 const obs = new Observable((sub) => {
-  sub.next(1);
-  setTimeout(() => {
-    sub.next(3);
-    sub.complete();
-  }, 500);
+    sub.next(1);
+    setTimeout(() => {
+      sub.next(3);
+      sub.complete();
+    }, 500);
 });
 obs.subscribe(console.log);
 // 1, 3
@@ -81,8 +96,8 @@ of(1, 2, "челюсть").subscribe(console.log);
 ```
 * Из события:
 ```js
-import { fromEvent } from 'rxjs';
-const clicks = fromEvent(document, 'click');
+import { fromEvent } from "rxjs";
+const clicks = fromEvent(document, "click");
 clicks.subscribe(console.log);
 ```
 ---
@@ -90,78 +105,253 @@ clicks.subscribe(console.log);
 ### Таймер
 * Если передать 1 аргумент, таймер сработает через указанное время:
 ```js
-import { timer } from 'rxjs';
+import { timer } from "rxjs";
 timer(3000).subscribe(console.log);
 // 0 (через 3 секунды)
 ```
 * Второй аргумент означает, через сколько миллисекунд таймер будет регулярно срабатывать:
 ```js
-import { timer } from 'rxjs';
+import { timer } from "rxjs";
 timer(3000, 1000).subscribe(console.log);
 // 0, 1, 2, 3...
 ```
+* [Попробовать](https://thinkrx.io/rxjs/timer/).
 ---
 
 ### Интервал
 * Срабатывает регулярно через указанное количество миллисекунд:
 ```js
-import { interval } from 'rxjs';
+import { interval } from "rxjs";
 interval(500).subscribe(console.log);
 // 0, 1, 2, 3...
 ```
+* [Попробовать](https://thinkrx.io/rxjs/interval/).
 ---
 
 ### Операторы
 * К проходящим между слушателем и источником данным можно применить различные операторы, пользуясь методом pipe().
-* Преобразование (map, scan, buffer).
-* Фильтрация (filter, take, skip, distinct);
-* Обработка ошибок (catchError, retry, onErrorResumeNext);
-* Условия (skipUntil, skipWhile, takeUntil, takeWhile);
-* Математические (min, max, count);
-* Утилиты (tap, delay);
+* Преобразование: map, scan, buffer.
+* Фильтрация: filter, take, skip, distinct.
+* Обработка ошибок: catchError, retry, onErrorResumeNext.
+* Условия: skipUntil, skipWhile, takeUntil, takeWhile.
+* Математические: min, max, count.
+* Утилиты: tap, delay.
 ---
 
 ### Map
-
+* Позволяет модифицировать приходящие сообщения и отправить дальше:
+```js
+import { interval } from "rxjs";
+import { map } from "rxjs/operators";
+interval(1000)
+    .pipe(
+      map(i => i + " 🦆")
+    )
+    .subscribe(console.log);
+// 0 🦆, 1 🦆, 2 🦆
+```
+* [Попробовать](https://thinkrx.io/rxjs/map/).
 ---
 
-### 
-
+![map](assets/rxjs/map.jpeg)
 ---
 
-### 
-
+### Take
+* take(N) возьмёт максимум N значений из источника и завершится:
+```js
+import { interval } from "rxjs";
+import { take } from "rxjs/operators";
+interval(1000)
+    .pipe(
+      take(5)
+    )
+    .subscribe(console.log);
+// 0, 1, 2, 3, 4
+```
+* [Попробовать](https://thinkrx.io/rxjs/take/).
 ---
 
-### 
+### TakeUntil
+* takeUntil(otherStream) будет принимать значения, пока другой терминирующий поток не отправит значение:
+```js
+import { interval, timer } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+const source$ = interval(100);
+const terminator$ = timer(500);
+source$.pipe(
+    takeUntil(terminator$)
+)
+.subscribe(console.log);
+// 0, 1, 2, 3
+```
+* [Попробовать](https://thinkrx.io/rxjs/takeUntil/).
+---
+### TakeWhile
+* takeWhile(predicate) будет принимать значения, пока условие истинно:
+```js
+import { interval } from "rxjs";
+import { takeWhile } from "rxjs/operators";
+interval(100).pipe(
+    takeWhile(n => n < 5)
+)
+.subscribe(console.log);
+// 0, 1, 2, 3, 4
+```
+* [Попробовать](https://thinkrx.io/rxjs/takeWhile/).
+---
 
+### Filter
+* Фильтр пропустит те значения, которые удовлетворяют функции-условию:
+```js
+import { interval } from "rxjs";
+import { filter } from "rxjs/operators";
+interval(100).pipe(
+    filter(n => n % 2 === 0)
+)
+.subscribe(console.log);
+// 0, 2, 4, 6
+```
+* [Попробовать](https://thinkrx.io/rxjs/filter/).
+---
+
+### Tap
+* tap нужен для побочных эффектов. Этот оператор никак не влияет на передачу сообщений,
+но получает их все. Пригождается для логирования.
+```js
+import { interval } from "rxjs";
+import { take, tap } from "rxjs/operators";
+interval(100).pipe(
+        take(10),
+        tap(v => console.log('tap', v))
+)
+.subscribe(console.log);
+// 0, tap 0, 1, tap 1, 2, tap 2
+```
+* [Попробовать](https://thinkrx.io/rxjs/tap/).
+---
+
+### Задержка
+* Оператор delay(N) вызывает задержку в передаче сообщений N миллисекунд и передаёт их дальше:
+```js
+import { interval } from "rxjs";
+import { delay } from "rxjs/operators";
+interval(100).pipe(
+    delay(10)
+)
+.subscribe(console.log);
+// 0, 1, 2, 3... (c задержкой)
+```
+* [Попробовать](https://thinkrx.io/rxjs/delay/).
+
+![delay](assets/rxjs/delay.png)
+---
+
+### Scan
+* Оператор scan &mdash; аналог метода reduce в массиве, применяет указанную функцию ко всем сообщениям, 
+а результат складывает в аккумулятор:
+
+```js
+import { of } from 'rxjs';
+import { scan } from 'rxjs/operators';
+of(1, 2, 3)
+    .pipe(
+        scan((acc, curr) => acc + curr, 0)
+    )
+    .subscribe(console.log);
+// output: 1,3,6
+```
+* [Документация](https://www.learnrxjs.io/learn-rxjs/operators/transformation/scan).
 ---
 
 ### Способы объединения Observables
-* concat, concatMap
-* merge, mergeMap
-
+* Если нужно объединить 2 потока, а порядок потоков важен, надо использовать concat, concatMap.
+  * Например, для вызова одного fetch строго после другого.
+* Если важен порядок поступления событий, то надо использовать merge, mergeMap.
+* Префикс *Map означает, что значения первого потока будут подменены тем, что вернёт второй поток. 
 ---
 
-### Switch
-
+### concat
+* concat выдаст все значения одного потока, а потом все значения второго.
+* Если первый поток не кончается, то второй поток не будет выполнен.
+```js
+import { interval, concat } from "rxjs";
+import { pipe, take } from "rxjs/operators";
+concat(
+    interval(100)
+            .pipe(take(3)),
+    interval(100)
+            .take(2))
+.subscribe(console.log);
+// 0, 1, 2, 0, 1
+```
+* [Документация](https://www.learnrxjs.io/learn-rxjs/operators/combination/concat).
 ---
 
-### 
+### concatMap
+* Каждое приходящие из источника сообщение вызывает запуск внутреннего источника:
+```js
+import { interval } from "rxjs";
+import { concatMap } from "rxjs/operators";
+interval(100)
+    .concatMap(x => interval(10).pipe(take(3)))
+.subscribe(console.log);
+// 0, 1, 2, 0, 1, 2
+```
+* [Попробовать](https://thinkrx.io/rxjs/concatMap/).
 
+![concatMap](assets/rxjs/concatMap.png)
 ---
 
-### 
+### SwitchMap
+* Запускает оба потока, и бросается обрабатывать тот поток, от которого сыпятся сообщения:
+* [Попробовать](https://thinkrx.io/rxjs/switchMap/).
 
+![switchMap](assets/rxjs/switchMap.png)
 ---
 
-### 
+![switchMap](assets/rxjs/switchMap.jpeg)
+---
 
+### Есть ещё mergeMap и exhaustMap
+[Попробовать](https://thinkrx.io/rxjs/mergeMap-vs-exhaustMap-vs-switchMap-vs-concatMap/).
+
+![merge exhaust](assets/rxjs/merge.png)
+---
+
+### Таймер на RxJS с остановом
+[Источник](https://stackblitz.com/edit/typescript-ivdebg?file=index.ts).
+
+```js
+const COUNTDOWN_SECONDS = 10;
+
+// elem refs
+const remainingLabel = document.getElementById('remaining');
+const pauseButton = document.getElementById('pause');
+const resumeButton = document.getElementById('resume');
+
+// streams
+const interval$ = interval(1000).pipe(mapTo(-1));
+const pause$ = fromEvent(pauseButton, 'click').pipe(mapTo(false));
+const resume$ = fromEvent(resumeButton, 'click').pipe(mapTo(true));
+
+const timer$ = merge(pause$, resume$)
+  .pipe(
+    startWith(true),
+    switchMap(val => (val ? interval$ : empty())),
+    scan((acc, curr) => (curr ? curr + acc : acc), COUNTDOWN_SECONDS),
+    takeWhile(v => v >= 0)
+  )
+  .subscribe((val: any) => remainingLabel.innerHTML = val);
+```
+---
+
+### Игровые площадки
+* https://rxviz.com/
+* https://thinkrx.io/rxjs/
 ---
 
 ### Полезные ссылки
 * https://riptutorial.com/rxjs
 * https://angdev.ru/rxjs/about/
 * https://www.learnrxjs.io/
-* https://rxviz.com/
 * https://javascript.plainenglish.io/rxjs-operators-in-pictures-but-mostly-memes-7137cea5c8cc
