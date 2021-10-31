@@ -1207,23 +1207,51 @@ Promise.all([
 над промисами.
 * Модификатор async применяется к функции и означает, что она возвращает промис:
 ```js
+// было
+function f() {
+    return new Promise(resolve => resolve(10));
+}
+// стало
 async function f() {
     return 10;
 }
-f().then(result => console.log(result));
 ```
 ---
 
 ### async/await
 * Await применяется вместо then там, где нужно подождать ответа промиса:
 ```js
-async function f() {
-    return 10;
-}
+// было
+f().then(result => console.log(result));
+// стало
 const result = await f();
+console.log(result);
 ```
-* Await может быть применен **только** в функции с модификатором **async**.
+* Await может быть применен **только** в функции с модификатором **async** или на 
+самом [верхнем уровне вызовов](https://habr.com/ru/post/524068/).
 * [Подробнее](https://learn.javascript.ru/async-await).
+---
+
+### Async/await
+* Было:
+
+```js
+function f() {
+  return new Promise(resolve => resolve(10));
+}
+
+f().then(result => console.log(result));
+```
+* Стало:
+
+```js
+async function f() {
+  return 10;
+}
+
+const result = await f();
+console.log(result);
+```
 ---
 
 ### async/await и исключения
@@ -1243,7 +1271,7 @@ async function check() {
 ---
 
 ### Походы в сеть: fetch
-* Обращение к сети происходит с помощью функции fetch.
+* Обращение к сети происходит с помощью функции **fetch**.
 * Fetch возвращает промис, работать с которым лучше с помощью синтаксического сахара async/await:
 ```js
 const response = await fetch("https://api.github.com/users/dmitryweiner");
@@ -1320,8 +1348,8 @@ const unique = [...new Set(arr)]; // [1, 4, 6, 5]
 * map.get(key) – возвращает значение по ключу или undefined, если ключ key отсутствует.
 * map.has(key) – возвращает true, если ключ key присутствует в коллекции, иначе false.
 * map.delete(key) – удаляет элемент по ключу key.
-* map.clear() – очищает коллекцию от всех элементов.
-* map.size – возвращает текущее количество элементов.
+* map.clear() – очищает коллекцию.
+* map.size – возвращает текущее количество.
 ---
 
 ### Работа с датами
@@ -1381,11 +1409,11 @@ moment().startOf('hour').fromNow();       // 22 minutes ago
 * Вся математика лежит в объекте Math:
   * Константы:
     * Math.E Число Эйлера или Непера (2,718).
-    * Math.PI Число π (3,14159).
+    * Math.PI Число π (3,14159265).
   * Функции:
     * Math.ceil(x) значение числа, округлённое к большему целому.
     * Math.floor(x) значение числа, округлённое к меньшему целому.
-    * Math.round(x) округление до ближайшего целого.
+    * Math.round(x) "обычное" округление.
 ---
 
 ### Математика

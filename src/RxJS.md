@@ -4,7 +4,7 @@ title: RxJS
 
 ## RxJS
 
-![RxJS logo](assets/rxjs/logo.jpg)
+![ReactiveX](assets/rxjs/reactivex.gif)
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
@@ -355,3 +355,7 @@ const timer$ = merge(pause$, resume$)
 * https://angdev.ru/rxjs/about/
 * https://www.learnrxjs.io/
 * https://javascript.plainenglish.io/rxjs-operators-in-pictures-but-mostly-memes-7137cea5c8cc
+
+---
+
+![RxJS logo](assets/rxjs/logo.jpg)

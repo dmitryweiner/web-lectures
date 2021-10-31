@@ -7,9 +7,9 @@
     "doc": "docs"
   },
   "scripts": {
-    "build": "reveal-md src --static docs --theme sky",
+    "build": "reveal-md src --static docs --theme serif",
     "serve": "npx http-server docs",
-    "start": "reveal-md src -w --theme sky"
+    "start": "reveal-md src -w --theme serif"
   },
   "dependencies": {
     "reveal-md": "^5.1.3"
