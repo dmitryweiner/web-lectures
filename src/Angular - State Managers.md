@@ -175,6 +175,7 @@ export class CounterComponent {
 
 ### В шаблоне
 * Внимание на **async**:
+
 ```angular2html
 <button (click)="increment()">Increment</button>
 <div>Current Count: {{ count$ | async }}</div>
