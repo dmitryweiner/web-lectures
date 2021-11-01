@@ -83,8 +83,8 @@ interface Todo {
 ```ts
 import { createAction, props } from '@ngrx/store';
 export const addTodo = createAction(
-  'add todo',
-  props<{title: string}>() // можно props<string>(), если один параметр
+    'add todo',
+    props<{title: string}>() // можно props<string>(), если один параметр
 );
 ```
 ---
