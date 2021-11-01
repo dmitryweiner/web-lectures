@@ -21,10 +21,13 @@
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 </script></section><section  data-markdown><script type="text/template">
-### Варианты
+### Варианты менеджеров состояния
 * [NGRX](https://ngrx.io/guide/store).
 * [NGXS](https://www.ngxs.io/).
-* [MobX](https://github.com/mobxjs/mobx-angular).</script></section><section  data-markdown><script type="text/template">
+* [MobX](https://github.com/mobxjs/mobx-angular).
+* [Elf](https://ngneat.github.io/elf/docs/store).
+* [rx-angular](https://github.com/rx-angular/rx-angular/blob/master/libs/state/README.md).
+* [Mobx-angular](https://github.com/mobxjs/mobx-angular).</script></section><section  data-markdown><script type="text/template">
 ### NGRX: особенности
 * За основу взяты идеи Redux.
 * Изоляция сайд-эффектов.
@@ -303,8 +306,343 @@ export class TodoApiService {
 ### Тестирование
 * [Тестирование стора](https://ngrx.io/guide/store/testing).
 * [Тестирование сайд-эффектов](https://ngrx.io/guide/effects/testing).</script></section><section  data-markdown><script type="text/template">
+### NGXS
+![ngxs logo](assets/angular-state/ngxs.png)
+
+* Реализует шаблон [CQRS](https://ru.wikipedia.org/wiki/CQRS).
+* Разработчики вдохновлялись Redux и NgRx.
+* Но решили уменьшить количество вспомогательного кода (как в Redux Toolkit).
+* [Документация](https://www.ngxs.io/).</script></section><section  data-markdown><script type="text/template">
+![ngxs diagram](assets/angular-state/ngxs-diagram.png)</script></section><section  data-markdown><script type="text/template">
+### Установка и подключение
+* Установка:
+```shell
+npm i @ngxs/store 
+```
+* Подключение стора:
+
+```ts
+import { NgModule } from '@angular/core';
+import { NgxsModule } from '@ngxs/store';
+@NgModule({
+    imports: [
+      NgxsModule.forRoot([
+          TodoState // тут массив сторов
+      ], {
+        developmentMode: !environment.production
+      })
+    ]
+})
+export class AppModule {}
+```</script></section><section  data-markdown><script type="text/template">
+### Создание и вызов экшенов
+* [Документация](https://www.ngxs.io/concepts/actions).
+* Создание:
+```ts
+export class AddTodo {
+    static readonly type = '[todo] Add Todo';
+    constructor(public title: string) {}
+}
+```
+* Вызов в компоненте:
+```ts
+import { Store } from '@ngxs/store';
+@Component({})
+export class TodoList {
+    constructor(private store: Store) {}
+    addTodo(title: string) {
+      this.store.dispatch(
+        new AddTodo(title)
+      );
+    }
+}
+```</script></section><section  data-markdown><script type="text/template">
+### Вызов экшенов
+* Обработка нескольких экшенов:
+```ts
+this.store.dispatch([
+    new AddTodo("купить деньги"),
+    new AddTodo("завести картошку")
+]);
+```
+* Подписка на завершение обработки экшена:
+```ts
+this.store
+        .dispatch(new AddTodo("покормить кота"))
+        // тут делаем что-то после завершения обработки
+        .subscribe(() => this.resetForm());
+```</script></section><section  data-markdown><script type="text/template">
+### Экшены и пространство имён
+* Авторы рекомендуют использовать для экшенов [пространство имён](https://www.typescriptlang.org/docs/handbook/namespaces.html):
+
+```ts
+export namespace Todo {
+  export class Add {
+    static readonly type = '[todo] Add';
+    constructor(public title: string) {}
+  }
+
+  export class Remove {
+    static readonly type = '[todo] Remove';
+    constructor(public id: string) {}
+  }
+}
+```
+* Использование:
+
+```ts
+this.store.dispatch(
+    new Todo.Add("покормить картошку")
+);
+```</script></section><section  data-markdown><script type="text/template">
+### Стор
+```ts
+import { Injectable } from '@angular/core';
+import { State, Action, StateContext } from '@ngxs/store';
+import { patch } from '@ngxs/store/operators';
+
+export interface StateModel { // тип стора
+  todos: Todo[];
+}
+
+@State<StateModel>({
+  name: 'todos', // ключ, с которым складывается в общий стор
+  defaults: {
+    todos: [] // начальное значение
+  }
+})
+@Injectable()
+export class TodosState {
+  @Action(AddTodo) // подписываемся на экшен
+  addTodo(ctx: StateContext<StateModel>, action: AddTodo) {
+    const todos = cts.getState().todos; // текущее состояние
+    const todo = {
+      id: Math.random().toString(36).substr(2),
+      title: action.title, // action payload
+      isDone: false
+    };
+    ctx.setState(
+      patch({ // patch чтобы не копировать весь стейт
+        todos: [...todos, todo]
+      })
+    );
+  }
+}
+```</script></section><section  data-markdown><script type="text/template">
+### Что можно делать внутри setState
+* patch: обновить какую-то часть стора.
+* iif: обновить с условием.
+* updateItem: обновить отдельный элемент.
+* removeItem: удалить элемент.
+* insertItem: добавить элемент.
+* append: добавить несколько.
+* compose: сочетание операторов.</script></section><section  data-markdown><script type="text/template">
+### Примеры
+* insertItem:
+```ts
+ctx.setState(
+      patch({
+        todos: insertItem(todo)
+      })
+    );
+```
+* updateItem:
+```ts
+ctx.setState(
+      patch({
+        todos: updateItem<Todo>(todo => todo === payload.id, payload.newTitle)
+      })
+    );
+```</script></section><section  data-markdown><script type="text/template">
+### Селекторы
+* [Документация](https://www.ngxs.io/concepts/select).
+* Получение данных из стора в компоненте:
+
+```ts
+import { Store, Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+@Component({})
+export class ZooComponent {
+  @Select(state => state.todos) todos$: Observable<Todo[]>;
+  constructor(private store: Store) {}
+}
+```
+
+* В шаблоне:
+
+```angular2html
+<ul>
+  <li *ngFor="let todo in todos$ | async">
+    {{ todo.title }}
+  </li>
+</ul>
+```</script></section><section  data-markdown><script type="text/template">
+### Варианты селекторов
+* С функцией:
+```ts
+@Select(state => state.todos) todos$: Observable<Todo[]>;
+```
+* С указанием [мемоизованного](https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D0%BC%D0%BE%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F)
+селектора в сторе:
+```ts
+@Select(TodosState.todos) todos$: Observable<Todo[]>;
+@Select(TodosState.todosCount) todosCount: Observable<number>;
+```</script></section><section  data-markdown><script type="text/template">
+### Селекторы в сторе
+```ts
+@State<StateModel>({
+  name: 'todos',
+  defaults: {
+    todos: []
+  }
+})
+@Injectable()
+export class TodosState {
+  @Selector()
+  static todos(state: StateModel) {
+    return state.todos;
+  }
+
+  @Selector()
+  static todosCount(state: StateModel) {
+    return state.todos.length;
+  }
+  // ... тут экшены
+}
+```</script></section><section  data-markdown><script type="text/template">
+### Селектор с аргументом
+```ts
+@Selector()
+static todosFiltered(state: StateModel) {
+  return (query: string) => {
+    return state.todos.filter(item => item.title.includes(query));
+  };
+}
+```</script></section><section  data-markdown><script type="text/template">
+### Пример [стора](https://github.com/dmitryweiner/ngxs-todo)
+```ts
+import {Action, Selector, State, StateContext} from "@ngxs/store";
+import {AddTodo, CheckTodo, FilterTodo, RemoveTodo, SearchTodo, getTodos} from "./todo.action";
+import { TodoType } from "./todo.type";
+import { TodoFilter } from "./todoFilter.enum";
+import {TodoService} from "./todo.service";
+import {Injectable} from "@angular/core";
+
+export class TodoStateModel {
+  todos!: TodoType[];
+  search!: string;
+  filter!: TodoFilter;
+}
+
+@State<TodoStateModel>({
+  name: 'todo',
+  defaults: {
+    todos: [],
+    search: '',
+    filter: TodoFilter.All
+  }
+})
+@Injectable()
+export class TodoState {
+  constructor(private todoService: TodoService) {}
+
+  @Selector()
+  static getTodos(state: TodoStateModel) {
+    switch (state.filter) {
+      case TodoFilter.All: {
+        return state.todos.filter(
+          item => item.title.toUpperCase().includes(state.search.toUpperCase())
+        )
+      }
+      case TodoFilter.COMPLETE: {
+        return state.todos.filter(
+          item => item.title.toUpperCase().includes(state.search.toUpperCase()) && item.isChecked
+        )
+      }
+      case TodoFilter.NOT_COMPLETE: {
+        return state.todos.filter(
+          item => item.title.toUpperCase().includes(state.search.toUpperCase()) && !item.isChecked
+        )
+      }
+      default: {
+        return state.todos.filter(
+          item => item.title.toUpperCase().includes(state.search.toUpperCase())
+        )
+      }
+    }
+  }
+
+  @Action(getTodos)
+  async get(context: StateContext<TodoStateModel>) {
+    this.todoService.get().subscribe((result) => {
+      context.patchState({
+        todos: result,
+      })
+    })
+  }
+
+  @Action(AddTodo)
+  async add(context: StateContext<TodoStateModel>, action: AddTodo) {
+    const state = context.getState()
+
+    context.patchState({
+      search: ''
+    })
+
+    this.todoService.add(action.payload).subscribe((result) => {
+      state.todos.push(result)
+
+      context.patchState({
+        todos: state.todos,
+      })
+    })
+  }
+
+  @Action(RemoveTodo)
+  remove(context: StateContext<TodoStateModel>, action: AddTodo) {
+    const state = context.getState()
+
+    this.todoService.remove(action.payload).subscribe(() => {
+      context.patchState({
+        todos: state.todos.filter(item => item.id !== action.payload)
+      })
+    })
+  }
+
+  @Action(SearchTodo)
+  search(context: StateContext<TodoStateModel>, action: SearchTodo) {
+    context.patchState({
+      search: action.payload
+    })
+  }
+
+  @Action(CheckTodo)
+  check(context: StateContext<TodoStateModel>, action: CheckTodo) {
+    const state = context.getState()
+
+    const index = state.todos.findIndex(item => item.id === action.payload)
+    const item = state.todos[index]
+
+    this.todoService.checked(action.payload, !item.isChecked).subscribe((result) => {
+      console.log(result)
+
+      state.todos[index] = result
+
+      context.patchState({
+        todos: state.todos
+      })
+    })
+  }
+
+  @Action(FilterTodo)
+  filter(context: StateContext<TodoStateModel>, action: FilterTodo) {
+    context.patchState({
+      filter: action.payload
+    })
+  }
+}
+```</script></section><section  data-markdown><script type="text/template">
 ### Альтернативы
-* [NGXS](https://www.ngxs.io/).
 * [Elf](https://ngneat.github.io/elf/docs/store).
 * [rx-angular](https://github.com/rx-angular/rx-angular/blob/master/libs/state/README.md).
 * [Mobx-angular](https://github.com/mobxjs/mobx-angular).</script></section></div>
