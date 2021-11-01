@@ -143,7 +143,7 @@ export class CounterComponent {
     count$: Observable<number>; // привет из RxJS
 
     constructor(private store: Store<{ count: number }>) {
-        // вместо строки может быть и селектор
+        // вместо строки может быть и функция-селектор
         this.count$ = store.select('count');
     }
 
