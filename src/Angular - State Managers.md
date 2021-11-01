@@ -344,7 +344,6 @@ export class TodoApiService {
 * [Тестирование сайд-эффектов](https://ngrx.io/guide/effects/testing).
 ---
 
-### NGXS
 ![ngxs logo](assets/angular-state/ngxs.png)
 
 * Реализует шаблон [CQRS](https://ru.wikipedia.org/wiki/CQRS).
@@ -352,6 +351,8 @@ export class TodoApiService {
 * Но решили уменьшить количество вспомогательного кода (как в Redux Toolkit).
 * [Документация](https://www.ngxs.io/).
 ---
+
+### NGXS
 
 ![ngxs diagram](assets/angular-state/ngxs-diagram.png)
 ---
