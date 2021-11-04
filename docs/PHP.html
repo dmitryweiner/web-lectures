@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>PHP</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/serif.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+## PHP
+
+![PHP logo](assets/php/logo.png)
+
+[Дмитрий Вайнер](https://github.com/dmitryweiner)</script></section><section  data-markdown><script type="text/template">
+### Идея
+* PHP &mdash; рекурсивный акроним словосочетания PHP: Hypertext Preprocessor.
+* Серверный интерпретатор (по типу Node.js).
+* Создан 8 июня 1995.
+* Текущая версия 8.0.</script></section><section  data-markdown><script type="text/template">
+![versions](assets/php/versions.png)</script></section><section  data-markdown><script type="text/template">
+![versions graph](assets/php/versions-graph.png)</script></section><section  data-markdown><script type="text/template">
+### Распространённые фреймворки
+* [Symfony](https://symfony.com/).
+* [Laravel](https://laravel.ru/).
+* [Zend](https://framework.zend.com/).
+* [Yii2](https://www.yiiframework.com/).</script></section><section  data-markdown><script type="text/template">
+### Системы менеджмента контента (CMS)
+* [Drupal](https://www.drupal.org/).
+* [Wordpress](https://wordpress.com/ru/create/).
+* [Joomla](https://joomla.ru/).
+* [Magento](https://magento.com/).</script></section><section  data-markdown><script type="text/template">
+### Система управления зависимостями
+* [Composer](https://packagist.org/)
+```shell
+curl -sS https://getcomposer.org/installer | php
+```
+* Зависимости хранятся в composer.json:
+```json
+{
+    "name": "your-vendor-name/package-name",
+    "description": "A short description of what your package does",
+    "require": {
+        "php": ">=7.4",
+        "another-vendor/package": "1.*"
+    }
+}
+```</script></section><section  data-markdown><script type="text/template">
+### Установка
+* Windows:
+  * [OpenServer](https://ospanel.io/).
+  * [Denwer](http://www.denwer.ru/).
+* Linux:
+```shell
+sudo apt install php # ставит v7.4
+```</script></section><section  data-markdown><script type="text/template">
+### Хостинг
+* [Поисковик по хостингам](https://ru.hostadvice.com/hosting-services/free-php-hosting/).
+* [000webhost.com](https://www.000webhost.com/).</script></section><section  data-markdown><script type="text/template">
+### Базовый синтаксис
+* [PHP-теги](https://www.php.net/manual/ru/language.basic-syntax.phptags.php):
+```php
+<?php /* всё, что в этих тегах, интерпретируется, как PHP-код */ ?>
+```
+  * Тег ?&gt; можно не закрывать, если файл содержит только код PHP.
+* Создание переменных:
+```php
+<?php
+$a = 1;
+$b = $a + 1;
+```
+* Вывод:
+```php
+<?php
+echo 123;
+print_r([1]); // аналог console.log
+```</script></section><section  data-markdown><script type="text/template">
+![variable](assets/php/var.png)</script></section><section  data-markdown><script type="text/template">
+### var_dump
+* Если надо вывести тип, используется [var_dump()](https://www.php.net/manual/ru/function.var-dump.php):
+```php
+<?php
+$a = [1, 2, 3];
+var_dump($a);
+```
+* Выведет:
+```
+array(3) { [0]=> int(1) [1]=> int(2) [2]=> int(3) } 
+```</script></section><section  data-markdown><script type="text/template">
+### Укороченный вывод
+* Вместо echo можно использовать короткий синтаксис "&lt;?=":
+```php
+<?php
+  $a = "123";
+?>
+<?=$a?>
+```
+* Выведет:
+```
+123
+```</script></section><section  data-markdown><script type="text/template">
+### Типы данных
+</script></section><section  data-markdown><script type="text/template">
+### Определение типа переменной
+gettype </script></section><section  data-markdown><script type="text/template">
+### Операторы
+</script></section><section  data-markdown><script type="text/template">
+### Массивы
+</script></section><section  data-markdown><script type="text/template">
+### Ассоциативные массивы
+</script></section><section  data-markdown><script type="text/template">
+### Приведение типов
+* Строки
+</script></section><section  data-markdown><script type="text/template">
+### Импорты
+</script></section><section  data-markdown><script type="text/template">
+### Функции
+</script></section><section  data-markdown><script type="text/template">
+### Классы
+</script></section><section  data-markdown><script type="text/template">
+### Подключение к БД
+</script></section><section  data-markdown><script type="text/template">
+### Изменение данных в БД
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### Полезные ссылки
+* https://www.php.net/manual/ru/tutorial.php
+* http://ru.html.net/tutorials/php/
+* https://getjump.github.io/ru-php-the-right-way/
+* https://addphp.ru/
+* https://proglib.io/p/samouchitel-dlya-nachinayushchih-kak-osvoit-php-s-nulya-za-30-minut-2021-02-08
+* https://php.zone/kurs-php-dlya-nachinayushih
+
+</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>

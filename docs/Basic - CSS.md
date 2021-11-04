@@ -1,0 +1,679 @@
+---
+title: Basic - CSS
+---
+
+## Введение в CSS
+
+![css is awesome](assets/css/css-is-awesome.png)
+
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
+
+[видео](https://drive.google.com/file/d/1XBmHD5Nou8TTUGo6YiVoWi06cb0XUVCR/view?usp=sharing)
+---
+
+### Немного истории
+* **C**ascading **S**tyle **S**heets.
+* Впервые описан в 1994.
+* Принят как стандарт в 1996 (24 года назад).
+* Сейчас принята третья версия CSS3.
+* Создатель [Håkon Wium Lie](https://twitter.com/wiumlie?lang=en).
+---
+
+### Общие идеи CSS
+* Разделить содержимое страницы и её дизайн.
+* Гибко управлять отображением страницы, задавать:
+  * Цвет
+  * Шрифт
+  * Расположение
+  * Размеры
+* Единый дизайн у разных страниц.
+* Разный дизайн для разных устройств.
+* Применять правила отображения **каскадно**: от более общих к более частным.
+---
+
+### Каскадность
+* Правила CSS применяются от менее приоритетных к более приоритетным.
+* Таким образом, можно задавать вначале более общие правила, а потом более частные,
+уточняя отображение отдельных элементов.
+---
+
+### Минусы
+* Разные браузеры по-разному отображают.
+* Необходимо поддерживать консистентность CSS и HTML.
+* Не верстальщику немного сложно понять.
+---
+![Peter Griffin](assets/css/griffin.gif)
+---
+
+### Иерархия стилей
+* Стиль браузера:
+  * Применяется, если не назначено никаких других стилей
+* Стиль автора:
+  * Применяется, если подключены CSS.
+* Стиль пользователя:
+  * Применяется, если включен особый режим.
+----
+![special mode](assets/css/special-mode.png)
+---
+### Подключение CSS
+* Сторонний файл:
+```html
+<head>
+      <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+```
+* Непосредственно в блоке &lt;head&gt;
+```html
+<style>
+  #wrapper {
+    padding: 20px;
+  }
+</style>
+```
+* Внутри элемента:
+```html
+<p style="font-size: 20px; color: green; font-family: arial, helvetica, sans-serif">
+  .....
+</p>
+```
+---
+
+### Общий вид правила
+
+![](assets/css/rule.png)
+
+* Правило состоит из селектора, скобок {}, внутри которых
+определённым свойствам присваиваются значения.
+* Свойств может быть несколько.
+* Селектор служит для указания на элементы DOM-дерева,
+чьё отображение надо изменить.
+---
+### Селекторы
+* Селекторов может быть несколько в одном правиле, разделяются запятой:
+```css
+li.class, .another-lass {
+    color: red;
+}
+```
+* Разные свойства, относящиеся к одному селектору, надо записывать в одном правиле.
+---
+
+### Селекторы
+* Универсальные: _*_
+```css
+✳️ { /* */ }
+```
+* По тегам:
+```css
+p, body, li { /* */ }
+```
+* По классам:
+```css
+.item, .list { /* */ }
+```
+* По ID:
+```css
+#root { /* */ }
+```
+* По атрибутам тегов:
+```css
+input[type="text"] { /* */ }
+```
+---
+
+### Селекторы
+* По потомкам: _родитель потомок_
+```css
+div li { /* */ }
+```
+* По детям: _родитель > ребёнок_
+```css
+div > li { /* */ }
+```
+* По соседям: _сосед1 + сосед2_
+```css
+div + div.class { /* */ }
+```
+* По псевдоклассам:
+```css
+a:active { /* */ }
+```
+* По псевдоэлементам: 
+```css
+a::first-letter { /* */ }
+```
+---
+
+### Сложный селектор
+* Селектор может сочетать несколько сущностей, 
+например тег и класс, для большей специфичности:
+<div style="background-color: silver">first</div>
+<p style="color: red">second</p>
+
+```html
+<style>
+    p.big {
+        color: red; 
+    }
+    div#first {
+        background-color: silver; 
+    }
+</style>
+<div id="first">first</div>
+<p class="second">second</p>
+```
+---
+
+### Разница между ID и классом
+* Класс нужен для группировки одинаковых элементов.
+```html
+<ul class="list">
+    <li class="list-element">1</li>
+    <li class="list-element">2</li>
+    <li class="list-element">3</li>
+</ul>
+```
+* У одного элемента может быть **несколько** классов.
+```html
+<p class="big red good"></p>
+```
+* ID должен быть **уникален** для элемента.
+```html
+<div id="reactRoot"></div>
+```
+---
+
+### Селектор по потомкам
+* Выбирает потомков на любом уровне вложенности:
+
+![parent child](assets/css/parent-child.png)
+
+```html
+<style>
+span {
+    background-color: white;
+}
+div span {
+    background-color: lawngreen;
+}
+</style>
+<div>
+    <span>Span #1, in the div.
+          <span>Span #2, in the span that's in the div.</span>
+    </span>
+</div>
+<span>Span #3, not in the div at all.</span>
+```
+---
+
+### Селектор по детям
+* Выбирает только потомков первого уровня, непосредственно детей:
+
+![children selector](assets/css/children-selector.png)
+
+```html
+<style>
+span {
+  background-color: white;
+}
+div > span {
+  background-color: lawngreen;
+}
+</style>
+<div>
+  <span>Span #1, in the div.
+    <span>Span #2, in the span that's in the div.</span>
+  </span>
+</div>
+<span>Span #3, not in the div at all.</span>
+```
+---
+
+### Селектор по соседям
+* Выбирает последующего соседа, если у него есть 
+указанный предыдущий сосед:
+
+![neighbour](assets/css/neighbour.png)
+
+```html
+<style>
+li + li {
+  color: red;
+}
+</style>
+<ul>
+  <li>One</li>
+  <li>Two!</li>
+  <li>Three</li>
+</ul>
+```
+---
+
+### Псевдоклассы
+* Служат для выбора элементов в определённом порядке (каждый второй, самый первый, последний).
+* Особо полезные:
+  * **:first-child**: первый потомок.
+  * **:nth-child(N)**: каждый N-ый потомок.
+  * **:last-child**: последний потомок.
+  * **:only-child**: единственный потомок.
+  * **:hover**: на что наведена мышь.
+* [Список всех псевдоклассов](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes).
+---
+
+### Псевдоэлементы
+* Служат для выбора элементов, которых не существует.
+* Или для выбора отдельных кусочков элементов.
+* Крайне полезные:
+  * **::first-letter**: первая буква.
+  * **::after**: после какого-то элемента.
+  * **::before**: перед каким-то элементом.
+* [Список всех псевдоэлементов](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements).
+---
+
+### Специфичность селекторов
+* Если одному элементу подходит несколько правил, то применяется то правило, у которого специфичность селектора больше.
+* Так и проявляется каскадность стилей.
+* Специфичность вычисляется так: за каждый идентификатор (a) начисляется 100, за каждый класс и псевдокласс (b) начисляется 10, за каждый селектор тега и псевдоэлемент (c) начисляется 1.
+---
+
+### Специфичность селекторов
+```css
+✳️             {} /* a=0 b=0 c=0 -> специфичность = 0   */
+li             {} /* a=0 b=0 c=1 -> специфичность = 1   */
+li:first-line  {} /* a=0 b=0 c=2 -> специфичность = 2   */
+ul li          {} /* a=0 b=0 c=2 -> специфичность = 2   */
+ul ol+li       {} /* a=0 b=0 c=3 -> специфичность = 3   */
+ul li.red      {} /* a=0 b=1 c=2 -> специфичность = 12  */
+li.red.level   {} /* a=0 b=2 c=1 -> специфичность = 21  */
+#t34           {} /* a=1 b=0 c=0 -> специфичность = 100 */
+#content #wrap {} /* a=2 b=0 c=0 -> специфичность = 200 */
+```
+---
+
+### Специфичность селекторов
+* Встроенный стиль, добавляемый к тегу через атрибут style, имеет специфичность 1000, поэтому всегда перекрывает связанные и глобальные стили.
+* Однако добавление ```!important``` перекрывает в том числе и встроенные стили.
+* Если два селектора имеют одинаковую специфичность, то применяться будет тот стиль, что указан в коде ниже.
+* [Калькулятор специфичности](https://specificity.keegan.st/).
+---
+
+### Свойства
+* Правило CSS изменяет отображение элементов.
+* Изменить можно:
+  * Цвет шрифта.
+  * Сам шрифт.
+  * Способ начертания.
+  * Цвет фона.
+  * Положение.
+  * Размер.
+  * Выравнивание.
+* [Полный список свойств](https://www.tutorialrepublic.com/css-reference/css3-properties.php),
+  [шпаргалка](https://css3clickchart.com/).
+---
+
+### Единицы измерения
+* При указании размеров и положения используются различные единицы измерения.
+* Относительные:
+  * **%**: процент от размера родителя.
+  * **px**: пиксели.
+  * **em**: относительно размера шрифта родителя.
+  * **rem**: относительно размера шрифта корневого элемента.
+---
+  
+### В процентах от размера экрана
+* **vh**: 1% от высоты экрана.
+* **vw**: 1% от ширины экрана.
+* **vmax**: 1% от максимального измерения экрана.
+* **vmin**: 1% от минимального измерения экрана.
+* [Подробнее](https://ishadeed.com/article/viewport-units/).
+
+```css
+.class {
+  width: 70vw;
+}
+```
+---
+
+### Единицы измерения
+* Абсолютные:
+  * **in**: дюймы.
+  * **mm**: миллиметры.
+  * **сm**: сантиметры.
+  * **pt**: пункты (1/72 дюйма).
+  * **pc**: пики (1/12 пункта).
+* [Подробнее](https://www.w3schools.com/cssref/css_units.asp).
+---
+
+### Цвет
+* Цвет можно задать словом или триплетом байт (RGB):
+
+![colours](assets/css/colours.png)
+---
+
+### Цвет
+* Цвет также можно задать [вместе с прозрачностью](https://www.w3schools.com/cssref/func_rgba.asp) (альфа-канал):
+```css
+.class {
+    /* красный полупрозрачный */
+    background-color:rgba(255, 0, 0, 0.5);
+}
+```
+<div style="background-image: url(https://picsum.photos/200); padding: 20px; width: 200px; height: 100px">
+  <div style="background-color:rgba(255, 0, 0, 0.5)">Привет, мир!</div>
+</div>
+---
+
+### Цвет текста или фона:
+* Задать цвет текста:
+<span style="color: #0000f1;">TEXT</span>
+```css
+.class {
+    color: #0000f1;
+}
+```
+* Задать цвет фона:
+<span style="background-color: #0000f1;">TEXT</span>
+```css
+.class {
+    background-color: #0000f1;
+}
+```
+---
+
+### Шрифт
+* Изменить шрифт можно с помощью font-*:
+<span style="font-family: 'Times New Roman'; font-size: 30px;  font-weight: bold;">TEXT</span>
+```css
+.class {
+    font-family: "Times New Roman";
+    font-size: 30px;
+    font-weight: bold;
+}
+```
+* [Загрузка кастомных шрифтов](https://css-tricks.com/snippets/css/using-font-face/).
+
+---
+
+### Выравнивание текста
+* Можно выравнивать текст по ширине, правому/левому краю, по центру:
+```css
+text-align: end;
+text-align: left;
+text-align: right;
+text-align: center;
+text-align: justify;
+```
+* [Подробнее](https://developer.mozilla.org/en-US/docs/Web/CSS/text-align).
+---
+
+### Типы элементов
+* Элементы бывают строчные (inline) и блочные (block).
+* Строчный элемент располагается внутри строки и позиционируется как часть текста:
+  * a, span, img, button.
+* Блочный элемент позиционируется как единый блок:
+  * div, p, table, hr, video.
+* [Подробнее](https://www.w3schools.com/html/html_blocks.asp).
+---
+
+### Типы позиционирования
+* Типы позиционирования блочных элементов:
+  * static: по умолчанию (блок находится в общем потоке).
+  * relative: относительно static положения, но с указанным сдвигом.
+  * absolute: относительно ближайшего позиционированного элемента.
+  * fixed: относительно границ экрана (прокрутка не действует).
+* Для позиционирования указывают (top, left) или (bottom, right).
+---
+
+### Типы позиционирования
+```css
+position: relative;
+top: 10px;
+left: 20px;
+```
+* [Документация](https://developer.mozilla.org/en-US/docs/Web/CSS/position).
+![](assets/css/positions.png)
+---
+![](assets/css/position-types.png)
+---
+
+### Размер блока
+* Размер указывается с помощью свойств width, height.
+* Если содержимое не вмещается, блок будет растянут.
+* Можно указать минимальные и максимальные размеры:
+  * max-width, max-height.
+  * min-width, min-height.
+* [Подробнее](https://ishadeed.com/article/min-max-css/).
+---
+
+### Размер блока
+![](assets/css/percent-definite-size.svg)
+---
+
+### Отступы и рамки
+* Для каждого элемента можно указать отступы и рамку:
+  * margin: внешний отступ.
+  * border: рамка.
+  * padding: внутренний отступ.
+
+<div style="border: 3px dotted red; border-radius: 20px; margin: 10px; padding: 10px; background-color: palegoldenrod;">text</div>
+
+```css
+.class {
+    border: 3px dotted red;
+    margin: 10px;
+    padding: 10px;
+    background-color: palegoldenrod;
+    border-radius: 20px;
+}
+```
+---
+
+![](assets/css/css-box-model-example-explained.png)
+---
+
+### Короткая запись
+* Это работает для свойств padding и margin:
+![](assets/css/css-shorthand-property-explained.png)
+---
+
+### Калькуляции прямо в CSS
+* Можно рассчитывать необходимые размеры с помощью функции calc():
+```css
+.class {
+    width: calc(80% - 20px);
+}
+```
+* [Документация](http://htmlbook.ru/css/calc).
+---
+
+### Позиционируем элемент по центру
+* Позиционирование по центру по горизонтали:
+```css
+#inner {
+    width: 50%;
+    margin: 0 auto; /* очень часто применяется */
+}
+```
+* По вертикали:
+```css
+.parent {
+    position: relative;
+}
+.child {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+```
+---
+
+### Позиционируем элемент по центру
+* [Полезные советы для позиционирования](https://css-tricks.com/centering-css-complete-guide/).
+* Важно, какой тип у элемента: inline или block.
+* Важно, известен ли размер элемента.
+---
+
+### Позиционируем элемент по центру
+* С помощью flexbox:
+
+```css
+#inner {
+    border: 1px solid black;
+}
+
+#outer {
+    border: 1px solid red;
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+```
+```html
+<div id="outer">
+    <div id="inner">Foo foo</div>
+</div>
+```
+---
+
+### Фильтры
+* Можно задать фильтр для изменения отображения элемента:
+  * Отбросить тень.
+  * Изменить отображение цвета.
+  * Повысить контрастность.
+  * Заблурить.
+* [Поиграть с фильтрами](https://developer.mozilla.org/en-US/docs/Web/CSS/filter).
+---
+
+### Анимации
+* Можно настроить анимацию элемента.
+* [Конструктор анимаций](https://animista.net/play/basic/).
+* [Объяснение, как это работает](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations).
+
+```css
+.vibrate-1 {
+	-webkit-animation: vibrate-1 0.3s linear infinite both;
+	        animation: vibrate-1 0.3s linear infinite both;
+}
+@keyframes vibrate-1 {
+  0% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(-2px, 2px);
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    -webkit-transform: translate(-2px, -2px);
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    -webkit-transform: translate(2px, 2px);
+    transform: translate(2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(2px, -2px);
+    transform: translate(2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+}
+```
+---
+
+### Адаптивный дизайн
+* Дизайн должен хорошо смотреться на разных устройствах.
+* Некоторые блоки можно не показывать на устройствах с маленькими экранами.
+* Поэтому верстаем "mobile first" &mdash; вначале для мобильных устройств, а потом для десктопных. 
+  Это делается с помощью media-запросов.
+* Размеры блоков резиновые. Делается это с помощью flexbox и grid.
+* [Подробнее](https://www.w3schools.com/html/html_responsive.asp).
+
+---
+
+### Медиазапросы
+* Например, можно настроить CSS так, чтобы блок для десктопа был посередине и был ограничен по ширине, 
+  а на мобильных устройствах растягивался бы на 100%:
+```css
+#content { /* mobile first */
+     width: 100%;
+}
+@media screen and (max-device-width: 800px) {
+    #content { /* desktop */
+      width: 800px;
+      margin: 0 auto;
+    }
+}
+```
+* [Подробнее](https://developer.mozilla.org/ru/docs/Web/CSS/Media_Queries/Using_media_queries).
+
+---
+
+### Flexbox
+* Идея: гибко располагать элементы внутри контейнера, распределяя между ними оставшееся место.
+* У родительского элемента нужно задать свойство display: flex.
+* Дочерние элементы будут распределены согласно своим свойствам и свойствам родителя.
+---
+
+### Flexbox
+* [Объяснение, как это работает](https://tproger.ru/translations/how-css-flexbox-works/).
+* [Анимированное руководство](https://tproger.ru/translations/flex-properties-on-css/).
+* [Шпаргалка](https://yoksel.github.io/flex-cheatsheet/).
+* [Игровая площадка](https://codepen.io/enxaneta/full/adLPwv/).
+
+---
+
+### Grid
+* Можно располагать элементы внутри дизайнерской сетки.
+* [Как написать свою сетку](https://medium.com/web-standards/responsive-grid-system-89d07e48a564).
+* [Готовые сетки](https://gridbyexample.com/examples/).
+* Пример сетки:
+```css
+.app {
+    display:                grid;
+    grid-template-columns:  1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows:     1fr 1fr 1fr 1fr 1fr 60px;
+}
+```
+---
+
+### БЭМ
+* В Yandex придумали систему наименования классов:
+  * **Б**лок.
+  * **Э**лемент блока.
+  * **М**одификатор элемента.
+* [Подробнее](https://ru.bem.info/methodology/quick-start/).
+```html
+<!-- Блок `search-form` имеет модификатор `theme` со значением `islands` -->
+<form class="search-form search-form_theme_islands">
+    <input class="search-form__input">
+
+    <!-- Элемент `button` имеет модификатор `size` со значением `m` -->
+    <button class="search-form__button search-form__button_size_m">Найти</button>
+</form>
+```
+
+---
+
+### Проверка на совместимость
+* Не все браузеры поддерживают новые фичи CSS3.
+* Для проверки есть сайт https://caniuse.com/
+
+![can i use](assets/css/can-i-use.png)
+---
+
+### CSS-отладчик
+* Достаточно нажать F12 и перейти во вкладку "Инспектор":
+
+![](assets/css/css-debug.png)
+---
+
+### Полезные ссылки
+* [Руководство на русском](http://htmlbook.ru/css/).
+* [Шпаргалка по свойствам](https://css3clickchart.com/).
+* [Шпаргалка по flex](https://codepen.io/enxaneta/full/adLPwv/).
+* [Объяснение box-model](https://www.csssolid.com/css-box-model.html).
+* [15 заданий по CSS](https://htmlacademy.ru/courses/41).
+* [Весь дизайн за 4 минуты наглядно](https://jgthms.com/web-design-in-4-minutes/).
