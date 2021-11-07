@@ -35,39 +35,31 @@
 * Имеет доступ к файлам, сети, устройствам.
 * Есть асинхронное выполнение.
 * Есть модули.
-* Есть NPM.
+* Есть NPM (менеджер пакетов).
 * Последняя версия: 16.
 * Лучше использовать 
   [LTS](https://ru.wikipedia.org/wiki/%D0%94%D0%BE%D0%BB%D0%B3%D0%BE%D1%81%D1%80%D0%BE%D1%87%D0%BD%D0%B0%D1%8F_%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B0_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE_%D0%BE%D0%B1%D0%B5%D1%81%D0%BF%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F)
-  версию 14.
+  версии 14 или 16.
 * [Установка](https://nodejs.org/ru/download/).
-* [Документация](https://nodejs.org/api/documentation.html).
-</script></section><section  data-markdown><script type="text/template">
-### Модули
-* Стандарт модулей называется [CommonJS](https://nodejs.org/docs/latest/api/modules.html).
-* В модуле:
+* [Документация](https://nodejs.org/api/documentation.html).</script></section><section  data-markdown><script type="text/template">
+### Движок или фреймворк?
+* С одной стороны, можно назвать Node.js движком, т.к. она только выполняет JS-код.
+* С другой стороны, в инфраструктуре Node.js можно пользоваться [библиотеками](https://www.w3schools.com/nodejs/ref_modules.asp),
+которые не нужно ставить:
+  * http
+  * fs
+  * events</script></section><section  data-markdown><script type="text/template">  
+### Запуск программы
+* Создать файл index.js:
 
 ```js
-// module.js
-function usefulFunction(param) {
-    return param * 3;
-}
-
-module.exports = {
-    usefulFunction
-}
+console.log("Hello, world!");
 ```
-* В другом модуле:
+* В терминале:
 
-```js
-const { usefulFunction } = require('./module.js');
-usefulFunction(3);
+```shell
+node index.js
 ```</script></section><section  data-markdown><script type="text/template">
-### ES6 модули
-* Поддержка ES6 модулей есть c 16-й версии Node.js.
-* У файла должно быть расширение ```*.mjs```.
-* [Документация](https://nodejs.org/api/esm.html).
-</script></section><section  data-markdown><script type="text/template">
 ### Мониторинг и управление
 * Глобальный объект ```process``` (не нужно импортировать).
 * Можно прерывать выполнение процесса, считывать аргументы и многое другое:
@@ -80,71 +72,84 @@ console.log(process.env);
 process.exit(1);
 ```
 * [Документация](https://nodejs.org/api/process.html).</script></section><section  data-markdown><script type="text/template">
-### Разбор аргументов
-* В ```process.argv``` лежит массив аргументов, не очень удобно с ним работать.
-* Очень удобная библиотека [yargs](https://github.com/yargs/yargs) парсит аргументы и выводит подсказки.
-* [Полезная статья](https://nodejs.org/en/knowledge/command-line/how-to-parse-command-line-arguments/)
+### Модули
+* Модули &mdash; способ организации и переиспользования кода.
+* Модуль экспортирует наружу некие методы и/или переменные.
+* Другой код импортирует и использует нужные методы с помощью **require()**.
+* В Node.js используются [CommonJS](https://nodejs.org/docs/latest/api/modules.html)-модули.</script></section><section  data-markdown><script type="text/template">
+### Модули
+* В подключаемом модуле:
+
 ```js
-#!/usr/bin/env node
-const yargs = require('yargs/yargs');
-const { hideBin } = require('yargs/helpers');
-yargs(hideBin(process.argv))
-    .command('serve [port]', 'start the server', (yargs) => {
-        return yargs
-            .positional('port', {
-                describe: 'port to bind on',
-                default: 5000
-            });
-    }, (argv) => {
-        if (argv.verbose) console.info(`start server on :${argv.port}`);
-        serve(argv.port);
-    })
-    .option('verbose', {
-        alias: 'v',
-        type: 'boolean',
-        description: 'Run with verbose logging'
-    })
-    .argv
+// module.js
+function usefulFunction(param) {
+    return param * 3;
+}
+
+module.exports = {
+    usefulFunction
+}
+```
+* В основном коде:
+
+```js
+// путь указывается относительно текущего файла
+const { usefulFunction } = require("./module.js");
+usefulFunction(3);
 ```</script></section><section  data-markdown><script type="text/template">
+### ES6 модули
+* Существует также [ES6-формат](https://developer.mozilla.org/ru/docs/Web/JavaScript/Guide/Modules) модулей.
+* Поддержка ES6 модулей есть c 16-й версии Node.js.
+* У файла должно быть расширение ```*.mjs```.
+* [Документация](https://nodejs.org/api/esm.html).</script></section><section  data-markdown><script type="text/template">
 ### Работа с файлами
-* Используется библиотека ```fs``` (устанавливать не нужно).
-* Операции бывают:
-  * Синхронные: поток выполнения останавливается и ждёт, пока ответит ОС.
-  ```js
-    const fs = require('fs');
-    const data = fs.readFileSync('./input.txt',  {encoding:'utf8', flag:'r'});
-    console.log(data);
-  ```
-  * Асинхронные: выполнение идёт дальше, а при ответе запускается обработчик.
-  ```js
-    fs.readFile('./input1.txt', {encoding:'utf8', flag:'r'}, (err, data) => {});
-  ```
-* [Документация](https://nodejs.org/api/fs.html).
-</script></section><section  data-markdown><script type="text/template">
+* Используется встроенная библиотека ```fs```.
+* Синхронная работа с файлами: поток выполнения останавливается и ждёт, пока ответит ОС.
+```js
+const fs = require("fs");
+const data = fs.readFileSync("./input.txt",  {encoding:"utf8", flag:"r"});
+console.log(data);
+```
+* [Документация](https://nodejs.org/api/fs.html).</script></section><section  data-markdown><script type="text/template">
+### Асинхронная работа с файлами
+* Удобнее работать с файлами, используя промисы и синтаксический сахар async/await:
+```js
+const fsPromises = require("fs").promises;
+async function openAndClose() {
+    let data;
+    try {
+      data = await fsPromises.readFile("./input.txt");
+      console.log(data);
+    } catch(e) {
+      console.error(`Что-то пошло не так: ${e.message}`);
+    }
+}
+```
+* [Документация](https://nodejs.org/docs/latest-v14.x/api/fs.html#fs_promises_api).</script></section><section  data-markdown><script type="text/template">
 ### Сервер
-* Используется библиотека ```http``` (устанавливать не надо).
+* Используется встроенная библиотека ```http```.
 ```js
 // Подключение модуля http
-const http = require('http');
+const http = require("http");
 // Создаем веб-сервер с обработчиком запросов
 const server = http.createServer((incomingMessage, response) => {
-    console.log('Начало обработки запроса');
+    console.log("Начало обработки запроса");
     // Передаем код ответа и заголовки http
     response.writeHead(200, { 
-        'Content-Type': 'text/plain; charset=UTF-8' 
+        "Content-Type": "text/plain; charset=UTF-8" 
     });
-    response.end('Hello, world!');
+    response.end("Hello, world!");
 });
 // Запускаем веб-сервер
-server.listen(3000, '127.0.0.1', () => {
+server.listen(3000, "127.0.0.1", () => {
     const { address, port } = server.address();
     console.log(`Сервер запущен ${address}:${port}`);
 });
 ```</script></section><section  data-markdown><script type="text/template">
 ### Сервер статики
 ```js
-var fs = require('fs'),
-    http = require('http');
+var fs = require("fs"),
+    http = require("http");
 
 http.createServer(function (req, res) {
     fs.readFile(__dirname + req.url, function (err, data) {
@@ -165,8 +170,33 @@ http.createServer(function (req, res) {
 * [Хорошая статья про это](https://jinoantony.com/blog/setimmediate-vs-process-nexttick-in-nodejs)
   ([перевод](https://medium.com/devschacht/event-loop-timers-and-nexttick-18579cd122e0)).
 * Порядок выполнения обработчиков показан на рисунке ⬇️</script></section><section data-markdown><script type="text/template">
-![event loop](assets/nodejs/event-loop.png)
-</script></section></section><section  data-markdown><script type="text/template">
+![event loop](assets/nodejs/event-loop.png)</script></section></section><section  data-markdown><script type="text/template">
+### Разбор аргументов
+* В ```process.argv``` лежит массив аргументов, не очень удобно с ним работать.
+* Очень удобная библиотека [yargs](https://github.com/yargs/yargs) парсит аргументы и выводит подсказки.
+* [Полезная статья](https://nodejs.org/en/knowledge/command-line/how-to-parse-command-line-arguments/)
+```js
+#!/usr/bin/env node
+const yargs = require("yargs/yargs");
+const { hideBin } = require("yargs/helpers");
+yargs(hideBin(process.argv))
+    .command("serve [port]", "start the server", (yargs) => {
+        return yargs
+            .positional("port", {
+                describe: "port to bind on",
+                default: 5000
+            });
+    }, (argv) => {
+        if (argv.verbose) console.info(`start server on :${argv.port}`);
+        serve(argv.port);
+    })
+    .option("verbose", {
+        alias: "v",
+        type: "boolean",
+        description: "Run with verbose logging"
+    })
+    .argv
+```</script></section><section  data-markdown><script type="text/template">
 ### Фреймворки
 * Adonis.js
 * [Express.js](https://expressjs.com/)
@@ -189,8 +219,7 @@ http.createServer(function (req, res) {
 * Rust.
 * Go.
 * PHP.
-* Python + Django.
-</script></section><section  data-markdown><script type="text/template">
+* Python + Django.</script></section><section  data-markdown><script type="text/template">
 ![seal programming in nodejs](assets/nodejs/seal.jpeg)</script></section></div>
     </div>
 
