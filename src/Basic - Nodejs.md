@@ -28,20 +28,51 @@ title: Basic - Nodejs
 * Есть модули.
 * Есть NPM (менеджер пакетов).
 * Последняя версия: 16.
-* Лучше использовать 
-  [LTS](https://ru.wikipedia.org/wiki/%D0%94%D0%BE%D0%BB%D0%B3%D0%BE%D1%81%D1%80%D0%BE%D1%87%D0%BD%D0%B0%D1%8F_%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B0_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE_%D0%BE%D0%B1%D0%B5%D1%81%D0%BF%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F)
-  версии 14 или 16.
-* [Установка](https://nodejs.org/ru/download/).
 * [Документация](https://nodejs.org/api/documentation.html).
+* [Самоучитель](https://nodejs.dev/learn).
 ---
 
 ### Движок или фреймворк?
 * С одной стороны, можно назвать Node.js движком, т.к. она только выполняет JS-код.
 * С другой стороны, в инфраструктуре Node.js можно пользоваться [библиотеками](https://www.w3schools.com/nodejs/ref_modules.asp),
-которые не нужно ставить:
+  которые не нужно ставить:
   * http
   * fs
   * events
+---
+
+### Установка
+* Лучше использовать
+  [LTS](https://ru.wikipedia.org/wiki/%D0%94%D0%BE%D0%BB%D0%B3%D0%BE%D1%81%D1%80%D0%BE%D1%87%D0%BD%D0%B0%D1%8F_%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B0_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE_%D0%BE%D0%B1%D0%B5%D1%81%D0%BF%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F)
+  версии 14 или 16.
+* Ubuntu:
+```shell
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt install -y nodejs
+```
+* Windows: [скачать](https://nodejs.org/en/download/).
+---
+
+### Игровая площадка
+* Можно не ставить Node.js локально, а запустить прямо в браузере:
+
+![Node.js playground](assets/nodejs/playground.png)
+
+[Запустить!](https://replit.com/languages/nodejs)
+---
+
+### Event loop
+* JS синхронный однопоточный язык.
+* Сначала выполняется весь синхронный код в главном потоке.
+* Потом выполняются промисы (микротаски).
+* Потом выполняются таймауты (макротаски).
+* Выполнение организовано в бесконечном цикле, называемом Event Loop.
+* [Хорошая статья про это](https://jinoantony.com/blog/setimmediate-vs-process-nexttick-in-nodejs)
+  ([перевод](https://medium.com/devschacht/event-loop-timers-and-nexttick-18579cd122e0)).
+* [Игровая площадка и лекция](http://latentflip.com/loupe/).
+---
+
+![event loop](assets/nodejs/event-loop.png)
 ---
   
 ### Запуск программы
@@ -54,6 +85,12 @@ console.log("Hello, world!");
 
 ```shell
 node index.js
+```
+
+* В WebStorm: 
+
+```
+Ctrl + Shift + F10
 ```
 ---
 
@@ -135,8 +172,29 @@ async function openAndClose() {
 * [Документация](https://nodejs.org/docs/latest-v14.x/api/fs.html#fs_promises_api).
 ---
 
+### Отправка HTTP-запроса
+* Так можно написать парсер страниц:
+
+```js
+const https = require('https');
+
+const req = https.get('https://jsonplaceholder.typicode.com/todos', res => {
+  console.log(`statusCode: ${res.statusCode}`);
+  res.on('data', d => {
+    console.log("Data: ", d.toString());
+  })
+})
+
+req.on('error', error => {
+  console.error(error);
+})
+
+req.end();
+```
+---
+
 ### Сервер
-* Используется встроенная библиотека ```http```.
+* Можно написать сервер, отвечающий на запросы:
 ```js
 // Подключение модуля http
 const http = require("http");
@@ -159,7 +217,7 @@ server.listen(3000, "127.0.0.1", () => {
 
 ### Сервер статики
 ```js
-var fs = require("fs"),
+const fs = require("fs"),
     http = require("http");
 
 http.createServer(function (req, res) {
@@ -174,18 +232,6 @@ http.createServer(function (req, res) {
     });
 }).listen(8080);
 ```
----
-
-### Event loop
-* Программа на Node.js выполнится и завершится.
-* Если были установлены обработчики асинхронных операций, программа не завершится немедленно,
-  а будет ждать окончания выполнения этих операций.
-* [Хорошая статья про это](https://jinoantony.com/blog/setimmediate-vs-process-nexttick-in-nodejs)
-  ([перевод](https://medium.com/devschacht/event-loop-timers-and-nexttick-18579cd122e0)).
-* Порядок выполнения обработчиков показан на рисунке ⬇️
-----
-
-![event loop](assets/nodejs/event-loop.png)
 ---
 
 ### Разбор аргументов
@@ -244,5 +290,9 @@ yargs(hideBin(process.argv))
 * PHP.
 * Python + Django.
 ---
+
+### Полезные ссылки
+* [Самоучитель](https://nodejs.dev/learn).
+* [Документация](https://nodejs.org/api/documentation.html).
 
 ![seal programming in nodejs](assets/nodejs/seal.jpeg)
