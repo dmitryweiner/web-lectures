@@ -8,8 +8,9 @@ title: Basic - Nodejs
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
-[видео](https://youtu.be/JcV7XtC5On0)
-
+Видео: 
+[1](https://youtu.be/JcV7XtC5On0),
+[2](https://drive.google.com/file/d/1F4scyA2hAXCBexbm0wyDh-piC_yT_B7y/view?usp=sharing).
 ---
 
 * Node.js &mdash; программная платформа, основанная на движке V8

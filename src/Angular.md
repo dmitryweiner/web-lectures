@@ -10,7 +10,8 @@ title: Angular
 
 Видео:
 [1](https://drive.google.com/file/d/1Pnzf9Xkuz_IQ2wnJytIt3SQU4BRgAVQh/view?usp=sharing),
-[2](https://drive.google.com/file/d/1CjTp5sgcAJShmzbi8xqv-kwR--izFjs0/view?usp=sharing).
+[2](https://drive.google.com/file/d/1CjTp5sgcAJShmzbi8xqv-kwR--izFjs0/view?usp=sharing),
+[3](https://drive.google.com/file/d/1JKjbZQrWc8_Wh2rHWx-h9RUWAwfxkepm/view?usp=sharing).
 ---
 
 ### Фишечки

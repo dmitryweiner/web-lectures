@@ -7,6 +7,8 @@ title: PHP
 ![PHP logo](assets/php/logo.png)
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
+
+[видео](https://drive.google.com/file/d/1QRx4Z71uLf4v_45VtZ-pG_GJx5hoOQIF/view?usp=sharing)
 ---
 
 ### Идея
@@ -110,12 +112,15 @@ var_dump([1, 2, 3]);
 ```php
 <?php
   $a = "123";
+  echo $a;
+?>
+```
+* Короче:
+```php
+<?php
+  $a = "123";
 ?>
 <?=$a?>
-```
-* Выведет:
-```
-123
 ```
 ---
 
@@ -254,6 +259,27 @@ while ($i < 4) {
 ### Тернарный оператор
 ```php
 $is_admin = ($user['permissions'] === 'admin') ? true : false;
+```
+---
+
+### Перехватывание исключений
+* Используется конструкция [try/catch/finally](https://www.php.net/manual/ru/language.exceptions.php):
+```php
+try {
+    echo f() . "\n";
+} catch (Exception $e) {
+    echo 'Поймано исключение: ',  $e->getMessage(), "\n";
+} finally {
+    echo "finally.\n";
+}
+```
+---
+
+### Подавление ошибок
+* [Оператор "@"](https://www.php.net/manual/ru/language.operators.errorcontrol.php) выключает отображение ошибок для конкретного действия:
+```php
+$file_name = @file('non_existent_file') or
+    die ("Failed in opening the file: error: '$errormsg'");
 ```
 ---
 

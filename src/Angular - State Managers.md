@@ -8,6 +8,7 @@ title: Angular - State managers
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
+[видео](https://drive.google.com/file/d/1lx57sSTE3t5EqA83wQ2ofQo5nbVZO1oW/view?usp=sharing)
 ---
 
 ### Варианты менеджеров состояния

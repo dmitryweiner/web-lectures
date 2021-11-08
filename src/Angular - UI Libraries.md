@@ -5,6 +5,8 @@ title: Angular - UI libraries
 ## Angular: библиотеки компонентов
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
+
+[видео](https://drive.google.com/file/d/14-jBiba-gavdDzmBG7NFcdLy3Xf0UIqi/view?usp=sharing)
 ---
 
 ### Angular Material
