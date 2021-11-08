@@ -354,7 +354,7 @@ foo($a);
 * footer.php:
 
 ```php
- <?php
+<?php
 echo "<p>Copyright &copy; 1999-" . date("Y") . " W3Schools.com</p>";
 ```
 * index.php:
@@ -404,7 +404,21 @@ echo 'Моё имя пользователя: ' .$_ENV["USER"] . '!';
   * QUERY_STRING: Строка запроса, если есть, через которую была открыта страница.
   * REMOTE_ADDR: IP-адрес, с которого пользователь просматривает текущую страницу.</script></section><section  data-markdown><script type="text/template">
 ### Обработка форм
-https://addphp.ru/materials/base/1_13.php</script></section><section  data-markdown><script type="text/template">
+* При отправке формы совершается запрос методом **POST**. Данные запроса хранятся в глобальном объекте ```$_POST```.
+* При вызове такого типа ```index?query=123``` данные хранятся в ```$_GET```.
+* [Подробнее](https://addphp.ru/materials/base/1_13.php).
+
+```php
+<form action="<?=htmlentities($_SERVER['PHP_SELF']) ?>" method="post">
+    <input type="text" name="field">
+    <button type="submit">Сохранить</button>
+</form>
+<?php 
+    $field = isset($_POST['field']) ? $_POST['field'] : '';
+	if (!empty($field))	{
+		echo 'Вы ввели: ' . $field;
+	}
+```</script></section><section  data-markdown><script type="text/template">
 ### Чтение и запись файлов
 * Можно [читать и писать файлы](https://addphp.ru/materials/base/1_14.php), если есть права в системе.
 
@@ -421,15 +435,124 @@ if ($handle) {
 }
 ```</script></section><section  data-markdown><script type="text/template">
 ### Cookies
-https://addphp.ru/materials/base/1_15.php</script></section><section  data-markdown><script type="text/template">
+* Кукисы можно прочитать с помощью глобального массива ```$_COOKIES```.
+* Запись кукисов происходит с помощью метода ```setcookie('name', 'value')```.
+* У кукисов есть много [дополнительных параметров](https://developer.mozilla.org/ru/docs/Web/HTTP/Cookies):
+  * Домен.
+  * Время жизни.
+  * Путь.
+* [Подробнее](https://addphp.ru/materials/base/1_15.php).</script></section><section  data-markdown><script type="text/template">
+### Сессия
+* PHP умеет сам отслеживать сессию и сохранять некие сессионные данные.
+* Сессия начинается с помощью метода ```session_start()```, а уничтожается методом ```session_destroy()```.
+* Данные сессии хранятся в глобальном массиве ```$_SESSION```.</script></section><section  data-markdown><script type="text/template">
 ### Работа с датами
-http://old.code.mu/books/php/base/rabota-s-datami-v-php.html
-</script></section><section  data-markdown><script type="text/template">
+* Функция date выводит текущие дату и время в заданном формате:
+```php
+echo date('H:i:s d.m.Y'); //вернет 06:41:17 08.11.2021
+```
+* time() возвращает [UNIX timestamp](https://www.unixtimestamp.com/) для текущего момента:
+```php
+echo time(); // 1636353544
+```
+* mktime(): timestamp для определённой даты:
+```php
+echo mktime(12, 0, 0, 2, 1, 2000); // 949406400 
+```
+* [Подробнее](http://old.code.mu/books/php/base/rabota-s-datami-v-php.html).</script></section><section  data-markdown><script type="text/template">
 ### Подключение к БД
-https://addphp.ru/materials/mysql/1_3.php
-</script></section><section  data-markdown><script type="text/template">
-### Изменение данных в БД
-</script></section><section  data-markdown><script type="text/template">
+* [Краткий курс MySQL](https://addphp.ru/materials/mysql/1_3.php).
+* [PHP + MySQL](https://addphp.ru/materials/mysql/1_4.php).
+
+```php
+// подключение к базе
+$link = mysqli_connect('localhost', 'user', 'password', 'db_name');
+
+// обработка ошибки
+if (!$link) {
+  die('<p style="color:red">'.mysqli_connect_errno().' - '.mysqli_connect_error().'</p>');
+}
+
+// создание запроса к базе
+$result = mysqli_query($link, "SELECT * FROM customers;");
+
+// вывод данных
+echo '<p>Все пользователи: </p><ul>';
+while ($row = mysqli_fetch_row($result)) {
+  echo "<li>Имя: {$row[1]}</li>";
+}
+echo '</ul>';
+```</script></section><section  data-markdown><script type="text/template">
+### Более удобный способ
+* Файл connect.php:
+```php
+$link = new MySQLi('localhost', 'user', 'password', 'db_name');
+if ($link->connect_error) {
+    die('<p style="color:red">'.$link->connect_errno.' - '.$link->connect_error.'</p>');
+}
+$link->query("SET NAMES utf8");
+```
+* В остальном коде:
+```php
+require_once 'connect.php';
+$link->query("SELECT * FROM users");
+while ($row = $result->fetch_row()) {
+  // ...
+}
+```</script></section><section  data-markdown><script type="text/template">
+### Форма и добавление данных в БД
+* [Детальнее](https://addphp.ru/materials/mysql/1_5.php).
+* Форма:
+```php
+<form action="handler.php" method="post">
+	<input type="text" name="email" placeholder="E-mail адрес">
+    <button type="submit">Сохранить</button>
+</form>
+```</script></section><section  data-markdown><script type="text/template">
+### Форма и добавление данных в БД
+* handler.php:
+
+```php
+<?php
+require_once 'connect.php';
+$email = isset($_POST['email'])
+    // не забыть заэкранировать 
+    ? trim(mysqli_real_escape_string($link, $_POST['email'])) 
+    : '';
+
+if (!empty($email)) {
+    $link->query("INSERT INTO newsletter(email) VALUES ('{$email}')");
+    // Проверяем прошла ли операция (свойство affected_rows возвращает число строк, 
+    // затронутых предыдущей операцией MySQL (в нашем случае 1)
+    if ($link->affected_rows == 1) {
+        echo '<h1>Спасибо за подписку</h1>';
+    } else {
+        echo '<p>Что-то пошло не так при попытке записи вашего email в базу данных</p>';
+    }
+}
+```</script></section><section  data-markdown><script type="text/template">
+### Экранирование данных
+* Данные от пользователя могут стереть базу или изменить данные.
+* Их необходимо экранировать с помощью [```mysqli_real_escape_string```](https://www.php.net/manual/ru/mysqli.real-escape-string.php).
+```php
+$escaped_email = mysqli_real_escape_string(
+    $link,
+    $_POST['email']
+); 
+```
+
+![drop table](assets/php/drop.png)</script></section><section  data-markdown><script type="text/template">
+### Редирект
+* Может возникнуть необходимость перенаправить пользователя на какую-нибудь другой сайт:
+```php
+header("Location: http://www.example.com/");
+exit;
+```
+* Или на другую страницу на том же сервере:
+```php
+header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/file.php");
+exit;
+```</script></section><section  data-markdown><script type="text/template">
 ### Полезные ссылки
 * https://www.php.net/manual/ru/tutorial.php
 * http://ru.html.net/tutorials/php/
