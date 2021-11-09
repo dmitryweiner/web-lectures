@@ -62,13 +62,31 @@ curl -sS https://getcomposer.org/installer | php
   * [Denwer](http://www.denwer.ru/).
 * Linux:
 ```shell
-sudo apt install php # ставит v7.4
+# ставит PHP 7.4 на Ubuntu 20.04
+sudo apt install php php-xml php-curl php-mysql php-mbstring
 ```
+---
+
+### Apache, Nginx
+* При установке на Linux может потребоваться поставить веб-сервер
+([Apache](https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-18-04-quickstart-ru)
+или [Nginx](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04-ru)).
+* И настроить его конфиги:
+  * [Apache](https://www.tutorialspoint.com/php/php_apache_configuration.htm).
+  * [Nginx](https://linuxconfig.org/basic-php-7-and-nginx-configuration-on-ubuntu-16-04-linux).
 ---
 
 ### Хостинг
 * [Поисковик по хостингам](https://ru.hostadvice.com/hosting-services/free-php-hosting/).
 * [000webhost.com](https://www.000webhost.com/).
+---
+
+### Запуск локально
+* В PHP есть встроенный сервер для разработки.
+* Чтобы его запустить в текущем каталоге, нужно:
+```shell
+php -S 127.0.0.1:8080 -t ./
+```
 ---
 
 ### Базовый синтаксис
@@ -168,6 +186,18 @@ echo "My name is $name";
 ```
 ---
 
+### Полезные методы для строк
+* Разделение по ключу:
+```php
+explode(':', '1:2:3:4'); // array('1', '2', '3', '4')
+```
+* Взятие подстроки:
+```php
+substr('abcdef', 1, 3);  // bcd
+```
+* [Их довольно много](https://www.php.net/manual/ru/ref.strings.php).
+---
+
 ### Операторы
 * Арифметика:
   * \+ Сложение.
@@ -256,6 +286,11 @@ while ($i < 4) {
 ```
 ---
 
+### Операторы цикла
+* continue: переходит к следующей итерации.
+* break: прерывает цикл.
+---
+
 ### Тернарный оператор
 ```php
 $is_admin = ($user['permissions'] === 'admin') ? true : false;
@@ -319,6 +354,32 @@ foreach ($arr as $value) {
 ```
 ---
 
+### Проверка существования элемента по ключу
+* Обращение к массиву по несуществующему ключу вызовет ошибку.
+* Чтобы так не было, надо вначале проверить, существует ли он, методом [**isset()**](https://www.php.net/manual/ru/function.isset.php):
+```php
+if (isset($_POST['email'])) {
+    // ..
+}
+```
+---
+
+### Полезные методы массивов
+* Переворачивание массива:
+```php
+array_reverse([1, 2, 3, 4); // [4, 3, 2, 1]
+```
+* Проверка, что это массив:
+```php
+is_array([1, 2, 3, 4); // true
+```
+* Слепить массив в строку:
+```php
+implode(',', 'имя', 'почта', 'телефон'); // имя,почта,телефон
+```
+* [Все методы](https://www.php.net/manual/ru/ref.array.php).
+---
+
 ### Неявное приведение типов
 * Тип переменной определяется по контексту, в котором она используется:
 
@@ -375,6 +436,14 @@ $greet('PHP');
 function sum(float $a, float $b): float {
     return $a + $b;
 }
+```
+---
+
+### Стрелочные функции
+* Начиная с PHP 7.4 можно создавать [стрелочные функции](https://www.php.net/manual/ru/functions.arrow.php):
+```php
+$sum = fn($x, $y) => $x + $y;
+$sum(1, 2); // 3
 ```
 ---
 
