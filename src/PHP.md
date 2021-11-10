@@ -16,6 +16,26 @@ title: PHP
 * Серверный интерпретатор (по типу Node.js).
 * Создан 8 июня 1995.
 * Текущая версия 8.0.
+* Создатели: 
+[Расмус Лердорф](https://github.com/rlerdorf), 
+[Энди Гутманс](https://andigutmans.com/),
+[Зеев Сураски](http://zsuraski.blogspot.com/).
+
+
+<div style="display: flex; flex-direction: row; justify-content: center;">
+<div style="width:150px">
+
+![Расмус Лердорф](assets/php/lerdorf.png)
+</div>
+<div style="width:150px">
+
+![Энди Гутманс](assets/php/gutmans.png)
+</div>
+<div style="width:150px">
+
+![Зеев Сураски](assets/php/suraski.png)
+</div>
+</div>
 ---
 
 ![versions](assets/php/versions.png)
@@ -63,7 +83,7 @@ curl -sS https://getcomposer.org/installer | php
 * Linux:
 ```shell
 # ставит PHP 7.4 на Ubuntu 20.04
-sudo apt install php php-xml php-curl php-mysql php-mbstring
+sudo apt install php php-xml php-curl php-mysql php-mbstring php-gd
 ```
 ---
 
@@ -521,6 +541,25 @@ echo "<p>Copyright &copy; 1999-" . date("Y") . " W3Schools.com</p>";
 ```
 ---
 
+### Возвращаемое значение
+* Модуль может возвращать значение:
+```php
+<?php
+// db.php
+return [
+    'class' => 'yii\db\Connection',
+    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+    'username' => 'root',
+    'password' => '',
+    'charset' => 'utf8',
+];
+```
+* Которое может быть использовано при импорте:
+```php
+$db = require __DIR__ . '/db.php';
+```
+---
+
 ### Пространство имён
 * Для избежания коллизий имён используются [пространства имён](https://www.php.net/manual/ru/language.namespaces.rationale.php) (аналог пакетов в Java).
 * Пространства имён могут быть вложенные.
@@ -541,6 +580,20 @@ project\util\Debug::helloWorld();
 // или
 use project\util;
 Debug::helloWorld();
+```
+---
+
+### [Области видимости](https://www.php.net/manual/ru/language.variables.scope.php)
+* Переменная, объявленная на верхнем уровне файла, видна везде в этом файле и во всех подключенных файлах.
+* Переменная, объявленная в функции или методе видна только локально.
+* Чтобы использовать переменные из глобальной области видимости, используется ключевое слово ```global```:
+```php
+$a = 1;
+$b = 2;
+function sum() {
+    global $a, $b;
+    return $a + $b;
+}
 ```
 ---
 
