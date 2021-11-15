@@ -784,7 +784,7 @@ $escaped_email = mysqli_real_escape_string(
 ### PDO
 ```php
 try {
-  $conn = new PDO("mysql:host=localhost", "root", "mypassword");
+  $conn = new PDO("mysql:host=localhost;dbname=%DB_NAME%", "root", "mypassword");
   echo "Database connection established";
   $userid = 123;
   $sql = "SELECT * FROM Users WHERE id = :userid";
@@ -843,6 +843,7 @@ exit;
 header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/file.php");
 exit;
 ```
+* Хедеры надо посылать **до того**, как отправлен HTML.
 ---
 
 ### Полезные ссылки
