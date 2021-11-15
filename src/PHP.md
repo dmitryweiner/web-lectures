@@ -771,6 +771,67 @@ $escaped_email = mysqli_real_escape_string(
 ![drop table](assets/php/drop.png)
 ---
 
+### Persistent data object (PDO)
+* К базе также удобно подсоединяться через PDO.
+* Плюсы:
+  * Автоматическое экранирование данных.
+  * Параметризация запросов.
+  * Запрос одним действием.
+  * Возвращает ассоциативный массив.
+* [Руководство](https://prowebmastering.ru/php-pdo-start.html), [ещё одно](https://metanit.com/php/mysql/2.1.php).
+---
+  
+### PDO
+```php
+try {
+  $conn = new PDO("mysql:host=localhost", "root", "mypassword");
+  echo "Database connection established";
+  $userid = 123;
+  $sql = "SELECT * FROM Users WHERE id = :userid";
+  $stmt = $conn->prepare($sql);
+  $stmt->bindValue(":userid", $userid);
+  $stmt->execute();
+  if($stmt->rowCount() > 0) {
+foreach ($stmt as $row) {
+  $username = $row["name"];
+  $userage = $row["age"];
+}
+  } else {
+    echo "Пользователь не найден";
+  }
+}
+catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}
+```
+---
+
+### Короткий способ биндинга параметров
+```php
+    $stmt = $pdo->prepare("SELECT `name` FROM categories WHERE `id` = ?");
+    $stmt->execute([$id]);
+     
+    $stmt = $pdo->prepare("SELECT `name` FROM categories WHERE `name` = :name");
+    $stmt->execute(['name' => $name]);
+  ```
+---
+
+### Получение данных
+* Получение одной записи:
+```php
+$stmt = $db->prepare("SELECT * FROM categories WHERE `id` = ?");
+$stmt->execute([$id]);
+$category = $stmt->fetch(PDO::FETCH_LAZY);
+```
+* Получение всех записей:
+```php
+$data = $db->query("SELECT * FROM categories")->fetchAll(PDO::FETCH_ASSOC);
+foreach ($data as $k => $v){
+  echo 'Category name: '.$v['name'].'<br>';
+}
+```
+---
+
 ### Редирект
 * Может возникнуть необходимость перенаправить пользователя на какую-нибудь другой сайт:
 ```php
