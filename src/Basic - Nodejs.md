@@ -235,6 +235,11 @@ http.createServer(function (req, res) {
 ```
 ---
 
+### REST на чистой Node.js
+* [Базовый сервер, реализующий REST](https://gist.github.com/JohanSundstain/b6063eceb169a11e709b9633c15ebe08).
+* [Руководство, как написать свой сервер](https://metanit.com/web/nodejs/3.1.php).
+---
+
 ### Разбор аргументов
 * В ```process.argv``` лежит массив аргументов, не очень удобно с ним работать.
 * Очень удобная библиотека [yargs](https://github.com/yargs/yargs) парсит аргументы и выводит подсказки.
