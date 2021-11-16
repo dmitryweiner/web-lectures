@@ -729,7 +729,10 @@ exit;
 ```
 * Или на другую страницу на том же сервере:
 ```php
-header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/file.php");
+header("Location: http://"
+    .$_SERVER['HTTP_HOST']
+    .dirname($_SERVER['PHP_SELF'])
+    ."/file.php"); // ПОМЕНЯТЬ ИМЯ ФАЙЛА!
 exit;
 ```
 * Хедеры надо посылать **до того**, как отправлен HTML.</script></section><section  data-markdown><script type="text/template">
