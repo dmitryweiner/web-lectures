@@ -293,7 +293,7 @@ console.log(
 
 ### Сравнение с учётом типа
 * Есть два оператора сравнения: == и ===.
-* Оператор == сравнивает, приводя операнды к типу первого:
+* Оператор == сравнивает, приводя операнды преимущественно к типу Number (у объектов проверяются ссылкию. Если один объект, а другой нет - пытается привести объект к примитивному типуThe equality operator (==) checks whether its two operands are equal, returning a Boolean result. Unlike the strict equality operator, it attempts to convert and compare operands that are of different types.):
 ```js
 1 == "1" // true
 ```
