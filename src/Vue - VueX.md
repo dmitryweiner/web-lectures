@@ -437,6 +437,11 @@ export default {
 ```
 ---
 
+### Typescript
+* [Хорошая статья про типизацию стора](https://dev.to/3vilarthas/vuex-typescript-m4j).
+* [Пример типизированного стора](https://github.com/Ulibka68/vue3-vuex4-typescript/blob/master/src/store/index.ts).
+---
+
 ### Тестирование
 * Getters, mutations выносятся в отдельные объекты и тестируются отдельно.
 * Для тестирования экшенов используется inject-loader.

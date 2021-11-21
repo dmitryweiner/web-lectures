@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Yii2</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/serif.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+## Yii2
+
+![yii2 logo](assets/yii2/logo.png)
+
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
+</script></section><section  data-markdown><script type="text/template">
+### Yii2
+* Yii &mdash; акроним от "Yes It Is!", произносится "йии".
+* Первый релиз 1 января 2008.
+* Текущая версия 2 (в 2021-м должна была выйти [3-я версия](https://www.yiiframework.com/yii3-progress)).
+* Создатель [Цян Суэ](https://twitter.com/qiang_xue).
+* [Документация](https://www.yiiframework.com/doc/guide/2.0/ru/).
+
+<div style="display: flex; flex-direction: row; justify-content: center;">
+<div style="width:150px">
+
+![Цян Суэ](assets/yii2/quang.png)
+</div>
+</div></script></section><section  data-markdown><script type="text/template">
+### Идеи
+* Реализация паттерна [MVC](https://ru.wikipedia.org/wiki/Model-View-Controller).
+* Очень мощные консольные команды.
+* Генерация моделей и CRUD по базе.
+* REST из коробки.
+* Миграции БД.
+* Шаблонизаторы Twig и Smarty.</script></section><section  data-markdown><script type="text/template">
+### Установка
+* Вначале надо [поставить Composer](https://getcomposer.org/download/)
+* Генерация проекта:
+```shell
+composer create-project --prefer-dist yiisoft/yii2-app-basic %PROJECT_NAME%
+```
+* [Подробности](https://www.yiiframework.com/doc/guide/2.0/ru/start-installation).
+</script></section><section  data-markdown><script type="text/template">
+### Запуск
+* Встроенный сервер:
+
+```shell
+cd %PROJECT_NAME%
+./yii serve
+```
+
+* Настройка хостинга:
+  * [Apache](https://www.yiiframework.com/doc/guide/2.0/ru/start-installation#recommended-apache-configuration).
+  * [Nginx](https://www.yiiframework.com/doc/guide/2.0/ru/start-installation#recommended-nginx-configuration).</script></section><section  data-markdown><script type="text/template">
+![first run](assets/yii2/run-app.png)</script></section><section  data-markdown><script type="text/template">
+### Структура приложения
+```
+composer.json       используется Composer'ом, содержит описание приложения
+config/             конфигурационные файлы
+    console.php     конфигурация консольного приложения
+    web.php         конфигурация Web приложения
+commands/           содержит классы консольных команд
+controllers/        контроллеры
+models/             модели
+runtime/            файлы, которые генерирует Yii во время выполнения приложения (логи, кэш и т.п.)
+vendor/             содержит пакеты Composer'а и, собственно, сам фреймворк Yii
+views/              виды приложения
+web/                корневая директория Web приложения. Содержит файлы, доступные через Web
+    assets/         скрипты, используемые приложением (js, css)
+    index.php       точка входа в приложение Yii. С него начинается выполнение приложения
+yii                 скрипт выполнения консольного приложения Yii
+```</script></section><section  data-markdown><script type="text/template">### Жизненный цикл
+
+![lifecycle](assets/yii2/lifecycle.png)</script></section><section  data-markdown><script type="text/template">
+### Механизм работы
+* Поступает запрос вида: ```/index.php?r=%CONTROLLER_NAME%/%ACTION_NAME%```.
+  * При использовании Nginx или Apache запрос можно посылать в виде ```/controller/action```.
+* Фреймворк ищет в controllers файл с именем ```%CONTROLLER_NAME%Controller``` (с большой буквы).
+* Далее ищет метод, соответствующий экшену (```action%ACTION_NAME%```). Если экшен не указан, вызывается ```actionIndex```.</script></section><section  data-markdown><script type="text/template">
+### Примеры URL -&gt; контроллер</script></section><section  data-markdown><script type="text/template">
+### Структура контроллера
+* Контроллер &mdash; это класс, наследуемый от ```yii\web\Controller```.
+
+```php
+namespace app\controllers;
+
+use yii\web\Controller;
+
+class SiteController extends Controller
+{
+    public function actionIndex()
+    {
+        return $this->render('index');
+    }
+
+    public function actionHelloWorld()
+    {
+        return 'Hello World';
+    }
+}
+```</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### 
+</script></section><section  data-markdown><script type="text/template">### Полезные ссылки
+* https://www.yiiframework.com/doc/guide/2.0/ru/
+</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
