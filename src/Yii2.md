@@ -197,39 +197,23 @@ public function actionIndex()
 ```
 ---
 
-### Отображение формы в шаблоне
-```php
-<?php
-use yii\bootstrap4\ActiveForm;
-use yii\bootstrap4\Html;
-?>
-<?php $form = ActiveForm::begin([
-    'id' => 'login-form',
-    'layout' => 'horizontal',
-    'fieldConfig' => [
-        'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-        'labelOptions' => ['class' => 'col-lg-1 col-form-label'],
-    ],
-]); ?>
-    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-    <?= $form->field($model, 'password')->passwordInput() ?>
-    <?= $form->field($model, 'rememberMe')->checkbox([
-        'template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-    ]) ?>
-    <div class="form-group">
-        <div class="offset-lg-1 col-lg-11">
-            <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-        </div>
-    </div>
-<?php ActiveForm::end(); ?>
-```
----
+
 
 ### Формы
-* Форма строится с помощью класса ActiveForm.
+* Форма строится с помощью класса [ActiveForm](https://yiiframework.com.ua/ru/doc/guide/2/input-forms/).
 * С помощью него можно реализовать [валидацию](https://yiiframework.com.ua/ru/doc/guide/2/input-validation/) (обязательность полей, правила).
 * Динамическую загрузку значений.
-* [Подробнее](https://yiiframework.com.ua/ru/doc/guide/2/input-forms/).
+---
+
+### Форма в шаблоне
+* Форма в шаблоне строится с помощью хелпера [Html](https://www.yiiframework.com/doc/guide/2.0/en/helper-html).
+* Так сделано для защиты от [атаки CSRF](https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D0%B6%D1%81%D0%B0%D0%B9%D1%82%D0%BE%D0%B2%D0%B0%D1%8F_%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D0%BB%D0%BA%D0%B0_%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0).
+```php
+<?= Html::beginForm(['mouse/index'], 'POST'); ?>
+    <?=Html::input('text', 'mouse_name', '', ['label' => 'Имя мыши:'])?>
+    <?= Html::submitButton('Сохранить') ?>
+<?= Html::endForm(); ?>
+```
 ---
 
 ### Обработка запросов
@@ -250,7 +234,6 @@ if ($request->isGet)  { /* the request method is GET */ }
 if ($request->isPost) { /* the request method is POST */ }
 if ($request->isPut)  { /* the request method is PUT */ }
 ```
-
 ---
 
 ### Запросы к БД
@@ -280,7 +263,19 @@ $rows = (new \yii\db\Query())
     ->limit(10)
     ->all();
 ```
+---
 
+### Запросы на обновление/изменение
+* [Примеры запросов](https://hotexamples.com/ru/examples/yii.db/Query/createCommand/php-query-createcommand-method-examples.html).
+```php
+$request = Yii::$app->request;
+if ($request->isPost) {
+    $query = new \yii\db\Query();
+    $command = $query->createCommand();
+    $mouse_name = $request->post()['mouse_name'];
+    $command->insert('mice', ['name' => $mouse_name])->execute();
+}
+```
 ---
 ### Модели и Active Record
 
@@ -290,6 +285,33 @@ $rows = (new \yii\db\Query())
 ---
 ### Модель инициализируется из формы
 
+---
+### Отображение формы в шаблоне
+```php
+<?php
+use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\Html;
+?>
+<?php $form = ActiveForm::begin([
+    'id' => 'login-form',
+    'layout' => 'horizontal',
+    'fieldConfig' => [
+        'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
+        'labelOptions' => ['class' => 'col-lg-1 col-form-label'],
+    ],
+]); ?>
+    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+    <?= $form->field($model, 'password')->passwordInput() ?>
+    <?= $form->field($model, 'rememberMe')->checkbox([
+        'template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
+    ]) ?>
+    <div class="form-group">
+        <div class="offset-lg-1 col-lg-11">
+            <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+        </div>
+    </div>
+<?php ActiveForm::end(); ?>
+```
 ---
 ### Сохранение и модификация данных с помощью модели
 
@@ -301,6 +323,10 @@ $rows = (new \yii\db\Query())
 
 ---
 ### Миграции
+
+---
+
+### Юзер и авторизация
 
 ---
 ### Дебаг
