@@ -110,6 +110,23 @@ app.all('/admin', function (req, res, next) { // GET 'http://www.example.com/adm
 * [Документация](https://expressjs.com/ru/4x/api.html#req).
 ---
 
+### Разбор тела POST-запроса
+```js
+const express = require('express');
+const app = express();
+// Для запросов с заголовком Content-Type: application/json
+app.use(express.json());
+// Для запросов с заголовком Content-Type:  application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
+app.post('/profile', function (req, res, next) {
+    console.log(req.body);
+    res.json(req.body);
+})
+```
+
+**Внимание:** не надо пользоваться библиотекой body-parser для этого, она устарела.
+---
+
 ### Объект res
 * Позволяет отправить HTTP-статус.
 * Заголовки.
@@ -137,7 +154,6 @@ res.json({ a: 1 });
 ```js
 res.status(201).json({ b: 2 });
 ```
-
 ---
 
 ### Метод next()
@@ -270,24 +286,6 @@ app.listen(3000);
 * Для междоменных запросов: [CORS](https://github.com/expressjs/cors#readme).
 * Для загрузки изображений: [multer](https://github.com/expressjs/multer).
 * Логгирование: [morgan](https://github.com/expressjs/morgan#readme).
----
-
-### Разбор тела POST-запроса
-```js
-const express = require('express');
-const app = express();
-// Для запросов с заголовком Content-Type: application/json
-app.use(express.json());
-// Для запросов с заголовком Content-Type:  application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
-app.post('/profile', function (req, res, next) {
-    console.log(req.body);
-    res.json(req.body);
-})
-```
-
-**Внимание:** не надо пользоваться библиотекой body-parser для этого, она устарела.
-
 ---
 
 ### CORS

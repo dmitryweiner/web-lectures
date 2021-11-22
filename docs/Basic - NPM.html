@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    <title>NPM</title>
+    <title>Basic - NPM</title>
     <link rel="shortcut icon" href="./favicon.ico"/>
     <link rel="stylesheet" href="./dist/reveal.css" />
     <link rel="stylesheet" href="./dist/theme/serif.css" id="theme" />
@@ -174,8 +174,10 @@ npm i lodash@^1.0 # поставит любую начиная от 1.0.0 до 1
 * Коммитить:
   * `package.json`
   * `package-lock.json`: чтобы зафиксировать конкретные версиии пакетов.
-* Не коммитить:
-  * `node_modules`
+* Не коммитить `node_modules`, добавить их в .gitignore:
+```gitignore
+./node_modules/
+```
 </script></section><section  data-markdown><script type="text/template">
 ### node_modules
 

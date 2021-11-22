@@ -1,5 +1,5 @@
 ---
-title: NPM
+title: Basic - NPM
 ---
 
 ## NPM
@@ -183,8 +183,10 @@ npm i lodash@^1.0 # поставит любую начиная от 1.0.0 до 1
 * Коммитить:
   * `package.json`
   * `package-lock.json`: чтобы зафиксировать конкретные версиии пакетов.
-* Не коммитить:
-  * `node_modules`
+* Не коммитить `node_modules`, добавить их в .gitignore:
+```gitignore
+./node_modules/
+```
 
 ---
 
