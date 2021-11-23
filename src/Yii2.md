@@ -8,6 +8,7 @@ title: Yii2
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
+[видео](https://drive.google.com/file/d/1Va0cDQk9H9eLFUpfWLirn0adVPIu6zT9/view?usp=sharing)
 ---
 
 ### Yii2

@@ -7,6 +7,8 @@ title: Basic - NPM
 ![NPM logo](assets/npm/logo.png)
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
+
+[видео](https://drive.google.com/file/d/1lFMBimAdKy3rIZaThYxWYibMKQaT-r21/view?usp=sharing)
 ---
 
 ### Идея
