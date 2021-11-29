@@ -278,21 +278,61 @@ if ($request->isPost) {
 }
 ```
 ---
-### Модели и Active Record
 
+### Модель формы
+* Для удобной работы с формами используются классы, отнаследованные от `yii\base\Model`.
+* Модель можно наполнить данными, полученными из POST.
+* Модель применяется в [валидации](https://yiiframework.com.ua/ru/doc/guide/2/input-validation/).
+* Модель помогает нарисовать форму в шаблоне.
+* [Руководство](https://www.yiiframework.com/doc/guide/2.0/ru/structure-models).
 ---
-### Наполнение модели данными
 
----
-### Модель инициализируется из формы
+### Типовая модель
 
----
-### Отображение формы в шаблоне
 ```php
-<?php
-use yii\bootstrap4\ActiveForm;
-use yii\bootstrap4\Html;
-?>
+namespace app\models;
+use Yii;
+use yii\base\Model;
+
+class LoginForm extends Model {
+    public $username;
+    public $password;
+
+    // правила валидации
+    public function rules()
+    {
+        return [
+            [['username', 'password'], 'required'],
+        ];
+    }
+
+    // метки атрибутов
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Логин',
+            'password' => 'Пароль',
+        ];
+    }
+    
+    public function login()
+    {
+        if ($this->validate()) {
+            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+        }
+        return false;
+    }
+}
+```
+---
+
+### Отображение модели в форме
+
+```php
+/* @var $this yii\web\View */
+/* @var $form yii\bootstrap4\ActiveForm */
+/* @var $model app\models\LoginForm */
+
 <?php $form = ActiveForm::begin([
     'id' => 'login-form',
     'layout' => 'horizontal',
@@ -303,9 +343,6 @@ use yii\bootstrap4\Html;
 ]); ?>
     <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
     <?= $form->field($model, 'password')->passwordInput() ?>
-    <?= $form->field($model, 'rememberMe')->checkbox([
-        'template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-    ]) ?>
     <div class="form-group">
         <div class="offset-lg-1 col-lg-11">
             <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
@@ -314,28 +351,144 @@ use yii\bootstrap4\Html;
 <?php ActiveForm::end(); ?>
 ```
 ---
-### Сохранение и модификация данных с помощью модели
+
+### Работа с моделью в экшене
+
+```php
+public function actionLogin()
+{
+    $model = new LoginForm();
+    if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        return $this->goBack();
+    }
+
+    $model->password = '';
+    return $this->render('login', [
+        'model' => $model,
+    ]);
+}
+```
+
+---
+### Полезные методы модели
+* Модель можно наполнить данными формы:
+```php
+$model->load(Yii::$app->request->post());
+```
+* Проверка валидности формы:
+```php
+if ($model->validate()) { /* ... */ }
+```
+---
+
+### ActiveRecord
+* Для удобства работы с базой используются потомки класса `yii\db\ActiveRecord`.
+* Их тоже называют моделями, т.к. ActiveRecord наследуется от Model.
+* Они также могут валидировать данные.
+* [Документация](https://yiiframework.com.ua/ru/doc/guide/2/db-active-record/).
+---
+
+### Типовая модель AR
+
+```php
+namespace app\models;
+ 
+use Yii;
+use yii\db\ActiveRecord;
+class User extends ActiveRecord
+{
+    public $id;
+    public $username;
+    public $password;
+    
+    public static function tableName()
+    {
+        return '{{user}}';
+    }
+    
+    public function getId()
+    {
+        return $this->getPrimaryKey();
+    }
+}
+```
+---
+
+### Работа с моделями AR
+* Поиск по ID:
+```php
+$customer = Customer::findOne(123);
+```
+* Поиск по полю:
+```php
+$customer = Customer::find()
+    ->where(['id' => 123])
+    ->one();
+```
+* Поиск всех:
+```php
+$customers = Customer::find()
+    ->where(['status' => Customer::STATUS_ACTIVE])
+    ->orderBy('id')
+    ->all();
+```
+---
+
+### Работа с моделями AR
+* Сохранение новой записи:
+```php
+$customer = new Customer();
+$customer->name = 'James';
+$customer->email = 'james@example.com';
+$customer->save();
+```
+* Обновление записи:
+```php
+$customer = Customer::findOne(123);
+$customer->email = 'james@newexample.com';
+$customer->save();
+```
+
 
 ---
 ### Генерация моделей по существующей БД
-
+* Фреймворк может сгенерировать модели по существующей БД вместе со всеми ключами и связями.
+* Для этого достаточно зайти на [localhost:8080/?r=gii](http://localhost:8080/?r=gii).
+* Также фреймворк умеет сам генерировать контроллеры, формы и даже [CRUD](https://ru.wikipedia.org/wiki/CRUD) для админок.
+* [Документация](https://yiiframework.com.ua/ru/doc/guide/2/start-gii/).
 ---
-### CRUD
 
----
 ### Миграции
-
+* Для управления уже существующей базой используется механизм миграций.
+* Создать миграцию:
+```shell
+yii migrate/create <name>
+yii migrate/create create_post_table
+```
+* Накатить миграции:
+```shell
+yii migrate
+yii migrate 3
+```
+* Откатить:
+```shell
+yii migrate/down     # отменяет самую последнюю применённую миграцию
+yii migrate/down 3   # отменяет 3 последних применённых миграции
+```
+* [Документация](https://yiiframework.com.ua/ru/doc/guide/2/db-migrations/).
 ---
 
 ### Юзер и авторизация
+* [Исчерпывающая инструкция](https://кодер.укр/%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8/yii2-basic-%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D0%B8-%D1%80%D0%B5%D0%B3%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F-%D1%87%D0%B5%D1%80%D0%B5%D0%B7-%D0%B1%D0%B4)
+как сделать регистрацию и авторизацию.
 
 ---
 ### Дебаг
+* В Yii2 есть развитая панель разработчика, располагается снизу:
 
+![debug panel](assets/yii2/debug.png)
 ---
-### Тесты
 
----
 ### Полезные ссылки
 * https://www.yiiframework.com/doc/guide/2.0/ru/
 * http://des1roer.blogspot.com/2015/06/yii2.html

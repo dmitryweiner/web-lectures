@@ -576,6 +576,10 @@ dad.name = 'Man with the 3-piece suit'; // ОШИБКА при компиляц�
 
 ---
 
+### TS + Webpack
+https://webpack.js.org/guides/typescript/
+---
+
 ### Конфиг TS
 
 * [Документация](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html).

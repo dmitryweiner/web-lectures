@@ -7,6 +7,8 @@ title: Basic - Webpack
 ![webpack logo](assets/webpack/logo.png)
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
+
+[видео](https://drive.google.com/file/d/1i-PFI78XGiXL97jxFRuAQQ2eSyuqFR0m/view?usp=sharing)
 ---
 
 ### Проблемы фронтенда
@@ -122,7 +124,13 @@ module.exports = {
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin({
             patterns: [
-                { from: paths.static, to: paths.build },
+              {
+                from: paths.static,
+                to: paths.build,
+                globOptions: {
+                  ignore: ['**/index.html']
+                }
+              }
             ],
         }),
         new HtmlWebpackPlugin({
@@ -370,7 +378,18 @@ function revertString(str) {
 * Старый `./webpack.config.js` можно удалить.
 ---
 
-### Разделение конфигов
+### Структура проекта
+
+```
+├── configs
+│   ├── paths.js
+│   ├── webpack.common.js
+│   ├── webpack.development.js
+│   └── webpack.production.js
+```
+---
+
+### Скрипты запуска
 * Поправить пути к конфигам в package.json → scripts:
 
 ```json
@@ -507,6 +526,41 @@ module.exports = merge(common, {
         ],
     }
 });
+```
+---
+
+### Конечная структура проекта
+
+```
+├── build
+│   ├── css
+│   │   └── main.css
+│   ├── index.html
+│   ├── main.bundle.js
+│   └── main.bundle.js.map
+├── configs
+│   ├── paths.js
+│   ├── webpack.common.js
+│   ├── webpack.development.js
+│   └── webpack.production.js
+├── package.json
+├── package-lock.json
+├── public
+│   ├── css
+│   │   └── main.css
+│   └── index.html
+└── src
+    ├── index.js
+    └── utils.js
+```
+---
+
+### Что коммитить?
+* Чтобы не закоммитить лишние файлы, надо создать .gitignore и добавить в него следующее:
+```gitignore
+node_modules
+build
+.idea
 ```
 ---
 

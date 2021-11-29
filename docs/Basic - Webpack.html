@@ -19,7 +19,9 @@
 
 ![webpack logo](assets/webpack/logo.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)</script></section><section  data-markdown><script type="text/template">
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
+
+[видео](https://drive.google.com/file/d/1i-PFI78XGiXL97jxFRuAQQ2eSyuqFR0m/view?usp=sharing)</script></section><section  data-markdown><script type="text/template">
 ### Проблемы фронтенда
 * Есть много JS-файлов на странице, когда их много, грузится медленно.
 * В файлах много пробелов, комментариев, их можно удалить, чтобы не грузить лишнее.
@@ -117,7 +119,13 @@ module.exports = {
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin({
             patterns: [
-                { from: paths.static, to: paths.build },
+              {
+                from: paths.static,
+                to: paths.build,
+                globOptions: {
+                  ignore: ['**/index.html']
+                }
+              }
             ],
         }),
         new HtmlWebpackPlugin({
@@ -345,7 +353,16 @@ function revertString(str) {
 * Конфиг для разработки `./configs/webpack.development.js`.
 * Файл путей `./configs/paths.js`.
 * Старый `./webpack.config.js` можно удалить.</script></section><section  data-markdown><script type="text/template">
-### Разделение конфигов
+### Структура проекта
+
+```
+├── configs
+│   ├── paths.js
+│   ├── webpack.common.js
+│   ├── webpack.development.js
+│   └── webpack.production.js
+```</script></section><section  data-markdown><script type="text/template">
+### Скрипты запуска
 * Поправить пути к конфигам в package.json → scripts:
 
 ```json
@@ -470,6 +487,37 @@ module.exports = merge(common, {
         ],
     }
 });
+```</script></section><section  data-markdown><script type="text/template">
+### Конечная структура проекта
+
+```
+├── build
+│   ├── css
+│   │   └── main.css
+│   ├── index.html
+│   ├── main.bundle.js
+│   └── main.bundle.js.map
+├── configs
+│   ├── paths.js
+│   ├── webpack.common.js
+│   ├── webpack.development.js
+│   └── webpack.production.js
+├── package.json
+├── package-lock.json
+├── public
+│   ├── css
+│   │   └── main.css
+│   └── index.html
+└── src
+    ├── index.js
+    └── utils.js
+```</script></section><section  data-markdown><script type="text/template">
+### Что коммитить?
+* Чтобы не закоммитить лишние файлы, надо создать .gitignore и добавить в него следующее:
+```gitignore
+node_modules
+build
+.idea
 ```</script></section><section  data-markdown><script type="text/template">
 ### Альтернативы
 * Бандлеры:
