@@ -8,7 +8,9 @@ title: Basic - TypeScript
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
-[видео](https://drive.google.com/file/d/1Qq_gC5TsY29wuteXrRVewQcCPfU4RHld/view?usp=sharing)
+Видео:
+[1](https://drive.google.com/file/d/1Qq_gC5TsY29wuteXrRVewQcCPfU4RHld/view?usp=sharing),
+[2](https://drive.google.com/file/d/1j2OQ81RNv89NuSSIcFAJ-FGvKl3ZcKxQ/view?usp=sharing).
 ---
 
 ### Идея
