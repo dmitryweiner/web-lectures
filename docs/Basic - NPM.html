@@ -223,6 +223,15 @@ npm run start # вызывает "node index.js"
   * npm ping: попинговать репозиторий npm.
   * npm publish: опубликовать пакет.
   * npm rebuild: пересобрать пакет.</script></section><section  data-markdown><script type="text/template">
+### npx
+* Команда [npx](https://medium.com/devschacht/introducing-npx-an-npm-package-runner-a72a658cd9e6)
+не устанавливает, а скачивает пакет и тут же запускает. Пример:
+```shell
+npx tsc --out file.js file.ts
+npx create-react-app my-app
+```
+* Раньше ставили пакет глобально (опция -g), но тогда его нужно самостоятельно обновлять, а так пакет
+всегда самой последней версии.</script></section><section  data-markdown><script type="text/template">
 ### Самое частое решение проблем
 
 ![solution](assets/npm/solution.png)</script></section><section  data-markdown><script type="text/template">

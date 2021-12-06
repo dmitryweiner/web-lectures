@@ -9,30 +9,25 @@ title: Basic - TypeScript
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 [видео](https://drive.google.com/file/d/1Qq_gC5TsY29wuteXrRVewQcCPfU4RHld/view?usp=sharing)
-
 ---
 
 ### Идея
-
-* Писать большие проекты на языках без типизации &mdash; к беде.
+* Писать большие проекты на языках без типизации &mdash; грешновато.
 * Но у нас много библиотек на JS.
 * JS такой гибкий, удобный и лёгкий язык.
 * Вот бы в JS была система типов!
 * Пусть разработчик сам её и пишет.
 
 ![walls](assets/ts/walls.jpeg)
-
 ---
 
 ### Варианты типизации
-
 * [Система типов](https://ru.wikipedia.org/wiki/%D0%A1%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0_%D1%82%D0%B8%D0%BF%D0%BE%D0%B2)
 * Статическая или динамическая.
   * На этапе компиляции или во время выполнения.
 * Строгая (сильная) или не строгая.
   * Строгая: есть приведение типов.
   * Слабая: утиная типизация.
-
 ---
 
 ### Утиная типизация
@@ -43,18 +38,15 @@ title: Basic - TypeScript
 * Даже если тип у него называется иначе.
 * Независимо от связей в иерархии типов.
 * [Утиная типизация](https://ru.wikipedia.org/wiki/%D0%A3%D1%82%D0%B8%D0%BD%D0%B0%D1%8F_%D1%82%D0%B8%D0%BF%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F)
-
 ---
 
 ### TypeScript
-
 ![Хейлсберг, Андерс](assets/ts/anders.png)
 * Создан в 2012 г. [Андерсом Хейлсбергом](https://ru.wikipedia.org/wiki/%D0%A5%D0%B5%D0%B9%D0%BB%D1%81%D0%B1%D0%B5%D1%80%D0%B3,_%D0%90%D0%BD%D0%B4%D0%B5%D1%80%D1%81).
 * Статический контроль типов.
 * Слабая (утиная) типизация.
 * Выводит типы.
 * [Дженерики](https://ru.wikipedia.org/wiki/%D0%9E%D0%B1%D0%BE%D0%B1%D1%89%D1%91%D0%BD%D0%BD%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5).
-
 ---
 
 ### Плюсы:
@@ -64,7 +56,6 @@ title: Basic - TypeScript
 * Код по-прежнему выполняется в JS со всеми его плюсами.
 * Лёгкость рефакторинга.
 * Autocomplete.
-
 ---
 
 ### Минусы:
@@ -74,11 +65,9 @@ title: Basic - TypeScript
 * Некоторые конструкции из ES6 не работают.
 * Дополнительная работа по написанию кода.
 * Типизации в рантайме нет, может сломаться. 
-
 ---
 
 ### Типовой код
-
 ```tsx
 type MessagesListProps = {
     messages: PropTypes.InferProps<IMessagesList>;
@@ -94,7 +83,6 @@ export const MessagesList: React.FC<MessagesListProps> = (props: MessagesListPro
     </div>
 };
 ```
-
 ---
 
 ### Задание типа переменной
@@ -110,11 +98,9 @@ let i: number;
 ```ts
 const s = 'abc'; // s: string
 ```
-
 ---
 
 ### Простые типы
-
 * [Полный список](https://www.typescriptlang.org/docs/handbook/basic-types.html).
   * number.
   * string.
@@ -127,7 +113,6 @@ const s = 'abc'; // s: string
   * undefined.
   * null.
   * unknown.
-
 ---
 
 ### Описание сложного типа
@@ -157,11 +142,9 @@ interface Message {
     content: string;
 }
 ```
-
 ---
 
 ### Класс тоже сложный тип
-
 * Можно наследовать от нескольких интерфейсов.
 
 ```ts
@@ -189,11 +172,9 @@ class Child
     }
 }
 ```
-
 ---
 
 ### Пример использования интерфейса
-
 ```ts
 // точка на плоскости
 interface Point {
@@ -205,11 +186,9 @@ interface Point {
 interface PointList extends Array<Point>{};
 // обратите внимание на дженерик (расширение типа)
 ```
-
 ---
 
 ### Interface VS type
-
 * Interface
   * Для определения объектоподобных структур.
   * Можно определять несколько раз (не надо!).
@@ -220,13 +199,11 @@ interface PointList extends Array<Point>{};
   * Для объединения типов.
 * Дискуссии, где что использовать: [1](https://stackoverflow.com/questions/37233735/typescript-interfaces-vs-types), 
   [2](https://pawelgrzybek.com/typescript-interface-vs-type/).
-
 ---
 
 ### Interface VS type
 
 ![interface vs type](assets/ts/interface.png)
-
 ---
 
 ### Необязательные поля
@@ -250,11 +227,9 @@ function countCaps(value?: string) {
   return value?.match(/[A-Z]/g)?.length ?? 0;
 }
 ```
-
 ---
 
 ### Работа с пустотой
-
 * ?? nullish coalescing (пустое слияние) – обёртка тернарного оператора
 * ?. (optional chaining) – взять поле, если не пустое
 value?.match(/[A-Z]/g)?.length ?? 0;
@@ -262,11 +237,9 @@ value?.match(/[A-Z]/g)?.length ?? 0;
 * &&= присвоить если правденькое
 * ||= присвоить если ложненькое
 * ??= присвоить если null|undefined
-
 ---
 
 ### Работа с пустотой
-
 ```ts
 // вместо
 if (value 
@@ -280,11 +253,9 @@ if (value
 // можно написать
 return value?.match(/[A-Z]/g)?.length ?? 0;
 ```
-
 ---
 
 ### Объединение типов
-
 * Используется знак "|".
 * Совпадающие поля обязательные, не совпадающие не обязательные.
 * Можно объединять простые типы и составные.
@@ -295,11 +266,9 @@ let stringOrNumber: (string | number);
 stringOrNumber = '123';
 stringOrNumber = 567;
 ```
-
 ---
 
 ### Enum
-
 * Бывает тип данных, состоящий из фиксированного набора значений.
 * Можно для этого завести тип enum:
 ```ts
@@ -311,11 +280,9 @@ enum STATUS {
 ```
 * Этот способ подходит, если мы будем использовать эти значения где-то ещё в коде.
 * Код [транспилируется](https://www.typescriptlang.org/play?#code/C4TwDgpgBAKjUF4oCICCyoB8UCEPeUEIQZAbgFgAoSgMwFcA7AY2AEsB7eqAEzYGU2AthGAALFvQDmAdRaiAqvXb0AFGABcsGAEpKAb0pRDUAPTGoAOkuUAvpUo9+Q0eOmyRCpcrTIt5KhQh6WgEoAFFQvQMjVAAaKMMcOIojKABhGzsKOiZWDm4+QWExSRlRUKCBVQ1wnQp9ZKNTCysKW38HQucSt3Lg5XDzVF9MoA) в массив.
-
 ---
 
 ### Enum
-
 * Можно задать константы значения массива:
 ```ts
 enum STATUS {
@@ -324,11 +291,9 @@ enum STATUS {
     ERROR = 'error'
 }
 ```
-
 ---
 
 ### Набор фиксированных значений
-
 * Можно хранить в виде набора фиксированных значений:
 ```ts
 type STATUS = 'LOADING' | 'SUCCESS' | 'ERROR';
@@ -337,7 +302,6 @@ type STATUS = 'LOADING' | 'SUCCESS' | 'ERROR';
 * Проверка времени компиляции.
 * [Холивар на тему enum или набор значений](https://stackoverflow.com/questions/40275832/typescript-has-unions-so-are-enums-redundant).
 * [документация](https://basarat.gitbook.io/typescript/type-system/enums#enums).
-
 ---
 
 ### Набор фиксированных значений
@@ -357,11 +321,9 @@ interface Action {
 };
 ```
 * Следует также помнить про [keyof](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-1.html).
-
 ---
 
 ### Объединение составных типов
-
 ```ts
 interface IStudent {
     id: string;
@@ -379,11 +341,9 @@ let p: IUnionType = {
     age: 21
 };
 ```
-
 ---
 
 ### Пересечение типов
-
 * Используется "&"
 * Пересечение полей (все обязательные, если не указано обратное).
 
@@ -405,11 +365,9 @@ x.age = 5;
 x.companyId = 'CID5241';
 x.id = 'ID3241';
 ```
-
 ---
 
 ### Выведение типа через typeof
-
 * Служебное слово typeof может вычислить тип по значению:
 
 ```ts
@@ -429,11 +387,9 @@ type Data = typeof data;
 //   };
 // }
 ```
-
 ---
 
 ### Приведение к типу
-
 * Можно явно указать, какой тип ожидается, с помощью конструкции "as ...".
 * Если там не то, что ожидалось, будет ошибка времени выполнения.
 * Если тип неизвестен, лучше указать unknown.
@@ -447,11 +403,9 @@ let val = someValue as string;
 ```ts
 let val = <string>someValue;
 ```
-
 ---
 
 ### Дженерики
-
 * Дженерики &mdash; пример [обобщённого программирования](https://ru.wikipedia.org/wiki/%D0%9E%D0%B1%D0%BE%D0%B1%D1%89%D1%91%D0%BD%D0%BD%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5).
 * Можно указать, что функция принимает какой-то тип, а возвращает _такой же_.
 
@@ -471,11 +425,9 @@ function printAll<T>(args: T[]) {
 printAll<string>(['Apple', 'Banana']);
 printAll<number>([1, 3, 5]);
 ```
-
 ---
 
 ### Работа с массивами
-
 * Тип[]:
 ```ts
 let strings: string[];
@@ -491,11 +443,9 @@ interface StringArray {
   [index: number]: string;
 }
 ```
-
 ---
 
 ### Типизация функций
-
 * Типизация стрелочной функции: 
 ```ts
 (arg1: Type, optional?: Type) => ReturnType
@@ -513,7 +463,6 @@ let myAdd: (x: number, y: number) => number = function (
     return x + y;
 };
 ```
-
 ---
 
 ### Беды с деструктуризацией
@@ -526,11 +475,9 @@ function f({par1, par2}) {}
 ```ts
 function f({par1, par2}: {par1: string; par2: boolean}) {}
 ```
-
 ---
 
 ### Классы
-
 * Класс может реализовывать несколько интерфейсов (в отличие от наследования).
 * В классе можно указывать [модификаторы доступа](https://www.tutorialsteacher.com/typescript/data-modifiers) (как в настоящих языках!):
   * public 
@@ -539,11 +486,9 @@ function f({par1, par2}: {par1: string; par2: boolean}) {}
 * Поля и методы могут быть static.
 * Можно указать, что поле неизменяемое: readonly.
 * [Документация](https://www.typescriptlang.org/docs/handbook/2/classes.html).
-
 ---
 
 ### Классы
-
 ```ts
 class Octopus {
   readonly name: string;
@@ -557,7 +502,45 @@ class Octopus {
 let dad = new Octopus('Man with the 8 strong legs');
 dad.name = 'Man with the 3-piece suit'; // ОШИБКА при компиляции
 ```
+---
 
+### Оператор is и проверка типа в коде
+* Можно сделать собственную проверку типов времени выполнения.
+* После проверки компилятор уверен, что тип именно такой, какой указали.
+* [Документация](https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards).
+* [Пример](https://stackoverflow.com/questions/40081332/what-does-the-is-keyword-do-in-typescript).
+---
+
+### Оператор is и проверка типа в коде
+```ts
+function isString(test: any): test is string{
+    return typeof test === "string";
+}
+
+function example(foo: any){
+    if(isString(foo)){
+        console.log("it is a string" + foo);
+        console.log(foo.length); // string function
+    }
+}
+example("hello world");
+```
+---
+
+### Partial, Required и Readonly
+* Можно одним махом изменить все поля на необязательные:
+```ts
+Partial<YourType>
+```
+* Или наоборот сделать все поля обязательными:
+```ts
+Required<YourType>
+```
+* Защитить все поля от записи (проверка на этапе компиляции):
+```ts
+Readonly<YourType>
+```
+* [Документация](https://www.typescriptlang.org/docs/handbook/utility-types.html).
 ---
 
 ### Игровая площадка online
@@ -565,28 +548,23 @@ dad.name = 'Man with the 3-piece suit'; // ОШИБКА при компиляц�
 [Игровая площадка](https://www.typescriptlang.org/play)
 
 ![playground](assets/ts/play.png)
-
 ---
 
 ### Работа с TS локально
-
-* Единоразово:
-```npx tsc --out file.js file.ts```
-* [Работа с TS в node.js](https://basarat.gitbook.io/typescript/nodejs).
-
----
-
-### TS + Webpack
-https://webpack.js.org/guides/typescript/
+* Транспиляция одного файла из JS в TS:
+```shell
+npx tsc --out file.js file.ts
+```
+* Команда [npx](https://medium.com/devschacht/introducing-npx-an-npm-package-runner-a72a658cd9e6)
+не устанавливает, а скачивает пакет и тут же запускает.
 ---
 
 ### Конфиг TS
-
 * [Документация](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html).
-* В корне проекта конфиг tsconfig.json.
+* В корне проекта должен быть файл `tsconfig.json`.
 * Сгенерировать автоматически:
 ```shell
-$ tsc --init
+npx tsc --init
 ```
 * Примерное содержание:
 ```json
@@ -616,11 +594,9 @@ $ tsc --init
   ]
 }
 ```
-
 ---
 
 ### Strict mode
-
 * Можно включить strict: true, можно по отдельности:
   * alwaysStrict
   * noImplicitAny
@@ -630,52 +606,71 @@ $ tsc --init
   * strictNullChecks
   * strictPropertyInitialization
 * [Объяснение](https://habr.com/ru/post/490970/).
-  
 ---
 
-### Оператор is и проверка типа в коде
-
-* Можно сделать собственную проверку типов времени выполнения.
-* После проверки компилятор уверен, что тип именно такой, какой указали.
-* [Документация](https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards).
-* [Пример](https://stackoverflow.com/questions/40081332/what-does-the-is-keyword-do-in-typescript).
-
+### TS + Node.js
+* [Документация](https://basarat.gitbook.io/typescript/nodejs).
+* Установка:
+```shell
+npm i -D typescript @types/node
+npx tsc --init --rootDir src --outDir lib --esModuleInterop --resolveJsonModule --lib es6,dom  --module commonjs
+```
+* package.json:
+```json
+"scripts": {
+    "start": "npm run build:live",
+    "build": "tsc -p .",
+    "build:live": "nodemon --watch 'src/**/*.ts' --exec \"ts-node\" src/index.ts"
+},
+```
 ---
 
-### Оператор is и проверка типа в коде
+### TS + Webpack
+* [Документация](https://webpack.js.org/guides/typescript/).
+* Установка:
+```shell
+npm i -D typescript ts-loader
+```
+* Конфиг Webpack:
+```js
+const path = require('path');
+module.exports = {
+    entry: './src/index.ts',
+    module: {
+      rules: [
+        {
+          test: /\.tsx?$/,
+          use: 'ts-loader',
+          exclude: /node_modules/,
+        },
+      ],
+    },
+    resolve: {
+      extensions: ['.tsx', '.ts', '.js'],
+    },
+    output: {
+      filename: 'bundle.js',
+      path: path.resolve(__dirname, 'dist'),
+    },
+};
+```
+---
 
-```ts
-function isString(test: any): test is string{
-    return typeof test === "string";
+### TS + Webpack
+* tsconfig.json:
+```json
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node"
+  }
 }
-
-function example(foo: any){
-    if(isString(foo)){
-        console.log("it is a string" + foo);
-        console.log(foo.length); // string function
-    }
-}
-example("hello world");
 ```
-
----
-
-### Partial, Required и Readonly
-
-* Можно одним махом изменить все поля на необязательные:
-```ts
-Partial<YourType>
-```
-* Или наоборот сделать все поля обязательными:
-```ts
-Required<YourType>
-```
-* Защитить все поля от записи (проверка на этапе компиляции):
-```ts
-Readonly<YourType>
-```
-* [Документация](https://www.typescriptlang.org/docs/handbook/utility-types.html).
-
 ---
 
 ### Декларация типов
@@ -687,7 +682,6 @@ Readonly<YourType>
 ```ts
 export function getArrayLength(arr: any[]): number;
 ```
-
 ---
 
 ### Декларация типов
@@ -696,7 +690,6 @@ export function getArrayLength(arr: any[]): number;
 популярных библиотек:
 
 [https://github.com/DefinitelyTyped/DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)
-
 ---
 
 ### Особенности импорта
@@ -716,17 +709,14 @@ import * as fs from 'fs';
     }
 }
 ```
-
 ---
 
 ### Полезные ссылки
-
 * [Шпаргалка](https://devhints.io/typescript)
 * [Игровая площадка](https://www.typescriptlang.org/play)
 * [TypeScript за 5 минут](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html)
 * [Доклад Майка Башурова](https://www.youtube.com/watch?v=m0uRxCCno00)
 * [Вдумчивые размышления](https://basarat.gitbook.io/typescript/)
-
 ---
 
 ![any](assets/ts/any-meme.png) ![f types!](assets/ts/f-types.png)

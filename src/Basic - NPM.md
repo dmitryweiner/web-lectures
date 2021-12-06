@@ -244,6 +244,17 @@ npm run start # вызывает "node index.js"
   * npm rebuild: пересобрать пакет.
 ---
 
+### npx
+* Команда [npx](https://medium.com/devschacht/introducing-npx-an-npm-package-runner-a72a658cd9e6)
+не устанавливает, а скачивает пакет и тут же запускает. Пример:
+```shell
+npx tsc --out file.js file.ts
+npx create-react-app my-app
+```
+* Раньше ставили пакет глобально (опция -g), но тогда его нужно самостоятельно обновлять, а так пакет
+всегда самой последней версии.
+---
+
 ### Самое частое решение проблем
 
 ![solution](assets/npm/solution.png)
