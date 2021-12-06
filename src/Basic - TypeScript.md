@@ -101,7 +101,7 @@ const s = 'abc'; // s: string
 ---
 
 ### Простые типы
-* [Полный список](https://www.typescriptlang.org/docs/handbook/basic-types.html).
+* [Полный список](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html).
   * number.
   * string.
   * boolean.
@@ -110,9 +110,7 @@ const s = 'abc'; // s: string
   * function.
   * array.
   * void.
-  * undefined.
-  * null.
-  * unknown.
+  * undefined, null, unknown.
 ---
 
 ### Описание сложного типа
@@ -122,7 +120,6 @@ const s = 'abc'; // s: string
 #### array:  
 
 ```ts
-let strings: Array<string> = []; // так не очень
 let betterStrings: string[] = []; // получше
 ```
 
@@ -191,7 +188,6 @@ interface PointList extends Array<Point>{};
 ### Interface VS type
 * Interface
   * Для определения объектоподобных структур.
-  * Можно определять несколько раз (не надо!).
   * Будет использован много где.
 * Type
   * Для примитивов.
@@ -199,6 +195,7 @@ interface PointList extends Array<Point>{};
   * Для объединения типов.
 * Дискуссии, где что использовать: [1](https://stackoverflow.com/questions/37233735/typescript-interfaces-vs-types), 
   [2](https://pawelgrzybek.com/typescript-interface-vs-type/).
+* [Документация](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces).
 ---
 
 ### Interface VS type
@@ -302,25 +299,6 @@ type STATUS = 'LOADING' | 'SUCCESS' | 'ERROR';
 * Проверка времени компиляции.
 * [Холивар на тему enum или набор значений](https://stackoverflow.com/questions/40275832/typescript-has-unions-so-are-enums-redundant).
 * [документация](https://basarat.gitbook.io/typescript/type-system/enums#enums).
----
-
-### Набор фиксированных значений
-* Допустим, эти значения хранятся в объекте 
-```ts
-const ACTION_TYPES = {
-    ADD: 'add',
-    REMOVE: 'remove',
-} as const;
-```
-* Можно из этих значений сделать тип с помощью следующей конструкции:
-```ts
-type valueof<T> = T[keyof T];
-type ACTION_TYPE = valueof<typeof ACTION_TYPES>
-interface Action {
-    type: ACTION_TYPE
-};
-```
-* Следует также помнить про [keyof](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-1.html).
 ---
 
 ### Объединение составных типов
@@ -527,7 +505,7 @@ example("hello world");
 ```
 ---
 
-### Partial, Required и Readonly
+### Utility Types
 * Можно одним махом изменить все поля на необязательные:
 ```ts
 Partial<YourType>
@@ -567,6 +545,7 @@ npx tsc --out file.js file.ts
 npx tsc --init
 ```
 * Примерное содержание:
+
 ```json
 {
   "compilerOptions": {
@@ -611,11 +590,13 @@ npx tsc --init
 ### TS + Node.js
 * [Документация](https://basarat.gitbook.io/typescript/nodejs).
 * Установка:
+
 ```shell
 npm i -D typescript @types/node
 npx tsc --init --rootDir src --outDir lib --esModuleInterop --resolveJsonModule --lib es6,dom  --module commonjs
 ```
 * package.json:
+
 ```json
 "scripts": {
     "start": "npm run build:live",
@@ -632,13 +613,14 @@ npx tsc --init --rootDir src --outDir lib --esModuleInterop --resolveJsonModule 
 npm i -D typescript ts-loader
 ```
 * Конфиг Webpack:
+
 ```js
 const path = require('path');
 module.exports = {
-    entry: './src/index.ts',
+    entry: './src/index.ts', // изменить точку входа
     module: {
       rules: [
-        {
+        { // добавить загрузчик
           test: /\.tsx?$/,
           use: 'ts-loader',
           exclude: /node_modules/,
@@ -646,7 +628,7 @@ module.exports = {
       ],
     },
     resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
+      extensions: ['.tsx', '.ts', '.js'], // добавить расширения
     },
     output: {
       filename: 'bundle.js',
@@ -658,6 +640,7 @@ module.exports = {
 
 ### TS + Webpack
 * tsconfig.json:
+
 ```json
 {
   "compilerOptions": {
