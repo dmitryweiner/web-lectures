@@ -621,7 +621,7 @@ $link->query("SET NAMES utf8");
 * В остальном коде:
 ```php
 require_once 'connect.php';
-$link->query("SELECT * FROM users");
+$result = $link->query("SELECT * FROM users");
 while ($row = $result->fetch_row()) {
   // ...
 }
