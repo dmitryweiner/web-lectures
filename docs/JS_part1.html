@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>JS часть 1</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/serif.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+### Введение в JavaScript
+#### Операторы и конструкции языка
+#### Типы данных
+#### Среды выполнения
+
+
+![js](assets/js/js-logo.png)
+
+[Дмитрий Вайнер](https://github.com/dmitryweiner)</script></section><section  data-markdown><script type="text/template">
+### Факты
+* Создатель [Брендан Айк (Brendan Eich)](https://twitter.com/brendaneich?lang=en).
+* Год создания: 1995.
+* Текущая версия: [12th Edition – ECMAScript 2021](https://en.wikipedia.org/wiki/ECMAScript#12th_Edition_%E2%80%93_ECMAScript_2021).</script></section><section  data-markdown><script type="text/template">
+### Основные принципы
+* Нестрогая типизация.
+* Низкий порог входа.
+* Выполняется в браузере (уже не только).
+* Выполняется интерпретатором без компиляции.
+* Прощает ошибки программиста (додумывает что-то своё).</script></section><section  data-markdown><script type="text/template">
+### История развития языка
+![js history](assets/js/history.png)</script></section><section  data-markdown><script type="text/template">
+### История развития языка
+![js history](assets/js/history2.png)</script></section><section  data-markdown><script type="text/template">
+### История развития фреймворков на JS
+![frameworks history](assets/js/frameworks-timeline.png)</script></section><section  data-markdown><script type="text/template">
+### История развития фреймворков на JS
+![frameworks history](assets/js/frameworks-timeline2.png)</script></section><section  data-markdown><script type="text/template">
+### Подключение JS
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script>
+    console.log("Я скрипт!");
+  __SCRIPT_END__
+  <script src="script.js">__SCRIPT_END__<!-- скрипт во внешнем файле -->
+</head>
+<body>
+<script>
+  console.log("И я скрипт!");
+__SCRIPT_END__
+</body>
+</html>
+```</script></section><section  data-markdown><script type="text/template">
+### Объявление переменных
+* Устаревший синтаксис:
+```js
+var i = 1;
+```
+* Современный синтаксис:
+```js
+let i;
+const j = 2;
+```
+* За один раз можно объявить и инициализировать несколько переменных:
+```js
+const i = 1, j = 2;
+```</script></section><section  data-markdown><script type="text/template">
+### Чем плох var?
+* Объявление переменной перемещается в начало блока (hoisting).
+* Нет блочной области видимости.
+* Нет ошибки при повторном объявлении.
+* При объявлении в глобальной области видимости затрагивает объект window.
+* [Подробнее](https://learn.javascript.ru/var).</script></section><section  data-markdown><script type="text/template">
+### Разница между let и const
+* **const** служит для переменных, чьё значение не будет изменяться:
+```js
+const a = 1;
+a = 2; // Exception!
+const arr = [1, 2, 3];
+arr.push(4); // всё хорошо, ссылка на массив не изменилась
+```
+* **let** для тех переменных, которые изменяются:
+```js
+let i = 1;
+i = 2; // всё в порядке
+```</script></section><section  data-markdown><script type="text/template">
+### Области видимости
+* Переменная видна только после объявления.
+```js
+console.log(i); // Uncaught ReferenceError: i is not defined
+const i = 1;
+console.log(i); // 1
+```
+* Переменная, объявленная внутри блока, видна только внутри этого блока.
+```js
+{
+    const i = 1;
+}
+console.log(i); // Uncaught ReferenceError: i is not defined
+```</script></section><section  data-markdown><script type="text/template">
+### Области видимости
+* Внутри блока видны внешние переменные сколь угодного высоких уровней.
+```js
+const i = 1;
+{
+    console.log(i); // 1
+}
+```
+* Блочные переменные перекрывают внешние при совпадении имён.
+```js
+const i = 1;
+{
+    const i = 2;
+    console.log(i); // 2
+}
+```</script></section><section  data-markdown><script type="text/template">
+### Типы данных
+* **number**: число.
+
+```js
+const i = 1; // в десятиричном виде
+const j = 0xBE; // в 16-ричном виде
+const k = 0777; // в восьмеричном виде
+const f = 0b0101010; // в двоичном виде
+```
+* **string**: строка.
+
+```js
+const s = "string";
+const anotherString = '123';
+const phrase = `Обратные кавычки позволяют
+ встраивать переменные ${s}`; // шаблонная строка
+```
+* **boolean**: [булево](https://ru.wikipedia.org/wiki/%D0%91%D1%83%D0%BB%D1%8C,_%D0%94%D0%B6%D0%BE%D1%80%D0%B4%D0%B6) значение.
+
+```js
+const isSet = true;
+```</script></section><section  data-markdown><script type="text/template">
+### Типы данных
+* **function**: функция.
+
+```js
+const f = function (i) {
+    return i * 2;
+};
+```
+* **array**: массив.
+
+```js
+const arr = [1, 2, 3];
+```
+* **object**: объект.
+
+```js
+const obj = {
+    field: 1
+};
+```</script></section><section  data-markdown><script type="text/template">
+### Специальные типы
+* **undefined**: не определено.
+
+```js
+let u;
+console.log(u); // undefined
+```
+* **null**: значение неизвестно.
+
+```js
+let u = null;
+console.log(u); // null
+```</script></section><section  data-markdown><script type="text/template">
+### Как узнать тип прямо в коде
+* Оператор **typeof**:
+
+```js
+typeof undefined // "undefined"
+typeof 0 // "number"
+typeof 10n // "bigint"
+typeof true // "boolean"
+typeof "foo" // "string"
+typeof null // "object" -- известный баг
+typeof alert // "function"
+```</script></section><section  data-markdown><script type="text/template">
+### Операторы
+* Присваивание: =
+* Математические: *, /, +, -, %, **, ++, --
+* Сравнения: >, <, >=, <=, ==, !=, ===, !==
+* Логические: !, ||, &&
+* Тернарный: ?
+* Побитовые: |, &, ~, ^, <<, >>, >>>
+* [Подробнее](https://learn.javascript.ru/operators).
+</script></section><section  data-markdown><script type="text/template">
+### Неявное приведение типа
+* Операторы неявно приводят переменные к тому типу, с которым работают.
+* Математические операторы приводят к типу number, кроме оператора +.
+* Логические операторы и операторы сравнения приводят к типу boolean.
+* [Подробнее](https://learn.javascript.ru/type-conversions).
+```js
+"6" / "2" // 3
+3 + "2" // 5
+```</script></section><section  data-markdown><script type="text/template">
+### Особенности оператора +
+* Оператор "+" работает ещё и со строками, поэтому если первый операнд строка, то второй будет преобразован в строку:
+
+```js
+'2' + 1
+// '21'
+
+'2' - 1
+// 1
+```</script></section><section  data-markdown><script type="text/template">
+### Явное приведение типа
+* Если есть сомнения относительно типа пришедших данных, можно преобразовать к нужному типу:
+
+```js
+let value = "123";
+console.log(value + 1); // "1231"
+console.log(Number(value) + 1); // "124"
+```
+* Преобразовывать можно в любой встроенный тип: String, Number, Boolean, Array:
+
+```js
+String(123) // "123"
+Boolean("false") // false
+Number("123") // 123
+```
+* [Подробнее](https://learn.javascript.ru/type-conversions).</script></section><section  data-markdown><script type="text/template">
+### Приведение типа и системы счисления
+* Можно использовать приведение для преобразования между системами счисления:
+* Из десятичной в любую другую:
+```js
+console.log(
+    Number(123).toString(16 /* тут основание системы */)
+);
+// "7b"
+```
+* В десятичную систему:
+```js
+console.log(
+    parseInt("7b", 16)
+);
+// 123
+```</script></section><section  data-markdown><script type="text/template">
+### Странности JS
+* Поскольку преобразование типов может происходить неявно, некоторый код
+  [выполняется странно](https://github.com/denysdovhan/wtfjs).
+* Чтобы так не было, код надо писать с учётом типов или пользоваться типизированным языком TypeScript.</script></section><section  data-markdown><script type="text/template">
+### Сравнение с учётом типа
+* Есть два оператора сравнения: == и ===.
+* Оператор == сравнивает, приводя операнды преимущественно к типу Number.
+* У объектов проверяются ссылки. Если один объект, а другой нет &mdash; пытается привести объект к примитивному типу:
+```js
+1 == "1" // true
+```
+* Оператор === сравнивает ещё и типы операндов. Если они не равны, равенство неверно:
+```js
+1 === "1" // false
+```</script></section><section  data-markdown><script type="text/template">
+### Сравнение с учётом типа
+* Следует пользоваться **ТОЛЬКО** операторами **===** и **!==** без неявного приведения типа.
+
+![equality](assets/js/equality.png)</script></section><section  data-markdown><script type="text/template">
+### Сравнение строк
+* Строки сравниваются посимвольно согласно кодам символов:
+```js
+"12" < "3" // true
+"9" > "123" // true
+```</script></section><section  data-markdown><script type="text/template">
+### Массивы
+* Массивы объявляются с помощью квадратных скобок.
+* Нумерация индексов элементов начинается с 0.
+* Можно добавлять/удалять элементы в любой момент.
+* Длина массива хранится в свойстве .length.
+```js
+const a = [], arr = [1, 2, 3];
+arr.length; // 3
+arr.push(4); // [1, 2, 3, 4]
+arr.length; // 4
+arr[0]; // 1
+```</script></section><section  data-markdown><script type="text/template">
+### Объекты
+* Объект создаётся с помощью фигурных скобок, в которых перечисляются поля и значения.
+* В объект можно добавить поле после создания.
+* Значение поля можно посмотреть с помощью оператора точка "."
+```js
+const obj = {
+    field: 1,
+    stringField: "123",
+    method() { /* ... */ }
+};
+obj.anotherField = true;
+console.log(obj.field); // 1
+```</script></section><section  data-markdown><script type="text/template">
+### Создание объекта
+* При создании объекта можно использовать другие переменные в качестве полей:
+```js
+const str = "John";
+const password = "1#$%1";
+const account = 10000;
+// ❌
+const user = {
+    name: str,
+    password: password,
+    account: account
+};
+// ✔
+const user = {
+    name: str,
+    password,
+    account
+};
+```</script></section><section  data-markdown><script type="text/template">
+### Optional chaining
+* Что если мы пытаемся получить доступ к полю объекта,
+  а такого поля нет?
+* Чтобы не было ошибки, надо использовать оператор "?.":
+```js
+const obj = {
+    a: 1,
+    b: 2
+};
+console.log(obj.c.d); // Error!
+console.log(obj?.c?.d); // undefined
+```
+* [Подробнее](https://learn.javascript.ru/optional-chaining).
+</script></section><section ><section data-markdown><script type="text/template">
+### Ссылочные типы данных
+* Присваивание переменных, содержащих массивы или объекты, происходит по ссылке:
+
+```js
+const obj = { a: 1, b: 2 };
+const anotherObj = obj;
+anotherObj.b = 42;
+console.log(obj.b); // 42
+
+const arr = [1, 2, 3];
+const anotherArr = arr;
+anotherArr[1] = 123;
+console.log(arr[1]); // 123
+```</script></section><section data-markdown><script type="text/template">
+![reference types](assets/js/pass-by-reference-vs-pass-by-value-animation.gif)</script></section></section><section  data-markdown><script type="text/template">
+### Условия
+* Условный оператор if / else обрамляется фигурными скобками.
+* В условии должно быть булево значение или выражение, возвращающее такое значение.
+* Если в условии не булево значение, оно будет к нему приведено.
+```js
+const a = 1, b = 2;
+if (a > b) {
+    console.log("a больше b");
+} else {
+    console.log("a не больше b");
+}
+```</script></section><section  data-markdown><script type="text/template">
+### Switch
+* Если if'ов много, удобно сделать из них switch:
+```js
+switch (a) {
+    case 1: 
+        console.log("a === 1");
+        break;
+    case 2: 
+        console.log("a === 2");
+        break;
+    case 3: 
+        console.log("a === 3");
+        break;
+    default: console.log("ни одно условие не сработало");
+}
+```</script></section><section  data-markdown><script type="text/template">
+### Циклы
+* Циклы делаются с помощью конструкций while, do/while, for:
+
+```js
+let i = 0;
+while(i < 5) {
+    console.log(i);
+    i++;
+}
+
+// переменная объявляется прямо в for
+for (let j = 0; j < 5; j++) {
+    console.log(j);
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+### Варианты for
+* Помимо классического for'а с переменной цикла есть ещё 2 удобных варианта для походов по массивам:
+
+```js
+const arr = [1, 2, 3];
+
+// итерируем по индексам массива
+for (let i in arr) {
+    console.log(arr[i]);
+}
+
+// итерируем по элементам массива
+for (let item of arr) {
+  console.log(item);
+}
+```</script></section><section  data-markdown><script type="text/template">
+### Полезные ссылки
+* https://learn.javascript.ru/
+* https://htmlacademy.ru/courses/343</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
