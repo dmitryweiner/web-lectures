@@ -11,6 +11,17 @@ title: Basic - HTML
 [видео](https://drive.google.com/file/d/1OkbiegilaFIY1DPr1JhmBx4Bg8iGSWFU/view?usp=sharing)
 ---
 
+### Как работает интернет
+![client-server](assets/html/http.png)
+
+[Подробнее](https://developer.mozilla.org/ru/docs/Learn/Server-side/First_steps/Client-Server_overview)
+---
+
+[Основы функционирования компьютерных сетей](https://www.youtube.com/watch?v=BJSITWkSDQg)
+
+![TCP/IP layers](assets/html/tcp-ip.png)
+---
+
 ### Что такое HTML?
 * **H**yper **T**ext **M**arkup **L**anguage: язык разметки 
   [гипертекста](https://ru.wikipedia.org/wiki/%D0%93%D0%B8%D0%BF%D0%B5%D1%80%D1%82%D0%B5%D0%BA%D1%81%D1%82).
@@ -85,7 +96,7 @@ title: Basic - HTML
 ![tags](assets/html/tags.png)
 ---
 
-### Основные теги
+#### Основные теги
 * **h1, h2, ..., h5**: заголовок страницы.
 * **p**: параграф текста.
 * **br**: перенос.
@@ -325,3 +336,4 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 * https://www.w3schools.com/tags/
 * https://www.w3schools.com/html/default.asp
 * https://htmlacademy.ru/courses/basic-html-css
+* [Основы функционирования компьютерных сетей](https://www.youtube.com/watch?v=BJSITWkSDQg)
