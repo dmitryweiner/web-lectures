@@ -282,6 +282,9 @@ console.log(
 ```
 ---
 
+![parseInt](assets/js/parseInt.png)
+---
+
 ### Странности JS
 * Поскольку преобразование типов может происходить неявно, некоторый код
   [выполняется странно](https://github.com/denysdovhan/wtfjs).
