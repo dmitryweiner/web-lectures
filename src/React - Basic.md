@@ -91,7 +91,6 @@ npx create-react-app my-app --template [template-name]
 ---
 
 ### Ручное создание конфига для webpack
-* Пример конфига:
 ```js
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');

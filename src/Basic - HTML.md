@@ -17,7 +17,7 @@ title: Basic - HTML
 [Подробнее](https://developer.mozilla.org/ru/docs/Learn/Server-side/First_steps/Client-Server_overview)
 ---
 
-[Основы функционирования компьютерных сетей](https://www.youtube.com/watch?v=BJSITWkSDQg)
+### Стек TCP/IP ([подробнее](https://www.youtube.com/watch?v=BJSITWkSDQg))
 
 ![TCP/IP layers](assets/html/tcp-ip.png)
 ---
@@ -87,7 +87,8 @@ title: Basic - HTML
 * У тега могут быть параметры (атрибуты).
 * Они пишутся внутри тега, разделяются пробелом (или переносами), обрамляются двойными кавычками:
 ```html
-<img src="https://picsum.photos/200" width="200" height="200" alt="рандомная картинка" />
+<img src="https://picsum.photos/200" 
+        width="200" height="200" alt="рандомная картинка" />
 ```
 * Набор параметров зависит от тега.
 
