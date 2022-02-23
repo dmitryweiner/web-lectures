@@ -8,7 +8,9 @@ title: Basic - HTML
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
-[видео](https://drive.google.com/file/d/1OkbiegilaFIY1DPr1JhmBx4Bg8iGSWFU/view?usp=sharing)
+Видео: 
+[1](https://drive.google.com/file/d/1OkbiegilaFIY1DPr1JhmBx4Bg8iGSWFU/view?usp=sharing),
+[2](https://drive.google.com/file/d/1ywU_fMsaTomGdc_JBkZGvha--LAoDBBF/view?usp=sharing)
 ---
 
 ### Как работает интернет
@@ -35,13 +37,13 @@ title: Basic - HTML
 ### Пример HTML
 ```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <title>Заголовок</title>
+  <meta charset="UTF-8">
 </head>
 <body>
   <h1>Заголовок</h1>
-  
   <p>My first paragraph.</p>
 </body>
 </html> 
@@ -94,9 +96,6 @@ title: Basic - HTML
 
 ---
 
-![tags](assets/html/tags.png)
----
-
 #### Основные теги
 * **h1, h2, ..., h5**: заголовок страницы.
 * **p**: параграф текста.
@@ -125,7 +124,7 @@ title: Basic - HTML
 ```
 ---
 
-### &lt;p&gt;
+### [&lt;p&gt;](http://htmlbook.ru/html/p)
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 ```html
 <p>
@@ -134,7 +133,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ```
 ---
 
-### &lt;br&gt;
+### [&lt;br&gt;](http://htmlbook.ru/html/br)
 Lorem ipsum dolor sit amet,
 
 consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -146,7 +145,7 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ```
 ---
 
-### &lt;ul&gt;
+### [&lt;ul&gt;](http://htmlbook.ru/html/ul)
 * Элемент 1
 * Элемент 2
 * Элемент 3
@@ -160,7 +159,7 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ```
 ---
 
-### &lt;ol&gt;
+### [&lt;ol&gt;](http://htmlbook.ru/html/ol)
 1. Элемент 1
 2. Элемент 2
 3. Элемент 3
@@ -174,8 +173,8 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ```
 ---
 
-### &lt;div&gt;
-Просто блок текста, отделённый отступами.
+### [&lt;div&gt;](http://htmlbook.ru/html/div)
+Блок, отделённый отступами.
 
 Ещё один блок.
 
@@ -190,7 +189,7 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ---
 
 
-### &lt;img&gt;
+### [&lt;img&gt;](http://htmlbook.ru/html/img)
 * Параметры:
   * **src**: путь до картинки.
   * **width**: ширина.
@@ -200,12 +199,13 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 <img src="https://picsum.photos/200" width="200" height="200" alt="рандомная картинка" />
 
 ```html
-<img src="https://picsum.photos/200" width="200" height="200" alt="рандомная картинка" />
+<img src="https://picsum.photos/200" 
+     width="200" height="200" alt="рандомная картинка" />
 ```
 
 ---
 
-### &lt;a&gt;
+### [&lt;a&gt;](http://htmlbook.ru/html/a)
 * Параметры:
   * **href**: путь перехода.
   * **target**: открывать ли новую вкладку.
@@ -217,7 +217,7 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ```
 ---
 
-### &lt;button&gt;
+### [&lt;button&gt;](http://htmlbook.ru/html/button)
 * Параметры:
   * **type**: тип кнопки button, reset, submit.
 
@@ -227,8 +227,24 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 <button>Нажми меня</button>
 ```
 ---
+### [&lt;form&gt;](http://htmlbook.ru/html/form)
 
-### &lt;input&gt;
+<form>
+  <input type="text" /><br/>
+  <button type="reset">Reset</button>&nbsp;
+  <button type="submit">Submit</button>
+</form>
+
+```html
+<form>
+  <input type="text" />
+  <button type="reset">Reset</button>
+  <button type="submit">Submit</button>
+</form>
+```
+---
+
+### [&lt;input&gt;](http://htmlbook.ru/html/input)
 * Параметры:
   * **type**: тип поля text, number, radio.
 
@@ -236,6 +252,26 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 
 ```html
 <input type="text" value="я текстовое поле ввода"/>
+```
+---
+### [&lt;input&gt;](http://htmlbook.ru/html/input)
+
+<input type="text" /><br/>
+<input type="checkbox" /><br/>
+<input type="radio" /><br/>
+<input type="range" /><br/>
+<input type="file" /><br/>
+<input type="number" /><br/>
+<input type="date" /><br/>
+
+```html
+<input type="text" />
+<input type="checkbox" />
+<input type="radio" />
+<input type="range" />
+<input type="file" />
+<input type="number" />
+<input type="date" />
 ```
 ---
 
@@ -259,6 +295,18 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 * И многие другие полезные вещи:
   * Кодировка.
   * Ключевые слова для SEO.
+---
+  
+### [&lt;meta&gt;](http://htmlbook.ru/html/meta)
+```html
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Free Web tutorials">
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+  <meta name="author" content="John Doe">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head> 
+```
 ---
 
 ### Кодировка
@@ -303,7 +351,6 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ```
 ---
 
-
 ### Скрипты
 * Активное содержимое страницы описывается на языке JavaScript и тоже располагается в блоке &lt;head&gt;.
 * Либо непосредственно в теге &lt;script&gt;:
@@ -323,7 +370,7 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ---
 
 ### Относительные и абсолютные пути
-* Ссылки на ресурсы могут быть относительными и абсолютными ([подробнее](https://htmlacademy.ru/blog/boost/frontend/links)).
+* Ссылки на ресурсы могут быть относительными и абсолютными ([подробнее](http://htmlbook.ru/samhtml/ssylki/absolyutnye-i-otnositelnye-ssylki)).
 * Абсолютные ссылки указываются вместе с доменом:
 ```html
 <script src="http://google.com/script.js"></script>
@@ -333,8 +380,25 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 <script src="../scripts/script.js"></script>
 ```
 ---
+
+### Относительные пути
+* На уровень вверх относительно текущего файла:
+```html
+<script src="../script.js"></script>
+```
+* В том же каталоге, что и текущий файл:
+```html
+<script src="script.js"></script>
+```
+* От корневого каталога сервера:
+```html
+<script src="/script.js"></script>
+```
+---
+
 ### Полезные ссылки
 * https://www.w3schools.com/tags/
 * https://www.w3schools.com/html/default.asp
 * https://htmlacademy.ru/courses/basic-html-css
+* http://htmlbook.ru/html/
 * [Основы функционирования компьютерных сетей](https://www.youtube.com/watch?v=BJSITWkSDQg)
