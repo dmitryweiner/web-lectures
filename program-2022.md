@@ -1,0 +1,71 @@
+# Программа курса "Системное программирование" для групп 007са, 007сб, 907а, 907б.
+## На самом деле это фронтенд/веб-разработка.
+
+* [HTML](https://dmitryweiner.github.io/lectures/Basic%20-%20HTML.html)
+* [CSS](https://dmitryweiner.github.io/lectures/Basic%20-%20CSS.html)
+* [JavaScript](https://dmitryweiner.github.io/lectures/Basic%20-%20JS.html)
+    * [Введение в язык JavaScript. Основы языка: синтаксис, управляющие конструкции.](https://dmitryweiner.github.io/lectures/JS_part1.html)
+    * [Функции. Rest...spread.](https://dmitryweiner.github.io/lectures/JS_part2.html)
+    * [Массивы.](https://dmitryweiner.github.io/lectures/JS_part3.html)
+    * [Работа с DOM. События.](https://dmitryweiner.github.io/lectures/JS_part4.html)
+    * [Асинхронный код. Обработка ошибок.](https://dmitryweiner.github.io/lectures/JS_part5.html)
+    * [Map, Set. Даты. Работа с устройствами.](https://dmitryweiner.github.io/lectures/JS_part6.html)
+* [TypeScript](https://dmitryweiner.github.io/lectures/Basic%20-%20TypeScript.html)
+* [Node.js](https://dmitryweiner.github.io/lectures/Basic%20-%20Nodejs.html)
+* [NPM](https://dmitryweiner.github.io/lectures/Basic%20-%20NPM.html)
+* [Git](https://dmitryweiner.github.io/lectures/Basic%20-%20Git.html)
+* [Webpack](https://dmitryweiner.github.io/lectures/Basic%20-%20Webpack.html#/)
+* [ESLint + Prettier + Husky](https://github.com/dmitryweiner/lectures/raw/main/old/%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%20eslint%20prettier%20husky.pptx)
+
+## Лабораторные
+
+### 1. Список дел
+#### а) Вёрстка  HTML
+
+![html](src/assets/programs/html.png)
+
+* Сверстать заготовку будущего веб-приложения.
+* В процессе можно пользоваться [презентацией](https://dmitryweiner.github.io/lectures/Basic%20-%20HTML.html#/).
+* Результат закоммитить на гитхаб и прислать ссылку на проект.
+
+<hr/>
+
+#### б) работа с CSS
+
+![css](src/assets/programs/css.png)
+
+* Написать стили для веб-приложения. Не обязательно, чтоб было как на картинке, главное сам процесс.
+* Постараться отцентрировать весь блок горизонтально и вертикально.
+* Будет плюсом, если сам список можно будет прокручивать без прокручивания самой страницы.
+* В процессе можно пользоваться [презентацией](https://dmitryweiner.github.io/lectures/Basic%20-%20CSS.html#/).
+* Результат коммитить в тот же проект, что и предыдущее задание.
+
+<hr/>
+
+#### в) Оживляем список дел, прикручиваем JS
+* Добавить возможность добавления новых элементов.
+* Добавить возможность удаления элементов.
+* _Задание со звёздочкой:_ Сохранить элементы в [localstorage](https://learn.javascript.ru/localstorage).
+
+<hr/>
+
+#### г) Фильтрация элементов
+
+![filter](src/assets/programs/filter.png)
+
+* Сделать нажимаемыми ссылки внизу. Нажимаешь на ссылку, она становится жирной. Так устанавливается режим фильтрации. 
+Можно реализовать это с помощью радиокнопок.
+* Сделать фильтрацию в соответствии с выбранным режимом. Нажали на ссылку, список обновился.
+* Рефакторинг: вынос кода, обновляющего список, в отдельную функцию render().
+
+<hr/>
+
+### 2. Обращение в API
+#### а) Выбрать себе API по вкусу:
+* [Github API](https://github.com/public-apis/public-apis),
+* [7 публичных API](https://proglib.io/p/7-besplatnyh-api-o-kotoryh-nikto-ne-govorit-2020-12-07?focus=comment)
+* [Список рецептов еды](https://spoonacular.com/food-api/docs).
+* [Google Books](https://www.googleapis.com/books/v1/volumes?maxResults=5&orderBy=relevance&q=oliver%20sacks).
+* [Fake users](https://randomuser.me/documentation).
+* [NASA](https://api.nasa.gov/).
+#### б) Реализовать форму ввода (поиск?), кнопку "отправить" и отображение результатов. 
