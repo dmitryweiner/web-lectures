@@ -597,14 +597,14 @@ left: 20px;
 * Например, можно настроить CSS так, чтобы блок для десктопа был посередине и был ограничен по ширине, 
   а на мобильных устройствах растягивался бы на 100%:
 ```css
-#content { /* desktop */
+#content { /* mobile first */
   background-color: blue;
-  width: 800px;
-  margin: 0 auto;
+  width: 100%;
 }
-@media screen and (max-width: 800px) {
-  #content { /* mobile */
-    width: 100%;
+@media screen and (min-width: 800px) {
+  #content { /* desktop */
+    width: 800px;
+    margin: 0 auto;
   }
 }
 ```
