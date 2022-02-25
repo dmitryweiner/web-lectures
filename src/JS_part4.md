@@ -211,20 +211,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 ### Игра "Нажми на кнопку"
 ```html
-  <button id="button" style="position: absolute">
-      click me!
-  </button>
-  <script>
-      const button = document.getElementById("button");
-      button.style.top = window.innerHeight/2 + "px";
-      button.style.left = window.innerWidth/2 + "px";
-      button.addEventListener("mouseenter", () => {
-          button.style.top =
-              (Math.random() * (window.innerHeight - button.clientHeight)) + "px";
-          button.style.left =
-              (Math.random() * (window.innerWidth - button.clientWidth)) + "px";
-          const red = Math.floor(Math.random() * 256);
-          button.style.backgroundColor = "rgb(128, 128, 128)";
-      });
-  </script>
+<button id="button" style="position: absolute">
+    click me!
+</button>
+<script>
+    const button = document.getElementById("button");
+    button.style.top = window.innerHeight/2 + "px";
+    button.style.left = window.innerWidth/2 + "px";
+    button.addEventListener("mouseenter", () => {
+        button.style.top =
+            (Math.random() * (window.innerHeight - button.clientHeight)) + "px";
+        button.style.left =
+            (Math.random() * (window.innerWidth - button.clientWidth)) + "px";
+    });
+</script>
 ```
