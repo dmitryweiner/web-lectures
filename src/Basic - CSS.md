@@ -380,6 +380,12 @@ li.red.level   {} /* a=0 b=2 c=1 -> специфичность = 21  */
 ```
 ---
 
+### Средства подбора цветов
+* Удобно подбирать цветовые схемы с помощью сайтов:
+  * https://color.adobe.com/ru/create/color-wheel
+  * https://colorscheme.ru/
+---
+
 ### Шрифт
 * Изменить шрифт можно с помощью font-*:
 <span style="font-family: 'Times New Roman'; font-size: 30px;  font-weight: bold;">TEXT</span>
