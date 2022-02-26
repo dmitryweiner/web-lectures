@@ -230,7 +230,7 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ### [&lt;form&gt;](http://htmlbook.ru/html/form)
 
 <form>
-  <input type="text" /><br/>
+  <input type="text" value="тут что-то ввели" /><br/>
   <button type="reset">Reset</button>&nbsp;
   <button type="submit">Submit</button>
 </form>
