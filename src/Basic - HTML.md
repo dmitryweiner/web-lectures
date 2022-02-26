@@ -257,22 +257,30 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ### [&lt;input&gt;](http://htmlbook.ru/html/input)
 
 <input type="text" /><br/>
+<input type="number" /><br/>
 <input type="password" /><br/>
 <input type="checkbox" /><br/>
 <input type="radio" /><br/>
-<input type="range" /><br/>
-<input type="file" /><br/>
-<input type="number" /><br/>
-<input type="date" /><br/>
 
 ```html
 <input type="text" />
+<input type="number" />
 <input type="password" />
 <input type="checkbox" />
 <input type="radio" />
+```
+------
+### [&lt;input&gt;](http://htmlbook.ru/html/input)
+
+<input type="range" /><br/>
+<input type="file" /><br/>
+<input type="image" /><br/>
+<input type="date" /><br/>
+
+```html
 <input type="range" />
 <input type="file" />
-<input type="number" />
+<input type="image" />
 <input type="date" />
 ```
 ---
