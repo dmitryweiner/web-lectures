@@ -269,7 +269,7 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 <input type="checkbox" />
 <input type="radio" />
 ```
-------
+---
 ### [&lt;input&gt;](http://htmlbook.ru/html/input)
 
 <input type="range" /><br/>
