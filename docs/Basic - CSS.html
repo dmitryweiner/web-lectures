@@ -74,7 +74,7 @@
   }
 </style>
 ```
-* Внутри элемента:
+* Внутри элемента (inline styles):
 ```html
 <p style="font-size: 20px; color: green; font-family: arial, helvetica, sans-serif">
   .....
@@ -97,7 +97,7 @@ li.class, .another-lass {
 ```
 * Разные свойства, относящиеся к одному селектору, надо записывать в одном правиле.</script></section><section  data-markdown><script type="text/template">
 ### Селекторы
-* Универсальные: _*_
+* Универсальные (выбирают всех): _*_
 ```css
 ✳️ { /* */ }
 ```
@@ -112,12 +112,12 @@ p, body, li { /* */ }
 * По ID:
 ```css
 #root { /* */ }
-```
+```</script></section><section  data-markdown><script type="text/template">
+### Селекторы
 * По атрибутам тегов:
 ```css
 input[type="text"] { /* */ }
-```</script></section><section  data-markdown><script type="text/template">
-### Селекторы
+```
 * По потомкам: _родитель потомок_
 ```css
 div li { /* */ }
@@ -129,12 +129,13 @@ div > li { /* */ }
 * По соседям: _сосед1 + сосед2_
 ```css
 div + div.class { /* */ }
-```
+```</script></section><section  data-markdown><script type="text/template">
+### Селекторы
 * По псевдоклассам:
 ```css
 a:active { /* */ }
 ```
-* По псевдоэлементам: 
+* По псевдоэлементам:
 ```css
 a::first-letter { /* */ }
 ```</script></section><section  data-markdown><script type="text/template">
