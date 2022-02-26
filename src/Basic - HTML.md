@@ -254,7 +254,7 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 <input type="text" value="я текстовое поле ввода"/>
 ```
 ---
-### [&lt;input&gt;](http://htmlbook.ru/html/input)
+### [&lt;input type="..."&gt;](http://htmlbook.ru/html/input/type)
 
 <input type="text" /><br/>
 <input type="number" /><br/>
@@ -270,17 +270,17 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 <input type="radio" />
 ```
 ---
-### [&lt;input&gt;](http://htmlbook.ru/html/input)
+### [&lt;input type="..."&gt;](http://htmlbook.ru/html/input/type)
 
 <input type="range" /><br/>
 <input type="file" /><br/>
-<input type="image" /><br/>
+<input type="color" /><br/>
 <input type="date" /><br/>
 
 ```html
 <input type="range" />
 <input type="file" />
-<input type="image" />
+<input type="color" />
 <input type="date" />
 ```
 ---
