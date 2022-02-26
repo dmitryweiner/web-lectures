@@ -684,3 +684,4 @@ left: 20px;
 * [Объяснение box-model](https://www.csssolid.com/css-box-model.html).
 * [15 заданий по CSS](https://htmlacademy.ru/courses/41).
 * [Весь дизайн за 4 минуты наглядно](https://jgthms.com/web-design-in-4-minutes/).
+* [Игрушки для освоения CSS](https://codepip.com/games/).
