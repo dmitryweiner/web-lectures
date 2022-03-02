@@ -8,7 +8,9 @@ title: Basic - CSS
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
-[видео](https://drive.google.com/file/d/1XBmHD5Nou8TTUGo6YiVoWi06cb0XUVCR/view?usp=sharing)
+Видео: 
+[1](https://drive.google.com/file/d/1XBmHD5Nou8TTUGo6YiVoWi06cb0XUVCR/view?usp=sharing),
+[2](https://drive.google.com/file/d/1UdvaihQMxRmCi3I6RyOSEVzatwaR4kKO/view?usp=sharing)
 ---
 
 ### Немного истории
@@ -583,6 +585,31 @@ left: 20px;
 ```
 ---
 
+### Плавное изменение свойств
+<style>
+  #specialA {
+    transition: all 1s linear;
+  }
+  #specialA:hover {
+      font-size: larger;
+  }  
+</style>
+<a id="specialA">Press me</a>
+```html
+<style>
+  #specialA {
+    transition: all;
+  }
+  #specialA:hover {
+    font-size: larger;
+  }  
+</style>
+<a id="specialA">Press me</a>
+```
+
+* Это свойство называется [transition](https://developer.mozilla.org/ru/docs/Web/CSS/transition).
+---
+
 ### Адаптивный дизайн
 * Дизайн должен хорошо смотреться на разных устройствах.
 * Некоторые блоки можно не показывать на устройствах с маленькими экранами.
@@ -610,6 +637,16 @@ left: 20px;
 ```
 * [Подробнее](https://developer.mozilla.org/ru/docs/Web/CSS/Media_Queries/Using_media_queries).
 
+---
+
+### Тип отображения элемента
+* С помощью свойства [display](https://developer.mozilla.org/ru/docs/Web/CSS/display) можно задать тип отображения:
+  * **none** не отображать элемент, свободное место занять.
+  * **inline** внутри текста.
+  * **block** блочный элемент.
+  * **flex** FlexBox.
+  * **grid** Grid.
+  * **table** таблица.
 ---
 
 ### Flexbox

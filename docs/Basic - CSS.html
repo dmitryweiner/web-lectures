@@ -21,7 +21,9 @@
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
-[видео](https://drive.google.com/file/d/1XBmHD5Nou8TTUGo6YiVoWi06cb0XUVCR/view?usp=sharing)</script></section><section  data-markdown><script type="text/template">
+Видео: 
+[1](https://drive.google.com/file/d/1XBmHD5Nou8TTUGo6YiVoWi06cb0XUVCR/view?usp=sharing),
+[2](https://drive.google.com/file/d/1UdvaihQMxRmCi3I6RyOSEVzatwaR4kKO/view?usp=sharing)</script></section><section  data-markdown><script type="text/template">
 ### Немного истории
 * **C**ascading **S**tyle **S**heets.
 * Впервые описан в 1994.
@@ -502,6 +504,29 @@ left: 20px;
   }
 }
 ```</script></section><section  data-markdown><script type="text/template">
+### Плавное изменение свойств
+<style>
+  #specialA {
+    transition: all 1s linear;
+  }
+  #specialA:hover {
+      font-size: larger;
+  }  
+</style>
+<a id="specialA">Press me</a>
+```html
+<style>
+  #specialA {
+    transition: all;
+  }
+  #specialA:hover {
+    font-size: larger;
+  }  
+</style>
+<a id="specialA">Press me</a>
+```
+
+* Это свойство называется [transition](https://developer.mozilla.org/ru/docs/Web/CSS/transition).</script></section><section  data-markdown><script type="text/template">
 ### Адаптивный дизайн
 * Дизайн должен хорошо смотреться на разных устройствах.
 * Некоторые блоки можно не показывать на устройствах с маленькими экранами.
@@ -527,6 +552,14 @@ left: 20px;
 ```
 * [Подробнее](https://developer.mozilla.org/ru/docs/Web/CSS/Media_Queries/Using_media_queries).
 </script></section><section  data-markdown><script type="text/template">
+### Тип отображения элемента
+* С помощью свойства [display](https://developer.mozilla.org/ru/docs/Web/CSS/display) можно задать тип отображения:
+  * **none** не отображать элемент, свободное место занять.
+  * **inline** внутри текста.
+  * **block** блочный элемент.
+  * **flex** FlexBox.
+  * **grid** Grid.
+  * **table** таблица.</script></section><section  data-markdown><script type="text/template">
 ### Flexbox
 * Идея: гибко располагать элементы внутри контейнера, распределяя между ними оставшееся место.
 * У родительского элемента нужно задать свойство display: flex.
