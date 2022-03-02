@@ -230,7 +230,7 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ### [&lt;form&gt;](http://htmlbook.ru/html/form)
 
 <form>
-  <input type="text" /><br/>
+  <input type="text" value="тут что-то ввели" /><br/>
   <button type="reset">Reset</button>&nbsp;
   <button type="submit">Submit</button>
 </form>
@@ -254,25 +254,33 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 <input type="text" value="я текстовое поле ввода"/>
 ```
 ---
-### [&lt;input&gt;](http://htmlbook.ru/html/input)
+### [&lt;input type="..."&gt;](http://htmlbook.ru/html/input/type)
 
 <input type="text" /><br/>
+<input type="number" /><br/>
 <input type="password" /><br/>
 <input type="checkbox" /><br/>
 <input type="radio" /><br/>
-<input type="range" /><br/>
-<input type="file" /><br/>
-<input type="number" /><br/>
-<input type="date" /><br/>
 
 ```html
 <input type="text" />
+<input type="number" />
 <input type="password" />
 <input type="checkbox" />
 <input type="radio" />
+```
+---
+### [&lt;input type="..."&gt;](http://htmlbook.ru/html/input/type)
+
+<input type="range" /><br/>
+<input type="file" /><br/>
+<input type="color" /><br/>
+<input type="date" /><br/>
+
+```html
 <input type="range" />
 <input type="file" />
-<input type="number" />
+<input type="color" />
 <input type="date" />
 ```
 ---

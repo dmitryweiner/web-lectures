@@ -54,7 +54,14 @@
 * Стиль автора:
   * Применяется, если подключены CSS.
 * Стиль пользователя:
-  * Применяется, если включен особый режим.</script></section><section data-markdown><script type="text/template">![special mode](assets/css/special-mode.png)</script></section></section><section  data-markdown><script type="text/template">### Подключение CSS
+  * Применяется, если включен особый режим.</script></section><section data-markdown><script type="text/template">![special mode](assets/css/special-mode.png)</script></section></section><section  data-markdown><script type="text/template">
+### Сброс дефолтных стилей
+* Чтобы сайт выглядел одинаково, делают CSS Reset, обнуляющий дефолтные стили.
+* Можно взять чей-то готовый:
+  * [Набор готовых](http://www.itmathrepetitor.ru/html-i-css-sbros-stilejj-reset-css/).
+  * [medium.com/@stasonmars](https://medium.com/@stasonmars/%D1%81%D0%BE%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B8%CC%86-%D1%81%D0%B1%D1%80%D0%BE%D1%81-css-f5816963c82b).
+  * [Дебаты, какой использовать](https://cssdeck.com/blog/which-css-reset-should-i-use/).</script></section><section  data-markdown><script type="text/template">
+### Подключение CSS
 * Сторонний файл:
 ```html
 <head>
@@ -69,7 +76,7 @@
   }
 </style>
 ```
-* Внутри элемента:
+* Внутри элемента (inline styles):
 ```html
 <p style="font-size: 20px; color: green; font-family: arial, helvetica, sans-serif">
   .....
@@ -92,7 +99,7 @@ li.class, .another-lass {
 ```
 * Разные свойства, относящиеся к одному селектору, надо записывать в одном правиле.</script></section><section  data-markdown><script type="text/template">
 ### Селекторы
-* Универсальные: _*_
+* Универсальные (выбирают всех): _*_
 ```css
 ✳️ { /* */ }
 ```
@@ -107,12 +114,12 @@ p, body, li { /* */ }
 * По ID:
 ```css
 #root { /* */ }
-```
+```</script></section><section  data-markdown><script type="text/template">
+### Селекторы
 * По атрибутам тегов:
 ```css
 input[type="text"] { /* */ }
-```</script></section><section  data-markdown><script type="text/template">
-### Селекторы
+```
 * По потомкам: _родитель потомок_
 ```css
 div li { /* */ }
@@ -124,12 +131,13 @@ div > li { /* */ }
 * По соседям: _сосед1 + сосед2_
 ```css
 div + div.class { /* */ }
-```
+```</script></section><section  data-markdown><script type="text/template">
+### Селекторы
 * По псевдоклассам:
 ```css
 a:active { /* */ }
 ```
-* По псевдоэлементам: 
+* По псевдоэлементам:
 ```css
 a::first-letter { /* */ }
 ```</script></section><section  data-markdown><script type="text/template">
@@ -335,6 +343,10 @@ li.red.level   {} /* a=0 b=2 c=1 -> специфичность = 21  */
     background-color: #0000f1;
 }
 ```</script></section><section  data-markdown><script type="text/template">
+### Средства подбора цветов
+* Удобно подбирать цветовые схемы с помощью сайтов:
+  * https://color.adobe.com/ru/create/color-wheel
+  * https://colorscheme.ru/</script></section><section  data-markdown><script type="text/template">
 ### Шрифт
 * Изменить шрифт можно с помощью font-*:
 <span style="font-family: 'Times New Roman'; font-size: 30px;  font-weight: bold;">TEXT</span>
@@ -540,14 +552,14 @@ left: 20px;
   а на мобильных устройствах растягивался бы на 100%:
 ```css
 #content { /* mobile first */
-  background-color: blue;
-  width: 100%;
+    background-color: blue;
+    width: 100%;
 }
 @media screen and (min-width: 800px) {
-  #content { /* desktop */
-    width: 800px;
-    margin: 0 auto;
-  }
+    #content { /* desktop */
+      width: 800px;
+      margin: 0 auto;
+    }
 }
 ```
 * [Подробнее](https://developer.mozilla.org/ru/docs/Web/CSS/Media_Queries/Using_media_queries).
@@ -614,6 +626,7 @@ left: 20px;
 * [Объяснение box-model](https://www.csssolid.com/css-box-model.html).
 * [15 заданий по CSS](https://htmlacademy.ru/courses/41).
 * [Весь дизайн за 4 минуты наглядно](https://jgthms.com/web-design-in-4-minutes/).
+* [Игрушки для освоения CSS](https://codepip.com/games/).
 </script></section></div>
     </div>
 

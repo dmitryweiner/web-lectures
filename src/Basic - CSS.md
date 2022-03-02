@@ -57,6 +57,15 @@ title: Basic - CSS
 ----
 ![special mode](assets/css/special-mode.png)
 ---
+
+### Сброс дефолтных стилей
+* Чтобы сайт выглядел одинаково, делают CSS Reset, обнуляющий дефолтные стили.
+* Можно взять чей-то готовый:
+  * [Набор готовых](http://www.itmathrepetitor.ru/html-i-css-sbros-stilejj-reset-css/).
+  * [medium.com/@stasonmars](https://medium.com/@stasonmars/%D1%81%D0%BE%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B8%CC%86-%D1%81%D0%B1%D1%80%D0%BE%D1%81-css-f5816963c82b).
+  * [Дебаты, какой использовать](https://cssdeck.com/blog/which-css-reset-should-i-use/).
+---
+
 ### Подключение CSS
 * Сторонний файл:
 ```html
@@ -72,7 +81,7 @@ title: Basic - CSS
   }
 </style>
 ```
-* Внутри элемента:
+* Внутри элемента (inline styles):
 ```html
 <p style="font-size: 20px; color: green; font-family: arial, helvetica, sans-serif">
   .....
@@ -101,7 +110,7 @@ li.class, .another-lass {
 ---
 
 ### Селекторы
-* Универсальные: _*_
+* Универсальные (выбирают всех): _*_
 ```css
 ✳️ { /* */ }
 ```
@@ -117,13 +126,13 @@ p, body, li { /* */ }
 ```css
 #root { /* */ }
 ```
+---
+
+### Селекторы
 * По атрибутам тегов:
 ```css
 input[type="text"] { /* */ }
 ```
----
-
-### Селекторы
 * По потомкам: _родитель потомок_
 ```css
 div li { /* */ }
@@ -136,11 +145,14 @@ div > li { /* */ }
 ```css
 div + div.class { /* */ }
 ```
+---
+
+### Селекторы
 * По псевдоклассам:
 ```css
 a:active { /* */ }
 ```
-* По псевдоэлементам: 
+* По псевдоэлементам:
 ```css
 a::first-letter { /* */ }
 ```
@@ -380,6 +392,12 @@ li.red.level   {} /* a=0 b=2 c=1 -> специфичность = 21  */
     background-color: #0000f1;
 }
 ```
+---
+
+### Средства подбора цветов
+* Удобно подбирать цветовые схемы с помощью сайтов:
+  * https://color.adobe.com/ru/create/color-wheel
+  * https://colorscheme.ru/
 ---
 
 ### Шрифт
@@ -625,14 +643,14 @@ left: 20px;
   а на мобильных устройствах растягивался бы на 100%:
 ```css
 #content { /* mobile first */
-  background-color: blue;
-  width: 100%;
+    background-color: blue;
+    width: 100%;
 }
 @media screen and (min-width: 800px) {
-  #content { /* desktop */
-    width: 800px;
-    margin: 0 auto;
-  }
+    #content { /* desktop */
+      width: 800px;
+      margin: 0 auto;
+    }
 }
 ```
 * [Подробнее](https://developer.mozilla.org/ru/docs/Web/CSS/Media_Queries/Using_media_queries).
@@ -715,3 +733,4 @@ left: 20px;
 * [Объяснение box-model](https://www.csssolid.com/css-box-model.html).
 * [15 заданий по CSS](https://htmlacademy.ru/courses/41).
 * [Весь дизайн за 4 минуты наглядно](https://jgthms.com/web-design-in-4-minutes/).
+* [Игрушки для освоения CSS](https://codepip.com/games/).
