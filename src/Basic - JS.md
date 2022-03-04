@@ -9,5 +9,3 @@ title: JS - обзорная страница
 * [Работа с DOM. События.](/lectures/JS_part4.html)
 * [Асинхронный код. Обработка ошибок.](/lectures/JS_part5.html)
 * [Map, Set. Даты. Работа с устройствами.](/lectures/JS_part6.html)
-
----
