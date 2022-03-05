@@ -321,7 +321,7 @@ li.red.level   {} /* a=0 b=2 c=1 -> специфичность = 21  */
   * Положение.
   * Размер.
   * Выравнивание.
-* [Полный список свойств](https://www.tutorialrepublic.com/css-reference/css3-properties.php),
+* [Полный список свойств](https://msiter.ru/references/css-reference),
   [шпаргалка](https://css3clickchart.com/).
 ---
 
