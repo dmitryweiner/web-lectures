@@ -166,11 +166,11 @@ a::first-letter { /* */ }
 
 ```html
 <style>
-    p.big {
-        color: red; 
-    }
     div#first {
-        background-color: silver; 
+      background-color: silver; 
+    }
+    p.second {
+      color: red;
     }
 </style>
 <div id="first">first</div>
