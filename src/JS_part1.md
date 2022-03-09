@@ -51,17 +51,25 @@ title: JS часть 1
     <meta charset="UTF-8">
     <title>Title</title>
   <script>
-    console.log("Я скрипт!");
+    console.log("Я скрипт!"); // 1. скрипт в <head>
   </script>
-  <script src="script.js"></script><!-- скрипт во внешнем файле -->
+  <script src="script.js"></script><!-- 2. скрипт во внешнем файле -->
 </head>
 <body>
 <script>
-  console.log("И я скрипт!");
+  console.log("И я скрипт!"); // 3. скрипт в <body>
 </script>
 </body>
 </html>
 ```
+---
+
+### Подключение JS
+* От способа подключения JS зависит время его выполнения.
+* Скрипты, добавленные в `<head>`, выполняются первыми до построения DOM-дерева.
+* Скрипты в `<body>` выполняются во время рендера DOM.
+* Скрипты выполняются в порядке подключения.
+* [Подробнее](https://learn.javascript.ru/script-async-defer), [ещё](https://learn.javascript.ru/external-script).
 ---
 
 ### Объявление переменных
@@ -112,11 +120,12 @@ console.log(i); // 1
 ```
 * Переменная, объявленная внутри блока, видна только внутри этого блока.
 ```js
-{
+if (true) {
     const i = 1;
 }
 console.log(i); // Uncaught ReferenceError: i is not defined
 ```
+* [Подробнее](https://habr.com/ru/post/517338/).
 ---
 
 ### Области видимости
@@ -158,6 +167,20 @@ const phrase = `Обратные кавычки позволяют
 
 ```js
 const isSet = true;
+```
+---
+
+### Объединение строк
+* Для склеивания строк удобно использовать [шаблонные строки](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Template_literals):
+```js
+const name = "Вася";
+let greeting = "Привет, " + name + "! Как поживаешь?"; // ❌
+greeting = `Привет, ${name}! Как поживаешь?`; // ✔️
+```
+* Внутри `${...}` можно писать любой валидный JS-код, возвращающий что-то:
+```js
+const a = 1, b = 2;
+console.log(`a + b = ${a + b}`);
 ```
 ---
 
