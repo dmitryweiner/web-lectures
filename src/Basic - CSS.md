@@ -166,11 +166,11 @@ a::first-letter { /* */ }
 
 ```html
 <style>
-    p.big {
-        color: red; 
-    }
     div#first {
-        background-color: silver; 
+      background-color: silver; 
+    }
+    p.second {
+      color: red;
     }
 </style>
 <div id="first">first</div>
@@ -321,7 +321,7 @@ li.red.level   {} /* a=0 b=2 c=1 -> специфичность = 21  */
   * Положение.
   * Размер.
   * Выравнивание.
-* [Полный список свойств](https://www.tutorialrepublic.com/css-reference/css3-properties.php),
+* [Полный список свойств](https://msiter.ru/references/css-reference),
   [шпаргалка](https://css3clickchart.com/).
 ---
 
