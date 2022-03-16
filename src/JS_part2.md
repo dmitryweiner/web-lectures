@@ -10,6 +10,8 @@ title: JS часть 2
 ![js](assets/js/js-logo.png)
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
+
+[видео](https://drive.google.com/file/d/1xXjD38iQo6-5GIUcAGQeb_DSxPixRAXx/view?usp=sharing)
 ---
 
 ### Функции
@@ -233,5 +235,6 @@ function showMenu({
 ---
 
 ### Полезные ссылки
-* https://learn.javascript.ru/
-* https://htmlacademy.ru/courses/343
+* https://learn.javascript.ru/es-function
+* https://learn.javascript.ru/rest-parameters-spread-operator
+* https://learn.javascript.ru/destructuring-assignment
