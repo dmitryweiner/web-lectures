@@ -155,6 +155,23 @@ const phrase = `Обратные кавычки позволяют
 ```js
 const isSet = true;
 ```</script></section><section  data-markdown><script type="text/template">
+### Строки
+* Адресация к нужному элементу строки (индексация с 0):
+```js
+const str = "123";
+console.log(str[1]); // 2
+```
+* Длина строки:
+```js
+const str = "123";
+console.log(str.length); // 3
+```
+* Строки [иммутабельны](https://ru.wikipedia.org/wiki/%D0%9D%D0%B5%D0%B8%D0%B7%D0%BC%D0%B5%D0%BD%D1%8F%D0%B5%D0%BC%D1%8B%D0%B9_%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82):
+```js
+const str = "123";
+str[2] = "4"; // str === "123"
+```
+* [Методы строк](https://learn.javascript.ru/string).</script></section><section  data-markdown><script type="text/template">
 ### Объединение строк
 * Для склеивания строк удобно использовать [шаблонные строки](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Template_literals):
 ```js
