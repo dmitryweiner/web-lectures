@@ -240,3 +240,11 @@ function showMenu({
 * https://learn.javascript.ru/es-function
 * https://learn.javascript.ru/rest-parameters-spread-operator
 * https://learn.javascript.ru/destructuring-assignment
+
+---
+
+### Задачи
+* Вернуть число в обратном порядке 123 -> 321.
+* Вернуть число без повторяющихся цифр 111333456 -> 13456.
+* Посчитать, сколько раз в данном числе встречается данная цифра (1355567, 5) -> 3.
+* Посчитать самую длинную последовательность нулей/единиц в двоичной записи данного числа.
