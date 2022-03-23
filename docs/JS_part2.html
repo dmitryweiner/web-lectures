@@ -160,8 +160,10 @@ console.log(arr[1]); // 2
 * Можно при создании переменных брать значения из объектов:
 ```js
 const obj = { a: 1, b: 2 };
+// ❌ так не надо:
+const a = obj.a, b = obj.b;
+// ✔ надо вот так:
 const { a, b } = obj;
-console.log(a, b); // 1, 2
 ```
 * Или из массивов:
 ```js
@@ -180,7 +182,7 @@ console.log(a, b); // 1, 2
 console.log(notUsed); // { c: 3, d: 4 }
 
 const arr = [1, 2, 3, 4];
-const [f, g, notUsedArray] = arr;
+const [f, g, ...notUsedArray] = arr;
 console.log(f, g); // 1, 2
 console.log(notUsedArray); // [3, 4]
 ```</script></section><section  data-markdown><script type="text/template">
