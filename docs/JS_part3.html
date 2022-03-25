@@ -24,7 +24,9 @@
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 [видео](https://drive.google.com/file/d/1dWYu3lrzVNi8CHhh-_TaroOwVOyNH3f8/view?usp=sharing)</script></section><section  data-markdown><script type="text/template">
-> Массив &mdash; структура данных, хранящая набор значений (элементов массива), идентифицируемых по индексу.</script></section><section  data-markdown><script type="text/template">
+> Массив &mdash; структура данных, хранящая набор значений (элементов массива), идентифицируемых по индексу.
+
+![arrays meme](assets/js/arrays.png)</script></section><section  data-markdown><script type="text/template">
 ### Создание
 * Самый простой метод:
 ```js
@@ -208,10 +210,22 @@ arr.reverse() // перевернутый массив [3, -2, 2, -1, 1]
 ### Задачи
 * Найти максимальную разницу между элементами массива.
 * Вернуть массив без повторяющихся элементов.
-* Дан массив объектов, вернуть только isDone: true.
+* Дан массив объектов, вернуть только те, у которых `isDone: true`.
 ```js
-[{id: 1, idDone: true}, {id: 2, idDone: false}, {id: 3, idDone: true}]
-```</script></section></div>
+[
+    {id: 1, idDone: true}, 
+    {id: 2, idDone: false},
+    {id: 3, idDone: true}
+]
+```</script></section><section  data-markdown><script type="text/template">
+### Задачи
+* Найти элементы массива, которые больше указанного числа: `([1, 4, 6, 3, 2], 2) -> [4, 6, 3]`
+* Дан многомерный массив произвольной вложенности. Написать функцию, делающую из него "плоский" массив:
+```js
+f([1, 4, [34, 1, 20], [6, [6, 12, 8], 6]]) -> 
+[1, 4, 34, 1, 20, 6, 6, 12, 8, 6]
+```
+</script></section></div>
     </div>
 
     <script src="./dist/reveal.js"></script>
