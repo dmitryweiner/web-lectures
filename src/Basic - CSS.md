@@ -555,6 +555,94 @@ left: 20px;
 ```
 ---
 
+Центрирование блока неизвестной высоты по вертикали и горизонтали
+```css
+body, html {
+    background-color: antiquewhite;
+    height: 100%;
+    margin: 0;
+}
+.wrapper {
+    background-color: lightblue;
+    width: 60%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+```
+```html
+<div class="wrapper">
+  <div class="wrapper-centered">
+      Some text
+  </div>
+</div>
+```
+----
+![centered](assets/css/center.png)
+---
+
+Центрированный элемент со внутренней прокруткой
+```html
+<style>
+  body, html {
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 60%;
+    margin: 0 auto;
+    justify-content: center;
+  }
+  .centered {
+    background-color: antiquewhite;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+  }
+  .form {
+    flex: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .container .list {
+    flex: 1;
+    position: relative;
+  }
+  .container .list ul{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+  }
+</style>
+<div class="container">
+    <div class="centered">
+        <div class="form">
+            <input>
+            <button>Save</button>
+        </div>
+        <div class="list">
+            <ul>
+                <li>1</li><li>2</li><li>3</li>
+            </ul>
+        </div>
+    </div>
+</div>
+```
+----
+
+![centered scroll](assets/css/centered-scroll.png)
+---
+
 ### Фильтры
 * Можно задать фильтр для изменения отображения элемента:
   * Отбросить тень.
