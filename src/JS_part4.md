@@ -33,6 +33,19 @@ title: JS часть 4
 ```
 ---
 
+### Поиск элемента по [CSS-селектору](https://developer.mozilla.org/ru/docs/Web/CSS/CSS_Selectors)
+```html
+<ul>
+  <li class="selected">Купить еды</li>
+  <li>Посадить картошку</li>
+</ul>
+<script>
+  const element = document.querySelector("ul li.selected");
+  console.log(element); // <li class="selected">Купить еды</li>
+</script>
+```
+---
+
 ### Оси родитель-потомок и другие
 * У найденного элемента можно посмотреть его потомков:
     * childNodes.
@@ -61,7 +74,7 @@ const arr = Array.from(document.body.childNodes);
 ---
 
 ### Живые коллекции
-* Коллекции являются живыми (кроме querySelectorAll) и динамически обновляются при изменении DOM.
+* Коллекции являются [живыми](https://htmlacademy.ru/blog/boost/frontend/collections-js) (кроме querySelectorAll) и динамически обновляются при изменении DOM.
 * Если мы сохраним ссылку на elem.childNodes и добавим/удалим узлы в DOM, то они появятся в сохранённой коллекции автоматически.
 ---
 
@@ -119,6 +132,9 @@ const arr = Array.from(document.body.childNodes);
 ```
 ---
 
+![inner HTML](assets/js/innerHTML.png)
+---
+
 ### Удаление элементов
 * Находим родителя нужного элемента и удаляем потомка через него:
 
@@ -145,6 +161,9 @@ const arr = Array.from(document.body.childNodes);
     });
 </script>
 ```
+---
+
+![click event](assets/js/clickEvents.png)
 ---
 
 ### Типы событий
@@ -174,8 +193,8 @@ checkbox.addEventListener("click", event => {
 
 ### Обработчик загрузки страницы
 * Вначале выполняются скрипты, подключенные во внешних файлах, потом скрипты в блоке head, потом скрипты в body.
-* Когда выполняются скрипты в файлах, DOM ещё не построен, поэтому getElementById будет возвращать null.
-* Чтобы так не было, надо подписаться на событие DOMContentLoaded, а в обработчике искать нужные элементы.
+* Когда выполняются скрипты в файлах, DOM ещё не построен, поэтому `getElementById` будет возвращать `null`.
+* Чтобы так не было, надо подписаться на событие `DOMContentLoaded`, а в обработчике искать нужные элементы.
 ---
 
 ### Обработчик загрузки страницы
@@ -190,6 +209,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 ```
+
+Или проще использовать свойство [`defer`](https://learn.javascript.ru/script-async-defer):
+```html
+<script defer src="script.js"></script>
+```
 ---
 
 ### Отправка формы
@@ -201,6 +225,11 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   const form = document.getElementById("form");
   form.addEventListener("submit", event => {
+    /**
+     * Внимание!
+     * Нужно вызвать preventDefault, 
+     * чтобы форма не перезагружала страницу.
+     */
     event.preventDefault();  
     const userInput = document.getElementById("userInput");
     console.log(userInput.value);
@@ -212,17 +241,24 @@ document.addEventListener("DOMContentLoaded", () => {
 ### Игра "Нажми на кнопку"
 ```html
 <button id="button" style="position: absolute">
-    click me!
+  click me!
 </button>
 <script>
-    const button = document.getElementById("button");
-    button.style.top = window.innerHeight/2 + "px";
-    button.style.left = window.innerWidth/2 + "px";
-    button.addEventListener("mouseenter", () => {
-        button.style.top =
-            (Math.random() * (window.innerHeight - button.clientHeight)) + "px";
-        button.style.left =
-            (Math.random() * (window.innerWidth - button.clientWidth)) + "px";
-    });
+  const button = document.getElementById("button");
+  button.style.top = window.innerHeight/2 + "px";
+  button.style.left = window.innerWidth/2 + "px";
+  const x = Math.random() * (window.innerHeight - button.clientHeight);
+  const y = Math.random() * (window.innerWidth - button.clientWidth);
+  button.addEventListener("mouseenter", () => {
+      button.style.top = x + "px";
+      button.style.left = y + "px";
+  });
 </script>
 ```
+
+---
+
+### Полезные ссылки
+* https://learn.javascript.ru/searching-elements-dom
+* https://learn.javascript.ru/dom-navigation
+* https://learn.javascript.ru/script-async-defer

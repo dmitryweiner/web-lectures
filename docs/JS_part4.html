@@ -40,6 +40,17 @@
   console.log(element);
 __SCRIPT_END__
 ```</script></section><section  data-markdown><script type="text/template">
+### Поиск элемента по [CSS-селектору](https://developer.mozilla.org/ru/docs/Web/CSS/CSS_Selectors)
+```html
+<ul>
+  <li class="selected">Купить еды</li>
+  <li>Посадить картошку</li>
+</ul>
+<script>
+  const element = document.querySelector("ul li.selected");
+  console.log(element); // <li class="selected">Купить еды</li>
+__SCRIPT_END__
+```</script></section><section  data-markdown><script type="text/template">
 ### Оси родитель-потомок и другие
 * У найденного элемента можно посмотреть его потомков:
     * childNodes.
@@ -62,7 +73,7 @@ for (let node of document.body.childNodes) {
 const arr = Array.from(document.body.childNodes);
 ```</script></section><section  data-markdown><script type="text/template">
 ### Живые коллекции
-* Коллекции являются живыми (кроме querySelectorAll) и динамически обновляются при изменении DOM.
+* Коллекции являются [живыми](https://htmlacademy.ru/blog/boost/frontend/collections-js) (кроме querySelectorAll) и динамически обновляются при изменении DOM.
 * Если мы сохраним ссылку на elem.childNodes и добавим/удалим узлы в DOM, то они появятся в сохранённой коллекции автоматически.</script></section><section  data-markdown><script type="text/template">
 ### Изменение свойств
 * У найденных узлов можно читать и изменять всевозможные свойства:
@@ -110,6 +121,7 @@ __SCRIPT_END__
           .innerHTML = "<span>Текстовый элемент</span>";
 __SCRIPT_END__
 ```</script></section><section  data-markdown><script type="text/template">
+![inner HTML](assets/js/innerHTML.png)</script></section><section  data-markdown><script type="text/template">
 ### Удаление элементов
 * Находим родителя нужного элемента и удаляем потомка через него:
 
@@ -134,6 +146,7 @@ __SCRIPT_END__
     });
 __SCRIPT_END__
 ```</script></section><section  data-markdown><script type="text/template">
+![click event](assets/js/clickEvents.png)</script></section><section  data-markdown><script type="text/template">
 ### Типы событий
 * DOM-элементы генерируют огромное множество событий. Самые частые:
     * **click**: клик по элементу.
@@ -157,8 +170,8 @@ checkbox.addEventListener("click", event => {
 ```</script></section><section  data-markdown><script type="text/template">
 ### Обработчик загрузки страницы
 * Вначале выполняются скрипты, подключенные во внешних файлах, потом скрипты в блоке head, потом скрипты в body.
-* Когда выполняются скрипты в файлах, DOM ещё не построен, поэтому getElementById будет возвращать null.
-* Чтобы так не было, надо подписаться на событие DOMContentLoaded, а в обработчике искать нужные элементы.</script></section><section  data-markdown><script type="text/template">
+* Когда выполняются скрипты в файлах, DOM ещё не построен, поэтому `getElementById` будет возвращать `null`.
+* Чтобы так не было, надо подписаться на событие `DOMContentLoaded`, а в обработчике искать нужные элементы.</script></section><section  data-markdown><script type="text/template">
 ### Обработчик загрузки страницы
 ```js
 // script.js
@@ -170,6 +183,11 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Button clicked!");
   });
 });
+```
+
+Или проще использовать свойство [`defer`](https://learn.javascript.ru/script-async-defer):
+```html
+<script defer src="script.js">__SCRIPT_END__
 ```</script></section><section  data-markdown><script type="text/template">
 ### Отправка формы
 ```html
@@ -180,6 +198,11 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   const form = document.getElementById("form");
   form.addEventListener("submit", event => {
+    /**
+     * Внимание!
+     * Нужно вызвать preventDefault, 
+     * чтобы форма не перезагружала страницу.
+     */
     event.preventDefault();  
     const userInput = document.getElementById("userInput");
     console.log(userInput.value);
@@ -189,20 +212,25 @@ __SCRIPT_END__
 ### Игра "Нажми на кнопку"
 ```html
 <button id="button" style="position: absolute">
-    click me!
+  click me!
 </button>
 <script>
-    const button = document.getElementById("button");
-    button.style.top = window.innerHeight/2 + "px";
-    button.style.left = window.innerWidth/2 + "px";
-    button.addEventListener("mouseenter", () => {
-        button.style.top =
-            (Math.random() * (window.innerHeight - button.clientHeight)) + "px";
-        button.style.left =
-            (Math.random() * (window.innerWidth - button.clientWidth)) + "px";
-    });
+  const button = document.getElementById("button");
+  button.style.top = window.innerHeight/2 + "px";
+  button.style.left = window.innerWidth/2 + "px";
+  const x = Math.random() * (window.innerHeight - button.clientHeight);
+  const y = Math.random() * (window.innerWidth - button.clientWidth);
+  button.addEventListener("mouseenter", () => {
+      button.style.top = x + "px";
+      button.style.left = y + "px";
+  });
 __SCRIPT_END__
 ```
+</script></section><section  data-markdown><script type="text/template">
+### Полезные ссылки
+* https://learn.javascript.ru/searching-elements-dom
+* https://learn.javascript.ru/dom-navigation
+* https://learn.javascript.ru/script-async-defer
 </script></section></div>
     </div>
 

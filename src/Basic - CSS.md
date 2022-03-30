@@ -400,6 +400,19 @@ li.red.level   {} /* a=0 b=2 c=1 -> специфичность = 21  */
   * https://colorscheme.ru/
 ---
 
+### Сайт для подбора градиентов
+
+https://uigradients.com/#EveningSunshine
+
+```css
+background: #1E9600;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #FF0000, #FFF200, #1E9600);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #FF0000, #FFF200, #1E9600); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+```
+
+![gradient](assets/css/gradient.png)
+---
+
 ### Шрифт
 * Изменить шрифт можно с помощью font-*:
 <span style="font-family: 'Times New Roman'; font-size: 30px;  font-weight: bold;">TEXT</span>
@@ -531,6 +544,31 @@ left: 20px;
 * [Полезные советы для позиционирования](https://css-tricks.com/centering-css-complete-guide/).
 * Важно, какой тип у элемента: inline или block.
 * Важно, известен ли размер элемента.
+* Советую использовать FlexBox, с ним гораздо легче.
+---
+
+
+### Тип отображения элемента
+* С помощью свойства [display](https://developer.mozilla.org/ru/docs/Web/CSS/display) можно задать тип отображения:
+  * **none** не отображать элемент, свободное место занять.
+  * **inline** внутри текста.
+  * **block** блочный элемент.
+  * **flex** FlexBox.
+  * **grid** Grid.
+  * **table** таблица.
+---
+
+### Flexbox
+* Идея: гибко располагать элементы внутри контейнера, распределяя между ними оставшееся место.
+* У родительского элемента нужно задать свойство display: flex.
+* Дочерние элементы будут распределены согласно своим свойствам и свойствам родителя.
+---
+
+### Flexbox
+* [Объяснение, как это работает](https://tproger.ru/translations/how-css-flexbox-works/).
+* [Анимированное руководство](https://tproger.ru/translations/flex-properties-on-css/).
+* [Шпаргалка](https://yoksel.github.io/flex-cheatsheet/).
+* [Игровая площадка](https://codepen.io/enxaneta/full/adLPwv/).
 ---
 
 ### Позиционируем элемент по центру
@@ -643,6 +681,20 @@ body, html {
 ![centered scroll](assets/css/centered-scroll.png)
 ---
 
+### Grid
+* Можно располагать элементы внутри дизайнерской сетки.
+* [Как написать свою сетку](https://medium.com/web-standards/responsive-grid-system-89d07e48a564).
+* [Готовые сетки](https://gridbyexample.com/examples/).
+* Пример сетки:
+```css
+.app {
+    display:                grid;
+    grid-template-columns:  1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows:     1fr 1fr 1fr 1fr 1fr 60px;
+}
+```
+---
+
 ### Фильтры
 * Можно задать фильтр для изменения отображения элемента:
   * Отбросить тень.
@@ -743,44 +795,6 @@ body, html {
 ```
 * [Подробнее](https://developer.mozilla.org/ru/docs/Web/CSS/Media_Queries/Using_media_queries).
 
----
-
-### Тип отображения элемента
-* С помощью свойства [display](https://developer.mozilla.org/ru/docs/Web/CSS/display) можно задать тип отображения:
-  * **none** не отображать элемент, свободное место занять.
-  * **inline** внутри текста.
-  * **block** блочный элемент.
-  * **flex** FlexBox.
-  * **grid** Grid.
-  * **table** таблица.
----
-
-### Flexbox
-* Идея: гибко располагать элементы внутри контейнера, распределяя между ними оставшееся место.
-* У родительского элемента нужно задать свойство display: flex.
-* Дочерние элементы будут распределены согласно своим свойствам и свойствам родителя.
----
-
-### Flexbox
-* [Объяснение, как это работает](https://tproger.ru/translations/how-css-flexbox-works/).
-* [Анимированное руководство](https://tproger.ru/translations/flex-properties-on-css/).
-* [Шпаргалка](https://yoksel.github.io/flex-cheatsheet/).
-* [Игровая площадка](https://codepen.io/enxaneta/full/adLPwv/).
-
----
-
-### Grid
-* Можно располагать элементы внутри дизайнерской сетки.
-* [Как написать свою сетку](https://medium.com/web-standards/responsive-grid-system-89d07e48a564).
-* [Готовые сетки](https://gridbyexample.com/examples/).
-* Пример сетки:
-```css
-.app {
-    display:                grid;
-    grid-template-columns:  1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows:     1fr 1fr 1fr 1fr 1fr 60px;
-}
-```
 ---
 
 ### БЭМ
