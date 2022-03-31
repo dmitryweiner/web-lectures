@@ -10,6 +10,8 @@ title: JS часть 4
 ![js](assets/js/js-logo.png)
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
+
+[видео](https://drive.google.com/file/d/1i-5_uKDIrqbF7kTomPHKfkV1xq-v8-gu/view?usp=sharing)
 ---
 
 ### Обращение к DOM'у
@@ -120,6 +122,17 @@ const arr = Array.from(document.body.childNodes);
 ```
 ---
 
+### Создание текста
+* Для добавления текста можно вызвать `createTextNode`:
+```html
+<div id="root"></div>
+<script>
+  const newText = document.createTextNode("текстовый элемент");
+  document.getElementById("root").appendChild(newText);
+</script>
+```
+---
+
 ### Создание элементов
 * Есть способ попроще:
 
@@ -160,6 +173,10 @@ const arr = Array.from(document.body.childNodes);
       console.log("Button clicked!");
     });
 </script>
+```
+* Устаревший способ:
+```html
+<button id="button" onclick="onClickHandler()">Click me!</button>
 ```
 ---
 

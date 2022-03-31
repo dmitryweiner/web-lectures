@@ -22,7 +22,9 @@
 
 ![js](assets/js/js-logo.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)</script></section><section  data-markdown><script type="text/template">
+[Дмитрий Вайнер](https://github.com/dmitryweiner)
+
+[видео](https://drive.google.com/file/d/1i-5_uKDIrqbF7kTomPHKfkV1xq-v8-gu/view?usp=sharing)</script></section><section  data-markdown><script type="text/template">
 ### Обращение к DOM'у
 * Поиск элементов DOM осуществляется с помощью следующих методов:
     * document.getElementById().
@@ -111,6 +113,15 @@ __SCRIPT_END__
   document.getElementById("root").appendChild(newElement);
 __SCRIPT_END__
 ```</script></section><section  data-markdown><script type="text/template">
+### Создание текста
+* Для добавления текста можно вызвать `createTextNode`:
+```html
+<div id="root"></div>
+<script>
+  const newText = document.createTextNode("текстовый элемент");
+  document.getElementById("root").appendChild(newText);
+__SCRIPT_END__
+```</script></section><section  data-markdown><script type="text/template">
 ### Создание элементов
 * Есть способ попроще:
 
@@ -145,6 +156,10 @@ __SCRIPT_END__
       console.log("Button clicked!");
     });
 __SCRIPT_END__
+```
+* Устаревший способ:
+```html
+<button id="button" onclick="onClickHandler()">Click me!</button>
 ```</script></section><section  data-markdown><script type="text/template">
 ![click event](assets/js/clickEvents.png)</script></section><section  data-markdown><script type="text/template">
 ### Типы событий
