@@ -242,6 +242,9 @@ Promise.all([
 ```
 ---
 
+![callback hell](assets/js/callbackHell.png)
+---
+
 ### async/await
 * Async/await это
   [синтаксический сахар](https://ru.wikipedia.org/wiki/%D0%A1%D0%B8%D0%BD%D1%82%D0%B0%D0%BA%D1%81%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B9_%D1%81%D0%B0%D1%85%D0%B0%D1%80)
@@ -257,6 +260,9 @@ async function f() {
     return 10;
 }
 ```
+---
+
+![async](assets/js/async.png)
 ---
 
 ### async/await
@@ -342,3 +348,17 @@ let response = await fetch('/article/fetch/post/user', {
 let result = await response.json();
 ```
 ---
+
+### Задачи
+* Написать функцию `delay(n)`, возвращающую промис, который резолвится через n секунд.
+* Написать функцию `counter(n)`, которая выводит в консоль раз в секунду числа n, n-1 ... 2, 1, 0 и останавливается.
+* Написать функцию, возвращающую название первого репозитория на github.com по имени пользователя 
+  (2 последовательных запроса: https://api.github.com/users/%USERNAME%).
+---
+
+### Полезные ссылки
+* https://learn.javascript.ru/promise-basics
+* https://learn.javascript.ru/async-await
+* https://learn.javascript.ru/fetch
+* https://learn.javascript.ru/fetch-api
+* https://3-info.ru/post/4984
