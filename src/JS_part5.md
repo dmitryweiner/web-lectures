@@ -12,6 +12,16 @@ title: JS часть 5
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 ---
 
+### Многопоточность и асинхронность
+* JS &mdash; однопоточный язык.
+* Многопоточность организована с помощью Event Loop.
+* [Демо как это работает](http://latentflip.com/loupe/?).
+* [Объяснение с картинками](https://habr.com/ru/post/501702/).
+---
+
+![Event Loop](assets/js/event-loop.gif)
+---
+
 ### Таймеры
 * Для асинхронной работы используются функции **setTimeout**, **setInterval**.
 * setTimeout срабатывает 1 раз через N миллисекунд:
@@ -78,7 +88,7 @@ counter2(); // 0
 ```js
 let i;
 for(i = 1; i <= 3; i++) {
-  setTimeout(() => console.log(i), 1000);
+    setTimeout(() => console.log(i), 1000);
 }
 ```
 * Как сделать, чтобы он вывел 1, 2, 3? ⬇️
@@ -240,6 +250,19 @@ Promise.all([
   console.log(results);
 });
 ```
+---
+
+### Что выведет код?
+```js
+setTimeout(function timeout() {
+  console.log(1);
+}, 0);
+Promise.resolve().then(function resolve() {
+  console.log(2);
+});
+console.log(3);
+```
+
 ---
 
 ![callback hell](assets/js/callbackHell.png)
