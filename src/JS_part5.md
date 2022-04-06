@@ -252,6 +252,19 @@ Promise.all([
 ```
 ---
 
+### Заранее завершившийся промис
+* `Promise.resolve(value)` возвращает промис, выполненный с переданным значением.
+```js
+Promise.resolve(1).then(value => console.log(value));
+// 1
+```
+* `Promise.reject(value)` возвращает промис, отклонённый с переданным значением.
+```js
+Promise.reject(2).catch(value => console.log(value));
+// 2
+```
+---
+
 ### Что выведет код?
 ```js
 setTimeout(function timeout() {
