@@ -10,6 +10,8 @@ title: JS часть 5
 * Запросы в сеть
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
+
+[видео](https://drive.google.com/file/d/1mgIP1vZfdrC-PmYGN39tV0vFVoJT9xwN/view?usp=sharing)
 ---
 
 ### Многопоточность и асинхронность
@@ -199,11 +201,11 @@ promise
   .then(
     result => {
       // первая функция-обработчик - запустится при вызове resolve
-      alert("Fulfilled: " + result); // result - аргумент resolve
+      console.log("Fulfilled: " + result); // result - аргумент resolve
     },
     error => {
       // вторая функция - запустится при вызове reject
-      alert("Rejected: " + error); // error - аргумент reject
+      console.log("Rejected: " + error); // error - аргумент reject
     }
   );
 ```
@@ -216,11 +218,11 @@ promise
 promise
   .then(
     result => {
-      alert("Fulfilled: " + result); // result - аргумент resolve
+      console.log("Fulfilled: " + result); // result - аргумент resolve
     })
   .catch(
     error => {
-      alert("Rejected: " + error); // error - аргумент reject
+      console.log("Rejected: " + error); // error - аргумент reject
     }
   );
 ```
@@ -276,6 +278,9 @@ Promise.resolve().then(function resolve() {
 console.log(3);
 ```
 
+---
+
+![callback hell](assets/js/callback-hell.jpeg)
 ---
 
 ![callback hell](assets/js/callbackHell.png)
