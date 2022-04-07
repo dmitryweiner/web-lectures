@@ -340,8 +340,14 @@ let response = await fetch('/article/fetch/post/user', {
 let result = await response.json();
 ```</script></section><section  data-markdown><script type="text/template">
 ### Задачи
-* Написать функцию `delay(n)`, возвращающую промис, который резолвится через n секунд.
 * Написать функцию `counter(n)`, которая выводит в консоль раз в секунду числа n, n-1 ... 2, 1, 0 и останавливается.
+* Написать функцию `createCounter(n)`, возвращающую объект с методами:
+  * start() -- запускает (или возобновляет) счётчик c интервалом 1 секунда: N, N-1.
+  * pause() -- приостанавливает счёт, но не сбрасывает счётчик.
+  * stop() -- останавливает счёт, сбрасывает счётчик.</script></section><section  data-markdown><script type="text/template">
+### Задачи
+* Написать функцию `delay(n)`, возвращающую промис, который резолвится через n секунд.
+* Решить задачу со счётчиком `N, N-1 ... 2, 1, 0` через функцию `delay`.
 * Написать функцию, возвращающую название первого репозитория на github.com по имени пользователя 
   (2 последовательных запроса: https://api.github.com/users/%USERNAME%).</script></section><section  data-markdown><script type="text/template">
 ### Полезные ссылки
