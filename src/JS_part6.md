@@ -8,9 +8,9 @@ title: JS часть 6
 #### Работа с датами
 #### Математика
 
-![js](assets/js/js-logo.png)
-
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
+
+[видео](https://drive.google.com/file/d/18pLrTz9VTnhz16O_9krW_Eg8I4bGjWD5/view?usp=sharing)
 ---
 
 ### Генераторы
