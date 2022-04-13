@@ -8,9 +8,7 @@ title: Basic - CSS
 
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
-Видео: 
-[1](https://drive.google.com/file/d/1XBmHD5Nou8TTUGo6YiVoWi06cb0XUVCR/view?usp=sharing),
-[2](https://drive.google.com/file/d/1UdvaihQMxRmCi3I6RyOSEVzatwaR4kKO/view?usp=sharing)
+[Видео](https://drive.google.com/file/d/1XBmHD5Nou8TTUGo6YiVoWi06cb0XUVCR/view?usp=sharing)
 ---
 
 ### Немного истории
