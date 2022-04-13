@@ -411,3 +411,4 @@ let result = await response.json();
 * https://learn.javascript.ru/fetch
 * https://learn.javascript.ru/fetch-api
 * https://3-info.ru/post/4984
+* https://habr.com/ru/company/piter/blog/426709/
