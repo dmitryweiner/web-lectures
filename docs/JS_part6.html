@@ -21,6 +21,8 @@
 #### Работа с датами
 #### Математика
 
+🍰🍰🍰
+
 [Дмитрий Вайнер](https://github.com/dmitryweiner)
 
 [видео](https://drive.google.com/file/d/18pLrTz9VTnhz16O_9krW_Eg8I4bGjWD5/view?usp=sharing)</script></section><section  data-markdown><script type="text/template">
@@ -155,6 +157,16 @@ const arr = [1, 4, 4, 6, 1, 5, 6];
 const unique = [...new Set(arr)]; // [1, 4, 6, 5]
 ```
 * Используется то, что Set можно итерировать (и применить оператор ...spread соответственно).</script></section><section  data-markdown><script type="text/template">
+### Set
+* Получение всех значений с помощью метода `.values()`:
+```js
+const set = new Set([1, 2, 3]);
+set.values() // возвращает итератор со значениями
+for(let value of set.values()) {
+    console.log(value); // 1, 2, 3
+}
+```
+* Метод возвращает итератор.</script></section><section  data-markdown><script type="text/template">
 ### Map
 * new Map() – создаёт коллекцию.
 * map.set(key, value) – записывает по ключу key значение value.
@@ -163,6 +175,27 @@ const unique = [...new Set(arr)]; // [1, 4, 6, 5]
 * map.delete(key) – удаляет элемент по ключу key.
 * map.clear() – очищает коллекцию.
 * map.size – возвращает текущее количество.</script></section><section  data-markdown><script type="text/template">
+### Map
+* Получение всех значений с помощью метода `.values()`:
+```js
+const map = new Map([['a', 1], ['b', 2], ['c', 3]]);
+for(let value of map.values()) {
+    console.log(value); // 1, 2, 3
+}
+```
+* Получение всех ключей с помощью метода `.keys()`:
+```js
+for(let value of map.keys()) {
+    console.log(value); // a, b, c
+}
+```</script></section><section  data-markdown><script type="text/template">
+### Map
+* Получение всех элементов с помощью метода `.entries()`:
+```js
+for(let value of map.entries()) {
+    console.log(value); // ['a', 1], ['b', 2], ['c', 3]
+}
+```</script></section><section  data-markdown><script type="text/template">
 ### Работа с датами
 * Конструкторы:
 ```js
