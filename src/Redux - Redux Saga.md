@@ -5,7 +5,7 @@ title: Redux - Redux Saga
 ![redux-saga logo](assets/redux-saga/Redux-Saga-Logo.png)
 ![redux saga](assets/redux-saga/meme.jpeg)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner),
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md),
 [видео](https://youtu.be/IIM96JCL8gc)
 
 ---

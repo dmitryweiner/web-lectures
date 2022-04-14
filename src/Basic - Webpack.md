@@ -6,7 +6,7 @@ title: Basic - Webpack
 
 ![webpack logo](assets/webpack/logo.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
 [видео](https://drive.google.com/file/d/1i-PFI78XGiXL97jxFRuAQQ2eSyuqFR0m/view?usp=sharing)
 ---

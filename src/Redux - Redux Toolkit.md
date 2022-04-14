@@ -6,7 +6,7 @@ title: Redux - Redux Toolkit
 
 ![ancient age meme](assets/redux-toolkit/toolkit-meme.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
 [видео](https://youtu.be/KVVd9atLvlg)
 ---

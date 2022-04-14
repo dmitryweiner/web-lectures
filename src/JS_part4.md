@@ -9,7 +9,7 @@ title: JS часть 4
 
 ![js](assets/js/js-logo.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
 [видео](https://drive.google.com/file/d/1i-5_uKDIrqbF7kTomPHKfkV1xq-v8-gu/view?usp=sharing)
 ---

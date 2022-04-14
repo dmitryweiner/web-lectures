@@ -9,7 +9,7 @@ title: JS часть 5
 * Обработка ошибок
 * Запросы в сеть
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
 [видео](https://drive.google.com/file/d/1mgIP1vZfdrC-PmYGN39tV0vFVoJT9xwN/view?usp=sharing)
 ---

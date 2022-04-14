@@ -6,7 +6,7 @@ title: Redux - Асинхронные запросы с помощью redux-thu
 
 ![poor cat](assets/redux-api/Make-an-API.jpeg)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
 [Видео](https://drive.google.com/file/d/1ddXI9pbTwAUW-mympJw-pvqUv5QtGfr8/view?usp=sharing)
 

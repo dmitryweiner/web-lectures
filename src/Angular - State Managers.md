@@ -6,7 +6,7 @@ title: Angular - State managers
 
 ![ngrx](assets/angular-state/ngrx.gif)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
 [видео](https://drive.google.com/file/d/1lx57sSTE3t5EqA83wQ2ofQo5nbVZO1oW/view?usp=sharing)
 ---

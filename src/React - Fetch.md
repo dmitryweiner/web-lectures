@@ -4,7 +4,7 @@ title: React - Запросы в сеть
 
 ## React - Запросы в сеть
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
 ---
 

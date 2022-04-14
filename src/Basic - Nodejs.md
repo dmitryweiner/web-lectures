@@ -6,7 +6,7 @@ title: Basic - Nodejs
 
 ![nodejs logo](assets/nodejs/node-logo.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
 Видео: 
 [1](https://youtu.be/JcV7XtC5On0),

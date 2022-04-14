@@ -6,7 +6,7 @@ title: Redux - Маршрутизация в Redux
 
 ![redux router](assets/redux-router/router-meme.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner),
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md),
 [видео](https://youtu.be/8lexwi-SCB8)
 
 ---

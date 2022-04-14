@@ -3,7 +3,7 @@
 
 ![mongo logo](assets/mongo/Mongo-db-logo.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 ---
 
 ### Факты

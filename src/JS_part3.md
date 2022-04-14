@@ -8,7 +8,7 @@ title: JS часть 3
 
 ![js](assets/js/js-logo.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
 [видео](https://drive.google.com/file/d/1dWYu3lrzVNi8CHhh-_TaroOwVOyNH3f8/view?usp=sharing)
 ---

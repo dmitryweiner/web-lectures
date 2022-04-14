@@ -6,7 +6,7 @@ title: Basic - TypeScript
 
 ![ts](assets/ts/developer.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
 Видео:
 [1](https://drive.google.com/file/d/1Qq_gC5TsY29wuteXrRVewQcCPfU4RHld/view?usp=sharing),

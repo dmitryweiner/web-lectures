@@ -6,7 +6,7 @@ title: React - Использование стилей и ассетов
 
 ![css is awesome](assets/react-styling/css-awesome.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 ---
 
 ### Задачи

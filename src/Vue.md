@@ -6,7 +6,7 @@ title: Vue - Основы
 
 ![distracted vue](assets/vue/vue-developer.jpg)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
 [видео](https://drive.google.com/file/d/1TA0qIDOKzamhLjS5lu73x30qZdCNfsDY/view?usp=sharing)
 ---

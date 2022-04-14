@@ -6,7 +6,7 @@ title: RxJS
 
 ![ReactiveX](assets/rxjs/reactivex.gif)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
 ---
 

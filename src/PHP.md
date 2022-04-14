@@ -6,7 +6,7 @@ title: PHP
 
 ![PHP logo](assets/php/logo.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
 [видео](https://drive.google.com/file/d/1QRx4Z71uLf4v_45VtZ-pG_GJx5hoOQIF/view?usp=sharing)
 ---

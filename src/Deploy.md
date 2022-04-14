@@ -3,7 +3,7 @@
 
 ![Leonidas](assets/deploy/leonid.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 ---
 
 ![friday deploy](assets/deploy/friday.png)

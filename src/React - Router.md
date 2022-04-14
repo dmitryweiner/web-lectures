@@ -6,7 +6,7 @@ title: React - Маршрутизация с помощью библиотеки
 
 ![react-router-dom logo](assets/react-router/logo.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
 ---
 

@@ -6,7 +6,7 @@ title: React - Функциональные компоненты и хуки
 
 ![state management](assets/react-controls/state-management.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
 [видео](https://drive.google.com/file/d/11hBKHlofUsjI8aN4ccc4HTFfwsykzH6s/view?usp=sharing)
 

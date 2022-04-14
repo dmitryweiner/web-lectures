@@ -10,7 +10,7 @@ title: JS часть 1
 
 ![js](assets/js/js-logo.png)
 
-[Дмитрий Вайнер](https://github.com/dmitryweiner)
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
 [видео](https://drive.google.com/file/d/1r96__wjtHx5sK_5nBxTDN1CSchu8i3hX/view?usp=sharing)
 ---
