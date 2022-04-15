@@ -66,6 +66,7 @@
 * [Google Books](https://www.googleapis.com/books/v1/volumes?maxResults=5&orderBy=relevance&q=oliver%20sacks).
 * [Fake users](https://randomuser.me/documentation).
 * [NASA](https://api.nasa.gov/).
+* [Покемоны](https://pokeapi.co/).
 #### б) Реализовать форму ввода (поиск?), кнопку "отправить" и отображение результатов. 
 
 # Программа для тех, кто уже знает JS + CSS + HTML
