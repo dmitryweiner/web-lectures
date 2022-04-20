@@ -27,10 +27,14 @@ title: Basic - Nodejs
 * Имеет доступ к файлам, сети, устройствам.
 * Есть асинхронное выполнение.
 * Есть модули.
-* Есть NPM (менеджер пакетов).
-* Последняя версия: 16.
+* Есть [NPM](https://dmitryweiner.github.io/lectures/Basic%20-%20NPM.html) (менеджер пакетов).
+* Последняя версия: 17 (на апрель 2022).
+* [Компилируется в байткод](https://habr.com/ru/company/ruvds/blog/336294/).
 * [Документация](https://nodejs.org/api/documentation.html).
 * [Самоучитель](https://nodejs.dev/learn).
+---
+
+![V8 bytecode](assets/nodejs/compiler.png)
 ---
 
 ### Движок или фреймворк?
@@ -103,6 +107,10 @@ Ctrl + Shift + F10
 console.log(process.argv);
 // переменные окружения
 console.log(process.env);
+// использование процессора
+process.cpuUsage();
+// использование памяти
+process.memoryUsage();
 // выйти с кодом 1
 process.exit(1);
 ```
@@ -173,6 +181,93 @@ async function openAndClose() {
 * [Документация](https://nodejs.org/docs/latest-v14.x/api/fs.html#fs_promises_api).
 ---
 
+### Разбор аргументов
+* В ```process.argv``` лежит массив аргументов, не очень удобно с ним работать.
+* Очень удобная библиотека [yargs](https://github.com/yargs/yargs) парсит аргументы и выводит подсказки.
+* [Полезная статья](https://nodejs.org/en/knowledge/command-line/how-to-parse-command-line-arguments/)
+```js
+#!/usr/bin/env node
+const yargs = require("yargs/yargs");
+const { hideBin } = require("yargs/helpers");
+yargs(hideBin(process.argv))
+    .command("serve [port]", "start the server", (yargs) => {
+        return yargs
+            .positional("port", {
+                describe: "port to bind on",
+                default: 5000
+            });
+    }, (argv) => {
+        if (argv.verbose) console.info(`start server on :${argv.port}`);
+        serve(argv.port);
+    })
+    .option("verbose", {
+        alias: "v",
+        type: "boolean",
+        description: "Run with verbose logging"
+    })
+    .argv
+```
+---
+
+### Ввод с консоли
+* С помощью встроенного модуля [`readline`](https://nodejs.dev/learn/accept-input-from-the-command-line-in-nodejs):
+```js
+const readline = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+readline.question('What is your name?', name => {
+    console.log(`Hi ${name}!`)
+    readline.close()
+});
+```
+---
+
+### Ввод с консоли
+
+* С помощью библиотеки [`prompt`]():
+
+```shell
+npm i promt
+```
+
+```js
+const prompt = require('prompt');
+prompt.start();
+prompt.get(['username', 'email'], function (err, result) {
+    console.log('Command-line input received:');
+    console.log('  username: ' + result.username);
+    console.log('  email: ' + result.email);
+});
+```
+---
+
+### Раскрашиваем вывод в консоль
+* Библиотека `cli-color`: 
+
+```shell
+npm install cli-color
+```
+
+```js
+const clc = require("cli-color");
+console.log(clc.red.underline("Error!"));
+console.log(clc.red("Warning!"));
+console.log(clc.green("This is okay!"));
+```
+
+* Библиотека `chalk`:
+
+```shell
+npm i chalk
+```
+
+```js
+const chalk = require('chalk');
+console.log(chalk.red('Text in red'));
+```
+---
+
 ### Отправка HTTP-запроса
 * Так можно написать парсер страниц:
 
@@ -240,35 +335,7 @@ http.createServer(function (req, res) {
 * [Руководство, как написать свой сервер](https://metanit.com/web/nodejs/3.1.php).
 ---
 
-### Разбор аргументов
-* В ```process.argv``` лежит массив аргументов, не очень удобно с ним работать.
-* Очень удобная библиотека [yargs](https://github.com/yargs/yargs) парсит аргументы и выводит подсказки.
-* [Полезная статья](https://nodejs.org/en/knowledge/command-line/how-to-parse-command-line-arguments/)
-```js
-#!/usr/bin/env node
-const yargs = require("yargs/yargs");
-const { hideBin } = require("yargs/helpers");
-yargs(hideBin(process.argv))
-    .command("serve [port]", "start the server", (yargs) => {
-        return yargs
-            .positional("port", {
-                describe: "port to bind on",
-                default: 5000
-            });
-    }, (argv) => {
-        if (argv.verbose) console.info(`start server on :${argv.port}`);
-        serve(argv.port);
-    })
-    .option("verbose", {
-        alias: "v",
-        type: "boolean",
-        description: "Run with verbose logging"
-    })
-    .argv
-```
----
-
-### Фреймворки
+### Серверные фреймворки
 * Adonis.js
 * [Express.js](https://expressjs.com/)
   ([Лекция](https://dmitryweiner.github.io/lectures/Express.html#/))
@@ -285,8 +352,8 @@ yargs(hideBin(process.argv))
 
 ### Менеджеры запуска
 * Приложения на node.js периодически падают, хорошо бы их перезапускать автоматически:
-* [nodemon](https://www.geeksforgeeks.org/nodejs-automatic-restart-nodejs-server-with-nodemon/?ref=rp)
-* [pm2](https://pm2.keymetrics.io/docs/usage/quick-start/)
+  * [nodemon](https://www.geeksforgeeks.org/nodejs-automatic-restart-nodejs-server-with-nodemon/?ref=rp)
+  * [pm2](https://pm2.keymetrics.io/docs/usage/quick-start/)
 ---
 
 ### Альтернативы node.js
@@ -295,6 +362,11 @@ yargs(hideBin(process.argv))
 * Go.
 * PHP.
 * Python + Django.
+---
+
+### Задачи
+* Написать скрипт, который считывает файл с диска и записывает его в обратном порядке в тот же файл.
+* Написать сервер, который при запросе GET отправляет содержимое некоего файла, а при запросе POST пишет в файл тело запроса.
 ---
 
 ### Полезные ссылки
