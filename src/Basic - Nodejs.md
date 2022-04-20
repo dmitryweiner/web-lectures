@@ -10,7 +10,8 @@ title: Basic - Nodejs
 
 Видео: 
 [1](https://youtu.be/JcV7XtC5On0),
-[2](https://drive.google.com/file/d/1F4scyA2hAXCBexbm0wyDh-piC_yT_B7y/view?usp=sharing).
+[2](https://drive.google.com/file/d/1F4scyA2hAXCBexbm0wyDh-piC_yT_B7y/view?usp=sharing),
+[3](https://drive.google.com/file/d/1Soub-RJCEoB4bC4CWZusbFWCgzoDaJM4/view?usp=sharing).
 ---
 
 * Node.js &mdash; программная платформа, основанная на движке V8
@@ -167,11 +168,11 @@ console.log(data);
 ### Асинхронная работа с файлами
 * Удобнее работать с файлами, используя промисы и синтаксический сахар async/await:
 ```js
-const fsPromises = require("fs").promises;
+const { promises } = require("fs");
 async function openAndClose() {
     let data;
     try {
-      data = await fsPromises.readFile("./input.txt");
+      data = await promises.readFile("./input.txt");
       console.log(data);
     } catch(e) {
       console.error(`Что-то пошло не так: ${e.message}`);
@@ -228,7 +229,7 @@ readline.question('What is your name?', name => {
 * С помощью библиотеки [`prompt`](https://github.com/flatiron/prompt):
 
 ```shell
-npm i promt
+npm i prompt
 ```
 
 ```js
@@ -243,7 +244,7 @@ prompt.get(['username', 'email'], function (err, result) {
 ---
 
 ### Раскрашиваем вывод в консоль
-* Библиотека `cli-color`: 
+* Библиотека [`cli-color`](https://github.com/medikoo/cli-color): 
 
 ```shell
 npm install cli-color
@@ -256,7 +257,7 @@ console.log(clc.red("Warning!"));
 console.log(clc.green("This is okay!"));
 ```
 
-* Библиотека `chalk`:
+* Библиотека [`chalk`](https://github.com/chalk/chalk):
 
 ```shell
 npm i chalk
