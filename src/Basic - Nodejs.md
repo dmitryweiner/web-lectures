@@ -225,7 +225,7 @@ readline.question('What is your name?', name => {
 
 ### Ввод с консоли
 
-* С помощью библиотеки [`prompt`]():
+* С помощью библиотеки [`prompt`](https://github.com/flatiron/prompt):
 
 ```shell
 npm i promt
