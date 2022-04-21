@@ -169,11 +169,12 @@ console.log(data);
 * Удобнее работать с файлами, используя промисы и синтаксический сахар async/await:
 ```js
 const { promises } = require("fs");
-async function openAndClose() {
+async function readAndWrite() {
     let data;
     try {
-      data = await promises.readFile("./input.txt");
+      data = await promises.readFile("./input.txt", "utf8");
       console.log(data);
+      await promises.writeFile("./input.txt", "Новый текст!");
     } catch(e) {
       console.error(`Что-то пошло не так: ${e.message}`);
     }
@@ -291,20 +292,30 @@ req.end();
 ---
 
 ### Сервер
-* Можно написать сервер, отвечающий на запросы:
+* Модуль `http` позволяет поднимать сервер, отвечающий на запросы.
+* Для этого надо создать сервер, вызвав:
 ```js
-// Подключение модуля http
+const server = http.createServer((req, res) => {});
+server.listen(PORT, IP);
+```
+* Функция `(req, res) => {}` является обработчиком запросов.
+* В `req` лежит важная информация:
+  * `req.url` URL запроса.
+  * `req.method` тип запроса (GET, POST).
+* [Подробнее](https://metanit.com/web/nodejs/3.1.php).
+
+---
+
+### Простейший сервер
+```js
 const http = require("http");
-// Создаем веб-сервер с обработчиком запросов
-const server = http.createServer((incomingMessage, response) => {
+const server = http.createServer((req, res) => {
     console.log("Начало обработки запроса");
-    // Передаем код ответа и заголовки http
-    response.writeHead(200, { 
+    res.writeHead(200, { 
         "Content-Type": "text/plain; charset=UTF-8" 
     });
-    response.end("Hello, world!");
+    res.end("Hello, world!");
 });
-// Запускаем веб-сервер
 server.listen(3000, "127.0.0.1", () => {
     const { address, port } = server.address();
     console.log(`Сервер запущен ${address}:${port}`);
@@ -313,11 +324,13 @@ server.listen(3000, "127.0.0.1", () => {
 ---
 
 ### Сервер статики
+* Сервер получает запрос вида `GET /filename`, ищет файл в текущем каталоге и отдаёт содержимое:
+
 ```js
 const fs = require("fs"),
     http = require("http");
 
-http.createServer(function (req, res) {
+http.createServer((req, res) => {
     fs.readFile(__dirname + req.url, function (err, data) {
         if (err) {
             res.writeHead(404);
@@ -327,11 +340,33 @@ http.createServer(function (req, res) {
         res.writeHead(200);
         res.end(data);
     });
-}).listen(8080);
+}).listen(3000);
 ```
 ---
 
-### REST на чистой Node.js
+### Получение `body` при POST-запросе
+```js
+const server = http.createServer(async (req, res) => {
+  if (req.method === "POST") {
+    const buffers = [];
+    for await (const chunk of req) {
+      buffers.push(chunk);
+    }
+    const data = Buffer.concat(buffers).toString();
+    console.log(data);
+  }
+  res.end();
+})
+```
+---
+
+### Postman
+* Отправлять POST-запросы удобно с помощью [Postman Chrome extension](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=ru):
+
+![Postman](assets/nodejs/postman.png)
+---
+
+### [REST](https://ru.wikipedia.org/wiki/REST) на чистой Node.js
 * [Базовый сервер, реализующий REST](https://gist.github.com/JohanSundstain/b6063eceb169a11e709b9633c15ebe08).
 * [Руководство, как написать свой сервер](https://metanit.com/web/nodejs/3.1.php).
 ---
@@ -348,7 +383,6 @@ http.createServer(function (req, res) {
 * Nest.js
 * Sails.js
 * [Обзор фреймворков](https://medium.com/dailyjs/which-one-is-the-best-node-js-framework-choosing-among-10-tools-87a0e191eefd).
-
 ---
 
 ### Менеджеры запуска
@@ -366,8 +400,11 @@ http.createServer(function (req, res) {
 ---
 
 ### Задачи
-* Написать скрипт, который считывает файл с диска и записывает его в обратном порядке в тот же файл.
-* Написать сервер, который при запросе GET отправляет содержимое некоего файла, а при запросе POST пишет в файл тело запроса.
+* Написать скрипт, который считывает текстовый файл с диска и записывает его в обратном порядке
+  ('абв' -> 'вба') в тот же файл.
+* Написать сервер, который при запросе 
+  * `GET /` отправляет содержимое некоего файла на диске (см. предыдущую задачу).
+  * `POST /` добавляет в файл тело запроса (body).
 ---
 
 ### Полезные ссылки
