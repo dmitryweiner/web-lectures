@@ -327,19 +327,18 @@ server.listen(3000, "127.0.0.1", () => {
 * Сервер получает запрос вида `GET /filename`, ищет файл в текущем каталоге и отдаёт содержимое:
 
 ```js
-const fs = require("fs"),
+const { promises } = require("fs"),
     http = require("http");
 
-http.createServer((req, res) => {
-    fs.readFile(__dirname + req.url, function (err, data) {
-        if (err) {
-            res.writeHead(404);
-            res.end(JSON.stringify(err));
-            return;
-        }
+http.createServer(async (req, res) => {
+    try {
+        const data = await promises.readFile(__dirname + req.url, "utf8");
         res.writeHead(200);
         res.end(data);
-    });
+    } catch (err) {
+        res.writeHead(404);
+        res.end(JSON.stringify(err));
+    }
 }).listen(3000);
 ```
 ---

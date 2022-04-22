@@ -100,7 +100,7 @@ function changer(o) {
     o.a = 123;
 }
 const obj = { a: 1, b: 2 };
-changer(o);
+changer(obj);
 console.log(obj.a); // 123
 ```
 ---
