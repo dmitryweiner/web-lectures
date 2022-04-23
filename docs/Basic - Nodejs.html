@@ -285,6 +285,22 @@ res.end("Hello, world!");
 ```
 * `res.writeHead(200)` - отправка кода ответа.
 * `res.end("Hello, world!")` - отправка тела ответа.</script></section><section  data-markdown><script type="text/template">
+### Сервер
+* Сервер слушает определённый порт, который указывают в методе `listen` (обычно для Node.js используется 3000):
+```js
+server.listen(3000);
+```
+* Можно указать сетевой интерфейс, который будет слушать сервер (0.0.0.0 для любого):
+```js
+server.listen(3000, "127.0.0.1");
+```
+* Обработчик успешного завершения:
+```js
+server.listen(3000, "127.0.0.1", () => {
+    const { address, port } = server.address();
+    console.log(`Сервер запущен ${address}:${port}`);
+});
+```</script></section><section  data-markdown><script type="text/template">
 ### Простейший сервер
 ```js
 const http = require("http");
