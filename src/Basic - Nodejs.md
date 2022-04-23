@@ -303,7 +303,19 @@ server.listen(PORT, IP);
   * `req.url` URL запроса.
   * `req.method` тип запроса (GET, POST).
 * [Подробнее](https://metanit.com/web/nodejs/3.1.php).
+---
 
+### Сервер
+* Сервер должен что-то ответить клиенту.
+* Это делается с помощью вызова методов объекта `res`:
+```js
+res.writeHead(200, { 
+    "Content-Type": "text/plain; charset=UTF-8" 
+});
+res.end("Hello, world!");
+```
+* `res.writeHead(200)` - отправка кода ответа.
+* `res.end("Hello, world!")` - отправка тела ответа.
 ---
 
 ### Простейший сервер
@@ -360,7 +372,9 @@ const server = http.createServer(async (req, res) => {
 ---
 
 ### Postman
-* Отправлять POST-запросы удобно с помощью [Postman Chrome extension](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=ru):
+* Отправлять запросы удобно с помощью 
+  [Postman Chrome extension](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=ru) или 
+  [RESTclient для Firefox](https://addons.mozilla.org/ru/firefox/addon/restclient/):
 
 ![Postman](assets/nodejs/postman.png)
 ---
