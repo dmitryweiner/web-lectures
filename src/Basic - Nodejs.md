@@ -371,10 +371,11 @@ const server = http.createServer(async (req, res) => {
 ```
 ---
 
-### Postman
-* Отправлять запросы удобно с помощью 
-  [Postman Chrome extension](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=ru) или 
-  [RESTclient для Firefox](https://addons.mozilla.org/ru/firefox/addon/restclient/):
+### Как отправить HTTP-запрос?
+* Отправлять запросы удобно с помощью: 
+  * [Postman Chrome extension](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=ru). 
+  * [RESTclient для Firefox](https://addons.mozilla.org/ru/firefox/addon/restclient/).
+  * [RestMan для Opera](https://addons.opera.com/ru/extensions/details/restman/).
 
 ![Postman](assets/nodejs/postman.png)
 ---
