@@ -17,9 +17,7 @@
 * [ESLint + Prettier + Husky](https://github.com/dmitryweiner/lectures/raw/main/old/%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%20eslint%20prettier%20husky.pptx)
 * [Git](https://dmitryweiner.github.io/lectures/Basic%20-%20Git.html)
 
-## Лабораторные
-
-### 1. Список дел
+## Лабораторная №1: Список дел
 #### а) Вёрстка  HTML
 
 ![html](src/assets/programs/html.png)
@@ -58,7 +56,7 @@
 
 <hr/>
 
-### 2. Обращение в API
+## Лабораторная №2: Работа с API
 #### а) Выбрать себе API по вкусу:
 * [Github API](https://github.com/public-apis/public-apis),
 * [7 публичных API](https://proglib.io/p/7-besplatnyh-api-o-kotoryh-nikto-ne-govorit-2020-12-07?focus=comment)
@@ -67,7 +65,17 @@
 * [Fake users](https://randomuser.me/documentation).
 * [NASA](https://api.nasa.gov/).
 * [Покемоны](https://pokeapi.co/).
-#### б) Реализовать форму ввода (поиск?), кнопку "отправить" и отображение результатов. 
+* [Чат](https://github.com/dmitryweiner/mini-chat-server).
+#### б) Реализовать форму ввода (поиск?), кнопку "отправить" и отображение результатов.
+  * При отправке должен отображаться спиннер, который исчезает при получении результатов.
+  * Типовой вид формы: 
+  ![search form](src/assets/programs/search.png)
+#### в) Реализовать дополнительные фичи:
+  * Сортировку по какому-либо полю.
+  * Фильтрация по категории.
+  * Ограничение количества результатов на странице.
+  * Типовой вид формы:
+  ![advanced search form](src/assets/programs/advanced-search.png)
 
 # Программа для тех, кто уже знает JS + CSS + HTML
 * [Введение в React.js](https://dmitryweiner.github.io/lectures/React%20-%20Basic.html#/)
