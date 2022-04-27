@@ -8,10 +8,13 @@ title: Basic - NPM
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
-[видео](https://drive.google.com/file/d/1lFMBimAdKy3rIZaThYxWYibMKQaT-r21/view?usp=sharing)
+Видео: 
+[1](https://drive.google.com/file/d/1lFMBimAdKy3rIZaThYxWYibMKQaT-r21/view?usp=sharing),
+[2](https://drive.google.com/file/d/1WWMzqjHWpqvrSH3A8g0VTSfWuydThqHC/view?usp=sharing)
 ---
 
 ### Идея
+* Коммитить зависимые библиотеки - плохая идея. 
 * Зависимости проекта должны быть зафиксированы.
 * Должно быть средство установки пакетов, прописанных в зависимостях:
   * PHP: [composer](https://getcomposer.org/).
@@ -21,7 +24,6 @@ title: Basic - NPM
     [Ant](https://habr.com/ru/post/323204/).
   * Python: [pip](https://pypi.org/project/pip/).
 * Средство должно автоматически определять нужные версии пакетов.
-
 ---
 
 ### NPM
