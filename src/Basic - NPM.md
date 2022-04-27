@@ -12,17 +12,21 @@ title: Basic - NPM
 ---
 
 ### Идея
-* Зависимости проекта должны быть документированы.
+* Зависимости проекта должны быть зафиксированы.
 * Должно быть средство установки пакетов, прописанных в зависимостях:
-  * PHP: composer.
-  * Java: gradle, maven.
+  * PHP: [composer](https://getcomposer.org/).
+  * Java: 
+    [Gradle](https://javarush.ru/groups/posts/2126-kratkoe-znakomstvo-s-gradle),
+    [Maven](https://javarush.ru/groups/posts/2523-chastjh-4osnovih-maven),
+    [Ant](https://habr.com/ru/post/323204/).
+  * Python: [pip](https://pypi.org/project/pip/).
 * Средство должно автоматически определять нужные версии пакетов.
 
 ---
 
 ### NPM
-* В экосистеме роль менеджера пакетов выполняет NPM.
-* NPM &mdash; **n**ode **p**ackage **m**anager.
+* В экосистеме JS роль менеджера пакетов выполняет NPM.
+* NPM &mdash; **N**ode **P**ackage **M**anager.
 * Устанавливается вместе с [Node.js](https://nodejs.org/en/download/).
 
 ---
@@ -35,7 +39,7 @@ title: Basic - NPM
   * Имя проекта.
   * Зависимости от сторонних библиотек.
   * Скрипты запуска.
-  * Настройки.
+  * Настройки проекта.
 ---
 
 ### Инициализация проекта
@@ -86,26 +90,34 @@ Is this OK? (yes) yes
 ```
 ---
 
+### Инициализация проекта
+* Если лень отвечать на вопросы, можно запустить ту же команду с ключом `-y`, вопросов не будет:
+```shell
+npm init -y
+```
+* ```package.json``` будет создан с дефолтными значениями.
+---
+
 ### Поля package.json
 * [Полный список возможных полей](https://docs.npmjs.com/cli/v8/configuring-npm/package-json).
 * name: имя проекта.
 * version: версия вида "1.2.3" (обязательно).
 * author: автор (обязательно).
+* dependencies: список необходимых библиотек.
+* devDependencies: библиотеки для разработки.
 * license: под какой [лицензией](https://spdx.org/licenses/).
 * description: краткое описание проекта.
 * keywords: ключевые слова.
 * homepage: домашняя страница проекта.
 * repository: ссылка на репозиторий.
-* dependencies: список необходимых библиотек.
-* devDependencies: библиотеки для разработки.
 ---
 
-### Типы лицензий 
+### [Типы лицензий](https://habr.com/ru/post/275995/) 
 ![licences types](assets/npm/licences.png)
 ---
 
 ### Установка библиотеки
-* [Поиск нужной библиотеки](https://www.npmjs.com/).
+* [Поиск нужной библиотеки: www.npmjs.com](https://www.npmjs.com/).
 * Установка:
 ```shell
 npm install %ИМЯ_БИБЛИОТЕКИ%
@@ -124,7 +136,7 @@ npm i -D %ИМЯ_БИБЛИОТЕКИ%
 ### Различие devDependencies и dependencies
 * Зависимости, перечисленные в `dependencies` нужны для сборки проекта для продакшена.
 * Зависимости в `devDependencies` нужны только во время разработки и на продакшен попасть не должны.
-* Есть ещё `peerDependencies` для зависимостей библиотеки, которы надо устанавливать самостоятельно.
+* Есть ещё `peerDependencies` для зависимостей библиотеки, которые надо устанавливать самостоятельно.
 * [Подробнее](https://stackoverflow.com/questions/18875674/whats-the-difference-between-dependencies-devdependencies-and-peerdependencies).
 ---
 
@@ -205,6 +217,16 @@ npm install
 # сокращённая команда
 npm i
 ```
+* При этом вычисляются версии пакетов в соответствии с указаниями. Если стоит версия ~1.0, может поставится 1.0.0 или 1.0.9.
+* При этом обновляется `package-lock.json`.
+---
+
+### Установка зависимостей "как у разработчика"
+* Если нужно поставить именно те версии пакетов, которые стоят у разработчика, имеет смысл выполнить команду:
+```shell
+npm ci
+```
+* При этом ставятся пакеты с версиями из `package-lock.json`.
 ---
 
 ### Удаление библиотеки
@@ -269,3 +291,17 @@ npx create-react-app my-app
   * Свой формат конфига. 
   * Классная птица на лого.
   * Любят владельцы MacOS.
+---
+
+### Задачи
+* Инициализировать проект.
+* Поставить библиотеку [`lodash`](https://github.com/lodash/lodash).
+* Подключить её и отсортировать массив объектов по полю `age` (можно использовать метод sortBy):
+```js
+const users = [
+    { user: 'fred',   age: 48 },
+    { user: 'barney', age: 36 },
+    { user: 'fred',   age: 40 },
+    { user: 'barney', age: 34 }
+];
+```
