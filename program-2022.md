@@ -75,6 +75,7 @@
   * Фильтрация по категории.
   * Ограничение количества результатов на странице.
   * Типовой вид формы:
+  
   ![advanced search form](src/assets/programs/advanced-search.png)
 
 # Программа для тех, кто уже знает JS + CSS + HTML
