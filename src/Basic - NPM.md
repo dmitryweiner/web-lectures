@@ -156,6 +156,32 @@ npm i lodash@^4.0 # поставит любую начиная от 4.0.0 до 4
 * [Калькулятор версии](https://semver.npmjs.com/).
 ---
 
+### Подключение установленной библиотеки
+* После установки можно использовать нужную библиотеку с помощью `require`, 
+  если библиотека поддерживает формат модулей [CommonJS](https://nodejs.org/api/modules.html):
+```js
+const _ = require("lodash");
+_.first([1, 2, 3]); // 1
+```
+---
+
+### Подключение установленной библиотеки
+* Библиотека может быть написана в формате ES6-module. Это выражается в ошибке:
+```shell
+internal/modules/cjs/loader.js:1102
+      throw new ERR_REQUIRE_ESM(filename, parentPath, packageJsonPath);
+      ^
+Error [ERR_REQUIRE_ESM]: Must use import to load ES Module
+```
+* Чтобы работать с такой библиотекой, надо добавить в package.json:
+```json
+{ 
+    // тут остальной код
+    "type": "module"
+}
+```
+---
+
 ### package-lock.json
 * При установке пакетов (библиотек) конкретные версии записываются в `package-lock.json`:
 
