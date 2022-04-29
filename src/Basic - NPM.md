@@ -334,3 +334,9 @@ const users = [
 ];
 ```
 * Вызвать написанный код через `npm run` (используется поле `script`).
+---
+
+### Полезные ссылки
+* [Список полезных библиотек](https://github.com/sindresorhus/awesome-nodejs).
+* [Поиск нужной библиотеки: www.npmjs.com](https://www.npmjs.com/).
+* [Шпаргалка по командам](https://habr.com/ru/post/133363/).
