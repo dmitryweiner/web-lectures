@@ -165,7 +165,7 @@ _.first([1, 2, 3]); // 1
 ```
 ---
 
-### Подключение установленной библиотеки
+### Проблема с `import from`
 * Библиотека может быть написана в формате ES6-module. Это выражается в ошибке:
 ```shell
 internal/modules/cjs/loader.js:1102
@@ -173,12 +173,16 @@ internal/modules/cjs/loader.js:1102
       ^
 Error [ERR_REQUIRE_ESM]: Must use import to load ES Module
 ```
-* Чтобы работать с такой библиотекой, надо добавить в package.json:
+* Чтобы работало, надо добавить в package.json:
 ```json
 { 
     // тут остальной код
     "type": "module"
 }
+```
+* Импортировать потом в формате [ES6-module](https://developer.mozilla.org/ru/docs/Web/JavaScript/Guide/Modules):
+```js
+import ora from "ora";
 ```
 ---
 
@@ -338,5 +342,7 @@ const users = [
 
 ### Полезные ссылки
 * [Список полезных библиотек](https://github.com/sindresorhus/awesome-nodejs).
+* [Ещё список полезных библиотек](https://github.com/bsonntag/cool-node-modules).
+* [10 самых бесполезных библиотек](https://dev.to/jyotishman/10-useless-npm-package-with-millions-of-downloads-de9).
 * [Поиск нужной библиотеки: www.npmjs.com](https://www.npmjs.com/).
 * [Шпаргалка по командам](https://habr.com/ru/post/133363/).
