@@ -138,15 +138,41 @@ npm i -D %ИМЯ_БИБЛИОТЕКИ%
 ### Нужная версия
 * При установке можно указывать конкретную версию библиотеки:
 ```shell
-npm i lodash@1.0.0
+npm i lodash@4.17.21
 ```
 * Можно указывать минорную или мажорную версии:
 ```shell
-npm i lodash@~1.0 # поставит только 1.0.0 - 1.0.9
-npm i lodash@^1.0 # поставит любую начиная от 1.0.0 до 1.3.0
+npm i lodash@~4.0 # поставит только 4.0.0 - 4.0.9
+npm i lodash@^4.0 # поставит любую начиная от 4.0.0 до 4.17.21
 ```
 * Это называется [семантическое версионирование](https://docs.npmjs.com/about-semantic-versioning).
 * [Калькулятор версии](https://semver.npmjs.com/).</script></section><section  data-markdown><script type="text/template">
+### Подключение установленной библиотеки
+* После установки можно использовать нужную библиотеку с помощью `require`, 
+  если библиотека поддерживает формат модулей [CommonJS](https://nodejs.org/api/modules.html):
+```js
+const _ = require("lodash");
+_.first([1, 2, 3]); // 1
+```</script></section><section  data-markdown><script type="text/template">
+### Проблема с `import from`
+* Библиотека может быть написана в формате ES6-module. Это выражается в ошибке:
+```shell
+internal/modules/cjs/loader.js:1102
+      throw new ERR_REQUIRE_ESM(filename, parentPath, packageJsonPath);
+      ^
+Error [ERR_REQUIRE_ESM]: Must use import to load ES Module
+```
+* Чтобы работало, надо добавить в package.json:
+```json
+{ 
+    // тут остальной код
+    "type": "module"
+}
+```
+* Импортировать потом в формате [ES6-module](https://developer.mozilla.org/ru/docs/Web/JavaScript/Guide/Modules):
+```js
+import ora from "ora";
+```</script></section><section  data-markdown><script type="text/template">
 ### package-lock.json
 * При установке пакетов (библиотек) конкретные версии записываются в `package-lock.json`:
 
@@ -276,6 +302,13 @@ const users = [
     { user: 'barney', age: 34 }
 ];
 ```
+* Вызвать написанный код через `npm run` (используется поле `script`).</script></section><section  data-markdown><script type="text/template">
+### Полезные ссылки
+* [Список полезных библиотек](https://github.com/sindresorhus/awesome-nodejs).
+* [Ещё список полезных библиотек](https://github.com/bsonntag/cool-node-modules).
+* [10 самых бесполезных библиотек](https://dev.to/jyotishman/10-useless-npm-package-with-millions-of-downloads-de9).
+* [Поиск нужной библиотеки: www.npmjs.com](https://www.npmjs.com/).
+* [Шпаргалка по командам](https://habr.com/ru/post/133363/).
 </script></section></div>
     </div>
 
