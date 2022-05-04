@@ -44,7 +44,8 @@ JS и CSS для уменьшения размера.
 * Вебпак начинает анализ с файла точки входа, указанной в конфиге.
 * Если в файле импортируются другие файлы, вебпак анализирует их.
 * В итоге строится дерево импортов.
-* В конечный файл (бандл) добавляются только те методы файлов, которые используются (tree shaking).
+* В конечный файл (бандл) добавляются только те методы файлов, которые используются 
+  ([tree shaking](https://webpack.js.org/guides/tree-shaking/)).
 ---
 
 ![bundling](assets/webpack/bundling.png)
@@ -574,11 +575,11 @@ build
 ---
 
 ### Полезные ссылки
-* https://webpack.js.org/concepts/
+* [Документация](https://webpack.js.org/concepts/).
 * https://habr.com/ru/post/519064/
 * https://habr.com/ru/post/514838/
 * https://habr.com/ru/post/524260/
 * https://github.com/dmitryweiner/webpack-template
 ---
 
-![custom config](assets/webpack/custom-config.png)
+![ts webpack](assets/webpack/ts-webpack.png)
