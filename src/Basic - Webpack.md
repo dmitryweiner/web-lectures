@@ -8,7 +8,9 @@ title: Basic - Webpack
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
-[видео](https://drive.google.com/file/d/1i-PFI78XGiXL97jxFRuAQQ2eSyuqFR0m/view?usp=sharing)
+Видео: 
+[1](https://drive.google.com/file/d/1i-PFI78XGiXL97jxFRuAQQ2eSyuqFR0m/view?usp=sharing),
+[2](https://drive.google.com/file/d/1mSSpG_v3hIh5I4OjU63G0-uUNEWLx_0Z/view?usp=sharing)
 ---
 
 ### Проблемы фронтенда
@@ -82,7 +84,7 @@ export default class Utils {
 ```shell
 npm i -D webpack webpack-cli webpack-dev-server \
     webpack-merge babel-loader clean-webpack-plugin \
-    copy-webpack-plugin html-webpack-plugin
+    copy-webpack-plugin html-webpack-plugin @babel/core
 ```
 * Команды для сборки в package.json -> scripts:
 
@@ -396,7 +398,7 @@ function revertString(str) {
 ```json
 {
   "scripts": {
-    "dev": "webpack-dev-server --config ./configs/webpack.development.js",
+    "start": "webpack-dev-server --config ./configs/webpack.development.js",
     "build": "webpack --config ./configs/webpack.production.js"
   }
 }
@@ -471,6 +473,10 @@ module.exports = {
 ---
 
 ### webpack.production.js
+* Надо установить библиотеку для слияния конфигов:
+```shell
+npm i -D webpack-merge
+```
 
 ```js
 const { merge } = require('webpack-merge');
