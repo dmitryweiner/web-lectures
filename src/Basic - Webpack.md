@@ -99,6 +99,11 @@ npm i -D webpack webpack-cli webpack-dev-server \
 ```
 ---
 
+### Команды запуска
+* `npm run start` поднимает web-сервер для разработки с моментальным отображением изменений.
+* `npm run build` собирает проект для выкладывания на хостинг.
+---
+
 ### `./webpack.config.js`
 * Создадим в корне проекта файл `webpack.config.js`:
 
@@ -156,7 +161,7 @@ module.exports = {
 
 ### Расположение файлов
 * `./src/`: исходные файлы JS.
-* `./build/`: собранный проект для продакшена.
+* `./build/`: собранный проект для выкладывания на хостинг.
 * `./public/`: статичные файлы, которые копируются в `build`.
 ---
 
@@ -180,7 +185,7 @@ module.exports = {
 ---
 
 ### Сборка JS
-* Файл index.js использует функцию revertString:
+* Файл index.js использует функцию revertString (это пример):
 ```js
 import { revertString } from "./utils";
 document.addEventListener("DOMContentLoaded", () => {
@@ -192,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 ```
-* Файл с утилитами utils.js:
+* Файл с утилитами utils.js для примера:
 ```js
 export function revertString(str) {
     return [...str].reverse().join("");
@@ -201,7 +206,7 @@ export function revertString(str) {
 ---
 
 ### Сборка JS
-* Что в итоге получается на выходе из Webpack:
+* Что в итоге получается после запуска `npm run build`:
 
 ```js
 /******/ (() => { // webpackBootstrap
@@ -585,7 +590,8 @@ build
 * https://habr.com/ru/post/519064/
 * https://habr.com/ru/post/514838/
 * https://habr.com/ru/post/524260/
-* https://github.com/dmitryweiner/webpack-template
+* https://webdevblog.ru/ochen-prostoe-rukovodstvo-dlya-nachinajushhih-po-webpack/
+* [Шаблонный проект с Webpack](https://github.com/dmitryweiner/webpack-template)
 ---
 
 ![ts webpack](assets/webpack/ts-webpack.png)
