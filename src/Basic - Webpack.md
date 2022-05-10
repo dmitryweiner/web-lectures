@@ -55,24 +55,15 @@ JS и CSS для уменьшения размера.
 
 ### Формат импорта
 * Для импорта используется формат [ES6 Modules](https://developer.mozilla.org/ru/docs/Web/JavaScript/Guide/Modules).
-* Импорт:
-
+* Пример импорта:
 ```js
 import Utils, { revertString } from "./utils";
 console.log(revertString("123"));
-console.log(Utils.revert("123"));
 ```
 * Экспорт:
-
 ```jsx
 export function revertString(str) {
     return [...str].reverse().join("");
-}
-
-export default class Utils {
-  revert(str) { 
-      return revertString(str);
-  }
 }
 ```
 ---
@@ -99,11 +90,6 @@ npm i -D webpack webpack-cli webpack-dev-server \
 ```
 ---
 
-### Команды запуска
-* `npm run start` поднимает web-сервер для разработки с моментальным отображением изменений.
-* `npm run build` собирает проект для выкладывания на хостинг.
----
-
 ### `./webpack.config.js`
 * Создадим в корне проекта файл `webpack.config.js`:
 
@@ -114,29 +100,29 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const paths = {
-    src: path.resolve(__dirname, './src'), // source files
-    build: path.resolve(__dirname, './build'), // production build files
-    static: path.resolve(__dirname, './public'), // static files to copy to build folder
+    src: path.resolve(__dirname, './src'), // исходные файлы JS
+    build: path.resolve(__dirname, './build'), // собранный проект для выкладывания на хостинг
+    static: path.resolve(__dirname, './public'), // статичные файлы, которые копируются в build
 };
 
 module.exports = {
-    mode: 'development',
-    devtool: 'inline-source-map',
-    entry: [paths.src + '/index.js'],
+    mode: 'development', // режим работы: development - для разработки, production - для выкладывания на сервер
+    devtool: 'inline-source-map', // что делать с исходниками @see https://habr.com/ru/post/509250/
+    entry: [paths.src + '/index.js'], // точка входа
     output: {
-        path: paths.build,
-        filename: '[name].bundle.js',
+        path: paths.build, // куда класть бандл
+        filename: '[name].bundle.js', // имя бандла
         publicPath: '/',
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new CopyWebpackPlugin({
+        new CopyWebpackPlugin({ // плагин копирует файлы из static
             patterns: [
               {
                 from: paths.static,
                 to: paths.build,
                 globOptions: {
-                  ignore: ['**/index.html']
+                  ignore: ['**/index.html'] // кроме index.html
                 }
               }
             ],
@@ -148,7 +134,7 @@ module.exports = {
     ],
     module: {
         rules: [
-            {
+            {   // модуль для обработки JS
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: ['babel-loader'],
@@ -162,7 +148,10 @@ module.exports = {
 ### Расположение файлов
 * `./src/`: исходные файлы JS.
 * `./build/`: собранный проект для выкладывания на хостинг.
-* `./public/`: статичные файлы, которые копируются в `build`.
+* `./public/`: статичные файлы, которые копируются в `build`:
+  * index.html.
+  * картинки.
+  * стили.
 ---
 
 ### Базовая структура проекта
@@ -174,17 +163,46 @@ module.exports = {
 ├── public
 │   ├── css
 │   │   └── main.css
+│   ├── images
+│   │   ├── cat.jpg
+│   │   └── ... // ещё картинки
 │   └── index.html
 ├── src
 │   ├── index.js // точка входа Webpack
-│   └── utils.js // файл с полезными утилитами
+│   └── ... // ещё какие-нибудь файлы
 └── webpack.config.js // конфиг вебпака
 ```
 
 [Посмотреть](https://github.com/dmitryweiner/webpack-template/tree/73ad30edf095bbd9c35968c5e4eddd4bd00361a3).
 ---
 
-### Сборка JS
+### `index.html`
+* Файл `public/index.html` служит шаблоном, куда будет *автоматически* добавлен собранный бандл.
+* Но он должен самостоятельно подключать необходимые стили.
+* Примерный код:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Мега-сайт</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- сюда будет добавлен бандл -->
+</head>
+<body>
+</body>
+</html>
+```
+---
+
+### Команды запуска
+* `npm run start` поднимает web-сервер для разработки с моментальным отображением изменений.
+* Сервер лежит по адресу http://localhost:8080 (порт может меняться).
+![dev server](assets/webpack/server.png)
+* `npm run build` собирает проект для выкладывания на хостинг. Результат будет лежать в `build`.
+---
+
+### Результат сборки JS
 * Файл index.js использует функцию revertString (это пример):
 ```js
 import { revertString } from "./utils";
@@ -348,7 +366,7 @@ module: {
 ---
 
 ### На выходе из Babel
-* Получаем код, работающий под ИЕ6:
+* Получаем код, работающий под ИЕ6. Современный код заменён на [полифилы](https://learn.javascript.ru/polyfills):
 
 ```js
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -568,11 +586,16 @@ module.exports = merge(common, {
 ---
 
 ### Что коммитить?
-* Чтобы не закоммитить лишние файлы, надо создать .gitignore и добавить в него следующее:
+* Не нужно коммитить:
+  * `node_modules/`
+  * `build/`
+  * `.idea/`
+* Всё остальное коммитить нужно.
+* Чтобы не закоммитить лишние файлы, надо создать [.gitignore](https://www.atlassian.com/ru/git/tutorials/saving-changes/gitignore) и добавить в него следующее:
 ```gitignore
-node_modules
-build
-.idea
+node_modules/
+build/
+.idea/
 ```
 ---
 
