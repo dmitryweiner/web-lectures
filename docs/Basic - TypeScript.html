@@ -34,29 +34,30 @@
 ![walls](assets/ts/walls.jpeg)</script></section><section  data-markdown><script type="text/template">
 ### Варианты типизации
 * [Система типов](https://ru.wikipedia.org/wiki/%D0%A1%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0_%D1%82%D0%B8%D0%BF%D0%BE%D0%B2)
+  &mdash; придание смысла цепочке битов.
 * Статическая или динамическая.
   * На этапе компиляции или во время выполнения.
 * Строгая (сильная) или не строгая.
   * Строгая: есть приведение типов.
   * Слабая: утиная типизация.</script></section><section  data-markdown><script type="text/template">
-### Утиная типизация
+### 🦆Утиная типизация
 
 > Если это выглядит как утка, плавает как утка и крякает как утка, то это, вероятно, и есть утка.
 
 * Если объект реализует все методы интерфейса, то он реализует этот интерфейс.
 * Даже если тип у него называется иначе.
 * Независимо от связей в иерархии типов.
-* [Утиная типизация](https://ru.wikipedia.org/wiki/%D0%A3%D1%82%D0%B8%D0%BD%D0%B0%D1%8F_%D1%82%D0%B8%D0%BF%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F)</script></section><section  data-markdown><script type="text/template">
+* [Утиная типизация (определение)](https://ru.wikipedia.org/wiki/%D0%A3%D1%82%D0%B8%D0%BD%D0%B0%D1%8F_%D1%82%D0%B8%D0%BF%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F).</script></section><section  data-markdown><script type="text/template">
 ### TypeScript
 ![Хейлсберг, Андерс](assets/ts/anders.png)
 * Создан в 2012 г. [Андерсом Хейлсбергом](https://ru.wikipedia.org/wiki/%D0%A5%D0%B5%D0%B9%D0%BB%D1%81%D0%B1%D0%B5%D1%80%D0%B3,_%D0%90%D0%BD%D0%B4%D0%B5%D1%80%D1%81).
 * Статический контроль типов.
-* Слабая (утиная) типизация.
+* Слабая (утиная🦆) типизация.
 * Выводит типы.
 * [Дженерики](https://ru.wikipedia.org/wiki/%D0%9E%D0%B1%D0%BE%D0%B1%D1%89%D1%91%D0%BD%D0%BD%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5).</script></section><section  data-markdown><script type="text/template">
 ### Плюсы:
-* Строгая типизация.
-* Типизация опциональна.
+* Контоль типов в JS, наконец-то!
+* Типизация опциональна (ключевое слово `any`).
 * Контроль типов на этапе компиляции.
 * Код по-прежнему выполняется в JS со всеми его плюсами.
 * Лёгкость рефакторинга.
@@ -69,6 +70,8 @@
 * Дополнительная работа по написанию кода.
 * Типизации в рантайме нет, может сломаться. </script></section><section  data-markdown><script type="text/template">
 ### Типовой код
+Компонент из React.js:
+
 ```tsx
 type MessagesListProps = {
     messages: PropTypes.InferProps<IMessagesList>;
@@ -85,14 +88,14 @@ export const MessagesList: React.FC<MessagesListProps> = (props: MessagesListPro
 };
 ```</script></section><section  data-markdown><script type="text/template">
 ### Задание типа переменной
-* Тип переменной задаётся двоеточием.
+* Тип переменной задаётся двоеточием после имени переменной.
 
 ```ts
 let i: number;
 ```
 
 * При задании значения тип выводится автоматически.
-  * В этом случае указывать тип _не надо_.
+  * В этом случае указывать тип _**не надо**_.
 
 ```ts
 const s = 'abc'; // s: string
@@ -162,7 +165,9 @@ class Child
     }
 }
 ```</script></section><section  data-markdown><script type="text/template">
-### Пример использования интерфейса
+### Пример расширения интерфейса
+* Интерфейс можно расширить (что-то вроде наследования):
+
 ```ts
 // точка на плоскости
 interface Point {
@@ -170,18 +175,18 @@ interface Point {
     y: number;
 }
 
-// массив точек
-interface PointList extends Array<Point>{};
-// обратите внимание на дженерик (расширение типа)
+// точка из БД, содержит ID
+interface DatabasePoint extends Point{
+  id: string;
+};
 ```</script></section><section  data-markdown><script type="text/template">
-### Interface VS type
+### Interface или type?
 * Interface
-  * Для определения объектоподобных структур.
-  * Будет использован много где.
+  * Потребуется расширять.
 * Type
-  * Для примитивов.
+  * Не потребуется расширять.
+  * Потребуется объединять через | или &.
   * Будет использован в одном месте.
-  * Для объединения типов.
 * Дискуссии, где что использовать: [1](https://stackoverflow.com/questions/37233735/typescript-interfaces-vs-types), 
   [2](https://pawelgrzybek.com/typescript-interface-vs-type/).
 * [Документация](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces).</script></section><section  data-markdown><script type="text/template">
@@ -236,13 +241,14 @@ return value?.match(/[A-Z]/g)?.length ?? 0;
 * Совпадающие поля обязательные, не совпадающие не обязательные.
 * Можно объединять простые типы и составные.
 * Составные можно объединить только в type, не в интерфейс.
+* [Подробнее](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types).
 
 ```ts
 let stringOrNumber: (string | number);
 stringOrNumber = '123';
 stringOrNumber = 567;
 ```</script></section><section  data-markdown><script type="text/template">
-### Enum
+### [Enum](https://www.typescriptlang.org/docs/handbook/enums.html)
 * Бывает тип данных, состоящий из фиксированного набора значений.
 * Можно для этого завести тип enum:
 ```ts
@@ -251,6 +257,7 @@ enum STATUS {
     SUCCESS,
     ERROR
 }
+const currentStatus: STATUS = STATUS.ERROR;
 ```
 * Этот способ подходит, если мы будем использовать эти значения где-то ещё в коде.
 * Код [транспилируется](https://www.typescriptlang.org/play?#code/C4TwDgpgBAKjUF4oCICCyoB8UCEPeUEIQZAbgFgAoSgMwFcA7AY2AEsB7eqAEzYGU2AthGAALFvQDmAdRaiAqvXb0AFGABcsGAEpKAb0pRDUAPTGoAOkuUAvpUo9+Q0eOmyRCpcrTIt5KhQh6WgEoAFFQvQMjVAAaKMMcOIojKABhGzsKOiZWDm4+QWExSRlRUKCBVQ1wnQp9ZKNTCysKW38HQucSt3Lg5XDzVF9MoA) в массив.</script></section><section  data-markdown><script type="text/template">
@@ -271,7 +278,7 @@ type STATUS = 'LOADING' | 'SUCCESS' | 'ERROR';
 * Этот способ подходит, если мы только проверяем данные на корректность.
 * Проверка времени компиляции.
 * [Холивар на тему enum или набор значений](https://stackoverflow.com/questions/40275832/typescript-has-unions-so-are-enums-redundant).
-* [документация](https://basarat.gitbook.io/typescript/type-system/enums#enums).</script></section><section  data-markdown><script type="text/template">
+* [Документация](https://basarat.gitbook.io/typescript/type-system/enums#enums).</script></section><section  data-markdown><script type="text/template">
 ### Объединение составных типов
 ```ts
 interface IStudent {
@@ -313,7 +320,7 @@ x.companyId = 'CID5241';
 x.id = 'ID3241';
 ```</script></section><section  data-markdown><script type="text/template">
 ### Выведение типа через typeof
-* Служебное слово typeof может вычислить тип по значению:
+* Служебное слово typeof может вычислить тип по значению (на этапе компиляции):
 
 ```ts
 const data = {
@@ -348,6 +355,18 @@ let val = <string>someValue;
 ```</script></section><section  data-markdown><script type="text/template">
 ### Дженерики
 * Дженерики &mdash; пример [обобщённого программирования](https://ru.wikipedia.org/wiki/%D0%9E%D0%B1%D0%BE%D0%B1%D1%89%D1%91%D0%BD%D0%BD%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5).
+
+```ts
+// точка на плоскости
+interface Point {
+    x: number;
+    y: number;
+}
+
+// массив точек
+interface PointList extends Array<Point>{};
+```</script></section><section  data-markdown><script type="text/template">
+### Дженерики
 * Можно указать, что функция принимает какой-то тип, а возвращает _такой же_.
 
 ```ts
@@ -466,6 +485,12 @@ Required<YourType>
 Readonly<YourType>
 ```
 * [Документация](https://www.typescriptlang.org/docs/handbook/utility-types.html).</script></section><section  data-markdown><script type="text/template">
+### Способы запуска
+* Запустить онлайн на сайте.
+* Запустить в Node.js.
+* Транспилировать, потом запустить в браузере.
+* Настроить транспиляцию в Webpack.</script></section><section  data-markdown><script type="text/template">
+![TS](assets/ts/ts.png)</script></section><section  data-markdown><script type="text/template">
 ### Игровая площадка online
 
 [Игровая площадка](https://www.typescriptlang.org/play)
@@ -478,10 +503,39 @@ npx tsc --out file.js file.ts
 ```
 * Команда [npx](https://medium.com/devschacht/introducing-npx-an-npm-package-runner-a72a658cd9e6)
 не устанавливает, а скачивает пакет и тут же запускает.</script></section><section  data-markdown><script type="text/template">
+### Запуск TS в Node.js
+* Этот способ пригодится для использования TS на сервере ([документация](https://basarat.gitbook.io/typescript/nodejs)).
+* Устанавливаем библиотеки:
+```shell
+npm i -D typescript ts-node @types/node
+```
+* Генерируем `tsconfig.json`:
+
+```shell
+npx tsc --init --rootDir src --outDir lib --esModuleInterop --resolveJsonModule --lib es6,dom  --module commonjs
+```
+* package.json:
+
+```json
+"scripts": {
+    "start": "npm run build:live",
+    "build": "tsc -p .",
+    "build:live": "nodemon --watch 'src/**/*.ts' --exec \"ts-node\" src/index.ts"
+},
+```</script></section><section  data-markdown><script type="text/template">
+### TS + Webpack
+* [Документация](https://webpack.js.org/guides/typescript/).
+* Установка необходимых библиотек:
+```shell
+npm i -D ts-loader typescript
+```
+* [Изменения конфига Webpack](https://github.com/dmitryweiner/webpack-template/commit/0b7a7631f2abcc1f6032d3f52feeb26a0d63c4fa?diff=unified#diff-7242e92beed52930d41d67d424cd38d7963905996f46cd88251bcaea13e595fe).
+* Создание `tsconfig.json`.</script></section><section  data-markdown><script type="text/template">
+![ts webpack](assets/webpack/ts-webpack.png)</script></section><section  data-markdown><script type="text/template">
 ### Конфиг TS
 * [Документация](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html).
 * В корне проекта должен быть файл `tsconfig.json`.
-* Сгенерировать автоматически:
+* Можно сгенерировать автоматически:
 ```shell
 npx tsc --init
 ```
@@ -515,7 +569,7 @@ npx tsc --init
 }
 ```</script></section><section  data-markdown><script type="text/template">
 ### Strict mode
-* Можно включить strict: true, можно по отдельности:
+* Можно включить строгий режим с помощью `strict: true`, можно включать разные опции по отдельности:
   * alwaysStrict
   * noImplicitAny
   * noImplicitThis
@@ -524,75 +578,12 @@ npx tsc --init
   * strictNullChecks
   * strictPropertyInitialization
 * [Объяснение](https://habr.com/ru/post/490970/).</script></section><section  data-markdown><script type="text/template">
-### TS + Node.js
-* [Документация](https://basarat.gitbook.io/typescript/nodejs).
-* Установка:
-
-```shell
-npm i -D typescript @types/node
-npx tsc --init --rootDir src --outDir lib --esModuleInterop --resolveJsonModule --lib es6,dom  --module commonjs
-```
-* package.json:
-
-```json
-"scripts": {
-    "start": "npm run build:live",
-    "build": "tsc -p .",
-    "build:live": "nodemon --watch 'src/**/*.ts' --exec \"ts-node\" src/index.ts"
-},
-```</script></section><section  data-markdown><script type="text/template">
-### TS + Webpack
-* [Документация](https://webpack.js.org/guides/typescript/).
-* Установка:
-```shell
-npm i -D typescript ts-loader
-```
-* Конфиг Webpack:
-
-```js
-const path = require('path');
-module.exports = {
-    entry: './src/index.ts', // изменить точку входа
-    module: {
-      rules: [
-        { // добавить загрузчик
-          test: /\.tsx?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/,
-        },
-      ],
-    },
-    resolve: {
-      extensions: ['.tsx', '.ts', '.js'], // добавить расширения
-    },
-    output: {
-      filename: 'bundle.js',
-      path: path.resolve(__dirname, 'dist'),
-    },
-};
-```</script></section><section  data-markdown><script type="text/template">
-### TS + Webpack
-* tsconfig.json:
-
-```json
-{
-  "compilerOptions": {
-    "outDir": "./dist/",
-    "noImplicitAny": true,
-    "module": "es6",
-    "target": "es5",
-    "jsx": "react",
-    "allowJs": true,
-    "moduleResolution": "node"
-  }
-}
-```</script></section><section  data-markdown><script type="text/template">
 ### Декларация типов
 * Бывает так, что код уже написан, и он не ваш.
 * Вам достаточно типизировать то, что экспортируется в этом коде.
 * Это делается через файлы деклараций *.d.ts.
 * [Документация](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/module-d-ts.html).
-* Пример:
+* Пример декларации функции:
 ```ts
 export function getArrayLength(arr: any[]): number;
 ```</script></section><section  data-markdown><script type="text/template">
