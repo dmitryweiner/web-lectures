@@ -703,6 +703,7 @@ import * as fs from 'fs';
 * [Вдумчивые размышления](https://basarat.gitbook.io/typescript/).
 * tsconfig по полочкам: [1](https://habr.com/ru/post/542234/), [2](https://habr.com/ru/post/557738/).
 * [Упражнения](https://typescript-exercises.github.io/#exercise=1&file=%2Findex.ts).
+* [Ещё упражнения](https://exercism.org/tracks/typescript/exercises).
 ---
 
 ### Задачи
