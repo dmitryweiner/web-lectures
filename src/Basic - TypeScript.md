@@ -599,7 +599,7 @@ npx tsc --init --rootDir src --outDir lib --esModuleInterop --resolveJsonModule 
 npm i -D ts-loader typescript
 ```
 * [Изменения конфига Webpack](https://github.com/dmitryweiner/webpack-template/commit/0b7a7631f2abcc1f6032d3f52feeb26a0d63c4fa?diff=unified#diff-7242e92beed52930d41d67d424cd38d7963905996f46cd88251bcaea13e595fe).
-* Создание `tsconfig.json`.
+* Создание [`tsconfig.json`](https://github.com/dmitryweiner/webpack-template/blob/0b7a7631f2abcc1f6032d3f52feeb26a0d63c4fa/tsconfig.json).
 ---
 
 ![ts webpack](assets/webpack/ts-webpack.png)
@@ -607,6 +607,7 @@ npm i -D ts-loader typescript
 
 ### Конфиг TS
 * [Документация](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html).
+* Статьи на хабре: [1](https://habr.com/ru/post/542234/), [2](https://habr.com/ru/post/557738/).
 * В корне проекта должен быть файл `tsconfig.json`.
 * Можно сгенерировать автоматически:
 ```shell
@@ -675,7 +676,8 @@ export function getArrayLength(arr: any[]): number;
 ---
 
 ### Особенности импорта
-* Если у модуля _нет дефолтного экспорта_, то такой вот импорт будет вызывать ошибку:
+* Если у модуля нет [дефолтного экспорта](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Statements/export#%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5),
+  то такой вот импорт будет вызывать ошибку:
 ```ts
 import fs from 'fs'; // Error: Module 'path' has no default export.
 ```
@@ -694,11 +696,41 @@ import * as fs from 'fs';
 ---
 
 ### Полезные ссылки
-* [Шпаргалка](https://devhints.io/typescript)
-* [Игровая площадка](https://www.typescriptlang.org/play)
-* [TypeScript за 5 минут](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html)
-* [Доклад Майка Башурова](https://www.youtube.com/watch?v=m0uRxCCno00)
-* [Вдумчивые размышления](https://basarat.gitbook.io/typescript/)
+* [Шпаргалка](https://devhints.io/typescript).
+* [Игровая площадка](https://www.typescriptlang.org/play).
+* [TypeScript за 5 минут](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html).
+* [Доклад Майка Башурова](https://www.youtube.com/watch?v=m0uRxCCno00).
+* [Вдумчивые размышления](https://basarat.gitbook.io/typescript/).
+* tsconfig по полочкам: [1](https://habr.com/ru/post/542234/), [2](https://habr.com/ru/post/557738/).
+* [Упражнения](https://typescript-exercises.github.io/#exercise=1&file=%2Findex.ts).
+---
+
+### Задачи
+Избавиться от `unknown`, описать актуальный интерфейс:
+
+```ts
+export type User = unknown;
+
+export const users: unknown[] = [
+    {
+        name: 'Max Mustermann',
+        age: 25,
+        occupation: 'Chimney sweep'
+    },
+    {
+        name: 'Kate Müller',
+        age: 23,
+        occupation: 'Astronaut'
+    }
+];
+
+export function logPerson(user: unknown) {
+    console.log(` - ${user.name}, ${user.age}`);
+}
+
+console.log('Users:');
+users.forEach(logPerson);
+```
 ---
 
 ![any](assets/ts/any-meme.png) ![f types!](assets/ts/f-types.png)
