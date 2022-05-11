@@ -10,7 +10,8 @@ title: Basic - TypeScript
 
 Видео:
 [1](https://drive.google.com/file/d/1Qq_gC5TsY29wuteXrRVewQcCPfU4RHld/view?usp=sharing),
-[2](https://drive.google.com/file/d/1j2OQ81RNv89NuSSIcFAJ-FGvKl3ZcKxQ/view?usp=sharing).
+[2](https://drive.google.com/file/d/1j2OQ81RNv89NuSSIcFAJ-FGvKl3ZcKxQ/view?usp=sharing),
+[3](https://drive.google.com/file/d/1ParyUs63MqgQlP43ZTwwcuH6pJsx_UiC/view?usp=sharing).
 ---
 
 ### Идея
@@ -70,26 +71,6 @@ title: Basic - TypeScript
 * Типизации в рантайме нет, может сломаться. 
 ---
 
-### Типовой код
-Компонент из React.js:
-
-```tsx
-type MessagesListProps = {
-    messages: PropTypes.InferProps<IMessagesList>;
-    messagesCount: number;
-}
-
-export const MessagesList: React.FC<MessagesListProps> = (props: MessagesListProps) => {
-    return <div>
-        {props.messages.map((item: IMessage, index: number) =>
-            <Message message={item} key={index} backgroundColor="#F0F0F0"/>
-        )}
-        <span data-testid="total-messages">Total messages: {props.messagesCount}</span>
-    </div>
-};
-```
----
-
 ### Задание типа переменной
 * Тип переменной задаётся двоеточием после имени переменной.
 
@@ -117,10 +98,19 @@ const s = 'abc'; // s: string
   * void.
   * undefined, null, unknown.
 ---
+  
+### Сложный тип
+* Сложный тип комбинируется из простых типов и других сложных.
+* Способы описания:
+  * Class.
+  * interface.
+  * type.
+  * Array.
+---
 
 ### Описание сложного типа
 
-[Документация](https://www.typescriptlang.org/docs/handbook/advanced-types.html)
+[Документация](https://www.typescriptlang.org/docs/handbook/2/types-from-types.html)
 
 #### array:  
 
@@ -146,8 +136,10 @@ interface Message {
 ```
 ---
 
-### Класс тоже сложный тип
-* Можно наследовать от нескольких интерфейсов.
+### Класс &mdash; тоже сложный тип
+* Класс тоже тип данных.
+* Класс может наследоваться от другого класса.
+* Класс может реализовывать несколько интерфейсов.
 
 ```ts
 class Child
@@ -176,7 +168,7 @@ class Child
 ```
 ---
 
-### Пример расширения интерфейса
+### Расширение интерфейса с помощью `extends`
 * Интерфейс можно расширить (что-то вроде наследования):
 
 ```ts
@@ -193,10 +185,10 @@ interface DatabasePoint extends Point{
 ```
 ---
 
-### Interface или type?
-* Interface
-  * Потребуется расширять.
-* Type
+### Когда использовать interface, а когда type?
+* Interface:
+  * Если потребуется расширять.
+* Type:
   * Не потребуется расширять.
   * Потребуется объединять через | или &.
   * Будет использован в одном месте.
@@ -478,8 +470,8 @@ function f({par1, par2}: {par1: string; par2: boolean}) {}
 ```
 ---
 
-### Классы
-* Класс может реализовывать несколько интерфейсов (в отличие от наследования).
+### Классы + TS
+* Класс может реализовывать **несколько** интерфейсов (в отличие от наследования).
 * В классе можно указывать [модификаторы доступа](https://www.tutorialsteacher.com/typescript/data-modifiers) (как в настоящих языках!):
   * public 
   * private 
@@ -508,7 +500,7 @@ dad.name = 'Man with the 3-piece suit'; // ОШИБКА при компиляц�
 ### Оператор is и проверка типа в коде
 * Можно сделать собственную проверку типов времени выполнения.
 * После проверки компилятор уверен, что тип именно такой, какой указали.
-* [Документация](https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards).
+* [Документация](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates).
 * [Пример](https://stackoverflow.com/questions/40081332/what-does-the-is-keyword-do-in-typescript).
 ---
 
@@ -542,6 +534,38 @@ Required<YourType>
 Readonly<YourType>
 ```
 * [Документация](https://www.typescriptlang.org/docs/handbook/utility-types.html).
+---
+
+### Utility Types
+* Можно определить тип возвращаемого значения функции с помощью ReturnType<func>:
+```ts
+const timer: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000);
+clearTimeout(timer);
+```
+---
+
+### TS + DOM elements
+* При необходимости можно указывать тип DOM-элементов:
+```ts
+let element: HTMLElement | null;
+element = document.getElementById("id");
+```
+* [Подробнее](https://www.typescriptlang.org/docs/handbook/dom-manipulation.html).
+---
+
+### TS + DOM events
+* В событии есть event.target, который надо типизировать для дальнейшего использования:
+
+```ts
+const input = document.getElementById('message') as HTMLInputElement | null;
+
+input?.addEventListener('input', function (event) {
+  const target = event.target as HTMLInputElement;
+  console.log(target.value);
+});
+```
+
+* Варианты элементов: HTMLInputElement, HTMLButtonElement, HTMLAnchorElement, HTMLImageElement, HTMLDivElement, HTMLSelectElement, etc.
 ---
 
 ### Способы запуска
