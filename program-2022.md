@@ -58,7 +58,7 @@
 
 ## Лабораторная №2: Работа с API
 #### а) Выбрать себе API по вкусу:
-* [Github API](https://github.com/public-apis/public-apis),
+* [Список интересных API](https://github.com/public-apis/public-apis),
 * [7 публичных API](https://proglib.io/p/7-besplatnyh-api-o-kotoryh-nikto-ne-govorit-2020-12-07?focus=comment)
 * [Список рецептов еды](https://spoonacular.com/food-api/docs).
 * [Google Books](https://www.googleapis.com/books/v1/volumes?maxResults=5&orderBy=relevance&q=oliver%20sacks).
