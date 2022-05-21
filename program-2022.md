@@ -66,6 +66,7 @@
   * [Орбиты спутников в космосе](https://tle.ivanstanojevic.me/#/browse).
   * [Землетрясения](https://earthquake.usgs.gov/fdsnws/event/1/).
   * [Координаты самолётов (и не только)](https://openskynetwork.github.io/opensky-api/rest.html).
+  * [Поиск городов](http://geodb-cities-api.wirefreethought.com/demo).
 * [7 публичных API](https://proglib.io/p/7-besplatnyh-api-o-kotoryh-nikto-ne-govorit-2020-12-07?focus=comment)
 * [Список рецептов еды](https://spoonacular.com/food-api/docs).
 * [Fake users](https://randomuser.me/documentation).
