@@ -59,13 +59,23 @@
 ## Лабораторная №2: Работа с API
 #### а) Выбрать себе API по вкусу:
 * [Список интересных API](https://github.com/public-apis/public-apis),
+  * [Google Books](https://www.googleapis.com/books/v1/volumes?maxResults=5&orderBy=relevance&q=oliver%20sacks).
+  * [Погода по названию города](https://goweather.herokuapp.com/weather/Curitiba).
+  * [Погода по координатам](https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m,relativehumidity_2m,windspeed_10m).
+  * [arXive](http://export.arxiv.org/api/query?search_query=all:electron&start=0&max_results=1).
+  * [Орбиты спутников в космосе](https://tle.ivanstanojevic.me/#/browse).
+  * [Землетрясения](https://earthquake.usgs.gov/fdsnws/event/1/).
+  * [Координаты самолётов (и не только)](https://openskynetwork.github.io/opensky-api/rest.html).
 * [7 публичных API](https://proglib.io/p/7-besplatnyh-api-o-kotoryh-nikto-ne-govorit-2020-12-07?focus=comment)
 * [Список рецептов еды](https://spoonacular.com/food-api/docs).
-* [Google Books](https://www.googleapis.com/books/v1/volumes?maxResults=5&orderBy=relevance&q=oliver%20sacks).
 * [Fake users](https://randomuser.me/documentation).
 * [NASA](https://api.nasa.gov/).
 * [Покемоны](https://pokeapi.co/).
 * [Чат](https://github.com/dmitryweiner/mini-chat-server).
+* [TODO list](https://github.com/dmitryweiner/todo-server).
+* НСКГорТранс:
+  * [Список маршрутов](https://map.nskgortrans.ru/listmarsh.php?r=&r=true).
+  * [Информация по 23-му автобусу](https://map.nskgortrans.ru/markers.php?r=1-023-W-23%257C)
 #### б) Реализовать форму ввода (поиск?), кнопку "отправить" и отображение результатов.
   * При отправке должен отображаться спиннер, который исчезает при получении результатов.
   * Типовой вид формы: 
