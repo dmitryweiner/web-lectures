@@ -67,8 +67,8 @@
   * [Землетрясения](https://earthquake.usgs.gov/fdsnws/event/1/).
   * [Координаты самолётов (и не только)](https://openskynetwork.github.io/opensky-api/rest.html).
   * [Поиск городов](http://geodb-cities-api.wirefreethought.com/demo).
+  * [Еда](https://api.edamam.com/search?app_id=900da95e&app_key=40698503668e0bb3897581f4766d77f9&q=tomato).
 * [7 публичных API](https://proglib.io/p/7-besplatnyh-api-o-kotoryh-nikto-ne-govorit-2020-12-07?focus=comment)
-* [Список рецептов еды](https://spoonacular.com/food-api/docs).
 * [Fake users](https://randomuser.me/documentation).
 * [NASA](https://api.nasa.gov/).
 * [Покемоны](https://pokeapi.co/).
