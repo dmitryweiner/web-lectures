@@ -77,6 +77,10 @@
 * НСКГорТранс:
   * [Список маршрутов](https://map.nskgortrans.ru/listmarsh.php?r=&r=true).
   * [Информация по 23-му автобусу](https://map.nskgortrans.ru/markers.php?r=1-023-W-23%257C)
+* [VK](https://dev.vk.com/api/getting-started).
+* [HeadHunter](https://github.com/hhru/api).
+* [Dadata](https://dadata.ru/api/).
+* [Поиск мест по запросу](https://nominatim.org/release-docs/develop/api/Search/).
 #### б) Реализовать форму ввода (поиск?), кнопку "отправить" и отображение результатов.
   * При отправке должен отображаться спиннер, который исчезает при получении результатов.
   * Типовой вид формы: 
