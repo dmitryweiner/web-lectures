@@ -81,6 +81,7 @@
 * [HeadHunter](https://github.com/hhru/api).
 * [Dadata](https://dadata.ru/api/).
 * [Поиск мест по запросу](https://nominatim.org/release-docs/develop/api/Search/).
+* [Самодельное API городов](https://github.com/dmitryweiner/cities-api).
 #### б) Реализовать форму ввода (поиск?), кнопку "отправить" и отображение результатов.
   * При отправке должен отображаться спиннер, который исчезает при получении результатов.
   * Типовой вид формы: 
