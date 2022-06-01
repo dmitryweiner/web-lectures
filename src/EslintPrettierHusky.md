@@ -9,6 +9,9 @@ title: ESLint + Prettier + Husky
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
+Видео: 
+[1](https://drive.google.com/file/d/19Zr8372raE9SetuM6-AlsdHNeAxy93lX/view?usp=sharing),
+[2](https://drive.google.com/file/d/1e4NrmnSTv9fyUnUljLMLGnewSVENVUag/view?usp=sharing)
 ---
 
 > Робер Мартин: «Форматирование кода — это общение, а общение  —  первостепенная задача профессионального разработчика».
@@ -257,11 +260,12 @@ module.exports = {
 ### ESLint + TypeScript
 * Установка:
 ```shell
-npm i -D @typescript-eslint/eslint-plugin @typescript-eslint/parser
+npm i -D @typescript-eslint/eslint-plugin @typescript-eslint/parser @typescript-eslint/recommended
 ```
 * Конфиг eslint.json:
 ```json
 {
+    "extends": [/* ... */ "plugin:@typescript-eslint/recommended"],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
       "ecmaVersion": 2019,
@@ -287,6 +291,9 @@ npm i -D @typescript-eslint/eslint-plugin @typescript-eslint/parser
 * Установка:
 ```shell
 npm install -D husky lint-staged
+npx husky install
+npx husky add .husky/pre-commit "lint-staged"
+git add .husky/pre-commit
 ```
 ---
 
@@ -364,6 +371,3 @@ npm i -D eslint-plugin-sonarjs
 * [Дока по ESLint](https://eslint.org/docs/user-guide/getting-started).
 * [Полезные плагины для ESLint](https://habr.com/ru/post/417841/).
 * [Prettier, ESLint, Husky, Lint-Staged и EditorConfig](https://habr.com/ru/company/ruvds/blog/428173/).
-* []().
-* []().
-* []().
