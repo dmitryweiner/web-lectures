@@ -16,9 +16,9 @@
 * [TypeScript](https://dmitryweiner.github.io/lectures/Basic%20-%20TypeScript.html)
 * [Node.js](https://dmitryweiner.github.io/lectures/Basic%20-%20Nodejs.html)
 * [NPM](https://dmitryweiner.github.io/lectures/Basic%20-%20NPM.html)
-* [Git](https://dmitryweiner.github.io/lectures/Basic%20-%20Git.html)
 * [Webpack](https://dmitryweiner.github.io/lectures/Basic%20-%20Webpack.html#/)
-* [ESLint + Prettier + Husky](https://github.com/dmitryweiner/lectures/raw/main/old/%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%20eslint%20prettier%20husky.pptx)
+* [ESLint + Prettier + Husky](https://dmitryweiner.github.io/lectures/EslintPrettierHusky.html)
+* [Git](https://dmitryweiner.github.io/lectures/Basic%20-%20Git.html)
 
 ## Для продолжающих: Экосистема React + Redux
 

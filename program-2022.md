@@ -12,10 +12,9 @@
   * [Map, Set. Даты. Работа с устройствами.](https://dmitryweiner.github.io/lectures/JS_part6.html)
 * [Node.js](https://dmitryweiner.github.io/lectures/Basic%20-%20Nodejs.html)
 * [NPM](https://dmitryweiner.github.io/lectures/Basic%20-%20NPM.html)
-* [TypeScript](https://dmitryweiner.github.io/lectures/Basic%20-%20TypeScript.html)
 * [Webpack](https://dmitryweiner.github.io/lectures/Basic%20-%20Webpack.html#/)
-* [ESLint + Prettier + Husky](https://github.com/dmitryweiner/lectures/raw/main/old/%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%20eslint%20prettier%20husky.pptx)
-* [Git](https://dmitryweiner.github.io/lectures/Basic%20-%20Git.html)
+* [TypeScript](https://dmitryweiner.github.io/lectures/Basic%20-%20TypeScript.html)
+* [ESLint + Prettier + Husky](https://dmitryweiner.github.io/lectures/EslintPrettierHusky.html)
 
 ## Лабораторная №1: Список дел
 #### а) Вёрстка  HTML
