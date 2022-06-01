@@ -21,7 +21,16 @@ title: ESLint + Prettier + Husky
 * Вот бы было средство автоматического поиска ошибок в коде.
 * Вот бы оно ещё и форматировало код само.
 * Вот бы можно было настраивать правила форматирования и критерии ошибок.
+---
 
+### Аналоги
+* [Статические анализаторы в C/C++](https://eax.me/c-static-analysis/):
+  * CppCheck.
+  * Clang Static Analyzer.
+* [Java Linters](https://lightrun.com/java/top-10-java-linters/).
+* [Android Lint](https://developer.android.com/studio/write/lint).
+* [C#: SonarLint + StyleCop](https://dev.to/srmagura/c-linting-and-formatting-tools-in-2021-bna).
+* [Полный список линтеров](https://en.wikipedia.org/wiki/List_of_tools_for_static_code_analysis).
 ---
 
 ### Решение: ESLint + Prettier
@@ -348,9 +357,7 @@ npm i -D eslint-plugin-sonarjs
 ---
 
 ![sonar](assets/eslint/sonar.png)
-
 ---
-
 
 ### Полезные ссылки
 * [Боб Мартин "Чистый код"](https://coollib.com/b/486351-robert-sesil-martin-chistyiy-kod-sozdanie-analiz-i-refaktoring/read).
