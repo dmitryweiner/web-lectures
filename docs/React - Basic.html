@@ -21,34 +21,37 @@
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 </script></section><section  data-markdown><script type="text/template">
-### Схема работы веб-приложения
+### Задачи веб-приложения
 1. Отреагировать на действия пользователя:
     * клики;
     * ввод данных;
 2. Послать какие-нибудь запросы в сеть, получить ответы;
-3. Изменить состояние;
-4. Перерисовать интерфейс.</script></section><section  data-markdown><script type="text/template">
+3. Перерисовать интерфейс в ответ на изменения состояния.</script></section><section  data-markdown><script type="text/template">
+### Разделение данных и представления
+![view model](assets/react-basic/model.png)</script></section><section  data-markdown><script type="text/template">
 ### Идея
-* Что если написать библиотеку, которая будет перерисовывать интерфейс **автоматически**
+* Отделить данные от представления.
+* Разработчик будет контролировать изменение данных, а библиотека будет перерисовывать интерфейс **автоматически**
   в ответ на изменение состояния?
-* Хорошо бы она переририсовывала интефейс не весь, а **только то,
-  что изменилось**.
-* Тогда мы сможем отделить логику от представления.</script></section><section  data-markdown><script type="text/template">
-### Обновление DOM-дерева
-* Реакт строит виртуальное [DOM-дерево](https://ru.wikipedia.org/wiki/Document_Object_Model).
+* Хорошо бы она перерисовывала интерфейс не весь, а **только то,
+  что изменилось** (иначе браузер будет тормозить).</script></section><section  data-markdown><script type="text/template">
+### Механизм рендера
+* Чтобы обновлять только то, что изменилось, React.js строит виртуальное [DOM-дерево](https://ru.wikipedia.org/wiki/Document_Object_Model).
 * При изменении состояния дерево обновляется.
-* Далее происходит отрисовка только только того, что изменилось.</script></section><section  data-markdown><script type="text/template">
+* Две копии дерева сравниваются.
+* Далее происходит патч реального DOM-дерева в тех местах, где оно изменилось.
+* Этот процесс называется [реконсилиацией](https://reactjs.org/docs/reconciliation.html).</script></section><section  data-markdown><script type="text/template">
 ### Обновление DOM-дерева
 ![DOM update](assets/react-basic/dom.gif)</script></section><section  data-markdown><script type="text/template">
-### Установка
-* Использование [CDN](https://ru.wikipedia.org/wiki/Content_Delivery_Network).
+### Варианты использования React
+* Подключение скомпилированной библиотеки из [CDN](https://ru.wikipedia.org/wiki/Content_Delivery_Network).
 * Создание проекта с помощью [CRA](https://github.com/facebook/create-react-app).
-* Редактирование конфига Webpack вручную.
-* На слайдах далее ➡</script></section><section  data-markdown><script type="text/template">
+* Сборка с помощью Webpack.</script></section><section  data-markdown><script type="text/template">
 ### Использование CDN
-* Для маленьких проектов удобнее использовать React без транспиляции и сборки.
+* Для маленьких проектов удобнее использовать React без сборки.
 * Транспиляция будет происходить прямо в браузере благодаря библиотеке [Babel Standalone](https://babeljs.io/docs/en/babel-standalone).
-* Для запуска нужно подключить 2 библиотеки:
+* Для запуска нужно подключить:
+  * Babel Standalone.
   * React.
   * React-DOM.</script></section><section  data-markdown><script type="text/template">
 ### Использование CDN
@@ -78,7 +81,7 @@
 ```shell
 npx create-react-app %имя_приложения%
 ```
-* Можно указать разнообразные шаблоны:
+* Можно указать разнообразные [шаблоны](https://www.npmjs.com/search?q=cra-template-*):
   * typescript
   * redux
   * redux-typescript
@@ -154,31 +157,37 @@ module.exports = {
 ```
 * [Пример проекта](https://github.com/dmitryweiner/html-chat).</script></section><section  data-markdown><script type="text/template">
 ### Компонент
-* В реакте всё состоит из компонентов.
+* В React.js приложение строится из компонентов.
 * Корневой компонент по традиции называется ```App```, он монтируется в DOM:
 ```js
 function App() {
     return <>Hello world</>;
 }
+// монтируем в элемент с id="root"
 ReactDOM.render(<App/>, document.getElementById('root'));
 ```
 * Компонент &mdash; это функция, которая должна возвращать [JSX](https://reactjs.org/docs/introducing-jsx.html).
 * В JSX могут быть HTML-теги или другие компоненты.</script></section><section  data-markdown><script type="text/template">
 ### Вызов компонента
 * Компонент может быть вызван из другого компонента:
+
 ```js
 function Component() {
     return <>Hello world</>;
 }
+
 function App() {
     return <><Component /></>;
 }
 ```
-* При вызове можно передать параметры, которые будут видны в компоненте:
+
+* При вызове можно передать параметры:
+
 ```js
 function Item({ title }) {
     return <>The title is: {title}</>;
 }
+
 function App() {
     return <><Item title="123" /></>;
 }
@@ -201,18 +210,21 @@ function App() {
   прямо в компоненте.
 * Заодно можно задать значения по умолчанию.
 * Пропсов может быть произвольное количество, если использовать [оператор ...rest](https://learn.javascript.ru/rest-parameters-spread-operator).</script></section><section  data-markdown><script type="text/template">
-### Использование props
+### Деструктурирование props
+
 ```jsx
-// ❌
+// ❌ не ОК
 function Component(props) {
     return <>
         {props.text}
     </>;
 }
-// ✅
-function Component({ // деструктуризация
-   text = 'Default text', // параметры по умолчанию
-   ...otherProps // ...rest
+
+// ✅ ОК
+function Component({
+   text,
+   count = 0, // параметры по умолчанию
+   ...otherProps // ...все остальные параметры
 }) {
     return <>
         {text}
@@ -224,16 +236,17 @@ function Component({ // деструктуризация
 * Внутри него могут быть другие компоненты.
 Компонент родитель может оборачивать другие компоненты (потомков).
 * Потомки передаются в пропсы в виде ```children```:
+
 ```jsx
 function Child({ text }) {
     return {text}
 }
+
 function Parent({ children }) {
     return <b>{children}</b>
 }
-<Parent>
-    <Child text="Some text..." />
-</Parent>
+
+<Parent><Child text="Some text..." /></Parent>
 ```</script></section><section  data-markdown><script type="text/template">### Узлы JSX
 * Компонент должен возвращать JSX или ```null```.
 * JSX состоит из узлов (листьев). Нельзя вернуть несколько узлов просто так.
@@ -260,7 +273,7 @@ return <>
 ### Вывод списков
 * Элементы списка [должны обладать атрибутом key](https://reactjs.org/docs/lists-and-keys.html),
   чтобы при изменении списка не обновлять его весь, а только изменённые элементы. 
-* Если у элементов есть ```id```, нужно использовать его.
+* Если у элементов есть ```id```, _нужно использовать его_.
 * Если нет возможности сгенерировать ```id```, можно использовать индекс массива.
 ```jsx
 function List() {
@@ -300,9 +313,11 @@ const shortOrLong = true;
 * [Подробнее](https://reactjs.org/docs/conditional-rendering.html).</script></section><section  data-markdown><script type="text/template">
 ### Условия в JSX
 * Крупные условия надо реализовывать в виде функций и вызывать их из шаблона:
+ 
 ```jsx
 // ❌
 { (condition1 && condition2 || condition3) ? 'some text' : 'another text' }
+
 // ✅
 function renderText() {
   if (condition1 && condition2 || condition3) {
