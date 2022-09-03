@@ -8,6 +8,7 @@ title: React - Основы
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
+[видео](https://youtu.be/iOME143rinU)
 ---
 
 ### Задачи веб-приложения
