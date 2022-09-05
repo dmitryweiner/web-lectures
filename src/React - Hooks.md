@@ -28,6 +28,18 @@ title: React - Функциональные компоненты и хуки
 ![Good bye sweet prince](assets/fc/meme.jpg)
 ---
 
+### Жизненный цикл компонента
+![life cycle](assets/react-hooks/life-cycle.png)
+---
+
+![life cycle](assets/react-hooks/life-cycle-2.png)
+
+[подробнее](https://stackoverflow.com/a/58376472/3012961)
+---
+
+![life cycle](assets/react-hooks/life-cycle-3.png)
+---
+
 ### Разделяем чистую функцию и состояние
 * По определению компонента он должен быть 
   [чистой функцией](https://ru.wikipedia.org/wiki/%D0%A7%D0%B8%D1%81%D1%82%D0%BE%D1%82%D0%B0_%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8).
@@ -37,7 +49,7 @@ title: React - Функциональные компоненты и хуки
     [Haskell](https://ru.wikipedia.org/wiki/Haskell)).
 * Чтобы иметь состояние и/или вызывать эффекты,
   используются специальные функции внутри компонента, хуки.
-----
+---
 
 ![Состояние у функции](assets/fc/functions-state.png)
 ---
@@ -79,8 +91,21 @@ const [value, setValue] = useState(initialValue);
 * initialValue &mdash; начальное значение.
 * [Документация](https://reactjs.org/docs/hooks-reference.html#usestate)
 ---
+### useState
+* При вызове сеттера запускается рендер компонента с новым значением `value`:
 
-### useState сеттер
+```jsx
+function Component() {
+  const [value, setValue] = useState(0);
+  return <>
+    <a onClick={() => setValue(1)}>Set 1</>
+    {value}
+  </>;
+}
+```
+---
+
+### useState: сеттер подробнее
 ```javascript
 const [value, setValue] = useState(initialValue);
 ```
@@ -89,13 +114,13 @@ const [value, setValue] = useState(initialValue);
     ```js
     setValue(123);
     ```
-    * Функцию, которая принимает на вход старое значение и должна вернуть новое.  
+    * Или функцию (лямбду), которая принимает на вход старое значение и должна вернуть новое.  
     ```js
     setValue(value => value + 1);
     ```
 ---
 
-### useState сеттер
+### useState: сеттер
 * Вызов сеттера вызывает перерисовку компонента.
   * По сути, функция-компонент выполняется заново с новым значением стейта.
 * После вызова сеттера значение стейта ещё старое:
@@ -147,15 +172,19 @@ useEffect(() => {
 * [Документация](https://reactjs.org/docs/hooks-reference.html#useeffect).
 ---
 
-### useEffect: ```dependencies```
-* ```js
+### useEffect: указание зависимостей
+* Если надо вызывать эффект при каждом рендере компонента:
+```js
   useEffect(() => {}); // [dependencies] === undefined
   ```
-  * Эффект будет вычисляться каждый рендер.
-* ```js
+* Если надо вызывать эффект 1 раз после монтирования компонента:
+```js
   useEffect(() => {}, []);
   ```
-  * Эффект выполнится 1 раз после монтирования компонента.
+* Если надо вызывать эффект при изменении переменной `value`:
+```js
+  useEffect(() => {}, [value]);
+  ```
 * [Документация](https://reactjs.org/docs/hooks-reference.html#conditionally-firing-an-effect),
   [хорошее объяснение](https://overreacted.io/a-complete-guide-to-useeffect/).
 ---
@@ -166,10 +195,7 @@ useEffect(() => {
 * Если изменилась ссылка на объект, эффект вызывается.
 ---
 
-### Таймер
-Переменная ```innerTime``` необходима, потому что выполнение происходит в 
-[замыкании](https://learn.javascript.ru/closure), 
-где значение переменной ```time``` не меняется.
+### Пример: таймер 
 ```javascript
 function Timer() {
     const [time, setTime] = useState(0);
@@ -187,6 +213,9 @@ function Timer() {
     return <span>{time}</span>;
 }
 ```
+Переменная ```innerTime``` необходима, потому что выполнение происходит в
+[замыкании](https://learn.javascript.ru/closure),
+где значение переменной ```time``` не меняется.
 ---
 
 ### Таймер
@@ -215,14 +244,17 @@ function Timer() {
 
 ### useMemo
 ```javascript
-const value = useMemo(() => hardCaclulations(), [dependencies]);
+const value = useMemo(
+    () => hardCaclulations(), 
+    [dependencies]
+);
 ```
 * value &mdash; мемоизированное значение.
 * hardCaclulations() &mdash; функция, выполняющая тяжёлые вычисления.
   * обратите внимание на то, как она вызвана: нужно в useMemo передать именно функцию, а не значение.
 * dependencies &mdash; зависимости (когда они меняются, перевычисляется значение).
-* [Живой пример](https://codepen.io/dmitryweiner/pen/JjYxBVp?editors=0010).
-* [Документация](https://reactjs.org/docs/hooks-reference.html#usememo).
+* [Живой пример](https://codepen.io/dmitryweiner/pen/JjYxBVp?editors=0010), 
+[документация](https://reactjs.org/docs/hooks-reference.html#usememo).
 
 ---
 
@@ -273,6 +305,10 @@ const [state, dispatch] = useReducer(reducer, initialState);
 ---
 
 ### useRef
+```js
+const refContainer = useRef(initialValue);
+refContainer.current = newValue;
+```
 * Хук для создания переменной, значение которой сохраняется между рендерами.
 * В отличие от useState, изменение этой переменной не вызывает ререндер.
 * Текущее значение лежит в ```.current```.
@@ -300,15 +336,18 @@ function ControlledTimer() {
 ---
 
 ### useRef
-* Обычно useRef используют для доступа к DOMу.
+* Обычно useRef используют для доступа к DOM'у.
 * Так можно захватывать фокус ввода при загрузке страницы:
+
 ```javascript
 function TextInputWithFocusButton() {
     const inputEl = useRef(null);
+
     function onButtonClick() {
         // `current` points to the mounted text input element
         inputEl.current.focus();
-    };
+    }
+
     return <>
         <input ref={inputEl} type="text" />
         <button onClick={onButtonClick}>Focus the input</button>
@@ -325,4 +364,11 @@ function TextInputWithFocusButton() {
   * [useKeypress](https://github.com/streamich/react-use/blob/master/docs/useKeypress.md)
   * [useHover](https://github.com/streamich/react-use/blob/master/docs/useHover.md)
   * [useWindowSize](https://github.com/streamich/react-use/blob/master/docs/useWindowSize.md)
+
+---
+### Полезные ссылки
+* [Документация](https://reactjs.org/docs/hooks-reference.html)
+* https://metanit.com/web/react/6.1.php
+* https://www.youtube.com/watch?v=jd8R0a2Ur8Q
+* https://github.com/streamich/react-use/
   

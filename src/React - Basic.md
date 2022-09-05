@@ -370,8 +370,8 @@ function renderText() {
 ```
 * Написать компонент, выводящий только чётные элементы переданного массива:
 ```jsx
-<OnlyEven arr={[1, 2, 3, 4, 5]} />
-// 2, 4
+<OnlyEven arr={[14, 5, 6, 12, 21, 2]} />
+// 14, 12, 2
 ```
 ---
 
@@ -382,6 +382,8 @@ function renderText() {
 <Temperature t={451} />
 // красное
 ```
+
+Стилизовать можно с помощью [inline-стилей](https://reactjs.org/docs/dom-elements.html#style).
 ---
 
 ### Полезные ссылки
@@ -389,3 +391,7 @@ function renderText() {
 * https://www.codecademy.com/learn/react-101
 * https://jstutorial.medium.com/react-animated-tutorial-7a46fa3c2b96
 * https://reactpatterns.com/
+* https://metanit.com/web/react/2.3.php
+---
+
+![](assets/react-basic/best-code.gif)

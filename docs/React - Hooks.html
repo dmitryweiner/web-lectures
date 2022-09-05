@@ -32,7 +32,13 @@
 * Сейчас (2021) отраслевой стандарт &mdash; функциональные компоненты.</script></section><section ><section data-markdown><script type="text/template">
 ### Функциональный компонент VS компонент класс
 ![functional component vs class](assets/fc/fc-vs-classes.gif)</script></section><section data-markdown><script type="text/template">
-![Good bye sweet prince](assets/fc/meme.jpg)</script></section></section><section ><section data-markdown><script type="text/template">
+![Good bye sweet prince](assets/fc/meme.jpg)</script></section></section><section  data-markdown><script type="text/template">
+### Жизненный цикл компонента
+![life cycle](assets/react-hooks/life-cycle.png)</script></section><section  data-markdown><script type="text/template">
+![life cycle](assets/react-hooks/life-cycle-2.png)
+
+[подробнее](https://stackoverflow.com/a/58376472/3012961)</script></section><section  data-markdown><script type="text/template">
+![life cycle](assets/react-hooks/life-cycle-3.png)</script></section><section  data-markdown><script type="text/template">
 ### Разделяем чистую функцию и состояние
 * По определению компонента он должен быть 
   [чистой функцией](https://ru.wikipedia.org/wiki/%D0%A7%D0%B8%D1%81%D1%82%D0%BE%D1%82%D0%B0_%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8).
@@ -41,8 +47,8 @@
     ([Lisp](https://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%81%D0%BF),
     [Haskell](https://ru.wikipedia.org/wiki/Haskell)).
 * Чтобы иметь состояние и/или вызывать эффекты,
-  используются специальные функции внутри компонента, хуки.</script></section><section data-markdown><script type="text/template">
-![Состояние у функции](assets/fc/functions-state.png)</script></section></section><section ><section data-markdown><script type="text/template">
+  используются специальные функции внутри компонента, хуки.</script></section><section  data-markdown><script type="text/template">
+![Состояние у функции](assets/fc/functions-state.png)</script></section><section ><section data-markdown><script type="text/template">
 ### Список хуков
 ```js
 import {
@@ -72,8 +78,19 @@ const [value, setValue] = useState(initialValue);
 * value &mdash; текущее значение: когда меняется, компонент перерисовывается.
 * setValue(newValue) &mdash; метод установки нового значения, сеттер.
 * initialValue &mdash; начальное значение.
-* [Документация](https://reactjs.org/docs/hooks-reference.html#usestate)</script></section><section  data-markdown><script type="text/template">
-### useState сеттер
+* [Документация](https://reactjs.org/docs/hooks-reference.html#usestate)</script></section><section  data-markdown><script type="text/template">### useState
+* При вызове сеттера запускается рендер компонента с новым значением `value`:
+
+```jsx
+function Component() {
+  const [value, setValue] = useState(0);
+  return <>
+    <a onClick={() => setValue(1)}>Set 1</>
+    {value}
+  </>;
+}
+```</script></section><section  data-markdown><script type="text/template">
+### useState: сеттер подробнее
 ```javascript
 const [value, setValue] = useState(initialValue);
 ```
@@ -82,11 +99,11 @@ const [value, setValue] = useState(initialValue);
     ```js
     setValue(123);
     ```
-    * Функцию, которая принимает на вход старое значение и должна вернуть новое.  
+    * Или функцию (лямбду), которая принимает на вход старое значение и должна вернуть новое.  
     ```js
     setValue(value => value + 1);
     ```</script></section><section  data-markdown><script type="text/template">
-### useState сеттер
+### useState: сеттер
 * Вызов сеттера вызывает перерисовку компонента.
   * По сути, функция-компонент выполняется заново с новым значением стейта.
 * После вызова сеттера значение стейта ещё старое:
@@ -130,25 +147,26 @@ useEffect(() => {
   * Освободить память.
 * Эффект вызывается при изменении списка зависимостей ```dependencies```.
 * [Документация](https://reactjs.org/docs/hooks-reference.html#useeffect).</script></section><section  data-markdown><script type="text/template">
-### useEffect: ```dependencies```
-* ```js
+### useEffect: указание зависимостей
+* Если надо вызывать эффект при каждом рендере компонента:
+```js
   useEffect(() => {}); // [dependencies] === undefined
   ```
-  * Эффект будет вычисляться каждый рендер.
-* ```js
+* Если надо вызывать эффект 1 раз после монтирования компонента:
+```js
   useEffect(() => {}, []);
   ```
-  * Эффект выполнится 1 раз после монтирования компонента.
+* Если надо вызывать эффект при изменении переменной `value`:
+```js
+  useEffect(() => {}, [value]);
+  ```
 * [Документация](https://reactjs.org/docs/hooks-reference.html#conditionally-firing-an-effect),
   [хорошее объяснение](https://overreacted.io/a-complete-guide-to-useeffect/).</script></section><section  data-markdown><script type="text/template">
 ### useEffect: ```dependencies```
 * Сравнение списка зависимостей происходит по значению.
 * Если передан объект, сравнивается ссылка на объект, при изменении поля объекта эффект не вызывается.
 * Если изменилась ссылка на объект, эффект вызывается.</script></section><section  data-markdown><script type="text/template">
-### Таймер
-Переменная ```innerTime``` необходима, потому что выполнение происходит в 
-[замыкании](https://learn.javascript.ru/closure), 
-где значение переменной ```time``` не меняется.
+### Пример: таймер 
 ```javascript
 function Timer() {
     const [time, setTime] = useState(0);
@@ -165,7 +183,10 @@ function Timer() {
     }, []);
     return <span>{time}</span>;
 }
-```</script></section><section  data-markdown><script type="text/template">
+```
+Переменная ```innerTime``` необходима, потому что выполнение происходит в
+[замыкании](https://learn.javascript.ru/closure),
+где значение переменной ```time``` не меняется.</script></section><section  data-markdown><script type="text/template">
 ### Таймер
 Можно написать без добавочной переменной, используя свойство сеттера принимать на вход функцию.
 ```javascript
@@ -188,14 +209,17 @@ function Timer() {
 * Это называется [мемоизацией](https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D0%BC%D0%BE%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F).</script></section><section  data-markdown><script type="text/template">
 ### useMemo
 ```javascript
-const value = useMemo(() => hardCaclulations(), [dependencies]);
+const value = useMemo(
+    () => hardCaclulations(), 
+    [dependencies]
+);
 ```
 * value &mdash; мемоизированное значение.
 * hardCaclulations() &mdash; функция, выполняющая тяжёлые вычисления.
   * обратите внимание на то, как она вызвана: нужно в useMemo передать именно функцию, а не значение.
 * dependencies &mdash; зависимости (когда они меняются, перевычисляется значение).
-* [Живой пример](https://codepen.io/dmitryweiner/pen/JjYxBVp?editors=0010).
-* [Документация](https://reactjs.org/docs/hooks-reference.html#usememo).
+* [Живой пример](https://codepen.io/dmitryweiner/pen/JjYxBVp?editors=0010), 
+[документация](https://reactjs.org/docs/hooks-reference.html#usememo).
 </script></section><section  data-markdown><script type="text/template">
 ### useCallback
 * Иногда требуется мемоизировать функцию, чтобы она не создавалась каждый рендер.
@@ -236,6 +260,10 @@ const [state, dispatch] = useReducer(reducer, initialState);
 * Без непосредственного указывания этих данных в промежуточных узлах.
 * [Документация](https://reactjs.org/docs/hooks-reference.html#usecontext).</script></section><section  data-markdown><script type="text/template">
 ### useRef
+```js
+const refContainer = useRef(initialValue);
+refContainer.current = newValue;
+```
 * Хук для создания переменной, значение которой сохраняется между рендерами.
 * В отличие от useState, изменение этой переменной не вызывает ререндер.
 * Текущее значение лежит в ```.current```.
@@ -259,15 +287,18 @@ function ControlledTimer() {
 }
 ```</script></section><section  data-markdown><script type="text/template">
 ### useRef
-* Обычно useRef используют для доступа к DOMу.
+* Обычно useRef используют для доступа к DOM'у.
 * Так можно захватывать фокус ввода при загрузке страницы:
+
 ```javascript
 function TextInputWithFocusButton() {
     const inputEl = useRef(null);
+
     function onButtonClick() {
         // `current` points to the mounted text input element
         inputEl.current.focus();
-    };
+    }
+
     return <>
         <input ref={inputEl} type="text" />
         <button onClick={onButtonClick}>Focus the input</button>
@@ -282,6 +313,11 @@ function TextInputWithFocusButton() {
   * [useKeypress](https://github.com/streamich/react-use/blob/master/docs/useKeypress.md)
   * [useHover](https://github.com/streamich/react-use/blob/master/docs/useHover.md)
   * [useWindowSize](https://github.com/streamich/react-use/blob/master/docs/useWindowSize.md)
+</script></section><section  data-markdown><script type="text/template">### Полезные ссылки
+* [Документация](https://reactjs.org/docs/hooks-reference.html)
+* https://metanit.com/web/react/6.1.php
+* https://www.youtube.com/watch?v=jd8R0a2Ur8Q
+* https://github.com/streamich/react-use/
   </script></section></div>
     </div>
 
