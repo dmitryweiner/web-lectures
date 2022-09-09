@@ -378,6 +378,13 @@ function TextInputWithFocusButton() {
 
 Выводит: 2, 3, 5, 7, 11, 13, ...
 ---
+
+### Задачи
+* Светофор:
+
+![Traffic lights](assets/react-hooks/traffic.gif)
+---
+
 ### Полезные ссылки
 * [Документация](https://reactjs.org/docs/hooks-reference.html)
 * https://metanit.com/web/react/6.1.php
