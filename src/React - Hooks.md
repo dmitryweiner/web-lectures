@@ -366,6 +366,18 @@ function TextInputWithFocusButton() {
   * [useWindowSize](https://github.com/streamich/react-use/blob/master/docs/useWindowSize.md)
 
 ---
+
+### Задачи
+* Сделать кликер, который каждый следующий раз прибавляет величину, большую на 1.
+
+<div style="display: flex; width: 100%; align-items: center; justify-content: center;">1 <button>➕</button></div>
+
+Выводит: 1, 2 (1 + 1), 4 (2 + 2), 7 (4 + 3), 11 (7 + 4), ...
+* Сделать обратный таймер, который идёт от 10 до 0 и останавливается (используя useEffect).
+* Сделать вывод простых чисел раз в секунду. Каждую следующую секунду в строку добавляется очередное простое число:
+
+Выводит: 2, 3, 5, 7, 11, 13, ...
+---
 ### Полезные ссылки
 * [Документация](https://reactjs.org/docs/hooks-reference.html)
 * https://metanit.com/web/react/6.1.php

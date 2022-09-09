@@ -65,16 +65,18 @@ function Component() {
     return <input onChange={handleChange} />;
 }
 ```
-* event: произошедшее событие.
-* event.target: DOM-элемент, в котором оно произошло.
-* event.target.value: текущее значение элемента (кроме чекбокса).
-* event.target.checked: значение чекбокса.
+```javascript
+event // произошедшее событие.
+event.target // DOM-элемент, в котором оно произошло.
+event.target.value // текущее значение элемента (кроме чекбокса).
+event.target.checked // значение чекбокса (если это событие из чекбокса)
+```
 ---
 
-### Вмешательство в работу событий
-* Событие [всплывает](https://learn.javascript.ru/event-bubbling), обрабатываясь в обработчиках всё более высоких порядков.
-* В случае формы это вызывает нежелательную перезагрузку страницы.
-* Этому можно помешать, вызвав метод ```preventDefault``` у события.
+### Форма без перезагрузки
+* Событие [всплывает](https://learn.javascript.ru/event-bubbling), обрабатываясь в обработчиках всё более высоких порядков. 
+В случае формы это вызывает нежелательную перезагрузку страницы.
+* Чтобы это отменить, надо вызвать ```event.preventDefault()```:
 ```jsx
 function Form() {
     function handleSubmit(event) {
@@ -89,12 +91,13 @@ function Form() {
 ---
 
 ### Вмешательство в работу событий
-* Переход по ссылке тоже может быть нежелательным, его можно предотвратить.
+* При клике на ссылку браузер переходить на другую страницу. Можно вмешаться в это поведение.
 * [Работа с дефолтными действиями](https://learn.javascript.ru/default-browser-action).
 ```jsx
 function Link() {
     function handleClick(event) {
         event.preventDefault();
+        console.log("Click!");
     }
     return <a href="#" onClick={handleClick}>Click me!</a>;
 }
@@ -354,6 +357,27 @@ function MultipleSelect() {
   </>;
 }
 ```
+---
+
+### Задачи
+* Сделать компонент, отображающий селектбокс с городами.
+Если выбран не Рио, писать снизу:
+> Нет, это не Рио-де-Жанейро!
+<select>
+  <option>Воронеж</option>
+  <option>Рио-де-Жанейро</option>
+</select>
+* Сделать калькулятор:
+
+<input type="number" value="2">
+<select>
+  <option>+</option>
+  <option>-</option>
+  <option>*</option>
+  <option>/</option>
+</select>
+<input type="number" value="2">
+= 4
 ---
 
 ![Попьём-ка чайку](assets/react-controls/updating-state.jpeg)
