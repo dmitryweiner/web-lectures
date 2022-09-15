@@ -392,9 +392,9 @@ function TextInputWithFocusButton() {
 ```jsx
 <Revert s="привет!" />
 привет!
-!ривет
-т!риве
-ет!рив
+!привет
+т!приве
+ет!прив
 ``` 
 ---
 
