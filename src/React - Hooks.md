@@ -385,6 +385,19 @@ function TextInputWithFocusButton() {
 ![Traffic lights](assets/react-hooks/traffic.gif)
 ---
 
+### Задачи
+* Написать компонент, принимающий на вход строку и каждую секунду переносящий последний
+ символ строки в начало:
+ 
+```jsx
+<Revert s="привет!" />
+привет!
+!ривет
+т!риве
+ет!рив
+``` 
+---
+
 ### Полезные ссылки
 * [Документация](https://reactjs.org/docs/hooks-reference.html)
 * https://metanit.com/web/react/6.1.php
