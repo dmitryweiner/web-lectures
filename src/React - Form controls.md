@@ -17,7 +17,7 @@ title: React - Form controls
 * [Uncontrolled](https://reactjs.org/docs/uncontrolled-components.html)
     * Хранит своё значение сам.
     * Не извещает компонент об изменениях.
-    * Получаем его значение через ref (не через ```getElementById```).
+    * Получаем его значение через ref (не через ```getElementById```🚩🚩🚩).
     * Нужен например для &lt;input type="file" /&gt;
 
 * [Controlled](https://reactjs.org/docs/forms.html#controlled-components)
@@ -378,6 +378,26 @@ function MultipleSelect() {
 </select>
 <input type="number" value="2">
 = 4
+---
+
+* Калькулятор систем счисления:
+
+<input type="number" value="15"> в 10-чной системе.
+
+<input type="number" value="1111"> в 
+<select>
+  <option>2</option>
+  <option>8</option>
+  <option>16</option>
+  <option>36</option>
+</select>
+системе.
+---
+
+### Полезные ссылки
+* https://reactjs.org/docs/forms.html
+* <iframe width="560" height="315" src="https://www.youtube.com/embed/IkMND33x0qQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+* <iframe width="560" height="315" src="https://www.youtube.com/embed/r5ombQn3fHY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 ---
 
 ![Попьём-ка чайку](assets/react-controls/updating-state.jpeg)

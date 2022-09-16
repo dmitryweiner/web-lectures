@@ -96,6 +96,11 @@ afterAll(() => server.close());
 
 ---
 
+https://tanstack.com/query/v4/docs/overview
+
+https://github.com/marcin-piela/react-fetching-library#readme
+---
+
 ### Полезные ссылки
 * https://redux.js.org/recipes/writing-tests
 * https://testing-library.com/docs/react-testing-library/example-intro/

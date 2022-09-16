@@ -18,7 +18,7 @@ title: React - Функциональные компоненты и хуки
   * Многословность.
   * Потеря контекста ```this``` в обработчиках.
   * Трудности с оптимизацией производительности.
-* Сейчас (2021) отраслевой стандарт &mdash; функциональные компоненты.
+* Сейчас отраслевой стандарт &mdash; функциональные компоненты.
 ---
 
 ### Функциональный компонент VS компонент класс
@@ -45,8 +45,9 @@ title: React - Функциональные компоненты и хуки
   [чистой функцией](https://ru.wikipedia.org/wiki/%D0%A7%D0%B8%D1%81%D1%82%D0%BE%D1%82%D0%B0_%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8).
 * Чистая функция не может иметь состояние или производить сайд-эффекты.
   * Эти идеи пришли в реакт из функционального программирования 
-    ([Lisp](https://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%81%D0%BF),
-    [Haskell](https://ru.wikipedia.org/wiki/Haskell)).
+    ([монады](https://pirx.ru/blog/2010/11/24/monad-monoid/)
+     из [Lisp](https://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D1%81%D0%BF),
+     [Haskell](https://ru.wikipedia.org/wiki/Haskell)).
 * Чтобы иметь состояние и/или вызывать эффекты,
   используются специальные функции внутри компонента, хуки.
 ---
@@ -195,6 +196,19 @@ useEffect(() => {
 * Если изменилась ссылка на объект, эффект вызывается.
 ---
 
+### useEffect + Strict mode
+* Если главный компонент обёрнут в `<StrictMode>` в `index.js` и версия React.js **18**:
+```jsx
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+```
+* Тогда useRef будет [вызываться **дважды**](https://github.com/facebook/react/issues/24502).
+* Чтобы так не было, надо убрать `StrictMode`.
+---
+
 ### Пример: таймер 
 ```javascript
 function Timer() {
@@ -231,6 +245,58 @@ function Timer() {
       return () => clearInterval(timerId);
     }, []);
     return <span>{time}</span>;
+}
+```
+---
+
+### useRef
+```js
+const refContainer = useRef(initialValue);
+refContainer.current = newValue;
+```
+* Хук для создания переменной, значение которой сохраняется между рендерами.
+* В отличие от useState, изменение этой переменной не вызывает ререндер.
+* Текущее значение лежит в ```.current```.
+* Сеттера нет.
+* [Документация](https://reactjs.org/docs/hooks-reference.html#useref).
+---
+
+### useRef: управляемый таймер
+Можно управлять тем, на сколько он увеличивается.
+```javascript
+function ControlledTimer() {
+    const [time, setTime] = useState(0);
+    const increment = useRef(1);
+    useEffect(() => {
+        setInterval(() => {
+            setTime(value => value + increment.current);
+        }, 1000);
+    }, []);
+    return <>
+        {time}
+        <button onClick={() => increment.current = increment.current + 1 }>Faster!</button>
+    </>;
+}
+```
+---
+
+### useRef
+* Обычно useRef используют для доступа к DOM'у.
+* Так можно захватывать фокус ввода при загрузке страницы:
+
+```javascript
+function TextInputWithFocusButton() {
+    const inputEl = useRef(null);
+
+    function onButtonClick() {
+        // `current` points to the mounted text input element
+        inputEl.current.focus();
+    }
+
+    return <>
+        <input ref={inputEl} type="text" />
+        <button onClick={onButtonClick}>Focus the input</button>
+    </>;
 }
 ```
 ---
@@ -299,59 +365,38 @@ const [state, dispatch] = useReducer(reducer, initialState);
 ---
 
 ### useContext
-* Способ пробрасывания состояния вглубь дерева потомков. 
-* Без непосредственного указывания этих данных в промежуточных узлах.
+* Способ пробрасывания состояния (данных) вглубь дерева потомков на любой уровень. 
+* Без непосредственного указывания этих данных в промежуточных узлах в виде пропсов.
+* Компонент на любой глубине может вызвать `useContext` и получить эти данные.
 * [Документация](https://reactjs.org/docs/hooks-reference.html#usecontext).
 ---
 
-### useRef
+### useContext
 ```js
-const refContainer = useRef(initialValue);
-refContainer.current = newValue;
-```
-* Хук для создания переменной, значение которой сохраняется между рендерами.
-* В отличие от useState, изменение этой переменной не вызывает ререндер.
-* Текущее значение лежит в ```.current```.
-* Сеттера нет.
-* [Документация](https://reactjs.org/docs/hooks-reference.html#useref).
----
+import { useState, createContext, useContext } from "react";
 
-### useRef: управляемый таймер
-Можно управлять тем, на сколько он увеличивается. 
-```javascript
-function ControlledTimer() {
-    const [time, setTime] = useState(0);
-    const increment = useRef(1);
-    useEffect(() => {
-        setInterval(() => {
-            setTime(value => value + increment.current);
-        }, 1000);
-    }, []);
-    return <>
-        {time}
-        <button onClick={() => increment.current = increment.current + 1 }>Faster!</button>
-    </>;
+const UserContext = createContext();
+
+function App() {
+  const [user, setUser] = useState("Piter Griffin");
+
+  return (
+    <UserContext.Provider value={user}>
+      <h1>{`Hello ${user}!`}</h1>
+      <Component />
+    </UserContext.Provider>
+  );
 }
-```
----
 
-### useRef
-* Обычно useRef используют для доступа к DOM'у.
-* Так можно захватывать фокус ввода при загрузке страницы:
+function Component() {
+  const user = useContext(UserContext);
 
-```javascript
-function TextInputWithFocusButton() {
-    const inputEl = useRef(null);
-
-    function onButtonClick() {
-        // `current` points to the mounted text input element
-        inputEl.current.focus();
-    }
-
-    return <>
-        <input ref={inputEl} type="text" />
-        <button onClick={onButtonClick}>Focus the input</button>
-    </>;
+  return (
+    <>
+      <h1>Component</h1>
+      <h2>{`Hello ${user} again!`}</h2>
+    </>
+  );
 }
 ```
 ---
@@ -364,28 +409,21 @@ function TextInputWithFocusButton() {
   * [useKeypress](https://github.com/streamich/react-use/blob/master/docs/useKeypress.md)
   * [useHover](https://github.com/streamich/react-use/blob/master/docs/useHover.md)
   * [useWindowSize](https://github.com/streamich/react-use/blob/master/docs/useWindowSize.md)
-
 ---
 
 ### Задачи
-* Сделать кликер, который каждый следующий раз прибавляет величину, большую на 1.
-
-<div style="display: flex; width: 100%; align-items: center; justify-content: center;">1 <button>➕</button></div>
-
-Выводит: 1, 2 (1 + 1), 4 (2 + 2), 7 (4 + 3), 11 (7 + 4), ...
 * Сделать обратный таймер, который идёт от 10 до 0 и останавливается (используя useEffect).
+* Сделать таймер, который начинает идти от 0 до бесконечности при нажатии кнопки <button>▶</button>.
 * Сделать вывод простых чисел раз в секунду. Каждую следующую секунду в строку добавляется очередное простое число:
 
 Выводит: 2, 3, 5, 7, 11, 13, ...
 ---
 
-### Задачи
 * Светофор:
 
 ![Traffic lights](assets/react-hooks/traffic.gif)
 ---
 
-### Задачи
 * Написать компонент, принимающий на вход строку и каждую секунду переносящий последний
  символ строки в начало:
  
