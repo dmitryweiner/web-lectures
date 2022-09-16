@@ -440,6 +440,6 @@ function Component() {
 ### Полезные ссылки
 * [Документация](https://reactjs.org/docs/hooks-reference.html)
 * https://metanit.com/web/react/6.1.php
-* https://www.youtube.com/watch?v=jd8R0a2Ur8Q
 * https://github.com/streamich/react-use/
+* <iframe width="560" height="315" src="https://www.youtube.com/embed/jd8R0a2Ur8Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   
