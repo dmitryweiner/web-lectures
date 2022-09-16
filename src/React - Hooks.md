@@ -8,8 +8,9 @@ title: React - Функциональные компоненты и хуки
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
-[видео](https://drive.google.com/file/d/11hBKHlofUsjI8aN4ccc4HTFfwsykzH6s/view?usp=sharing)
-
+Видео: 
+  [1](https://drive.google.com/file/d/11hBKHlofUsjI8aN4ccc4HTFfwsykzH6s/view?usp=sharing),
+  [2](https://youtu.be/yFsY1U2aD7o)
 ---
 
 ### FC vs Class
