@@ -118,7 +118,7 @@ console.log(value); // >>> 123
 * Значение изменится только при следующем рендере.</script></section><section  data-markdown><script type="text/template">
 ### Простейший счётчик
 ```javascript
-function Counter({ initialCount }) {
+function Counter({ initialCount = 0 }) {
     const [count, setCount] = useState(initialCount);
     return <>
         <button onClick={() => setCount(count + 1)}>

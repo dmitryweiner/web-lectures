@@ -137,7 +137,7 @@ console.log(value); // >>> 123
 
 ### Простейший счётчик
 ```javascript
-function Counter({ initialCount }) {
+function Counter({ initialCount = 0 }) {
     const [count, setCount] = useState(initialCount);
     return <>
         <button onClick={() => setCount(count + 1)}>
