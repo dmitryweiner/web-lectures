@@ -21,8 +21,7 @@
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
-[видео](https://drive.google.com/file/d/10gS_1sMo1geO3lKOGANuvBlQa0dXmvv9/view?usp=sharing)
-</script></section><section  data-markdown><script type="text/template">
+[видео](https://youtu.be/MnzmXXMH7A4)</script></section><section  data-markdown><script type="text/template">
 ### Варианты работы с инпутом
 
 * [Uncontrolled](https://reactjs.org/docs/uncontrolled-components.html)
@@ -102,8 +101,20 @@ function Link() {
     }
     return <a href="#" onClick={handleClick}>Click me!</a>;
 }
-```
-</script></section><section  data-markdown><script type="text/template">
+```</script></section><section  data-markdown><script type="text/template">
+### Кнопка
+* Пример обработчика кнопки:
+
+<button>Нажми меня!</button>
+
+```jsx
+function Button({ title }) {
+    function handeClick() {
+        console.log('Аааа, меня нажали!!!');
+    }
+    return <button onClick={handeClick}>{title}</button>;
+}
+```</script></section><section  data-markdown><script type="text/template">
 ### Текстовое поле
 * Пример текстового поля, сохраняющего значение в стейт:
 
@@ -121,19 +132,6 @@ function TextField() {
         <input value={text} onChange={handeChange} />
         Вы ввели: {text}
     <>;
-}
-```</script></section><section  data-markdown><script type="text/template">
-### Кнопка
-* Пример обработчика кнопки:
-
-<button>Нажми меня!</button>
-
-```jsx
-function Button({ title }) {
-    function handeClick() {
-        console.log('Аааа, меня нажали!!!');
-    }
-    return <button onClick={handeClick}>{title}</button>;
 }
 ```</script></section><section  data-markdown><script type="text/template">
 ### Текстовое поле

@@ -8,8 +8,7 @@ title: React - Form controls
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
-[видео](https://drive.google.com/file/d/10gS_1sMo1geO3lKOGANuvBlQa0dXmvv9/view?usp=sharing)
-
+[видео](https://youtu.be/MnzmXXMH7A4)
 ---
 
 ### Варианты работы с инпутом
@@ -102,7 +101,21 @@ function Link() {
     return <a href="#" onClick={handleClick}>Click me!</a>;
 }
 ```
+---
 
+### Кнопка
+* Пример обработчика кнопки:
+
+<button>Нажми меня!</button>
+
+```jsx
+function Button({ title }) {
+    function handeClick() {
+        console.log('Аааа, меня нажали!!!');
+    }
+    return <button onClick={handeClick}>{title}</button>;
+}
+```
 ---
 
 ### Текстовое поле
@@ -122,21 +135,6 @@ function TextField() {
         <input value={text} onChange={handeChange} />
         Вы ввели: {text}
     <>;
-}
-```
----
-
-### Кнопка
-* Пример обработчика кнопки:
-
-<button>Нажми меня!</button>
-
-```jsx
-function Button({ title }) {
-    function handeClick() {
-        console.log('Аааа, меня нажали!!!');
-    }
-    return <button onClick={handeClick}>{title}</button>;
 }
 ```
 ---

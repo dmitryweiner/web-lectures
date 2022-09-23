@@ -4,7 +4,6 @@
 * [Введение в React.js](https://dmitryweiner.github.io/lectures/React%20-%20Basic.html#/)
 * [Функциональные компоненты и хуки](https://dmitryweiner.github.io/lectures/React%20-%20Hooks.html#/)
 * [Как работать с формами и контролами](https://dmitryweiner.github.io/lectures/React%20-%20Form%20controls.html#/)
-* [Тестирование с помощью testing-library](https://dmitryweiner.github.io/lectures/React%20-%20Testing%20components.html#/)
 * [Добавление стилей](https://dmitryweiner.github.io/lectures/React%20-%20Styles%20and%20assets.html#/)
 * [Маршрутизация](https://dmitryweiner.github.io/lectures/React%20-%20Router.html#/)
 * [Запросы в сеть](https://dmitryweiner.github.io/lectures/React%20-%20Fetch.html#/)

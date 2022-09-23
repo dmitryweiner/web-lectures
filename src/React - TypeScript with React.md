@@ -311,7 +311,21 @@ function handleChange(event: ChangeEvent<HTMLSelectElement>) {
     <option value="B">B</option>
 </select>
 ```
+---
 
+### События формы
+```jsx
+const handler = (event: FormEvent<HTMLFormElement>) => {
+  event.preventDefault()
+}
+return (
+  <>
+    <form onSubmit={handler}>
+      <button type="submit">Submit</button>
+    </form>
+  </>
+);
+```
 ---
 
 ### Модульный CSS
