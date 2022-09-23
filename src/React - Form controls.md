@@ -394,6 +394,17 @@ function MultipleSelect() {
 системе.
 ---
 
+* В поле ввода выбираем дату рождения:
+
+<br/><input type="date"/>
+
+Ниже выводится:
+
+> Вы прожили: 1232352345234 секунд.
+
+Количество секунд увеличивается каждую секунду.
+---
+
 ### Полезные ссылки
 * https://reactjs.org/docs/forms.html
 * <iframe width="560" height="315" src="https://www.youtube.com/embed/IkMND33x0qQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
