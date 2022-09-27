@@ -63,7 +63,7 @@
 
 # Полезные сайты
 * https://learn.javascript.ru/
-* https://learn-reactjs.ru/home
+* https://developer.mozilla.org/ru/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_getting_started
 * https://reactpatterns.com/
 * https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
 

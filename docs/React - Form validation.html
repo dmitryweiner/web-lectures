@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>React - Form validation</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/serif.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+## React form validation
+
+![react validation](assets/react-validation/img.png)
+
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+
+[видео]()</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+### 
+https://final-form.org/docs/react-final-form/getting-started
+</script></section><section  data-markdown><script type="text/template">
+### Validation Schema
+```js
+export const EndCompanyUserEditLocationSchema = yup.object({
+  name: yup.string().required('Location name is required'),
+  FEIN: yup.string().optional(),
+  address: yup.object({
+    street: yup.string().required('Street address is required'),
+    state: yup.string().required('State is required'),
+    city: yup.string().required('City is required'),
+    zIPCode: yup.number().required('Zip Code is required'),
+  }),
+});
+
+```
+</script></section><section  data-markdown><script type="text/template">
+### Formik + Yup
+https://blog.shahednasser.com/how-to-create-and-validate-forms-in-react-using-formik-and-yup/
+</script></section><section  data-markdown><script type="text/template">
+### 
+</script></section><section  data-markdown><script type="text/template">
+
+### Задачи</script></section><section  data-markdown><script type="text/template">
+### Полезные ссылки
+https://blog.shahednasser.com/how-to-create-and-validate-forms-in-react-using-formik-and-yup/</script></section><section  data-markdown><script type="text/template">
+![](assets/react-validation/img_3.png)</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
