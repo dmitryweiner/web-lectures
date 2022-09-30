@@ -337,11 +337,11 @@ function MultipleSelect() {
 ### Задачи
 * Сделать компонент, отображающий селектбокс с городами.
 Если выбран не Рио, писать снизу:
-> Нет, это не Рио-де-Жанейро!
 <select>
   <option>Воронеж</option>
   <option>Рио-де-Жанейро</option>
 </select>
+> Нет, это не Рио-де-Жанейро!
 * Сделать калькулятор:
 
 <input type="number" value="2">
@@ -374,6 +374,12 @@ function MultipleSelect() {
 > Вы прожили: 1232352345234 секунд.
 
 Количество секунд увеличивается каждую секунду.</script></section><section  data-markdown><script type="text/template">
+* Список чисел с фильтрацией:
+<br/><input><button>+</button><br/>
+<label><input name="filter" type="radio" value="Все" checked="">Все</label><label><input name="filter" type="radio" value="Сделанные">Четные</label><label><input name="filter" type="radio" value="Не сделанные">Нечетные</label>
+> 1, 13, 6, 52, 4, 14
+>
+При нажатии на [+] в список добавляется очередное число из поля ввода. При изменении состояния фильтра список обновляется. </script></section><section  data-markdown><script type="text/template">
 ### Полезные ссылки
 * https://reactjs.org/docs/forms.html
 * <iframe width="560" height="315" src="https://www.youtube.com/embed/IkMND33x0qQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
