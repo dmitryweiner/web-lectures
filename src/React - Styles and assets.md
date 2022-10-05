@@ -108,7 +108,8 @@ export default function CatView() {
 ---
 
 ### Как работают scoped-стили?
-* После рендера класс дополняется случайным набором символов, уникальным для каждого компонента:
+* После рендера класс дополняется случайным набором символов, уникальным для каждого компонента.
+* Результат рендера:
 
 ```html
 <img src="/static/media/cat.7ced8a3057dbb05c800c.jpg" 
@@ -123,28 +124,54 @@ export default function CatView() {
 ```
 ---
 
-### Динамические стили
+### Условные стили
+* Если нужно назначать стиль с некоторым условием, то можно писать так:
+
+```jsx
+<span className={isError ? styles.red : ""}>Ошибка!</span>
+```
+* Пример:
+
+```jsx
+import styles from "./Button.module.css";
+export default function Button() {
+  const [isOn, setIsOn] = useState(false);
+  return <>
+    <span className={isOn ? styles.red : styles.green}>ЛАМПОЧКА</span>
+    <button onClick={() => setIsOn(!isOn)}>ВКЛ</button>
+  </>
+}
+```
 ---
 
-### Использование SASS/SCSS
-* [](https://create-react-app.dev/docs/adding-a-sass-stylesheet).
+### Несколько классов у одного компонента
+* Как и в простом HTLM, одному компоненту можно навешивать несколько классов:
+```jsx
+<span className={`${styles.red} ${styles.green}`}>
+  ...
+</span>
+```
 ---
 
 ### Альтернативы
 * Стилизовать компоненты можно и внутри сами этих компонентов.
 * Иногда это удобнее, т.е. стили лежат там же, где и использующий их код.
+* Варианты:
+  * [css-in-js](https://cssinjs.org/?v=v10.9.0).
+  * [styled-components](https://styled-components.com/).
+  * [Emotion](https://github.com/emotion-js/emotion).
 ---
 
-### css-in-js
-https://cssinjs.org/?v=v10.9.0
+### Использование препроцессора SASS/SCSS
+* [Про препроцессор](https://sass-lang.com/guide).
+* [Инструкция, как уставить](https://create-react-app.dev/docs/adding-a-sass-stylesheet).
+
+![sass](assets/react-styling/sass.png)
 ---
 
-### styled-components
-https://styled-components.com/
----
-
-### Emotion
-https://github.com/emotion-js/emotion
+### Задачи
+* Сделать кнопку, которая при нажатии меняет свой цвет с красного на зелёный и обратно:
+<button style="background-color: green">Нажми меня!</button>
 ---
 
 ### Полезные ссылки 

@@ -103,7 +103,8 @@ export default function CatView() {
 ```
 * [Подробнее](https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/).</script></section><section  data-markdown><script type="text/template">
 ### Как работают scoped-стили?
-* После рендера класс дополняется случайным набором символов, уникальным для каждого компонента:
+* После рендера класс дополняется случайным набором символов, уникальным для каждого компонента.
+* Результат рендера:
 
 ```html
 <img src="/static/media/cat.7ced8a3057dbb05c800c.jpg" 
@@ -116,18 +117,46 @@ export default function CatView() {
   height: 90vh;
 }
 ```</script></section><section  data-markdown><script type="text/template">
-### Динамические стили</script></section><section  data-markdown><script type="text/template">
-### Использование SASS/SCSS
-* [](https://create-react-app.dev/docs/adding-a-sass-stylesheet).</script></section><section  data-markdown><script type="text/template">
+### Условные стили
+* Если нужно назначать стиль с некоторым условием, то можно писать так:
+
+```jsx
+<span className={isError ? styles.red : ""}>Ошибка!</span>
+```
+* Пример:
+
+```jsx
+import styles from "./Button.module.css";
+export default function Button() {
+  const [isOn, setIsOn] = useState(false);
+  return <>
+    <span className={isOn ? styles.red : styles.green}>ЛАМПОЧКА</span>
+    <button onClick={() => setIsOn(!isOn)}>ВКЛ</button>
+  </>
+}
+```</script></section><section  data-markdown><script type="text/template">
+### Несколько классов у одного компонента
+* Как и в простом HTLM, одному компоненту можно навешивать несколько классов:
+```jsx
+<span className={`${styles.red} ${styles.green}`}>
+  ...
+</span>
+```</script></section><section  data-markdown><script type="text/template">
 ### Альтернативы
 * Стилизовать компоненты можно и внутри сами этих компонентов.
-* Иногда это удобнее, т.е. стили лежат там же, где и использующий их код.</script></section><section  data-markdown><script type="text/template">
-### css-in-js
-https://cssinjs.org/?v=v10.9.0</script></section><section  data-markdown><script type="text/template">
-### styled-components
-https://styled-components.com/</script></section><section  data-markdown><script type="text/template">
-### Emotion
-https://github.com/emotion-js/emotion</script></section><section  data-markdown><script type="text/template">
+* Иногда это удобнее, т.е. стили лежат там же, где и использующий их код.
+* Варианты:
+  * [css-in-js](https://cssinjs.org/?v=v10.9.0).
+  * [styled-components](https://styled-components.com/).
+  * [Emotion](https://github.com/emotion-js/emotion).</script></section><section  data-markdown><script type="text/template">
+### Использование препроцессора SASS/SCSS
+* [Про препроцессор](https://sass-lang.com/guide).
+* [Инструкция, как уставить](https://create-react-app.dev/docs/adding-a-sass-stylesheet).
+
+![sass](assets/react-styling/sass.png)</script></section><section  data-markdown><script type="text/template">
+### Задачи
+* Сделать кнопку, которая при нажатии меняет свой цвет с красного на зелёный и обратно:
+<button style="background-color: green">Нажми меня!</button></script></section><section  data-markdown><script type="text/template">
 ### Полезные ссылки 
 * https://create-react-app.dev/docs/adding-a-stylesheet</script></section></div>
     </div>
