@@ -2,7 +2,7 @@
 title: React - Form validation
 ---
 
-## React form validation
+## Валидация форм в React.js
 
 ![react validation](assets/react-validation/img.png)
 
