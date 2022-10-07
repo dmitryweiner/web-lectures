@@ -109,11 +109,11 @@ function Link() {
 <button>Нажми меня!</button>
 
 ```jsx
-function Button({ title }) {
-    function handeClick() {
+function Button() {
+    function handleClick() {
         console.log('Аааа, меня нажали!!!');
     }
-    return <button onClick={handeClick}>{title}</button>;
+    return <button onClick={handleClick}>Нажми на меня</button>;
 }
 ```
 ---
