@@ -91,8 +91,12 @@ npx create-react-app %имя_приложения%
   * typescript
   * redux
   * redux-typescript
+  
 ```shell
-npx create-react-app my-app --template [template-name]
+npx create-react-app my-app --template=%template-name%
+
+; для генерации проекта с поддержкой TS:
+npx create-react-app my-app --template=typescript
 ```
 ---
 

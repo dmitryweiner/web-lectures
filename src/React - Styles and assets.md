@@ -71,21 +71,55 @@ export default function CatView() {
 ---
 
 ### Глобальные стили
+* CSS-файл лежит в src:
 ```shell
 └── src
-    ├── App.css
-    ├── App.js
+    ├── Component.css
+    ├── Component.js
 ```
-```jsx
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      ...
-    </div>
-  );
+* Содержимое CSS-файла:
+```css
+.red {
+  color: red;
 }
+```
+
+* Использование в компоненте:
+```jsx
+import './Component.css';
+function Component() {
+    return (
+      <div className="red">
+        пишем красными буквами
+      </div>
+    );
+}
+```
+---
+
+### Условные глобальные стили
+```jsx
+import "./Button.css";
+export default function Button() {
+  const [isOn, setIsOn] = useState(false);
+  return <>
+    <span className={isOn ? "red" : "green"}>ЛАМПОЧКА</span>
+    <button onClick={() => setIsOn(!isOn)}>ВКЛ</button>
+  </>
+}
+```
+
+или 
+```jsx
+function getClass() {
+  if (isOn) {
+      return "red";
+  } else {
+      return "green";
+  }
+}
+/* ... */
+<span className={getClass()}>ЛАМПОЧКА</span>
 ```
 ---
 
@@ -155,6 +189,22 @@ export default function Button() {
 ```
 ---
 
+### Когда стилей становится слишком много
+* Уместнее выделить формирование стилей в отдельную функцию:
+
+```jsx
+function getClass() {
+  if (isOn) {
+      return "red";
+  } else {
+      return "green";
+  }
+}
+/* ... */
+<span className={getClass()}>ЛАМПОЧКА</span>
+```
+---
+
 ### Альтернативы
 * Стилизовать компоненты можно и внутри сами этих компонентов.
 * Иногда это удобнее, т.е. стили лежат там же, где и использующий их код.
@@ -162,6 +212,7 @@ export default function Button() {
   * [css-in-js](https://cssinjs.org/?v=v10.9.0).
   * [styled-components](https://styled-components.com/).
   * [Emotion](https://github.com/emotion-js/emotion).
+  * [JSS](https://cssinjs.org/react-jss/?v=v10.3.0).
 ---
 
 ### Использование препроцессора SASS/SCSS
