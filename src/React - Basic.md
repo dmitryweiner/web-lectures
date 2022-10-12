@@ -396,6 +396,7 @@ function renderText() {
 * https://jstutorial.medium.com/react-animated-tutorial-7a46fa3c2b96
 * https://reactpatterns.com/
 * https://metanit.com/web/react/2.3.php
+* https://ru.reactjs.org/docs/hello-world.html
 ---
 
 ![](assets/react-basic/best-code.gif)

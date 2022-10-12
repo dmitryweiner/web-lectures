@@ -65,6 +65,7 @@
 * https://learn.javascript.ru/
 * https://developer.mozilla.org/ru/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_getting_started
 * https://reactpatterns.com/
+* https://ru.reactjs.org/docs/hello-world.html
 * https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
 
 
