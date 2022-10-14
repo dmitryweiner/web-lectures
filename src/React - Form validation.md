@@ -8,7 +8,7 @@ title: React - Form validation
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
-[видео]()
+[видео](https://youtu.be/lBDKQ00vSjk)
 ---
 
 ### Валидация формы
