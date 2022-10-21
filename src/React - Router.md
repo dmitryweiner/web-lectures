@@ -8,6 +8,7 @@ title: React - Маршрутизация с помощью библиотеки
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
+[Видео](https://youtu.be/XTDyYjpIS_Q)
 ---
 
 ### SPA 🧖🏻‍
@@ -73,9 +74,9 @@ import { HashRouter as Router } from 'react-router-dom';
   * https://site.com/users
   * https://site.com/todos
 * `HashRouter`:
-  * https://site.com/app/#profile
-  * https://site.com/app/#users
-  * https://site.com/app/#todos
+  * https://site.com/app/#/profile
+  * https://site.com/app/#/users
+  * https://site.com/app/#/todos
 ---
 
 ### Определяем роуты
@@ -84,8 +85,7 @@ import { HashRouter as Router } from 'react-router-dom';
 ```js
 import {
     Route,
-    Routes,
-    Redirect
+    Routes
 } from 'react-router-dom';
 // in render
 <Routes>

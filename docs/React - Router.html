@@ -20,7 +20,8 @@
 ![react-router-dom logo](assets/react-router/logo.png)
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
-</script></section><section  data-markdown><script type="text/template">
+
+[Видео](https://youtu.be/XTDyYjpIS_Q)</script></section><section  data-markdown><script type="text/template">
 ### SPA 🧖🏻‍
 * Веб-приложение может содержать множество страниц с разной информацией.
 * При переходе между страницами меняется URL. Само приложение при этом не перезагружается.
@@ -72,17 +73,16 @@ import { HashRouter as Router } from 'react-router-dom';
   * https://site.com/users
   * https://site.com/todos
 * `HashRouter`:
-  * https://site.com/app/#profile
-  * https://site.com/app/#users
-  * https://site.com/app/#todos</script></section><section  data-markdown><script type="text/template">
+  * https://site.com/app/#/profile
+  * https://site.com/app/#/users
+  * https://site.com/app/#/todos</script></section><section  data-markdown><script type="text/template">
 ### Определяем роуты
 В ```App.js```:
 
 ```js
 import {
     Route,
-    Routes,
-    Redirect
+    Routes
 } from 'react-router-dom';
 // in render
 <Routes>
