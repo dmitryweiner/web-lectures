@@ -32,7 +32,7 @@ title: React - Маршрутизация с помощью библиотеки
 ### react-router-dom
 * Я рекомендую библиотеку ```react-router-dom``` версию 6.4.2 (на 2022 год).
   * [Документация](https://reactrouter.com/en/main/start/overview),
-  [руководство](https://reactrouter.com/web/guides/quick-start).
+  [руководство](https://reactrouter.com/en/main/start/tutorial).
 * Установка:
 ```shell
   npm i react-router-dom@6

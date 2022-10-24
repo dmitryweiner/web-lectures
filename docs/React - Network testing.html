@@ -1,20 +1,29 @@
----
-title: React - Запросы в сеть
----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-## React - Запросы в сеть
+    <title>React - Тестирование запросов в сеть</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/serif.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+## React - Тестирование запросов в сеть
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Идея тестирования
 * Не давать коду выполнять реальные запросы по сети.
 * Эмулировать сервер программно.
   * Описывать enpdpoint'ы сервера прямо в коде тестов.
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Использовать spyOn библиотеки jest
 * Надо подменить вызовы методов у объекта api:
 ```js
@@ -32,9 +41,7 @@ test('should call api', async () => {
     getTodos.mockClear();
 });
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Fetch-mock
 * Установить fetch-mock:
 ```shell
@@ -48,9 +55,7 @@ fetchMock.getOnce('/URL', {
 })
 ```
 * [Документация по возможным запросам](http://www.wheresrhys.co.uk/fetch-mock/).
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Пример тестирования асинхронного экшена
 * Использующего redux-thunk:
 ```js
@@ -69,9 +74,7 @@ test('/todos', async () => {
     expect(store.getActions()).toEqual(expectedActions);
 });
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Библиотека MSW
 * Установка:
 ```shell
@@ -93,14 +96,61 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 ```
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 https://tanstack.com/query/v4/docs/overview
 
-https://github.com/marcin-piela/react-fetching-library#readme
----
-
+https://github.com/marcin-piela/react-fetching-library#readme</script></section><section  data-markdown><script type="text/template">
 ### Полезные ссылки
 * https://redux.js.org/recipes/writing-tests
-* https://testing-library.com/docs/react-testing-library/example-intro/
+* https://testing-library.com/docs/react-testing-library/example-intro/</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
