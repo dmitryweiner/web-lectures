@@ -25,7 +25,7 @@ ID:
 </label>
 <button>Получить данные!</button> 
 * При нажатии кнопки компонент обращается в API:
-https://jsonplaceholder.typicode.com/posts/%ID%
+https://jsonplaceholder.typicode.com/posts/:id
 * Полученные результаты показываются на экране. Поля `title` и `body`:
 
 ```json
@@ -162,11 +162,42 @@ export default function Fetcher() {
 ```
 ---
 
+### Отправка `POST`
+```tsx
+const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError("");
+    try {
+        const data = {
+          // данные из формы
+          login: "admin",
+          password: "123"
+        };
+        const request = await fetch(URL, {
+            method: "POST",
+            headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+        const result = await request.json();
+        setResult(data);
+    } catch (e) {
+        if (e instanceof Error) {
+            setError(e.message);
+        }
+    }
+};
+```
+---
+
 ### Плюсы и минусы
 * Плюсы:
     * Просто.
 * Минусы:
     * Нет кеширования.
+    * Нет состояния загрузки.
     * Лапшекод.
 ---
 
@@ -357,13 +388,12 @@ useQuery(
 * Написать компонент, отображающий форму:
     <br/><label>
     ID:
-    <input><br/>
+    <input>
     </label>
     <button>Получить данные!</button><br/> 
-* При нажатии кнопки компонент обращается по адресу https://jsonplaceholder.typicode.com/posts/%ID%.
-* Также компонент обращается по адресу https://jsonplaceholder.typicode.com/users/%USER_ID%, где %USER_ID% получен из предыдущих данных.
-* Полученные результаты показываются на экране.
- Из post - поля `title` и `body`, из user - поля `name`, `email`.
+* При нажатии кнопки компонент обращается по адресу https://jsonplaceholder.typicode.com/posts/:id.
+* Также компонент обращается по адресу https://jsonplaceholder.typicode.com/users/:userId, где `userId` получен из предыдущих данных.
+* Показать экране: из post - поля `title` и `body`, из user - поля `name`, `email`.
 ---
 
 ### Задачи
