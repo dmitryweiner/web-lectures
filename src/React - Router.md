@@ -416,3 +416,11 @@ https://github.com/remix-run/react-router/tree/main/examples
 * https://reach.tech/router/api/Router
 * https://router5.js.org/integration/with-react
 * https://github.com/swipely/aviator
+
+---
+
+### Задача
+* Сделать роуты для [лабораторной](https://github.com/dmitryweiner/lectures/blob/main/laba.md):
+  * `/login` - <LoginForm />
+  * `/registration` - <RegistrationForm />
+  * `/` - <Home />
