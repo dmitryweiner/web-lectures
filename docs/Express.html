@@ -342,6 +342,54 @@ user.save(function (err) {
     // saved!
 });
 ```</script></section><section  data-markdown><script type="text/template">
+### Авторизация
+* Для авторизации обычно используются куки. В них кладут сессионный токен.
+* У куки должны быть следующий параметры ([подробнее](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)):
+  * httpOnly=true: чтобы кука была не видна в JS: document.coockies.
+  * sameSite=lax: чтобы можно было обращаться с другого домена (если это необходимо).
+  * secure=true: чтобы куки ходили только через HTTPS.</script></section><section  data-markdown><script type="text/template">
+### Алгоритм авторизации
+```js
+router.post('/auth', (req, res) => {
+  // проверить пароль пользователя
+  if (!checkLogin({
+    login: req.body.login,
+    password: req.body.password
+  })) {
+     return res.status(401).json({message: "Not authorized"}) 
+  }
+  
+  // сгенерировать токен
+  const token = UUID();
+  
+  // сложить его в базу вместе с user_id
+  // ...
+  
+  // отправить куку
+  res.cookie(TOKEN_COOKIE_NAME, token, {
+    maxAge: 24 * 60 * 60 * 1000, // TODO: to const
+    httpOnly: true,
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    secure: process.env.NODE_ENV === 'production'
+  });
+  
+  // отправить ОК
+  res.json({ ok: true });
+});
+```</script></section><section  data-markdown><script type="text/template">
+### Проверка состояния авторизованности
+```js
+router.get('/', (req, res) => {
+    // вытащить токен из кук
+    const token = req.cookies.token;
+
+    // проверить, есть ли такой токен в базе, не протухло ли время жизни
+    // ..
+  
+    // если всё ок
+    res.json({ auth: true });
+});
+```</script></section><section  data-markdown><script type="text/template">
 ### Тестирование
 * Для юнит-тестирования применяется [```jest```](https://jestjs.io/docs/getting-started).
 * Для сквозного тестирования применяется библиотека [supertest](https://github.com/visionmedia/supertest#readme).
