@@ -421,6 +421,6 @@ https://github.com/remix-run/react-router/tree/main/examples
 
 ### Задача
 * Сделать роуты для [лабораторной](https://github.com/dmitryweiner/lectures/blob/main/laba.md):
-  * `/login` - <LoginForm />
-  * `/registration` - <RegistrationForm />
-  * `/` - <Home />
+  * `/login` - `<LoginForm />`
+  * `/registration` - `<RegistrationForm />`
+  * `/` - `<Home />`
