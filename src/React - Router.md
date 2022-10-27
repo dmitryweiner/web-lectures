@@ -424,3 +424,4 @@ https://github.com/remix-run/react-router/tree/main/examples
   * `/login` - `<LoginForm />`
   * `/registration` - `<RegistrationForm />`
   * `/` - `<Home />`
+* При вводе на форме логина значений `admin/123` веб-приложение переходит на `/`. 
