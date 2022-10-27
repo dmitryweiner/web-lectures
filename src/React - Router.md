@@ -39,17 +39,14 @@ title: React - Маршрутизация с помощью библиотеки
 ```
 ---
 ### Подключение
-В `src/index.js`:
+В `src/index.js` обернуть `<App/>` в `<Router>`:
 ```js
 import { BrowserRouter as Router } from 'react-router-dom';
 //import { HashRouter as Router } from 'react-router-dom';
 // ...
-ReactDOM.render(
-    <Router> // <-- добавить это
-        <App />
-    </Router>,// <-- и это
-    document.getElementById('root')
-);
+<Router>
+    <App />
+</Router>
 ```
 Главное не подключать просто Router, ничего работать не будет
 ----
