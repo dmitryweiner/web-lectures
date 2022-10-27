@@ -43,10 +43,11 @@ title: React - Маршрутизация с помощью библиотеки
 ```js
 import { BrowserRouter as Router } from 'react-router-dom';
 //import { HashRouter as Router } from 'react-router-dom';
+// ...
 ReactDOM.render(
-    <Router>
+    <Router> // <-- добавить это
         <App />
-    </Router>,
+    </Router>,// <-- и это
     document.getElementById('root')
 );
 ```
