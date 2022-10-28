@@ -8,7 +8,7 @@ title: React - Запросы в сеть
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
-[Видео]()
+[Видео](https://youtu.be/wKuWpQrqquE)
 ---
 
 ### Как делать запросы?
