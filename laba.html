@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Laba</title>
+  <style>
+    /*! Typebase.rework.css v0.1.0 | MIT License */
+
+    /* Typesetting variables. Edit these!
+    // This requires rework-vars and rework-calc */
+    :root {
+      /* Base font size in pixels. This would result in 22px on desktop */
+      --base-font-size: 22;
+
+      /* How large the line height is as a multiple of font size */
+      --base-line-height: 1.5;
+
+      --leading: calc(var(--base-line-height) * 1rem);
+
+      /* Rate of growth for headings
+         I actually like this to be slightly smaller then the leading. Makes for tight headings.
+      */
+      --scale: 1.414;
+    }
+
+    /* Setup */
+
+    html {
+      /* Change default typefaces here */
+      font-family: serif;
+      font-size: calc(var(--base-font-size) - 0px);
+      font-size: calc(var(--base-font-size) / 16 * 100%);
+      /* Make everything look a little nicer in webkit */
+      -webkit-font-smoothing: antialiased;
+      /* -webkit-text-size-adjust: auto
+      // -moz-text-size-adjust: auto
+      // -ms-text-size-adjust: auto
+      // -o-text-size-adjust: auto
+      // text-size-adjust: auto */
+
+    }
+    /* Copy & Lists */
+
+    p {
+      line-height: var(--leading);
+      margin-top: var(--leading);
+      margin-bottom: 0;
+    }
+    ul,
+    ol {
+      margin-top: var(--leading);
+      margin-bottom: var(--leading);
+    }
+    ul li,
+    ol li {
+      line-height: var(--leading);
+    }
+    ul ul,
+    ol ul,
+    ul ol,
+    ol ol {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    blockquote {
+      line-height: var(--leading);
+      margin-top: var(--leading);
+      margin-bottom: var(--leading);
+    }
+    /* Headings */
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      /* Change heading typefaces here */
+      font-family: sans-serif;
+      margin-top: var(--leading);
+      margin-bottom: 0;
+      line-height: var(--leading);
+    }
+    h1 {
+      font-size: calc(3 * var(--scale) * 1rem);
+      line-height: calc(3 * var(--leading));
+      margin-top: calc(2 * var(--leading));
+    }
+    h2 {
+      font-size: calc(2 * var(--scale) * 1rem);
+      line-height: calc(2 * var(--leading));
+      margin-top: calc(2 * var(--leading));
+    }
+    h3 {
+      font-size: calc(1 * var(--scale) * 1rem);
+    }
+    h4 {
+      font-size: calc(var(--scale) / 2 * 1rem);
+    }
+    h5 {
+      font-size: calc(var(--scale) / 3 * 1rem);
+    }
+    h6 {
+      font-size: calc(var(--scale) / 4 * 1rem);
+    }
+    /* Tables */
+
+    table {
+      margin-top: var(--leading);
+      border-spacing: 0px;
+      border-collapse: collapse;
+    }
+    td,
+    th {
+      padding: 0;
+      line-height: calc(var(--base-line-height) * var(--base-font-size) - 0px);
+    }
+    /* Code blocks */
+
+    code {
+      /* Forces text to constrain to the line-height. Not ideal, but works. */
+      vertical-align: bottom;
+    }
+    /* Leading paragraph text */
+
+    .lead {
+      font-size: calc(var(--scale) * 1rem);
+    }
+    /* Hug a the block above you */
+
+    .hug {
+      margin-top: 0;
+    }
+
+    body {
+      width: 400px;
+      margin: 0 auto;
+      background-color: lightgray;
+    }
+
+    form div {
+      margin: 10px;
+    }
+
+    form div label {
+      display: flex;
+      flex-direction: row;
+    }
+
+    form div label span {
+      display: block;
+      width: 140px;
+    }
+
+    form div label input {
+      display: block;
+      width: 100%;
+      margin-left: 10px;
+    }
+
+    button {
+      font-size: 1em;
+    }
+
+    a {
+      color: #494949;
+    }
+
+    .date {
+      font-size: 0.7rem;
+      color: #8a8a8a;
+    }
+
+    .username {
+      color: #494949;
+      font-size: 0.7rem
+    }
+
+  </style>
+</head>
+<body>
+  <h3>Регистрация</h3>
+  <form>
+    <div>
+      <label>
+        <span>Логин</span>
+        <input>
+      </label>
+    </div>
+    <div>
+      <label>
+        <span>Пароль</span>
+        <input>
+      </label>
+    </div>
+    <div>
+      <label>
+        <span>Повтор пароля</span>
+        <input>
+      </label>
+    </div>
+    <div style="text-align: right">
+      <button>Зарегистрироваться</button>
+    </div>
+  </form>
+  <h3>Авторизация</h3>
+  <form>
+    <div>
+      <label>
+        <span>Логин</span>
+        <input>
+      </label>
+    </div>
+    <div>
+      <label>
+        <span>Пароль</span>
+        <input>
+      </label>
+    </div>
+    <div style="text-align: right">
+      <button>Войти</button>
+    </div>
+  </form>
+
+  <div style="padding: 10px;">
+    <h3>Форум</h3>
+  </div>
+
+  <div style="padding: 10px; display: flex; flex-direction: row; justify-content: space-between">
+    <input placeholder="Искать" style="width: 85%; line-height: 2em">
+    <button>🔎</button>
+  </div>
+
+  <div style="padding: 10px;">
+    <button>Создать новую тему</button>
+  </div>
+
+  <div>
+    <div style="margin: 10px">
+      <a href="" style="font-size: 0.8rem">К вопросу о морщерогих кизляках</a><br/>
+      <b><a href="" style="font-size: 0.7rem">П. Лавгуд</a></b>
+        <span class="date">2.09.2022</span>
+    </div>
+    <div style="margin: 10px">
+      <a href="" style="font-size: 0.8rem">Нужны ли мы нам</a><br/>
+      <b><a href="" style="font-size: 0.7rem">К. Хунта</a></b>
+        <span class="date">1.09.2022</span>
+    </div>
+    <div style="margin: 10px">
+      <a href="" style="font-size: 0.8rem">Кто виноват и что делать</a><br/>
+      <b><a href="" style="font-size: 0.7rem">Chernyshevsky</a></b>
+        <span class="date">24.02.2022</span>
+    </div>
+    <div style="margin: 10px">
+      <a href="" style="font-size: 0.8rem">Этот форум ещё живой?</a><br/>
+      <b><a href="" style="font-size: 0.7rem">dmw</a></b>
+        <span class="date">1.01.2022</span>
+    </div>
+  </div>
+
+  <div style="padding: 10px;">
+    <h3>Создать тему</h3>
+  </div>
+  <form>
+    <div>
+      <label>
+        <span style="width: 210px">Тема</span>
+        <input>
+      </label>
+    </div>
+    <div>
+      <label>
+        <span>Первое сообщение</span>
+        <textarea style="width: 231px; height: 79px;"></textarea>
+      </label>
+    </div>
+    <div style="text-align: right">
+      <button>Отмена</button>
+      <button>Создать</button>
+    </div>
+  </form>
+
+  <div style="padding: 10px;">
+    <h3>К вопросу о морщерогих кизляках</h3>
+  </div>
+  <div style="padding: 10px;">
+    <div style="margin-bottom: 10px">
+      <span class="username">П. Лавгуд</span> <span class="date">1.01.2022</span>:<br/>
+      Кто-нибудь вообще их видел или они придуманные?
+    </div>
+    <div style="margin-bottom: 10px">
+      <span class="username">Г. Горшков</span> <span class="date">1.01.2022</span>:<br/>
+      Конечно, я их видел своими собственными глазами!
+    </div>
+  </div>
+  <form>
+    <div>
+      <label>
+        <textarea style="width: 415px; height: 97px;"></textarea>
+      </label>
+    </div>
+    <div style="text-align: center">
+      <button>Ответить</button>
+    </div>
+  </form>
+
+
+</body>
+</html>
