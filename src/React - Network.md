@@ -99,6 +99,9 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     setError("");
     try {
         const request = await fetch(`${URL}/${id}`);
+        if (response.status !== 200) {
+            throw Error(response.statusText);
+        }
         const data = await request.json();
         setResult(data);
     } catch (e) {
@@ -136,6 +139,9 @@ export default function Fetcher() {
         setError("");
         try {
             const request = await fetch(`${URL}/${id}`);
+            if (response.status !== 200) {
+                throw Error(response.statusText);
+            } 
             const data = await request.json();
             setResult(data);
         } catch (e) {
@@ -242,10 +248,13 @@ root.render(
 const [id, setId] = useState("");
 const [input, setInput] = useState("");
 
-const {status, data, error, isFetching} = useQuery(
+const {data, error, isFetching} = useQuery(
     ['post', id], // ключ для кэша
     async () => { // метод получения данных
         const request = await fetch(`${URL}/${id}`);
+        if (response.status !== 200) {
+           throw Error(response.statusText);
+        }
         return await request.json();
     },
     {enabled: !!id} // если id не задан, запрос не делается
@@ -261,7 +270,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
 ### Вывод данных
 ```tsx
-{id && status === "loading" ? (
+{isFetching ? (
     "Loading..."
 ) : error instanceof Error ? (
     <span>Error: {error.message}</span>
@@ -290,6 +299,9 @@ const URL = "https://jsonplaceholder.typicode.com/posts";
 
 const getPostById = async (id: string): Promise<Post> => {
     const request = await fetch(`${URL}/${id}`);
+    if (response.status !== 200) {
+        throw Error(response.statusText);
+    } 
     return await request.json();
 };
 
@@ -320,6 +332,9 @@ const URL = "https://jsonplaceholder.typicode.com/posts";
 
 const getPostById = async (id: string): Promise<Post> => {
     const request = await fetch(`${URL}/${id}`);
+    if (response.status !== 200) {
+        throw Error(response.statusText);
+    }
     return await request.json();
 };
 
@@ -335,7 +350,7 @@ export default function FetcherQuery() {
     const [id, setId] = useState("");
     const [input, setInput] = useState("");
 
-    const {status, data, error, isFetching} = usePost(id);
+    const {data, error, isFetching} = usePost(id);
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -349,7 +364,7 @@ export default function FetcherQuery() {
             <br/>
         </label>
         <button type="submit">Получить данные!</button>
-        {id && status === "loading" ? (
+        {isFetching ? (
             "Loading..."
         ) : error instanceof Error ? (
             <span>Error: {error.message}</span>
