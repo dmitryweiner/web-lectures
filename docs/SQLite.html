@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>SQLite</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/serif.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+# СУБД `SQLite`
+
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+</script></section><section  data-markdown><script type="text/template">
+> SQLite — это быстрая и легкая встраиваемая однофайловая СУБД на языке C, которая не имеет сервера и позволяет хранить всю базу локально на одном устройстве. Для работы SQLite не нужны сторонние библиотеки или службы.
+
+[Подробнее](https://blog.skillfactory.ru/glossary/sqlite/)</script></section><section  data-markdown><script type="text/template">
+### SQLite
+* [Документация](https://www.sqlite.org/docs.html), [rus](https://metanit.com/sql/sqlite/).
+* [Программа для работы с базой](https://sqlitebrowser.org/).
+* [Работа с базой онлайн](https://sqliteonline.com/).</script></section><section  data-markdown><script type="text/template">
+### Типы данных
+SQLite поддерживает только четыре типа данных, которые реализованы в SQL:
+* INTEGER — целое число;
+* REAL — дробное число;
+* TEXT — текст;
+* BLOB — двоичные данные.
+Также существует особое значение NULL — отсутствие данных.</script></section><section  data-markdown><script type="text/template">
+### Установка
+```shell
+npm install sqlite3 sqlite
+```
+[Документация](https://github.com/kriasoft/node-sqlite)</script></section><section  data-markdown><script type="text/template">
+### Подключение
+```js
+import sqlite3 from 'sqlite3'
+import { open } from 'sqlite'
+
+// this is a top-level await 
+(async () => {
+    // open the database
+    const db = await open({
+      filename: 'database.db', // имя и путь к БД
+      driver: sqlite3.Database
+    })
+})();
+```</script></section><section  data-markdown><script type="text/template">
+### Создание таблицы
+```js
+await db.exec('CREATE TABLE IF NOT EXISTS tbl (col TEXT)')
+```
+[Подробнее](https://www.sqlitetutorial.net/sqlite-create-table/)</script></section><section  data-markdown><script type="text/template">
+### INSERT
+```js
+await db.exec('INSERT INTO tbl VALUES ("test")')
+```
+```js
+const result = await db.run(
+  'INSERT INTO tbl (col) VALUES (?)',
+  'foo'
+)
+/*
+{
+  // row ID of the inserted row
+  lastID: 1,
+  // instance of `sqlite#Statement`
+  // which is a wrapper around `sqlite3#Statement`
+  stmt: <Statement>
+}
+*/
+```
+[Подробнее](https://www.sqlitetutorial.net/sqlite-insert/)</script></section><section  data-markdown><script type="text/template">
+### UPDATE
+```js
+const result = await db.run(
+  'UPDATE tbl SET col = ? WHERE col = ?',
+  'foo',
+  'test'
+)
+```
+[Подробнее](https://www.sqlitetutorial.net/sqlite-update/)</script></section><section  data-markdown><script type="text/template">
+### SELECT
+* Получаем одну запись:
+```js
+const result = await db.get('SELECT col FROM tbl WHERE col = ?', 'test')
+// { col: 'test' }
+```
+* Получаем все записи:
+```js
+const result = await db.get('SELECT col FROM tbl')
+// [{ col: 'test' }, ...]
+```
+* [Подробнее](https://www.sqlitetutorial.net/sqlite-select/)</script></section><section  data-markdown><script type="text/template">
+### DELETE
+```js
+await db.exec('DELETE FROM tbl WHERE col = ?', 'test')
+```
+[Подробнее](https://www.sqlitetutorial.net/sqlite-delete/)</script></section><section  data-markdown><script type="text/template">
+### Полезные ссылки
+* https://github.com/kriasoft/node-sqlite
+* https://www.sqlitetutorial.net/
+* https://developerhowto.com/2018/12/29/build-a-rest-api-with-node-js-and-express-js/</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>

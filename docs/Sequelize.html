@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Sequelize</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/serif.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+# ORM `Sequelize`
+
+[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+</script></section><section  data-markdown><script type="text/template">
+### ORM 
+
+> [Object-Relational Mapping](https://ru.wikipedia.org/wiki/ORM) — объектно-реляционное отображение или преобразование, «виртуальная объектная база данных».</script></section><section  data-markdown><script type="text/template">
+![](assets/sequelize/structure.png)</script></section><section  data-markdown><script type="text/template">
+### Установка 
+```shell
+npm i sequelize sqlite3
+```
+[Документация](https://sequelize.org/)</script></section><section  data-markdown><script type="text/template">
+### Подключение
+```js
+const { Sequelize } = require('sequelize');
+const sequelize = new Sequelize({
+  dialect: 'sqlite', // тип базы
+  storage: 'path/to/database.sqlite' // путь до базы и имя
+});
+```</script></section><section  data-markdown><script type="text/template">
+### Модель
+* Модель — это абстракция, представляющая таблицу в БД.
+* Модель определяет название таблицы, то, какие колонки она содержит и их типы данных.
+* Имя модели в единственном числе, имя таблицы автоматически во множественном.</script></section><section  data-markdown><script type="text/template">
+### Определяем модель
+```js
+const User = sequelize.define('User', {
+  // Model attributes are defined here
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  firstName: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  lastName: {
+    type: DataTypes.STRING
+    // allowNull defaults to true
+  }
+}, {
+  // Other model options go here
+});
+``` </script></section><section  data-markdown><script type="text/template">
+### Синхронизация модели с БД
+* User.sync() - создаёт таблицу, если её нет, ничего не делает, если она есть.
+* User.sync({ force: true }) - стирает таблицу, если есть, создаёт заново.
+* User.sync({ alter: true }) - обновляем поля таблицы, если она уже есть.
+* await User.drop(); - удаление таблицы. 
+* await sequelize.sync({ force: true }); - синхронизация всех таблиц.</script></section><section  data-markdown><script type="text/template">
+### Работа с моделью
+* INSERT:
+```js
+const jane = User.create({ name: "Jane" });
+```
+* UPDATE:
+```js
+const jane = await User.create({ name: "Jane" });
+jane.set({
+  name: "Ada"
+});
+// As above, the database still has "Jane" and "green"
+await jane.save();
+```</script></section><section  data-markdown><script type="text/template">
+### Работа с моделью
+* DELETE:
+```js
+const jane = await User.create({ name: "Jane" });
+await jane.destroy();
+```
+* SELECT:
+```js
+const users = await User.findAll();
+```
+* SELECT WHERE:
+```js
+Post.findAll({
+  where: {
+    authorId: 2
+  }
+});
+// https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
+```</script></section><section  data-markdown><script type="text/template">
+### Find
+* findAll
+* findByPk
+* findOne
+* findOrCreate
+* findAndCountAll
+* https://sequelize.org/docs/v6/core-concepts/model-querying-finders/</script></section><section  data-markdown><script type="text/template">
+### Полезные ссылки
+* https://sequelize.org/
+* https://habr.com/ru/post/565062/</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>

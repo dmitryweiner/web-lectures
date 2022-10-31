@@ -13,8 +13,8 @@
 
 ### Backend
 * [Express.js](https://dmitryweiner.github.io/lectures/Express.html#/)
-* [MongoDB](https://dmitryweiner.github.io/lectures/Mongo.html#/)
-* [ORM Mongoose](https://dmitryweiner.github.io/lectures/Mongoose.html#/)
+* Node.js + SQLite
+* Sequelize
 
 <hr/>
 
