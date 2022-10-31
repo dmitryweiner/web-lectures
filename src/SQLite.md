@@ -1,8 +1,8 @@
 ---
 title: SQLite
 ---
-
-# СУБД `SQLite`
+### СУБД `SQLite` + Node.js
+![SQLite](assets/sqlite/logo.png)
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 

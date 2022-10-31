@@ -2,7 +2,8 @@
 title: Sequelize
 ---
 
-# ORM `Sequelize`
+### ORM `Sequelize` + Node.js
+![Sequelize](assets/sequelize/logo.png)
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
