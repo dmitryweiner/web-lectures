@@ -75,8 +75,8 @@ const URL = "https://jsonplaceholder.typicode.com/posts";
 // in component
 const handleSubmit = async (e: FormEvent<HTMLFormElement>) => { // async!
     e.preventDefault();
-    const request = await fetch(`${URL}/${id}`); // await!
-    const data = await request.json();
+    const response = await fetch(`${URL}/${id}`); // await!
+    const data = await response.json();
     setResult(data);
 };
 ```
@@ -98,11 +98,11 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     try {
-        const request = await fetch(`${URL}/${id}`);
+        const response = await fetch(`${URL}/${id}`);
         if (response.status !== 200) {
             throw Error(response.statusText);
         }
-        const data = await request.json();
+        const data = await response.json();
         setResult(data);
     } catch (e) {
         if (e instanceof Error) {
@@ -138,11 +138,11 @@ export default function Fetcher() {
         e.preventDefault();
         setError("");
         try {
-            const request = await fetch(`${URL}/${id}`);
+            const response = await fetch(`${URL}/${id}`);
             if (response.status !== 200) {
                 throw Error(response.statusText);
             } 
-            const data = await request.json();
+            const data = await response.json();
             setResult(data);
         } catch (e) {
             if (e instanceof Error) {
@@ -179,7 +179,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           login: "admin",
           password: "123"
         };
-        const request = await fetch(URL, {
+        const response = await fetch(URL, {
             method: "POST",
             headers: {
               "Accept": "application/json",
@@ -187,7 +187,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
             },
             body: JSON.stringify(data)
         });
-        const result = await request.json();
+        const result = await response.json();
         setResult(data);
     } catch (e) {
         if (e instanceof Error) {
@@ -251,11 +251,11 @@ const [input, setInput] = useState("");
 const {data, error, isFetching} = useQuery(
     ['post', id], // ключ для кэша
     async () => { // метод получения данных
-        const request = await fetch(`${URL}/${id}`);
+        const response = await fetch(`${URL}/${id}`);
         if (response.status !== 200) {
            throw Error(response.statusText);
         }
-        return await request.json();
+        return await response.json();
     },
     {enabled: !!id} // если id не задан, запрос не делается
 );
@@ -298,11 +298,11 @@ type Post = {
 const URL = "https://jsonplaceholder.typicode.com/posts";
 
 const getPostById = async (id: string): Promise<Post> => {
-    const request = await fetch(`${URL}/${id}`);
+    const response = await fetch(`${URL}/${id}`);
     if (response.status !== 200) {
         throw Error(response.statusText);
     } 
-    return await request.json();
+    return await response.json();
 };
 
 function usePost(postId: string) {
@@ -331,11 +331,11 @@ type Post = {
 const URL = "https://jsonplaceholder.typicode.com/posts";
 
 const getPostById = async (id: string): Promise<Post> => {
-    const request = await fetch(`${URL}/${id}`);
+    const response = await fetch(`${URL}/${id}`);
     if (response.status !== 200) {
         throw Error(response.statusText);
     }
-    return await request.json();
+    return await response.json();
 };
 
 function usePost(postId: string) {
