@@ -7,7 +7,9 @@
 * [Добавление стилей](https://dmitryweiner.github.io/lectures/React%20-%20Styles%20and%20assets.html#/)
 * [Валидация форм](https://dmitryweiner.github.io/lectures/React%20-%20Form%20validation.html#/)
 * [Маршрутизация](https://dmitryweiner.github.io/lectures/React%20-%20Router.html#/)
-* [Запросы в сеть](https://dmitryweiner.github.io/lectures/React%20-%20Network.html#/)
+* Запросы в сеть:
+  * [Fetch](https://dmitryweiner.github.io/lectures/React%20-%20Network.html#/)
+  * [React Query](https://dmitryweiner.github.io/lectures/React%20-%20Query.html#/)
 * [Библиотеки готовых компонентов](https://dmitryweiner.github.io/lectures/React%20-%20Component%20libraries.html#/)
 * [TypeScript + React](https://dmitryweiner.github.io/lectures/React%20-%20TypeScript%20with%20React.html#/)
 
