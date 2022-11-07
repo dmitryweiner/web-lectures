@@ -224,3 +224,20 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 * То же, что и на предыдущей странице, но с отображением состояния загрузки.
 
 ![spinner](assets/fetch/loading-gif.gif)
+---
+
+* Склонировать [репозиторий](https://github.com/dmitryweiner/mini-chat-server), запустить сервер.
+* Из форм, 
+[написанных ранее](https://dmitryweiner.github.io/lectures/React%20-%20Form%20validation.html#/) 
+(логин и регистрация), отправлять запросы:
+  * Регистрация: `POST /user`
+  ```json
+    { "nickname": "test", "password": "123" }
+  ```
+  * Логин: `POST /auth`
+  ```json
+    { "nickname": "test", "password": "123" }
+  ```
+* После успешной регистрации перенаправлять на логин.
+После успешной авторизации перенаправлять на / (Home). 
+  
