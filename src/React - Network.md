@@ -198,6 +198,37 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 ```
 ---
 
+### Аутентификация
+* При логине на сервер, использующий аутентификацию с помощью кук с атрибутом `httpOnly`
+(как в [этой лекции](https://dmitryweiner.github.io/lectures/Express.html#/28)).
+* Необходимо передать в fetch параметр `credentials: "include"`:
+```js
+const response = await fetch("/auth", {
+    method: "POST",
+    credentials: "include", // ВАЖНО!
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        login: "admin",
+        
+    })
+});
+```
+---
+
+### Аутентификация
+* После успешно аутентификации все запросы, предполагающие передачу авторизационных кук,
+следует также делать с этой опцией:
+```js
+const response = await fetch("/user", {
+    method: "GET",
+    credentials: "include", // ВАЖНО!
+});
+```
+---
+
 ### Плюсы и минусы
 * Плюсы:
     * Просто.
