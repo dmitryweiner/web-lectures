@@ -20,7 +20,7 @@
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
-[видео](https://youtu.be/ykNZrjuyQZY)</script></section><section  data-markdown><script type="text/template">
+Видео: [1](https://youtu.be/ykNZrjuyQZY), [2](https://youtu.be/5riqB93BSsM)</script></section><section  data-markdown><script type="text/template">
 ### Express.js
 * Создан в 2010.
 * Создатель [TJ Holovaychik](https://github.com/tj) ([твитор](https://twitter.com/tjholowaychuk)).
@@ -36,27 +36,30 @@
 ```shell
 npm i express
 ```
-* Настройка запуска в ```package.json```:
+* Настройка запуска в ```package.json -> scripts```:
 ```json
 "scripts": {
-    "start": "node index.js",
+    // ...
+    "start": "node index.js"
+}
 ```
 * Или запуск с помощью [```nodemon```](https://github.com/remy/nodemon):
 ```shell
 npm i nodemon
 ```
 ```json
-"scripts": {
     "start": "nodemon index.js",
 ```</script></section><section  data-markdown><script type="text/template">
 ### Минимальный сервер
 ```js
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
+
 app.get('/', (req, res) => {
     res.send('Hello World!'); // отправка ответа
 });
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}!`)
 });
@@ -106,22 +109,22 @@ app.all('/admin', function (req, res, next) { // GET 'http://www.example.com/adm
 * Кукисы ```req.cookies```.
 * [Документация](https://expressjs.com/ru/4x/api.html#req).</script></section><section  data-markdown><script type="text/template">
 ### Разбор тела POST-запроса
+* Предполагаем, что клиент шлёт запросы с заголовком `Content-Type: application/json`:
+
 ```js
 const express = require('express');
 const app = express();
+
 // Для запросов с заголовком Content-Type: application/json
 app.use(express.json());
-// Для запросов с заголовком Content-Type:  application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
+
 app.post('/profile', function (req, res, next) {
     console.log(req.body);
     res.json(req.body);
 })
-```
-
-**Внимание:** не надо пользоваться библиотекой body-parser для этого, она устарела.</script></section><section  data-markdown><script type="text/template">
+```</script></section><section  data-markdown><script type="text/template">
 ### Объект res
-* Позволяет отправить HTTP-статус.
+* Позволяет отправить [HTTP-статус](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status).
 * Заголовки.
 * Тело ответа.
 * [Документация](https://expressjs.com/ru/4x/api.html#res).</script></section><section  data-markdown><script type="text/template">### Объект res
@@ -151,8 +154,7 @@ res.status(201).json({ b: 2 });
 * Можно передать в next() ошибку, чтобы она была обработана другим обработчиком.
 ```js
 next(new Error('Not found'));
-```
-</script></section><section  data-markdown><script type="text/template">
+```</script></section><section  data-markdown><script type="text/template">
 ### Обработка ошибок
 * Можно задать специальный обработчик (у него должно быть 4 параметра), который будет перехватывать ошибки
 и как-то красиво их выводить:
@@ -164,28 +166,37 @@ app.use(function(err, req, res, next) {
 ```
 * [Пример](https://github.com/dmitryweiner/todo-server/blob/main/server/index.js).</script></section><section  data-markdown><script type="text/template">
 ### Работа с куками
-* Чтение:
-
-```js
-req.cookies.name
+Чтение:
+* Для начала надо поставить cookie-parser:
+```shell
+npm i cookie-parser
 ```
+* Подключить парсер:
+```js
+const cookies = require("cookie-parser");
+app.use(cookies());
+```
+* Чтение в обработчике:
+```js
+app.get("/", (req, res) => {
+    console.log(req.cookies);
+});
+```</script></section><section  data-markdown><script type="text/template">
+### Работа с куками
 * Запись ([документация](https://expressjs.com/ru/4x/api.html#res.cookie)):
 
 ```js
 res.cookie(
     'cookieName',
     value,
-    { maxAge: 900000, httpOnly: true }
+    { 
+        maxAge: 900000, 
+        httpOnly: true
+    }
 );
-```</script></section><section  data-markdown><script type="text/template">
-### Типы HTTP запроса
-* При отправке HTTP-запроса указывается его тип:
-  * GET.
-  * POST.
-  * PUT.
-  * DELETE.
-  * OPTIONS.
-* [Документация](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).</script></section><section  data-markdown><script type="text/template">
+```
+
+[Что значат все эти параметры](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)</script></section><section  data-markdown><script type="text/template">
 ### RESTful API
 * Для удобства использования и разработки API организуется по методике [RESTful API](https://ru.wikipedia.org/wiki/REST).
 ![RESTful](assets/express/task_api.png)</script></section><section  data-markdown><script type="text/template">
@@ -196,6 +207,7 @@ res.cookie(
 ![rest api entities](assets/express/entity-rest-crud.png)</script></section><section  data-markdown><script type="text/template">
 ### Роуты
 * Это можно реализовать вот так:
+
 ```js
 const express = require('express');
 const router = express.Router();
@@ -208,6 +220,7 @@ router.get('/:id', (req, res, next) => {
 router.post('/', (req, res, next) => {
     // create item
 });
+
 // Ключевая строчка!
 // обработчики будут слушать по адресу 
 // http://mydomain.com/items/...
@@ -273,8 +286,7 @@ app.use(
         origin: true // автоматом подставляется текущий сервер в Origin
     })
 );
-```
-</script></section><section  data-markdown><script type="text/template">
+```</script></section><section  data-markdown><script type="text/template">
 ### Логгирование
 * Можно пользоваться удобной библиотекой [morgan](https://github.com/expressjs/morgan#readme):
 ```js
@@ -284,73 +296,15 @@ const app = express();
 app.use(morgan('combined'));
 ```
 * [Список режимов](https://github.com/expressjs/morgan#predefined-formats).</script></section><section  data-markdown><script type="text/template">
-### Подключение БД
-* Express.js работает с большим набором баз данных:
-  * MySQL
-  * MongoDB
-  * PostgreSQL
-* Для небольших проектов удобно использовать файловые БД, которые хранят данные в локальных файлах:
-  * [SQLite](https://github.com/mapbox/node-sqlite3)
-  * [LowDB](https://github.com/typicode/lowdb)
-* [Документация](https://expressjs.com/en/guide/database-integration.html).</script></section><section  data-markdown><script type="text/template">
-### MongoDB 
-* По историческим причинам Express.js часто используют с [MongoDB](https://www.tutorialspoint.com/mongodb/index.htm).
-```shell
-npm i mongodb
-```
-```js
-const mongoClient = require('mongodb').MongoClient;
-mongoClient.connect('mongodb://localhost:27017/animals', function(err, client){
-     if (err) throw err;
-  
-     let db = client.db('animals');
-     db.collection('mammals').find().toArray(function(err, result){
-         if (err) throw err;
-         console.log(result);
-         client.close();
-     });
-});
-```</script></section><section  data-markdown><script type="text/template">
-### Mongoose
-* Хотя MongoDB и не реляционная БД, работу с ней удобно осуществлять через [ORM](https://ru.wikipedia.org/wiki/ORM).
-* [Документация](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose).
-
-```js
-const mongoose = require('mongoose');
-// подключаем к БД
-const mongoDB = 'mongodb://127.0.0.1/my_database';
-mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-// определяем схему
-const Schema = mongoose.Schema;
-const UserSchema = new Schema({
-  username: String,
-  password: String
-});
-const UserModel = mongoose.model(
-    'user', // имя коллекции в БД
-    UserSchema 
-);
-// создаём экземпляр модели
-const user = new UserModel({
-    username: 'vasya_pupkine',
-    password: '123'
-});
-user.save(function (err) {
-    if (err) return handleError(err);
-    // saved!
-});
-```</script></section><section  data-markdown><script type="text/template">
-### Авторизация
-* Для авторизации обычно используются куки. В них кладут сессионный токен.
+### Аутентификация
+* Для аутентификации используется кука, хранящая сессионный токен.
 * У куки должны быть следующий параметры ([подробнее](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)):
   * httpOnly=true: чтобы кука была не видна в JS: document.coockies.
-  * sameSite=lax: чтобы можно было обращаться с другого домена (если это необходимо).
+  * sameSite=none: чтобы можно было обращаться с другого домена (если это необходимо).
   * secure=true: чтобы куки ходили только через HTTPS.</script></section><section  data-markdown><script type="text/template">
-### Алгоритм авторизации
+### Алгоритм аутентификации
 ```js
-router.post('/auth', (req, res) => {
+app.post('/auth', (req, res) => {
   // проверить пароль пользователя
   if (!checkLogin({
     login: req.body.login,
@@ -366,10 +320,10 @@ router.post('/auth', (req, res) => {
   // ...
   
   // отправить куку
-  res.cookie(TOKEN_COOKIE_NAME, token, {
-    maxAge: 24 * 60 * 60 * 1000, // TODO: to const
+  res.cookie("token", token, {
+    maxAge: 24 * 60 * 60 * 1000, // Время жизни 1 день
     httpOnly: true,
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    sameSite: 'none',
     secure: process.env.NODE_ENV === 'production'
   });
   
@@ -377,9 +331,9 @@ router.post('/auth', (req, res) => {
   res.json({ ok: true });
 });
 ```</script></section><section  data-markdown><script type="text/template">
-### Проверка состояния авторизованности
+### Проверка состояния
 ```js
-router.get('/', (req, res) => {
+app.get('/auth', (req, res) => {
     // вытащить токен из кук
     const token = req.cookies.token;
 
@@ -390,6 +344,10 @@ router.get('/', (req, res) => {
     res.json({ auth: true });
 });
 ```</script></section><section  data-markdown><script type="text/template">
+### Аутентификация
+* Готовая аутентификация сделана в следующих репозиториях:
+  * [express-auth-example](https://github.com/dmitryweiner/express-auth-example).
+  * [mini-chat-server](https://github.com/dmitryweiner/mini-chat-server).</script></section><section  data-markdown><script type="text/template">
 ### Тестирование
 * Для юнит-тестирования применяется [```jest```](https://jestjs.io/docs/getting-started).
 * Для сквозного тестирования применяется библиотека [supertest](https://github.com/visionmedia/supertest#readme).
@@ -475,9 +433,12 @@ app.listen(port, () => {
 ### Полезные ссылки
 * [Шикарная документация](https://expressjs.com/ru/4x/api.html).
 * [Документация](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Introduction).
-* [Демонстрационный проект](https://github.com/dmitryweiner/mini-chat-server).
-* [Ещё один демонстрационный проект](https://github.com/dmitryweiner/todo-server).
-* [Проект с Mongoose](https://github.com/dmitryweiner/secure-chat-nodejs).</script></section></div>
+
+* Демо-проекты: 
+  * [express-auth-example](https://github.com/dmitryweiner/express-auth-example).
+  * [mini-chat-server](https://github.com/dmitryweiner/mini-chat-server).
+  * [todo-server](https://github.com/dmitryweiner/todo-server).
+</script></section></div>
     </div>
 
     <script src="./dist/reveal.js"></script>

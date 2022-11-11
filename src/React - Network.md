@@ -227,6 +227,8 @@ const response = await fetch("/user", {
     credentials: "include", // ВАЖНО!
 });
 ```
+* Пример работающего механизма аутентификации есть в этом репозитории:
+  * [express-auth-example](https://github.com/dmitryweiner/express-auth-example).
 ---
 
 ### Плюсы и минусы
