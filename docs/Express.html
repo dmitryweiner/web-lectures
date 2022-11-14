@@ -323,7 +323,8 @@ app.post('/auth', (req, res) => {
   res.cookie("token", token, {
     maxAge: 24 * 60 * 60 * 1000, // Время жизни 1 день
     httpOnly: true,
-    sameSite: 'none',
+    // для dev-сервера lax, для production none
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     secure: process.env.NODE_ENV === 'production'
   });
   
