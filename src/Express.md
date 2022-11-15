@@ -341,56 +341,91 @@ app.use(morgan('combined'));
   * secure=true: чтобы куки ходили только через HTTPS.
 ---
 
-### Алгоритм аутентификации
-```js
-app.post('/auth', (req, res) => {
-  // проверить пароль пользователя
-  if (!checkLogin({
-    login: req.body.login,
-    password: req.body.password
-  })) {
-     return res.status(401).json({message: "Not authorized"}) 
-  }
-  
-  // сгенерировать токен
-  const token = UUID();
-  
-  // сложить его в базу вместе с user_id
-  // ...
-  
-  // отправить куку
-  res.cookie("token", token, {
-    maxAge: 24 * 60 * 60 * 1000, // Время жизни 1 день
-    httpOnly: true,
-    sameSite: 'none',
-    secure: process.env.NODE_ENV === 'production'
-  });
-  
-  // отправить ОК
-  res.json({ ok: true });
-});
-```
+### Алгоритм логина
+* Вытащить пользователя из базы.
+  * Если нет пользователя, возвращаем 404 с сообщением, что пользователь не найден.
+* Проверить, что пароль пользователя совпадает с паролем из базы (хешированный, конечно).
+  * Если не совпадает, возвращаем 401 с сообщением, что пароль не тот.
+* Сгенерировать токен, сложить его в базу вместе с user_id.
+* Отправить куку пользователю (httpOnly!), в которой лежит токен.
 ---
 
-### Проверка состояния
+### Пример реализации логина
 ```js
-app.get('/auth', (req, res) => {
-    // вытащить токен из кук
-    const token = req.cookies.token;
+authRouter.post("/", (req, res) => {
 
-    // проверить, есть ли такой токен в базе, не протухло ли время жизни
-    // ..
-  
-    // если всё ок
-    res.json({ auth: true });
+    const user = getUserByLogin(req.body.login);
+
+    if (!user) {
+        return res.status(404).json({
+            message: "Такой пользователь не найден"
+        });
+    }
+
+    if (user.password !== req.body.password) { // TODO: hash
+        return res.status(400).json({
+            message: "Пароль неверный"
+        });
+    }
+
+    const token = addToken(user.id);
+    res.cookie("token", token, {
+        maxAge: 24 * 60 * 60 * 1000, // TODO: to const
+        httpOnly: true,
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+        secure: process.env.NODE_ENV === 'production'
+    });
+
+    res.status(200).json({ok: true});
 });
 ```
+Из проекта [express-auth-example](https://github.com/dmitryweiner/express-auth-example/blob/master/server/routes/auth.js)
+---
+
+### Пояснения про sameSite и secure
+* Почему такой код?
+```js
+sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+secure: process.env.NODE_ENV === 'production'
+```
+* На dev-контуре мы работаем с доменом `localhost`, но по протоколу HTTP (не HTTPS).
+Поэтому нужно отключить secure, тогда придётся sameSite=lax.
+* На prod-контуре мы работаем с __разными__ доменами, но по протоколу HTTPS, поэтому мы
+можем отключить sameSite, включив secure.
+* [Подробнее про sameSite и secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies).
+---
+
+### Алгоритм проверки, залогинен ли
+* Прочитать токен из куки.
+  * Нет токена - статус 401, сообщение "не авторизован".
+* Проверить, есть ли такой токен в базе. Проверить время жизни, если есть.
+  * Нет токена или протух - статус 401, сообщение "не авторизован".
+* Если всё хорошо, продолжаем работу.
+---
+
+### Пример реализации проверки
+```js
+userRouter.get("/", (req, res) => {
+    const token = req.cookies.token;
+    const userId = getUserIdByToken(token);
+    if (!userId) {
+        return res.status(401).json({
+            message: "Пользователь не авторизован"
+        });
+    }
+
+    const user = getUserById(userId);
+    res.status(200).json(user);
+});
+```
+Из проекта [express-auth-example](https://github.com/dmitryweiner/express-auth-example/blob/master/server/routes/user.js)
 ---
 
 ### Аутентификация
 * Готовая аутентификация сделана в следующих репозиториях:
   * [express-auth-example](https://github.com/dmitryweiner/express-auth-example).
   * [mini-chat-server](https://github.com/dmitryweiner/mini-chat-server).
+* Для хранения сессии можно использовать библиотеку [express-session](https://github.com/expressjs/session).
 ---
 
 ### Тестирование
@@ -456,6 +491,7 @@ test('It should response the GET method', async () => {
   * ```POST /``` добавить элемент в коллекцию.
   * ```DELETE /:id``` удалить элемент по ID.
 ----
+
 ```js
 const express = require('express');
 const app = express();
