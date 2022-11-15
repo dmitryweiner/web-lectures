@@ -426,6 +426,8 @@ userRouter.get("/", (req, res) => {
   * [express-auth-example](https://github.com/dmitryweiner/express-auth-example).
   * [mini-chat-server](https://github.com/dmitryweiner/mini-chat-server).
 * Для хранения сессии можно использовать библиотеку [express-session](https://github.com/expressjs/session).
+* Для приемлемой защищенности лучше всего использовать JWT-аутентификацию с библиотекой
+[express-jwt](https://github.com/auth0/express-jwt).
 ---
 
 ### Тестирование
