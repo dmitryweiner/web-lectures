@@ -49,7 +49,7 @@ function App() {
 ![mui-date](assets/component-libraries/mui-date.png)
 ---
 
-### ![](assets/component-libraries/bootstrap.png) React Bootstrap
+### <img src="assets/component-libraries/bootstrap.png" height="60"> React Bootstrap
 * [Документация](https://react-bootstrap.github.io/getting-started/introduction).
 * Установка:
 
@@ -70,67 +70,44 @@ import Button from 'react-bootstrap/Button';
 ```
 ---
 
-### 
+### React Bootstrap
+[Демо](https://github.com/emaildano/react-bootstrap-example)
 
+![bootstrap-form](assets/component-libraries/bootstrap-form.png)
 ---
 
-### 
+### ![](assets/component-libraries/blueprint.png) Blueprint 
+* [Репозиторий](https://github.com/palantir/blueprint).
+* [Документация](https://blueprintjs.com/docs/).
+* Установка:
 
+```shell
+npm i @blueprintjs/core
+```
+
+* Использование:
+
+```js
+import { Button } from "@blueprintjs/core";
+// ...
+<Button intent="success" text="button content" onClick={incrementCounter} />
+```
 ---
 
-### 
+### Blueprint
+* [Демо](https://codesandbox.io/examples/package/@blueprintjs/core).
+* [Ещё демо](https://dribbble.com/Palantir).
 
+![](assets/component-libraries/blueprint-demo.png)
 ---
 
-### 
-
+### React Admin
+* Готовый компонент для админки.
+* [Документация](https://marmelab.com/react-admin/Tutorial.html).
+* [Демо](https://marmelab.com/react-admin-demo/).
 ---
 
-### 
+### Поисковик по отдельным компонентам
+* [Поиск](https://bit.cloud/components?q=datepicker) (для примера ищем datepicker).
 
----
-
-### 
-
----
-
-### 
-
----
-
-### 
-
----
-
-### 
-
----
-
-### 
-
----
-
-### 
-
----
-
-### 
-
----
-
-### 
-
----
-
-### 
-
----
-
-### 
-
----
-
-### 
-
----
-
+![bit.cloud](assets/component-libraries/byt.png)
