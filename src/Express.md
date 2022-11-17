@@ -43,7 +43,24 @@ npm i nodemon
 ```
 ---
 
+### Генерация проекта
+* Для ускорения работы можно (_не значит нужно_) сгенерировать готовый проект (по аналогии с create-react-app):
+* Бекенд-сервер только с API:
+```shell
+npx express-generator-api my-server
+```
+* Веб-сервер с рендером шаблонов Jade:
+```shell
+npx express-generator my-server
+```
+* Веб-сервер с шаблонами и TypeScript:
+```shell
+npx express-generator-typescript my-server
+```
+---
+
 ### Минимальный сервер
+Создадим файл `index.js` в корневом каталоге:
 ```js
 const express = require('express');
 const app = express();
