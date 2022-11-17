@@ -431,8 +431,7 @@ secure: process.env.NODE_ENV === 'production'
 * На dev-контуре мы работаем с доменом `localhost`, но по протоколу HTTP (не HTTPS).
 Поэтому нужно отключить secure, тогда придётся sameSite=lax.
 * На prod-контуре мы работаем с __разными__ доменами, но по протоколу HTTPS, поэтому мы
-можем отключить sameSite, включив secure.
-* [Подробнее про sameSite и secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies).
+можем отключить sameSite, включив secure. [Подробнее про sameSite и secure](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies).
 ---
 
 ### Алгоритм проверки, залогинен ли
