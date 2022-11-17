@@ -34,10 +34,14 @@ npm i express
     "start": "node index.js"
 }
 ```
-* Или запуск с помощью [```nodemon```](https://github.com/remy/nodemon):
+----
+* Или запуск с помощью [```nodemon```](https://github.com/remy/nodemon) 
+с перезагрузкой сервера при изменениях файлов:
+  * Установка:
 ```shell
 npm i nodemon
 ```
+  * package.json:
 ```json
     "start": "nodemon index.js",
 ```
