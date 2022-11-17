@@ -135,7 +135,26 @@ app.all('/admin', function (req, res, next) { // GET 'http://www.example.com/adm
 ---
 
 ### Разбор тела POST-запроса
-* Предполагаем, что клиент шлёт запросы с заголовком `Content-Type: application/json`:
+* Предполагаем, что клиент шлёт запросы с заголовком `Content-Type: application/json`.
+* Сам запрос содержит в теле JSON:
+```json
+{
+    "field": "value",
+    "anotherField": 123
+}
+```
+
+---
+
+### Postman
+* Запросы удобно делать с помощью расширения браузера:
+  * Firefox: [Restclient](https://addons.mozilla.org/en-US/firefox/addon/restclient/).
+  * GoogleChrome: [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop/).
+  * Opera: [RESTMan](https://addons.opera.com/en/extensions/details/restman/)
+
+![postman](assets/express/postman.png)
+---
+### Разбор тела POST-запроса
 
 ```js
 const express = require('express');
