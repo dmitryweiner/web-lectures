@@ -6,6 +6,7 @@ title: SQLite
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
+[видео](https://youtu.be/BiJmO73XZLQ)
 ---
 
 > SQLite — это быстрая и легкая встраиваемая однофайловая СУБД на языке C, которая не имеет сервера и позволяет хранить всю базу локально на одном устройстве. Для работы SQLite не нужны сторонние библиотеки или службы.
@@ -37,8 +38,8 @@ npm install sqlite3 sqlite
 
 ### Подключение
 ```js
-import sqlite3 from 'sqlite3'
-import { open } from 'sqlite'
+const sqlite3 = require('sqlite3');
+const { open } = require('sqlite');
 
 // this is a top-level await 
 (async () => {
@@ -116,3 +117,4 @@ await db.exec('DELETE FROM tbl WHERE col = ?', 'test')
 * https://github.com/kriasoft/node-sqlite
 * https://www.sqlitetutorial.net/
 * https://developerhowto.com/2018/12/29/build-a-rest-api-with-node-js-and-express-js/
+* [Учебный проект с SQLite](https://github.com/dmitryweiner/express-auth-example/commit/333f5400062315490e7470340d152ea3a671556a).
