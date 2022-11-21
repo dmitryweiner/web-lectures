@@ -80,6 +80,8 @@
     FOREIGN KEY(topicId) REFERENCES topics(id)
   );    
   ```
+  
+  ![image](https://user-images.githubusercontent.com/6175334/202987407-b8eb124c-2f87-4092-8776-f6ba010145a2.png)
 
 </details>
 
