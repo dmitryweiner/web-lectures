@@ -45,6 +45,43 @@
   * Аутентификация.
   * Темы.
   * Сообщения.
+<details>
+  <summary>Структура базы</summary>
+  
+  ```sql
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    login TEXT NOT NULL,
+    password TEXT NOT NULL
+  );
+
+  CREATE TABLE IF NOT EXISTS tokens (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    userId INTEGER NOT NULL,
+    token TEXT NOT NULL,
+    FOREIGN KEY(userId) REFERENCES users(id)
+  );
+
+  CREATE TABLE IF NOT EXISTS topics (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    theme TEXT NOT NULL,
+    authorId INTEGER NOT NULL,
+    createdAt INTEGER NOT NULL,
+    FOREIGN KEY(authorId) REFERENCES users(id)
+  );
+
+  CREATE TABLE IF NOT EXISTS messages (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    body TEXT NOT NULL,
+    topicId INTEGER NOT NULL,
+    authorId INTEGER NOT NULL,
+    createdAt INTEGER NOT NULL,
+    FOREIGN KEY(authorId) REFERENCES users(id),
+    FOREIGN KEY(topicId) REFERENCES topics(id)
+  );    
+  ```
+
+</details>
 
 #### Альтернативные варианты тем:
 * Чат с логином/регистрацией и комнатами. Можно использовать AES-шифрование.
