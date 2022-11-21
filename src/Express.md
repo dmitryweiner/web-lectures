@@ -253,7 +253,13 @@ res.cookie(
 );
 ```
 
-[Что значат все эти параметры](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
+[Что значат все эти параметры?](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
+
+* Удаление:
+
+```js
+res.clearCookie('cookieName');
+```
 ---
 
 ### RESTful API
