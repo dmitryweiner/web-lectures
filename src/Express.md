@@ -351,20 +351,30 @@ app.listen(3000);
 * Для корректной работы 
   [междоменных запросов](https://ru.wikipedia.org/wiki/Cross-origin_resource_sharing)
   необходимо отправлять соответствующие заголовки.
-* Это удобно делать с помощью библиотеки [CORS](https://github.com/expressjs/cors#readme):
+* Иначе браузер показывает такую ошибку:
+
+![cors error](assets/express/cors.png)
+---
+
+### CORS
+* Чтобы так не было, надо поставить библиотеку [CORS](https://github.com/expressjs/cors#readme):
 ```shell
 npm i cors
 ```
+* Добавить код в index.js:
+
 ```js
 const express = require('express');
-const cors = require('cors');
 const app = express();
+const cors = require('cors');
+// ...
 app.use(
     cors({
         credentials: true, // чтобы работали secured куки
         origin: true // автоматом подставляется текущий сервер в Origin
     })
 );
+// ...
 ```
 ---
 
