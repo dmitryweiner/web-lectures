@@ -7,6 +7,7 @@ title: Sequelize
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
 
+[видео](https://youtu.be/ZO51ORYhSvg)
 ---
 
 ### ORM 
