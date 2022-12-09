@@ -157,3 +157,20 @@ import { Button } from "@blueprintjs/core";
 * [Поиск](https://bit.cloud/components?q=datepicker) (для примера ищем datepicker).
 
 ![bit.cloud](assets/component-libraries/byt.png)
+
+---
+
+### CCS-фреймворк в стиле Windows98
+
+* https://jdan.github.io/98.css/
+* [Demo](https://github.com/dmitryweiner/todolist-webpack-win98)
+
+![](assets/component-libraries/win98.png)
+
+---
+
+### CSS-фреймворк в стиле [NES](https://ru.wikipedia.org/wiki/Nintendo_Entertainment_System)
+
+https://nostalgic-css.github.io/NES.css/
+
+![](assets/component-libraries/nes.png)
