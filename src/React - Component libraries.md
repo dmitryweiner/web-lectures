@@ -5,6 +5,8 @@ title: React - Библиотеки компонентов
 ## 📙 Библиотеки компонентов для React.js ⚛
 
 [все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+
+[видео](https://youtu.be/7H6uhFKWYuA)
 ---
 
 ### Краткий обзор библиотек
@@ -151,6 +153,8 @@ import { Button } from "@blueprintjs/core";
 * Готовый компонент для админки.
 * [Документация](https://marmelab.com/react-admin/Tutorial.html).
 * [Демо](https://marmelab.com/react-admin-demo/).
+
+<img src="assets/component-libraries/react-admin.png"/>
 ---
 
 ### Поисковик по отдельным компонентам
