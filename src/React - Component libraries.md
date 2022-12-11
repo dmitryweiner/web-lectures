@@ -173,6 +173,14 @@ import { Button } from "@blueprintjs/core";
 
 ---
 
+### CCS-фреймворк в стиле Windows95
+
+* https://github.com/react95-io/React95
+* [Демо](https://coins95.web.app/coins).
+
+![](assets/component-libraries/win95.png)
+---
+
 ### CSS-фреймворк в стиле [NES](https://ru.wikipedia.org/wiki/Nintendo_Entertainment_System)
 
 https://nostalgic-css.github.io/NES.css/
