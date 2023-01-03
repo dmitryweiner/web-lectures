@@ -200,7 +200,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
 ### Аутентификация
 * При логине на сервер, использующий аутентификацию с помощью кук с атрибутом `httpOnly`
-(как в [этой лекции](https://dmitryweiner.github.io/lectures/Express.html#/28)).
+(как в [этой лекции](https://dmitryweiner.github.io/web-lectures/Express.html#/28)).
 * Необходимо передать в fetch параметр `credentials: "include"`:
 ```js
 const response = await fetch("/auth", {
@@ -238,7 +238,7 @@ const response = await fetch("/user", {
     * Нет кеширования.
     * Нет состояния загрузки.
     * Лапшекод.
-* __Вывод__: надо использовать библиотеку [React Query](https://dmitryweiner.github.io/lectures/React%20-%20Query.html#/).
+* __Вывод__: надо использовать библиотеку [React Query](https://dmitryweiner.github.io/web-lectures/React%20-%20Query.html#/).
 ---
 
 ### Задачи
@@ -261,7 +261,7 @@ const response = await fetch("/user", {
 
 * Склонировать [репозиторий](https://github.com/dmitryweiner/mini-chat-server), запустить сервер.
 * Из форм, 
-[написанных ранее](https://dmitryweiner.github.io/lectures/React%20-%20Form%20validation.html#/) 
+[написанных ранее](https://dmitryweiner.github.io/web-lectures/React%20-%20Form%20validation.html#/) 
 (логин и регистрация), отправлять запросы:
   * Регистрация: `POST /user`
   ```json
@@ -273,4 +273,3 @@ const response = await fetch("/user", {
   ```
 * После успешной регистрации перенаправлять на логин.
 После успешной авторизации перенаправлять на / (Home). 
-  

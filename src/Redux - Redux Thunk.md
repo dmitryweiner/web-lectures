@@ -113,7 +113,7 @@ const saveError = (error: string) => ({
 ---
 
 ### Action отправки запроса
-* Тип ```dispatch``` берём [из ```store```](https://dmitryweiner.github.io/lectures/Redux%20API.html#/4).
+* Тип ```dispatch``` берём [из ```store```](https://dmitryweiner.github.io/web-lectures/Redux%20API.html#/4).
 ```ts
 const saveNewItem = (value: string) => async (dispatch: AppDispatch) => {
     const newObject = {
@@ -259,7 +259,7 @@ export const addElement = (title: string) => async (dispatch: AppDispatch) => {
         dispatch(setRequestStatus(REQUEST_STATUS.LOADING));
         const data = await api.todos.add({title});
         // Тут должна быть проверка или приведение типа data.
-        // @see https://dmitryweiner.github.io/lectures/TypeScript.html#/38
+        // @see https://dmitryweiner.github.io/web-lectures/TypeScript.html#/38
         dispatch({type: ACTION_TYPES.ADD, payload: data});
         dispatch(setRequestStatus(REQUEST_STATUS.SUCCESS));
     } catch (error) {
@@ -304,7 +304,7 @@ createAction({
 
 ### Как это тестировать?
 
-[Лекция про тестирование redux-thunk](https://dmitryweiner.github.io/lectures/Test%20Redux%20Thunk.html#/)
+[Лекция про тестирование redux-thunk](https://dmitryweiner.github.io/web-lectures/Test%20Redux%20Thunk.html#/)
 
 ![tdd](assets/tdd/tdd.jpeg)
 

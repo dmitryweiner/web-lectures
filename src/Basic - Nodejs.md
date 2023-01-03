@@ -28,7 +28,7 @@ title: Basic - Nodejs
 * Имеет доступ к файлам, сети, устройствам.
 * Есть асинхронное выполнение.
 * Есть модули.
-* Есть [NPM](https://dmitryweiner.github.io/lectures/Basic%20-%20NPM.html) (менеджер пакетов).
+* Есть [NPM](https://dmitryweiner.github.io/web-lectures/Basic%20-%20NPM.html) (менеджер пакетов).
 * Последняя версия: 17 (на апрель 2022).
 * [Компилируется в байткод](https://habr.com/ru/company/ruvds/blog/336294/).
 * [Документация](https://nodejs.org/api/documentation.html).
@@ -406,7 +406,7 @@ const server = http.createServer(async (req, res) => {
 ### Серверные фреймворки
 * Adonis.js
 * [Express.js](https://expressjs.com/)
-  ([Лекция](https://dmitryweiner.github.io/lectures/Express.html#/))
+  ([Лекция](https://dmitryweiner.github.io/web-lectures/Express.html#/))
 * Fastify
 * Hapi.js
 * [Koa.js](https://koajs.com/)

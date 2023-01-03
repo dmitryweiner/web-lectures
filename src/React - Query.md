@@ -12,7 +12,7 @@ title: React - Запросы в сеть c библиотекой React Query
 ---
 
 ### Перепишем форму
-* Перепишем форму, делающую запросы с помощью [`fetch`](https://dmitryweiner.github.io/lectures/React%20-%20Network.html#/).
+* Перепишем форму, делающую запросы с помощью [`fetch`](https://dmitryweiner.github.io/web-lectures/React%20-%20Network.html#/).
 * Минусы использования `fetch()`:
     * Нет кеширования.
     * Нет состояния загрузки.

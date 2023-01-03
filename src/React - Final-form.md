@@ -81,7 +81,7 @@ const MyForm = () => (
 ---
 
 ### Задача
-* Переделать форму, написанную в [предыдущей лекции](https://dmitryweiner.github.io/lectures/React%20-%20Form%20validation.html#/):
+* Переделать форму, написанную в [предыдущей лекции](https://dmitryweiner.github.io/web-lectures/React%20-%20Form%20validation.html#/):
   <br/>Логин:
   <input>
   <br/>Пароль:

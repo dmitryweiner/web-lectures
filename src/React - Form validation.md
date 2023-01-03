@@ -238,7 +238,7 @@ export default function Form() {
   * Складывать ошибки в объект с полями.
 * Использовать для обработки формы сторонние библиотеки:
   * [Formik](https://formik.org/).
-  * [Final-form](https://dmitryweiner.github.io/lectures/React%20-%20Final-form.html#/).
+  * [Final-form](https://dmitryweiner.github.io/web-lectures/React%20-%20Final-form.html#/).
 ---
 
 ### Задачи

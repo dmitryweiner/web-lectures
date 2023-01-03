@@ -164,7 +164,7 @@ const reducer = function (state: IStore = initialState, action: ActionType): ISt
 ---
 
 ### Типизация функции ```dispatch```
-Пригодится при типизации [асинхронных экшенов](https://dmitryweiner.github.io/lectures/Redux%20API.html#/9).
+Пригодится при типизации [асинхронных экшенов](https://dmitryweiner.github.io/web-lectures/Redux%20API.html#/9).
 
 ```ts
 export type AppDispatch = typeof store.dispatch;

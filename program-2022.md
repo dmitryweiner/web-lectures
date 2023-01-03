@@ -1,20 +1,20 @@
 # Программа курса "Системное программирование" для групп 007са, 007сб, 907а, 907б.
 ## На самом деле это фронтенд/веб-разработка.
 
-* [HTML](https://dmitryweiner.github.io/lectures/Basic%20-%20HTML.html)
-* [CSS](https://dmitryweiner.github.io/lectures/Basic%20-%20CSS.html)
-* [JavaScript](https://dmitryweiner.github.io/lectures/Basic%20-%20JS.html)
-  * [Введение в язык JavaScript. Основы языка: синтаксис, управляющие конструкции.](https://dmitryweiner.github.io/lectures/JS_part1.html)
-  * [Функции. Rest...spread.](https://dmitryweiner.github.io/lectures/JS_part2.html)
-  * [Массивы.](https://dmitryweiner.github.io/lectures/JS_part3.html)
-  * [Работа с DOM. События.](https://dmitryweiner.github.io/lectures/JS_part4.html)
-  * [Асинхронный код. Обработка ошибок. HTTP-запросы.](https://dmitryweiner.github.io/lectures/JS_part5.html)
-  * [Map, Set. Даты. Работа с устройствами.](https://dmitryweiner.github.io/lectures/JS_part6.html)
-* [Node.js](https://dmitryweiner.github.io/lectures/Basic%20-%20Nodejs.html)
-* [NPM](https://dmitryweiner.github.io/lectures/Basic%20-%20NPM.html)
-* [Webpack](https://dmitryweiner.github.io/lectures/Basic%20-%20Webpack.html#/)
-* [TypeScript](https://dmitryweiner.github.io/lectures/Basic%20-%20TypeScript.html)
-* [ESLint + Prettier + Husky](https://dmitryweiner.github.io/lectures/EslintPrettierHusky.html)
+* [HTML](https://dmitryweiner.github.io/web-lectures/Basic%20-%20HTML.html)
+* [CSS](https://dmitryweiner.github.io/web-lectures/Basic%20-%20CSS.html)
+* [JavaScript](https://dmitryweiner.github.io/web-lectures/Basic%20-%20JS.html)
+  * [Введение в язык JavaScript. Основы языка: синтаксис, управляющие конструкции.](https://dmitryweiner.github.io/web-lectures/JS_part1.html)
+  * [Функции. Rest...spread.](https://dmitryweiner.github.io/web-lectures/JS_part2.html)
+  * [Массивы.](https://dmitryweiner.github.io/web-lectures/JS_part3.html)
+  * [Работа с DOM. События.](https://dmitryweiner.github.io/web-lectures/JS_part4.html)
+  * [Асинхронный код. Обработка ошибок. HTTP-запросы.](https://dmitryweiner.github.io/web-lectures/JS_part5.html)
+  * [Map, Set. Даты. Работа с устройствами.](https://dmitryweiner.github.io/web-lectures/JS_part6.html)
+* [Node.js](https://dmitryweiner.github.io/web-lectures/Basic%20-%20Nodejs.html)
+* [NPM](https://dmitryweiner.github.io/web-lectures/Basic%20-%20NPM.html)
+* [Webpack](https://dmitryweiner.github.io/web-lectures/Basic%20-%20Webpack.html#/)
+* [TypeScript](https://dmitryweiner.github.io/web-lectures/Basic%20-%20TypeScript.html)
+* [ESLint + Prettier + Husky](https://dmitryweiner.github.io/web-lectures/EslintPrettierHusky.html)
 
 ## Лабораторная №1: Список дел
 #### а) Вёрстка  HTML
@@ -22,7 +22,7 @@
 ![html](src/assets/programs/html.png)
 
 * Сверстать заготовку будущего веб-приложения.
-* В процессе можно пользоваться [презентацией](https://dmitryweiner.github.io/lectures/Basic%20-%20HTML.html#/).
+* В процессе можно пользоваться [презентацией](https://dmitryweiner.github.io/web-lectures/Basic%20-%20HTML.html#/).
 
 <hr/>
 
@@ -33,7 +33,7 @@
 * Написать стили для веб-приложения. Не обязательно, чтоб было как на картинке, главное сам процесс.
 * Постараться отцентрировать весь блок горизонтально и вертикально.
 * Будет плюсом, если сам список можно будет прокручивать без прокручивания самой страницы.
-* В процессе можно пользоваться [презентацией](https://dmitryweiner.github.io/lectures/Basic%20-%20CSS.html#/).
+* В процессе можно пользоваться [презентацией](https://dmitryweiner.github.io/web-lectures/Basic%20-%20CSS.html#/).
 
 <hr/>
 
@@ -96,14 +96,14 @@
   ![advanced search form](src/assets/programs/advanced-search.png)
 
 # Программа для тех, кто уже знает JS + CSS + HTML
-* [Введение в React.js](https://dmitryweiner.github.io/lectures/React%20-%20Basic.html#/)
-* [Функциональные компоненты и хуки](https://dmitryweiner.github.io/lectures/React%20-%20Hooks.html#/)
-* [Как работать с формами и контролами](https://dmitryweiner.github.io/lectures/React%20-%20Form%20controls.html#/)
-* [Тестирование с помощью testing-library](https://dmitryweiner.github.io/lectures/React%20-%20Testing%20components.html#/)
-* [Добавление стилей](https://dmitryweiner.github.io/lectures/React%20-%20Styles%20and%20assets.html#/)
-* [Маршрутизация](https://dmitryweiner.github.io/lectures/React%20-%20Router.html#/)
-* [Запросы в сеть](https://dmitryweiner.github.io/lectures/React%20-%20Fetch.html#/)
-* [TypeScript + React](https://dmitryweiner.github.io/lectures/React%20-%20TypeScript%20with%20React.html#/)
+* [Введение в React.js](https://dmitryweiner.github.io/web-lectures/React%20-%20Basic.html#/)
+* [Функциональные компоненты и хуки](https://dmitryweiner.github.io/web-lectures/React%20-%20Hooks.html#/)
+* [Как работать с формами и контролами](https://dmitryweiner.github.io/web-lectures/React%20-%20Form%20controls.html#/)
+* [Тестирование с помощью testing-library](https://dmitryweiner.github.io/web-lectures/React%20-%20Testing%20components.html#/)
+* [Добавление стилей](https://dmitryweiner.github.io/web-lectures/React%20-%20Styles%20and%20assets.html#/)
+* [Маршрутизация](https://dmitryweiner.github.io/web-lectures/React%20-%20Router.html#/)
+* [Запросы в сеть](https://dmitryweiner.github.io/web-lectures/React%20-%20Fetch.html#/)
+* [TypeScript + React](https://dmitryweiner.github.io/web-lectures/React%20-%20TypeScript%20with%20React.html#/)
 
 ## Лабораторные
 Сделать 1 и 2 лабораторные на React.js.

@@ -24,7 +24,7 @@ title: Angular - State managers
 * За основу взяты идеи Redux.
 * Изоляция сайд-эффектов.
 * Интеграция с роутером в Angular.
-* Активное использование библиотеки [RxJS](https://dmitryweiner.github.io/lectures/RxJS.html#/).
+* Активное использование библиотеки [RxJS](https://dmitryweiner.github.io/web-lectures/RxJS.html#/).
 ---
 
 ![ng-rx-logos](assets/angular-state/ng-rx-logos.png)

@@ -222,7 +222,7 @@ function* initialLoad() {
 
 ### Как это тестировать?
 * Пользуемся тем, что саги &mdash; это генераторы.
-* Реальное обращение к API надо [замокать](https://dmitryweiner.github.io/lectures/Test%20Redux%20Thunk.html#/).
+* Реальное обращение к API надо [замокать](https://dmitryweiner.github.io/web-lectures/Test%20Redux%20Thunk.html#/).
 * Вызванные экшены надо складывать в массив и потом проверять.
 ```js
 import {runSaga} from 'redux-saga';

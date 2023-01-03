@@ -69,7 +69,7 @@ export function revertString(str) {
 ---
 
 ### Установка
-* Проект должен быть инициализирован через [`npm init`](https://dmitryweiner.github.io/lectures/Basic%20-%20NPM.html#/).
+* Проект должен быть инициализирован через [`npm init`](https://dmitryweiner.github.io/web-lectures/Basic%20-%20NPM.html#/).
 * Установка необходимых библиотек:
 
 ```shell

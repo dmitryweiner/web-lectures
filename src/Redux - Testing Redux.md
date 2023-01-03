@@ -194,7 +194,7 @@ expect(store.getActions()).toEqual([actionInc()]);
 ---
 
 ### Что дальше?
-* [Как тестировать асинхронные запросы к сети?](https://dmitryweiner.github.io/lectures/Test%20Redux%20Thunk.html#/)
+* [Как тестировать асинхронные запросы к сети?](https://dmitryweiner.github.io/web-lectures/Test%20Redux%20Thunk.html#/)
 
 ### Полезные ссылки
 * [Официальная документация](https://redux.js.org/recipes/writing-tests)
