@@ -148,7 +148,7 @@ useEffect(() => {
   * Отменить таймеры, например.
   * Освободить память.
 * Эффект вызывается при изменении списка зависимостей ```dependencies```.
-* [Документация](https://reactjs.org/docs/hooks-reference.html#useeffect).</script></section><section  data-markdown><script type="text/template">
+* [Документация](https://reactjs.org/docs/hooks-reference.html#useeffect).</script></section><section ><section data-markdown><script type="text/template">
 ### useEffect: указание зависимостей
 * Если надо вызывать эффект при каждом рендере компонента:
 ```js
@@ -163,7 +163,27 @@ useEffect(() => {
   useEffect(() => {}, [value]);
   ```
 * [Документация](https://reactjs.org/docs/hooks-reference.html#conditionally-firing-an-effect),
-  [хорошее объяснение](https://overreacted.io/a-complete-guide-to-useeffect/).</script></section><section  data-markdown><script type="text/template">
+  [хорошее объяснение](https://overreacted.io/a-complete-guide-to-useeffect/).</script></section><section data-markdown><script type="text/template">
+### useEffect вместо методов жизненного цикла
+
+```jsx
+import { useEffect } from "react";
+
+function Component() {
+
+  useEffect(() => {
+    // componentDidMount()
+    return () => {
+      // componentWillUnmount()
+    };
+  }, []);
+
+  useEffect(() => {
+    // componentDidUpdate()
+  });
+  return <>...</>;
+}
+```</script></section></section><section  data-markdown><script type="text/template">
 ### useEffect: ```dependencies```
 * Сравнение списка зависимостей происходит по значению.
 * Если передан объект, сравнивается ссылка на объект, при изменении поля объекта эффект не вызывается.
@@ -379,7 +399,7 @@ function Component() {
 * https://metanit.com/web/react/6.1.php
 * https://github.com/streamich/react-use/
 * <iframe width="560" height="315" src="https://www.youtube.com/embed/jd8R0a2Ur8Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  </script></section></div>
+</script></section></div>
     </div>
 
     <script src="./dist/reveal.js"></script>

@@ -189,6 +189,28 @@ useEffect(() => {
   ```
 * [Документация](https://reactjs.org/docs/hooks-reference.html#conditionally-firing-an-effect),
   [хорошее объяснение](https://overreacted.io/a-complete-guide-to-useeffect/).
+----
+
+### useEffect вместо методов жизненного цикла
+
+```jsx
+import { useEffect } from "react";
+
+function Component() {
+
+  useEffect(() => {
+    // componentDidMount()
+    return () => {
+      // componentWillUnmount()
+    };
+  }, []);
+
+  useEffect(() => {
+    // componentDidUpdate()
+  });
+  return <>...</>;
+}
+```
 ---
 
 ### useEffect: ```dependencies```
@@ -442,4 +464,3 @@ function Component() {
 * https://metanit.com/web/react/6.1.php
 * https://github.com/streamich/react-use/
 * <iframe width="560" height="315" src="https://www.youtube.com/embed/jd8R0a2Ur8Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  
