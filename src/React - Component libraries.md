@@ -4,7 +4,7 @@ title: React - Библиотеки компонентов
 
 ## 📙 Библиотеки компонентов для React.js ⚛
 
-[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+[все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 
 [видео](https://youtu.be/7H6uhFKWYuA)
 ---

@@ -7,7 +7,7 @@ title: Redux - Борьба с излишними рендерами в React.js
 ### Библиотеки reselect
 ### И оборачивания в React.memo
 
-[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+[все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 
 [видео](https://drive.google.com/file/d/18zlX_cBrtaNDvBkSvDD282UIckH6opPW/view?usp=sharing)
 

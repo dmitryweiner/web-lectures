@@ -5,7 +5,7 @@ title: React - Final-form
 ## Валидация форм с помощью библиотеки
 # `final-form`
 
-[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+[все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 
 [видео](https://youtu.be/lBDKQ00vSjk)
 ---

@@ -6,7 +6,7 @@ title: React - Маршрутизация с помощью библиотеки
 
 ![react-router-dom logo](assets/react-router/logo.png)
 
-[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+[все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 
 [Видео](https://youtu.be/XTDyYjpIS_Q)
 ---
@@ -418,7 +418,7 @@ https://github.com/remix-run/react-router/tree/main/examples
 ---
 
 ### Задача
-* Сделать роуты для [лабораторной](https://github.com/dmitryweiner/lectures/blob/main/laba.md):
+* Сделать роуты для [лабораторной](https://github.com/dmitryweiner/web-lectures/blob/main/laba.md):
   * `/login` - `<LoginForm />`
   * `/registration` - `<RegistrationForm />`
   * `/` - `<Home />`

@@ -6,7 +6,7 @@ title: React - TypeScript
 
 ![ts](assets/ts/world.jpeg)
 
-[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+[все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 
 [видео](https://drive.google.com/file/d/1IM5flt6CJ2boyYpxs7CAcze2r-ZZ9fM4/view?usp=sharing)
 

@@ -10,7 +10,7 @@ title: JS часть 6
 
 🍰🍰🍰
 
-[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+[все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 
 [видео](https://drive.google.com/file/d/18pLrTz9VTnhz16O_9krW_Eg8I4bGjWD5/view?usp=sharing)
 ---

@@ -6,7 +6,7 @@ title: React - Основы
 
 ![react logo](assets/react-basic/react-logo.png)
 
-[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+[все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 
 Видео: [1](https://youtu.be/iOME143rinU), [2](https://youtu.be/cApcJ7qA7wU)
 ---

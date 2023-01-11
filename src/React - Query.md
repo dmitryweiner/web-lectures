@@ -6,7 +6,7 @@ title: React - Запросы в сеть c библиотекой React Query
 
 ![react-query](assets/fetch/react-query.jpg)
 
-[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+[все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 
 [Видео](https://youtu.be/wKuWpQrqquE)
 ---

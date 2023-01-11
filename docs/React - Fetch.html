@@ -17,7 +17,7 @@
 
 ## React - Запросы в сеть
 
-[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+[все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 </script></section><section  data-markdown><script type="text/template">
 ### Идея тестирования
 * Не давать коду выполнять реальные запросы по сети.
@@ -32,11 +32,11 @@ test('should call api', async () => {
     const todos = [{ title: 'Read the book' }, { title: 'Feed the cat' }];
     const getTodos = jest.spyOn(api, 'geTodos')
         .mockImplementation(() => Promise.resolve(todos)); // подмена вызова
-    
+
     // вызываем что-то, что идёт в API
     // Компонент или экшен или сагу
     api.getTodos();
-    
+
     expect(getTodos).toHaveBeenCalledTimes(1);
     getTodos.mockClear();
 });

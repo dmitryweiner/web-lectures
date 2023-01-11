@@ -3,7 +3,7 @@
 
 ![express.js logo](assets/express/orelly.jpeg)
 
-[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+[все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 
 Видео: [1](https://youtu.be/ykNZrjuyQZY), [2](https://youtu.be/5riqB93BSsM)
 ---

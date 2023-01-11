@@ -6,7 +6,7 @@ title: Angular
 
 ![angular logo](assets/angular/logo.png)
 
-[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+[все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 
 Видео:
 [1](https://drive.google.com/file/d/1Pnzf9Xkuz_IQ2wnJytIt3SQU4BRgAVQh/view?usp=sharing),

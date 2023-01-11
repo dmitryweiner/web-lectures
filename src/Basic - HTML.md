@@ -6,7 +6,7 @@ title: Basic - HTML
 
 ![first web developer](assets/html/web-dev.png)
 
-[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+[все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 
 Видео: 
 [1](https://drive.google.com/file/d/1OkbiegilaFIY1DPr1JhmBx4Bg8iGSWFU/view?usp=sharing),

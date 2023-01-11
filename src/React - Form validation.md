@@ -6,7 +6,7 @@ title: React - Form validation
 
 ![react validation](assets/react-validation/img.png)
 
-[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+[все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 
 [видео](https://youtu.be/lBDKQ00vSjk)
 ---

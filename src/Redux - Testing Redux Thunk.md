@@ -6,7 +6,7 @@ title: Redux - Тестируем Redux Thunk
 
 ![react-testing library](assets/redux-api/redux-thunk-meme.png)
 
-[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+[все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 
 [видео](https://drive.google.com/file/d/1gGJaIE0CzD7yv8Ya0T7wayXgdI3ZMYmz/view?usp=sharing)
 

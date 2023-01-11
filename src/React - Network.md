@@ -6,7 +6,7 @@ title: React - Запросы в сеть
 
 ![react network](assets/fetch/api.png)
 
-[все лекции](https://github.com/dmitryweiner/lectures/blob/main/README.md)
+[все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 
 [Видео](https://youtu.be/wKuWpQrqquE)
 ---
