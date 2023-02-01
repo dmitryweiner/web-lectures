@@ -19,7 +19,7 @@ title: Basic - HTML
 [Подробнее](https://developer.mozilla.org/ru/docs/Learn/Server-side/First_steps/Client-Server_overview)
 ---
 
-### Стек TCP/IP ([подробнее](https://www.youtube.com/watch?v=BJSITWkSDQg))
+### Стек [TCP/IP](https://ru.wikipedia.org/wiki/TCP/IP) ([подробнее](https://www.youtube.com/watch?v=BJSITWkSDQg))
 
 ![TCP/IP layers](assets/html/tcp-ip.png)
 ---
@@ -53,7 +53,7 @@ title: Basic - HTML
 
 ### Структура документа
 * Документ представляет собой иерархическое дерево тегов.
-* Документ состоит из корневого тега html, в котором должны лежать body и head.
+* Документ состоит из корневого тега `<html>`, в котором должны лежать `<body>` и `<head>`.
 * Тег, лежащий внутри другого тега, называется потомком, а тот называется родителем.
 * Теги на одном уровне называют siblings.
 ---
@@ -90,7 +90,9 @@ title: Basic - HTML
 * Они пишутся внутри тега, разделяются пробелом (или переносами), обрамляются двойными кавычками:
 ```html
 <img src="https://picsum.photos/200" 
-        width="200" height="200" alt="рандомная картинка" />
+    width="200" 
+    height="200"
+    alt="рандомная картинка" />
 ```
 * Набор параметров зависит от тега.
 
@@ -124,7 +126,7 @@ title: Basic - HTML
 ```
 ---
 
-### [&lt;p&gt;](http://htmlbook.ru/html/p)
+### Параграф [&lt;p&gt;](http://htmlbook.ru/html/p)
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 ```html
 <p>
@@ -133,7 +135,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ```
 ---
 
-### [&lt;br&gt;](http://htmlbook.ru/html/br)
+### Перенос [&lt;br&gt;](http://htmlbook.ru/html/br)
 Lorem ipsum dolor sit amet,
 
 consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -145,7 +147,7 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ```
 ---
 
-### [&lt;ul&gt;](http://htmlbook.ru/html/ul)
+### Ненумерованный список [&lt;ul&gt;](http://htmlbook.ru/html/ul)
 * Элемент 1
 * Элемент 2
 * Элемент 3
@@ -159,7 +161,7 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ```
 ---
 
-### [&lt;ol&gt;](http://htmlbook.ru/html/ol)
+### Нумерованный список [&lt;ol&gt;](http://htmlbook.ru/html/ol)
 1. Элемент 1
 2. Элемент 2
 3. Элемент 3
@@ -173,7 +175,7 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ```
 ---
 
-### [&lt;div&gt;](http://htmlbook.ru/html/div)
+### Блок [&lt;div&gt;](http://htmlbook.ru/html/div)
 Блок, отделённый отступами.
 
 Ещё один блок.
@@ -189,7 +191,7 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ---
 
 
-### [&lt;img&gt;](http://htmlbook.ru/html/img)
+### Картинка [&lt;img&gt;](http://htmlbook.ru/html/img)
 * Параметры:
   * **src**: путь до картинки.
   * **width**: ширина.
@@ -200,12 +202,14 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 
 ```html
 <img src="https://picsum.photos/200" 
-     width="200" height="200" alt="рандомная картинка" />
+     width="200" 
+     height="200" 
+     alt="рандомная картинка" />
 ```
 
 ---
 
-### [&lt;a&gt;](http://htmlbook.ru/html/a)
+### Ссылка [&lt;a&gt;](http://htmlbook.ru/html/a)
 * Параметры:
   * **href**: путь перехода.
   * **target**: открывать ли новую вкладку.
@@ -217,9 +221,10 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ```
 ---
 
-### [&lt;button&gt;](http://htmlbook.ru/html/button)
+### Кнопка [&lt;button&gt;](http://htmlbook.ru/html/button)
 * Параметры:
   * **type**: тип кнопки button, reset, submit.
+  * Тип кнопки имеет смысл, только если она внутри `<form>`.
 
 <button>Нажми меня</button>
 
@@ -227,26 +232,28 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 <button>Нажми меня</button>
 ```
 ---
-### [&lt;form&gt;](http://htmlbook.ru/html/form)
+### Форма [&lt;form&gt;](http://htmlbook.ru/html/form)
 
 <form>
-  <input type="text" value="тут что-то ввели" /><br/>
+  <input type="text" placeholder="Введите что-нибудь"/><br/>
   <button type="reset">Reset</button>&nbsp;
   <button type="submit">Submit</button>
 </form>
 
 ```html
 <form>
-  <input type="text" />
+  <input type="text" placeholder="Введите что-нибудь" />
   <button type="reset">Reset</button>
   <button type="submit">Submit</button>
 </form>
 ```
 ---
 
-### [&lt;input&gt;](http://htmlbook.ru/html/input)
+### Поле ввода [&lt;input&gt;](http://htmlbook.ru/html/input)
 * Параметры:
-  * **type**: тип поля text, number, radio.
+  * **type**: тип поля text, number, radio и тд.
+  * **value**: содержимое.
+  * **placeholder**: подсказка.
 
 <input type="text" value="я текстовое поле ввода"/>
 
@@ -254,38 +261,60 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 <input type="text" value="я текстовое поле ввода"/>
 ```
 ---
-### [&lt;input type="..."&gt;](http://htmlbook.ru/html/input/type)
+### [Варианты полей ввода](http://htmlbook.ru/html/input/type)
 
 <input type="text" /><br/>
-<input type="number" /><br/>
-<input type="password" /><br/>
-<input type="checkbox" /><br/>
-<input type="radio" /><br/>
 
 ```html
 <input type="text" />
+```
+
+<input type="number" /><br/>
+
+```html
 <input type="number" />
+```
+
+<input type="password" /><br/>
+
+```html
 <input type="password" />
+```
+
+<input type="checkbox" /><br/>
+
+```html
 <input type="checkbox" />
-<input type="radio" />
 ```
 ---
-### [&lt;input type="..."&gt;](http://htmlbook.ru/html/input/type)
+### [Варианты полей ввода](http://htmlbook.ru/html/input/type)
 
-<input type="range" /><br/>
-<input type="file" /><br/>
-<input type="color" /><br/>
-<input type="date" /><br/>
+<input type="range" />
 
 ```html
 <input type="range" />
+```
+
 <input type="file" />
+
+```html
+<input type="file" />
+```
+
 <input type="color" />
+
+```html
+<input type="color" />
+```
+
+<input type="date" />
+
+```html
 <input type="date" />
 ```
 ---
 
-### [&lt;label&gt;](http://htmlbook.ru/html/label)
+### [&lt;label&gt;](http://htmlbook.ru/html/label) + Checkbox
 <label>
     <input type="checkbox">
     Запомнить меня
@@ -299,7 +328,21 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ```
 ---
 
-### [&lt;selectl&gt;](http://htmlbook.ru/html/select)
+### Radio buttons
+<label><input type="radio" name="radio1"/>Вариант 1</label><br/>
+<label><input type="radio" name="radio1"/>Вариант 2</label><br/>
+<label><input type="radio" name="radio1"/>Вариант 3</label><br/>
+
+```html
+<label><input type="radio" name="radio1"/>Вариант 1</label>
+<label><input type="radio" name="radio1"/>Вариант 2</label>
+<label><input type="radio" name="radio1"/>Вариант 3</label>
+```
+
+Для группировки инпутов используется атрибут `name` с одинаковым значением.
+---
+
+### Selectbox [&lt;select&gt;](http://htmlbook.ru/html/select)
 <select>
     <option>Пункт 1</option>
     <option>Пункт 2</option>
@@ -308,6 +351,22 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 
 ```html
 <select>
+  <option>Пункт 1</option>
+  <option>Пункт 2</option>
+  <option>Пункт 3</option>
+</select>
+```
+---
+
+### Множественный selectbox [&lt;select&gt;](http://htmlbook.ru/html/select)
+<select multiple>
+    <option>Пункт 1</option>
+    <option>Пункт 2</option>
+    <option>Пункт 3</option>
+</select>
+
+```html
+<select multiple>
   <option>Пункт 1</option>
   <option>Пункт 2</option>
   <option>Пункт 3</option>
@@ -337,13 +396,16 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
   * Ключевые слова для SEO.
 ---
   
-### [&lt;meta&gt;](http://htmlbook.ru/html/meta)
+### Метаданные [&lt;meta&gt;](http://htmlbook.ru/html/meta)
 ```html
 <head>
+  <!-- Кодировка: -->
   <meta charset="UTF-8">
+  <!-- Для SEO: -->
   <meta name="description" content="Free Web tutorials">
   <meta name="keywords" content="HTML, CSS, JavaScript">
   <meta name="author" content="John Doe">
+  <!-- Режим отображения: -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head> 
 ```
@@ -353,10 +415,12 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 * Весь мир к счастью перешёл на кодировку [UTF-8](https://ru.wikipedia.org/wiki/UTF-8).
 * Именно её и стоит указывать:
 ```html
-<head>
-    <meta charset="UTF-8">
-</head> 
+<meta charset="UTF-8">
 ```
+
+* Иначе страница выглядит вот так:
+
+![](assets/html/bad-encoding.png)
 ---
 ### Стили
 * Стили можно определять непосредственно на странице:
@@ -377,7 +441,7 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ---
 
 ### Стили
-* Либо во внешнем файле:
+* Но лучше писать стили в отдельном файле:
 
 ```html
 <html>
@@ -433,6 +497,19 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 * От корневого каталога сервера:
 ```html
 <script src="/script.js"></script>
+```
+---
+
+### Комментарии
+* Комментарии в HTML выглядят так:
+
+```html
+<!-- Комментарий -->
+
+<!-- 
+Многострочный 
+комментарий
+ -->
 ```
 ---
 
