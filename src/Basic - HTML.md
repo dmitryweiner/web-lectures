@@ -519,3 +519,7 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 * https://htmlacademy.ru/courses/basic-html-css
 * http://htmlbook.ru/html/
 * [Основы функционирования компьютерных сетей](https://www.youtube.com/watch?v=BJSITWkSDQg)
+
+---
+
+![](assets/html/web-dev-bugs.png)
