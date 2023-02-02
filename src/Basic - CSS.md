@@ -833,6 +833,7 @@ body, html {
   * [UIkit](https://getuikit.com/).
   * [Bulma](https://bulma.io/).
   * [Materialize](https://materializecss.com/).
+  * [Pure.css](https://purecss.io/).
 ---
 
 ### Пример работы с Bootstrap
