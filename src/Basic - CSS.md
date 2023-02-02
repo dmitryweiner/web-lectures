@@ -362,7 +362,7 @@ li.red.level   {} /* a=0 b=2 c=1 -> специфичность = 21  */
 ![colours](assets/css/colours.png)
 ---
 
-### Цвет
+### Цвет с прозрачностью
 * Цвет также можно задать [вместе с прозрачностью](https://www.w3schools.com/cssref/func_rgba.asp) (альфа-канал):
 ```css
 .class {
@@ -824,6 +824,37 @@ body, html {
 * Достаточно нажать F12 и перейти во вкладку "Инспектор":
 
 ![](assets/css/css-debug.png)
+---
+
+### CSS-фреймворки
+* Если хочется сэкономить время, можно использовать готовые CSS-фреймворки:
+  * [Bootstrap](https://getbootstrap.com/).
+  * [Tailwind](https://tailwindcss.com/).
+  * [UIkit](https://getuikit.com/).
+  * [Bulma](https://bulma.io/).
+  * [Materialize](https://materializecss.com/).
+---
+
+### Пример работы с Bootstrap
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  </body>
+</html>
+```
+
+[Пример](https://getbootstrap.com/docs/4.0/examples/checkout/)
+
+![bootstrap](assets/css/bootstrap.png)
 ---
 
 ### Полезные ссылки
