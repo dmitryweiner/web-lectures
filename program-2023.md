@@ -1,4 +1,4 @@
-# Группы 107са, 107сб
+# Группы 107са, 107сб, 007а, 007б, 007в, 007г
 # Программа курса
 * [HTML](https://dmitryweiner.github.io/web-lectures/Basic%20-%20HTML.html)
 * [CSS](https://dmitryweiner.github.io/web-lectures/Basic%20-%20CSS.html)
