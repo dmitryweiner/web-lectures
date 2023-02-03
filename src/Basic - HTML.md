@@ -135,7 +135,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ```
 ---
 
-### Перенос [&lt;br&gt;](http://htmlbook.ru/html/br)
+### Перенос [&lt;br/&gt;](http://htmlbook.ru/html/br)
 Lorem ipsum dolor sit amet,
 
 consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -144,6 +144,26 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
   Lorem ipsum dolor sit amet,<br/>
   consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 </p>
+```
+---
+
+### Форматирование текста
+<i>Курсив.</i>
+
+<b>Жирный.</b>
+
+<u>Подчёркнутый.</u>
+
+<s>Зачёркнутый.</s>
+
+E=Mс<sup>2</sup> H<sub>2</sub>O
+```html
+<i>Курсив.</i>
+<b>Жирный.</b>
+<u>Подчёркнутый.</u>
+<s>Зачёркнутый.</s>
+E=Mс<sup>2</sub>
+H<sub>2</sub>O
 ```
 ---
 
@@ -191,7 +211,7 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
 ---
 
 
-### Картинка [&lt;img&gt;](http://htmlbook.ru/html/img)
+### Картинка [&lt;img/&gt;](http://htmlbook.ru/html/img)
 * Параметры:
   * **src**: путь до картинки.
   * **width**: ширина.
@@ -372,6 +392,24 @@ consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor
   <option>Пункт 3</option>
 </select>
 ```
+---
+
+### Многострочное поле ввода
+
+<textarea cols="80" rows="4">
+Многострочное 
+  поле 
+    ввода
+</textarea>
+
+```html
+<textarea cols="80" rows="4">
+Многострочное 
+  поле 
+    ввода
+</textarea>
+```
+
 ---
 
 ### Entities
