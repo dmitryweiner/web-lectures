@@ -8,9 +8,7 @@ title: Basic - HTML
 
 [все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 
-Видео: 
-[1](https://drive.google.com/file/d/1OkbiegilaFIY1DPr1JhmBx4Bg8iGSWFU/view?usp=sharing),
-[2](https://drive.google.com/file/d/1ywU_fMsaTomGdc_JBkZGvha--LAoDBBF/view?usp=sharing)
+[видео](https://youtu.be/4U4MCBjt7sI)
 ---
 
 ### Как работает интернет
