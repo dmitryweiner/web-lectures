@@ -114,23 +114,43 @@ li.class, .another-lass {
 ```
 * По тегам:
 ```css
-p, body, li { /* */ }
+p, li, span { /* */ }
 ```
-* По классам:
-```css
-.item, .list { /* */ }
+```html
+<p>Text</p><!-- Selected -->
+<a>Link</a>
+<span>Text</span><!-- Selected -->
 ```
-* По ID:
+* По [классам](https://www.w3schools.com/html/html_classes.asp):
 ```css
-#root { /* */ }
+.item { /* */ }
+```
+```html
+<span class="item">Here is item</span>
 ```
 ---
 
 ### Селекторы
+* По [ID](https://www.w3schools.com/html/html_id.asp):
+```css
+#root { /* */ }
+```
+```html
+<div id="root">
+    Root element
+</div>
+```
 * По атрибутам тегов:
 ```css
 input[type="text"] { /* */ }
 ```
+```html
+<input type="range"/>
+<input type="text"/> <!-- Selected -->
+```
+---
+
+### Селекторы
 * По потомкам: _родитель потомок_
 ```css
 div li { /* */ }
@@ -303,7 +323,7 @@ li.red.level   {} /* a=0 b=2 c=1 -> специфичность = 21  */
 ---
 
 ### Специфичность селекторов
-* Встроенный стиль, добавляемый к тегу через атрибут style, имеет специфичность 1000, поэтому всегда перекрывает связанные и глобальные стили.
+* Инлайн стиль, добавляемый к тегу через атрибут style, имеет специфичность 1000, поэтому всегда перекрывает связанные и глобальные стили.
 * Однако добавление ```!important``` перекрывает в том числе и встроенные стили.
 * Если два селектора имеют одинаковую специфичность, то применяться будет тот стиль, что указан в коде ниже.
 * [Калькулятор специфичности](https://specificity.keegan.st/).
@@ -502,9 +522,16 @@ left: 20px;
 ![](assets/css/css-box-model-example-explained.png)
 ---
 
-### Короткая запись
-* Это работает для свойств padding и margin:
-![](assets/css/css-shorthand-property-explained.png)
+### Проблема марджинов
+* Вертикальные марджины схлопываются:
+<img src="assets/css/margin-vertical.png" height="200"/><br/>
+* А горизонтальные нет:
+<br/><img src="assets/css/margin-horizontal.png" height="200"/>
+---
+
+### Короткая запись свойства
+* Можно задать марджины и паддинги по всем направлениям одной строкой:
+<img src="assets/css/css-shorthand-property-explained.png" height="400"/>
 ---
 
 ### Калькуляции прямо в CSS
