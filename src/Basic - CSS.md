@@ -8,7 +8,7 @@ title: Basic - CSS
 
 [все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 
-[Видео](https://drive.google.com/file/d/1XBmHD5Nou8TTUGo6YiVoWi06cb0XUVCR/view?usp=sharing)
+Видео: [часть 1](https://drive.google.com/file/d/1XBmHD5Nou8TTUGo6YiVoWi06cb0XUVCR/view?usp=sharing)
 ---
 
 ### Немного истории
@@ -170,10 +170,12 @@ div + div.class { /* */ }
 ```css
 a:active { /* */ }
 ```
+  * [Список всех псевдоклассов](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes).
 * По псевдоэлементам:
 ```css
 a::first-letter { /* */ }
 ```
+  * [Список всех псевдоэлементов](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements).
 ---
 
 ### Сложный селектор
@@ -215,50 +217,21 @@ a::first-letter { /* */ }
 ```
 ---
 
-### Селектор по потомкам
-* Выбирает потомков на любом уровне вложенности:
-
-![parent child](assets/css/parent-child.png)
-
-```html
-<style>
-span {
-    background-color: white;
-}
-div span {
-    background-color: lawngreen;
-}
-</style>
-<div>
-    <span>Span #1, in the div.
-          <span>Span #2, in the span that's in the div.</span>
-    </span>
-</div>
-<span>Span #3, not in the div at all.</span>
-```
+### Ось: родитель-ребёнок-потомок
+* Родитель-ребёнок:
+<br/>![](assets/css/tree_parent.gif)
+* Родитель-потомки:
+<br/>![](assets/css/tree_descendant.gif)
 ---
 
-### Селектор по детям
-* Выбирает только потомков первого уровня, непосредственно детей:
+### Ось родитель-соседи
+* Соседи (сиблинги):
+  <br/>![](assets/css/tree_siblings.gif)
+---
 
-![children selector](assets/css/children-selector.png)
+### Разница между селектором по потомкам или по детям
 
-```html
-<style>
-span {
-  background-color: white;
-}
-div > span {
-  background-color: lawngreen;
-}
-</style>
-<div>
-  <span>Span #1, in the div.
-    <span>Span #2, in the span that's in the div.</span>
-  </span>
-</div>
-<span>Span #3, not in the div at all.</span>
-```
+![parent child](assets/css/parent-child.png)
 ---
 
 ### Селектор по соседям
@@ -266,39 +239,31 @@ div > span {
 указанный предыдущий сосед:
 
 ![neighbour](assets/css/neighbour.png)
-
-```html
-<style>
-li + li {
-  color: red;
-}
-</style>
-<ul>
-  <li>One</li>
-  <li>Two!</li>
-  <li>Three</li>
-</ul>
-```
 ---
 
 ### Псевдоклассы
 * Служат для выбора элементов в определённом порядке (каждый второй, самый первый, последний).
 * Особо полезные:
-  * **:first-child**: первый потомок.
-  * **:nth-child(N)**: каждый N-ый потомок.
-  * **:last-child**: последний потомок.
-  * **:only-child**: единственный потомок.
-  * **:hover**: на что наведена мышь.
+  * **:first-child** - первый потомок.
+  * **:nth-child(N)** - каждый N-ый потомок.
+  * **:last-child** - последний потомок.
+  * **:only-child** - единственный потомок.
+  * **:hover** - на что наведена мышь.
 * [Список всех псевдоклассов](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes).
+---
+
+### Пример работы псевдокласса `:nth-child`
+
+![](assets/css/nth.png)
 ---
 
 ### Псевдоэлементы
 * Служат для выбора элементов, которых не существует.
 * Или для выбора отдельных кусочков элементов.
 * Крайне полезные:
-  * **::first-letter**: первая буква.
-  * **::after**: после какого-то элемента.
-  * **::before**: перед каким-то элементом.
+  * **::first-letter** - первая буква.
+  * **::after** - после какого-то элемента.
+  * **::before** - перед каким-то элементом.
 * [Список всех псевдоэлементов](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements).
 ---
 

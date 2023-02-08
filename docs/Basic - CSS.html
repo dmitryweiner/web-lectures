@@ -21,7 +21,7 @@
 
 [все лекции](https://github.com/dmitryweiner/web-lectures/blob/main/README.md)
 
-[Видео](https://drive.google.com/file/d/1XBmHD5Nou8TTUGo6YiVoWi06cb0XUVCR/view?usp=sharing)</script></section><section  data-markdown><script type="text/template">
+Видео: [часть 1](https://drive.google.com/file/d/1XBmHD5Nou8TTUGo6YiVoWi06cb0XUVCR/view?usp=sharing)</script></section><section  data-markdown><script type="text/template">
 ### Немного истории
 * **C**ascading **S**tyle **S**heets.
 * Впервые описан в 1994.
@@ -153,10 +153,12 @@ div + div.class { /* */ }
 ```css
 a:active { /* */ }
 ```
+  * [Список всех псевдоклассов](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes).
 * По псевдоэлементам:
 ```css
 a::first-letter { /* */ }
-```</script></section><section  data-markdown><script type="text/template">
+```
+  * [Список всех псевдоэлементов](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements).</script></section><section  data-markdown><script type="text/template">
 ### Сложный селектор
 * Селектор может сочетать несколько сущностей, 
 например тег и класс, для большей специфичности:
@@ -192,82 +194,41 @@ a::first-letter { /* */ }
 ```html
 <div id="reactRoot"></div>
 ```</script></section><section  data-markdown><script type="text/template">
-### Селектор по потомкам
-* Выбирает потомков на любом уровне вложенности:
+### Ось: родитель-ребёнок-потомок
+* Родитель-ребёнок:
+<br/>![](assets/css/tree_parent.gif)
+* Родитель-потомки:
+<br/>![](assets/css/tree_descendant.gif)</script></section><section  data-markdown><script type="text/template">
+### Ось родитель-соседи
+* Соседи (сиблинги):
+  <br/>![](assets/css/tree_siblings.gif)</script></section><section  data-markdown><script type="text/template">
+### Разница между селектором по потомкам или по детям
 
-![parent child](assets/css/parent-child.png)
-
-```html
-<style>
-span {
-    background-color: white;
-}
-div span {
-    background-color: lawngreen;
-}
-</style>
-<div>
-    <span>Span #1, in the div.
-          <span>Span #2, in the span that's in the div.</span>
-    </span>
-</div>
-<span>Span #3, not in the div at all.</span>
-```</script></section><section  data-markdown><script type="text/template">
-### Селектор по детям
-* Выбирает только потомков первого уровня, непосредственно детей:
-
-![children selector](assets/css/children-selector.png)
-
-```html
-<style>
-span {
-  background-color: white;
-}
-div > span {
-  background-color: lawngreen;
-}
-</style>
-<div>
-  <span>Span #1, in the div.
-    <span>Span #2, in the span that's in the div.</span>
-  </span>
-</div>
-<span>Span #3, not in the div at all.</span>
-```</script></section><section  data-markdown><script type="text/template">
+![parent child](assets/css/parent-child.png)</script></section><section  data-markdown><script type="text/template">
 ### Селектор по соседям
 * Выбирает последующего соседа, если у него есть 
 указанный предыдущий сосед:
 
-![neighbour](assets/css/neighbour.png)
-
-```html
-<style>
-li + li {
-  color: red;
-}
-</style>
-<ul>
-  <li>One</li>
-  <li>Two!</li>
-  <li>Three</li>
-</ul>
-```</script></section><section  data-markdown><script type="text/template">
+![neighbour](assets/css/neighbour.png)</script></section><section  data-markdown><script type="text/template">
 ### Псевдоклассы
 * Служат для выбора элементов в определённом порядке (каждый второй, самый первый, последний).
 * Особо полезные:
-  * **:first-child**: первый потомок.
-  * **:nth-child(N)**: каждый N-ый потомок.
-  * **:last-child**: последний потомок.
-  * **:only-child**: единственный потомок.
-  * **:hover**: на что наведена мышь.
+  * **:first-child** - первый потомок.
+  * **:nth-child(N)** - каждый N-ый потомок.
+  * **:last-child** - последний потомок.
+  * **:only-child** - единственный потомок.
+  * **:hover** - на что наведена мышь.
 * [Список всех псевдоклассов](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes).</script></section><section  data-markdown><script type="text/template">
+### Пример работы псевдокласса `:nth-child`
+
+![](assets/css/nth.png)</script></section><section  data-markdown><script type="text/template">
 ### Псевдоэлементы
 * Служат для выбора элементов, которых не существует.
 * Или для выбора отдельных кусочков элементов.
 * Крайне полезные:
-  * **::first-letter**: первая буква.
-  * **::after**: после какого-то элемента.
-  * **::before**: перед каким-то элементом.
+  * **::first-letter** - первая буква.
+  * **::after** - после какого-то элемента.
+  * **::before** - перед каким-то элементом.
 * [Список всех псевдоэлементов](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements).</script></section><section  data-markdown><script type="text/template">
 ### Специфичность селекторов
 * Если одному элементу подходит несколько правил, то применяется то правило, у которого специфичность селектора больше.
